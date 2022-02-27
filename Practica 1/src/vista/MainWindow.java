@@ -34,18 +34,13 @@ import src.vista.ConfigPanel.ComplexOption;
 
 import src.algoritmoGenetico.AlgoritmoGenetico;
 import src.algoritmoGenetico.cruces.Cruce;
-import src.algoritmoGenetico.cruces.CruceBLX;
 import src.algoritmoGenetico.cruces.CruceGenerator;
-import src.algoritmoGenetico.cruces.CruceSBX;
+import src.algoritmoGenetico.individuos.Individuo;
 import src.algoritmoGenetico.individuos.IndividuoGenerator;
-import src.algoritmoGenetico.mutaciones.Mutacion;
-import src.algoritmoGenetico.mutaciones.MutacionBasica;
-import src.algoritmoGenetico.mutaciones.MutacionGenerator;
-import src.algoritmoGenetico.mutaciones.MutacionUniforme;
+import src.algoritmoGenetico.mutacion.Mutacion;
+import src.algoritmoGenetico.mutacion.MutacionGenerator;
 import src.algoritmoGenetico.seleccion.Seleccion;
 import src.algoritmoGenetico.seleccion.SeleccionGenerator;
-import src.algoritmoGenetico.seleccion.SeleccionRestos;
-import src.algoritmoGenetico.seleccion.SeleccionRuleta;
 
 public class MainWindow extends JFrame {
 	
@@ -58,6 +53,7 @@ public class MainWindow extends JFrame {
 	private JComboBox<String> funciones;
 	private JTextField solucion;
 	private JButton ejecutar;
+	private Individuo ind;
 	
 	public MainWindow() {
 		super("PE - Practica 1");
@@ -83,7 +79,8 @@ public class MainWindow extends JFrame {
 		centerPanel.setRightComponent(grafica);
 
 		// Formulario
-		centerPanel.setLeftComponent(crearFormulario());
+		//centerPanel.setLeftComponent(crearFormulario()); 
+		//El formulacio se añade cuando se selecciona el individuo
 		
 		// Barra inferior
 		add(crearBarraInferior(), BorderLayout.SOUTH);
@@ -127,6 +124,10 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
             	if (IndividuoGenerator.getClasses()[funciones.getSelectedIndex()].sumatorio()) {
             		nvariables.setVisible(true);
+            		String[] aux = new String[1];
+            		aux[0] = funcionOpts[funciones.getSelectedIndex()];
+            		ind = IndividuoGenerator.factoria(aux, 1, 0).get(0);
+            		centerPanel.setLeftComponent(crearFormulario());
             	}
             	else nvariables.setVisible(false);
             }
@@ -193,8 +194,8 @@ public class MainWindow extends JFrame {
 	private ConfigPanel<AlgoritmoGenetico> crearFormulario() {
 	
 		Seleccion[] selecciones = SeleccionGenerator.getClasses();
-		Cruce[] cruces = CruceGenerator.getClasses();
-		Mutacion[] mutaciones = MutacionGenerator.getClasses();
+		Cruce[] cruces = CruceGenerator.getClasses(ind);
+		Mutacion[] mutaciones = MutacionGenerator.getClasses(ind);
 		
 		formulario = new ConfigPanel<>();
 		
