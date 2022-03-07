@@ -36,7 +36,8 @@ import javax.swing.border.SoftBevelBorder;
 import org.math.plot.Plot2DPanel;
 
 import algoritmoGenetico.AlgoritmoGenetico;
-
+import algoritmoGenetico.seleccion.*;
+import algoritmoGenetico.*;
 import gui.ConfigPanel.*;
 import gui.ConfigPanel.ConfigListener;
 
@@ -201,14 +202,21 @@ public class MainFrame extends JFrame {
 		btnNewButton.setBounds(13, 478, 89, 23);
 		panel_izq.add(btnNewButton);
 		
-		JButton btnEjecutar = new JButton("Ejecutar");
-		btnEjecutar.setBounds(143, 478, 89, 23);
-		panel_izq.add(btnEjecutar);
+		
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(249, 528, 0, -550);
 		contentPane.add(separator_1);
 		*/
+		
+		
+		
+		
+		
+		JButton btnEjecutar = new JButton("Ejecutar");
+		btnEjecutar.setBounds(143, 478, 89, 23);
+		panel_izq.add(btnEjecutar);
+		
 		// ----------------------------------------
 		
 		// Panel solucion --------------------------------------
@@ -261,12 +269,16 @@ public class MainFrame extends JFrame {
 	private ConfigPanel<AlgoritmoGenetico> creaFormulario() {
 		
 		// aquí necesito tener los arrays con los tipos de cruce, seleccion, etc...
+
+		Seleccion[] tipos_seleccion = new Seleccion[] {new SeleccionPrueba()}; 
+		// tipos_cruce []
+		// tipos_mutacion []
 		
 		
-		formulario = new ConfigPanel<AlgoritmoGenetico>();
+		ConfigPanel<AlgoritmoGenetico> config = new ConfigPanel<AlgoritmoGenetico>();
 		
 		// se pueden añadir las opciones de forma independiente, o "de seguido"; el resultado es el mismo.
-		formulario.addOption(new IntegerOption<AlgoritmoGenetico>(  
+		config.addOption(new IntegerOption<AlgoritmoGenetico>(  
 				"Tamaño población", 					    
 				"Tamaño población",       
 				"tam_pob",  						    
@@ -281,132 +293,39 @@ public class MainFrame extends JFrame {
 						"Valor de error",       
 						"error_val",  						     
 						0, 0.1))							     
-			  .addOption(new IntegerOption<AlgoritmoGenetico>(  // -- entero
-						"Tamaño población", 					     // texto a usar como etiqueta del campo
-						"Tamaño población",       // texto a usar como 'tooltip' cuando pasas el puntero
-						"tam_pob",  						     // campo (espera que haya un getGrosor y un setGrosor)
-						1, Integer.MAX_VALUE))							     // min y max (usa Integer.MIN_VALUE /MAX_VALUE para infinitos)  
-			  .addOption(new IntegerOption<AlgoritmoGenetico>(  // -- entero
-						"Tamaño población", 					     // texto a usar como etiqueta del campo
-						"Tamaño población",       // texto a usar como 'tooltip' cuando pasas el puntero
-						"tam_pob",  						     // campo (espera que haya un getGrosor y un setGrosor)
-						1, Integer.MAX_VALUE))							     // min y max (usa Integer.MIN_VALUE /MAX_VALUE para infinitos)  
-			  .addOption(new IntegerOption<AlgoritmoGenetico>(  // -- entero
-						"Tamaño población", 					     // texto a usar como etiqueta del campo
-						"Tamaño población",       // texto a usar como 'tooltip' cuando pasas el puntero
-						"tam_pob",  						     // campo (espera que haya un getGrosor y un setGrosor)
-						1, Integer.MAX_VALUE))							     // min y max (usa Integer.MIN_VALUE /MAX_VALUE para infinitos)  
-			  .addOption(new DoubleOption<Figura>(   // -- doble, parecido a entero
-			    "% transparencia", 					 // etiqueta
-			    "transparencia del borde",           // tooltip
-			    "transparencia",                     // campo
-			    0, 100,							     // min y max, aplicando factor, si hay; vale usar Double.*_INFINITY) 
-			    100))								 // opcional: factor de multiplicacion != 1.0, para mostrar porcentajes
-			  .addOption(new StrategyOption<Figura>( // -- eleccion de objeto configurable
-				"forma",							 // etiqueta
-				"forma de la figura",                // tooltip
-				"forma",                             // campo
-				formas))                             // elecciones (deben implementar Cloneable)
-				
-			  // para cada clase de objeto interno, hay que definir sus opciones entre un beginInner y un endInner 
-			  .beginInner(new InnerOption<Figura,Forma>(  
-			  	"circulo",							 // titulo del sub-panel
-			  	"opciones del circulo",				 // tooltip asociado
-			  	"forma",							 // campo
-			  	Circulo.class))						 // tipo que debe de tener ese campo para que se active el sub-panel
-		  		  .addInner(new DoubleOption<Forma>(
-		  		     "radio", "radio del circulo", "radio", 0, Integer.MAX_VALUE))
-		  		  .endInner()						 // cierra este sub-panel
-		  	  // igual, pero opciones para el caso 'forma de tipo rectangulo'  
-              .beginInner(new InnerOption<Figura,Forma>( 
-			  	"rectangulo", "opciones del rectangulo", "forma", Rectangulo.class))
-		  		  .addInner(new DoubleOption<Forma>(
-		  		     "ancho", "ancho del rectangulo", "ancho", 0, Double.POSITIVE_INFINITY))
-		  		  .addInner(new DoubleOption<Forma>(
-		  		     "alto", "alto del rectangulo", "alto", 0, Double.POSITIVE_INFINITY))
-		  		  .endInner()
+			  .addOption(new StrategyOption<AlgoritmoGenetico>(  
+						"Tipo de selección", 					    
+						"Tipo de selección",       
+						"seleccion",  						     
+						tipos_seleccion))						
+			 /* .addOption(new StrategyOption<AlgoritmoGenetico>(  
+						"Tipo de cruce", 					    
+						"Tipo de cruce",       
+						"cruce",  						     
+						tipos_cruce))*/
+			  .addOption(new DoubleOption<AlgoritmoGenetico>( 
+						"Probabilidad de cruce", 					     
+						"Probabilidad de cruce",       
+						"prob_cruce",  						     
+						0, 100))
+			  /*.addOption(new StrategyOption<AlgoritmoGenetico>(  
+						"Tipo de mutación", 					    
+						"Tipo de mutación",       
+						"mutacion",  						     
+						tipos_mutacion))*/
+			  .addOption(new DoubleOption<AlgoritmoGenetico>( 
+						"Probabilidad de mutación", 					     
+						"Probabilidad de mutación",       
+						"prob_mutacion",  						     
+						0, 100))
+			  .addOption(new DoubleOption<AlgoritmoGenetico>( 
+						"Probabilidad de elitismo", 					     
+						"Probabilidad de elitismo",       
+						"prob_elitismo",  						     
+						0, 100))
 
-			  // y por ultimo, el punto (siempre estara visible)
-			  .beginInner(new InnerOption<Figura,Punto>(
-			  	"coordenadas", "coordenadas de la figura", "coordenadas", Punto.class))
-		  		  .addInner(new DoubleOption<Forma>(
-		  		     "x", "coordenada x", "x", Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY))
-		  		  .addInner(new DoubleOption<Forma>(
-		  		     "y", "coordenada y", "y", Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY))
-		  		  .endInner()
-		  		  
-			  // y ahora ya cerramos el formulario
 		  	  .endOptions();
 		
 		return config;
-		
-		formulario = new ConfigPanel<>();
-		
-		formulario
-			  //General
-		      .addOption(new IntegerOption<AlgoritmoGenetico>(  
-				"Poblacion", 					     
-				"Numero de individuos en la poblacion",       
-				"tamPoblacion",  						     
-				3, Integer.MAX_VALUE))							     
-			  .addOption(new IntegerOption<AlgoritmoGenetico>(	 
-			    "Generaciones",							 
-			    "Numero de generaciones", 					
-			    "maxGeneraciones",   							
-			    1, Integer.MAX_VALUE))                            
-			  .addOption(new DoubleOption<AlgoritmoGenetico>(   
-			    "Valor de error", 					
-			    "Precision o valor de error para la discretización del intervalo",           
-			    "valorError",                    
-			    0, 0.1))	
-			  
-			  // Seleccion
-			  .addOption(new StrategyOption<AlgoritmoGenetico>( 
-		  		"Tipo de seleccion",							
-				"Metodo de seleccion que utiliza el algoritmo",                
-				"seleccion",                             
-				selecciones))
-			  
-			  // Cruce
-			  .addOption(new StrategyOption<AlgoritmoGenetico>( 
-			  			"Tipo de cruce",							
-						"Metodo de cruce que utiliza el algoritmo",                
-						"cruce",                             
-						cruces))  
-			  .addOption(new DoubleOption<AlgoritmoGenetico>(   
-				"% Cruce", 					
-				"Porcentaje de cruce",           
-				"probCruce",                    
-				0, 100,							     
-				100))
-			  
-			  //Mutacion
-			  .addOption(new StrategyOption<AlgoritmoGenetico>( 
-				"Tipo de mutacion",							
-				"Metodo de mutacion que utiliza el algoritmo",                
-				"mutacion",                             
-				mutaciones))  
-			  .addOption(new DoubleOption<AlgoritmoGenetico>(   
-				"% Mutacion", 					
-				"Porcentaje de mutacion",           
-				"probMutacion",                    
-				0, 100,							     
-				100))	
-			   
-			  // Elitismo
-			  .addOption(new DoubleOption<AlgoritmoGenetico>(   
-				"% Elite", 					
-				"Porcentaje de elitismo",           
-				"elitismo",                    
-				0, 100,
-				100))
-			  	
-			  
-		  	  .endOptions();
-		
-		formulario.setTarget(ag);
-		formulario.initialize();
-		
-		return formulario;
 	}
 }

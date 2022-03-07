@@ -1,15 +1,20 @@
 package algoritmoGenetico;
 
+import gui.MainFrame;
+
 public class Main {
 
 	public static void main(String[] args) {
 		
+		//se lanza desde MainFrame
 		
-		
-		AlgoritmoGenetico AG = new AlgoritmoGenetico();
-		AG.run();
-		
-		System.out.println("Mejor individuo: " + AG.muestraMejor());
+		/*
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new MainFrame();
+			}
+		});
+		*/ 
 	}
 
 }

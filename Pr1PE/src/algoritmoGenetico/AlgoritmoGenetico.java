@@ -1,6 +1,7 @@
 package algoritmoGenetico;
 
 import individuos.Individuo;
+import src.algoritmoGenetico.seleccion.Seleccion;
 
 public class AlgoritmoGenetico {
 
@@ -10,8 +11,14 @@ public class AlgoritmoGenetico {
 	private Individuo elMejor;
 	private int pos_mejor;
 	private float prob_cruce;
-	private float prob_mut;
+	private float prob_mutacion;
 	private float precision;
+	private float error_val;
+	private float prob_elitismo;
+	
+	private Seleccion seleccion;
+	private Cruce cruce;
+	private Mutacion mutacion;
 	//falta el porcentaje de elitismo
 	// la condicion de finalizacion depende de la funcion usada? Debería estar aqui?
 	
@@ -19,7 +26,7 @@ public class AlgoritmoGenetico {
 		tam_pob = tam;
 		num_max_gen = max_gen;
 		prob_cruce = p_cruce;
-		prob_mut = p_mut;
+		prob_mutacion = p_mut;
 		precision = prec;
 		//falta hacer la opción por defecto de estos valores
 		poblacion = creaPoblacion(problema);
