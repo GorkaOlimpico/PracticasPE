@@ -1,26 +1,38 @@
 package algoritmoGenetico;
 
+import algoritmoGenetico.seleccion.Seleccion;
 import individuos.Individuo;
-import src.algoritmoGenetico.seleccion.Seleccion;
 
 public class AlgoritmoGenetico {
 
 	private Individuo[] poblacion;
-	private int tam_pob;
+	public int tam_pob;
 	private int num_max_gen;
 	private Individuo elMejor;
 	private int pos_mejor;
-	private float prob_cruce;
-	private float prob_mutacion;
-	private float precision;
-	private float error_val;
-	private float prob_elitismo;
+	private double prob_cruce;
+	private double prob_mutacion;
+	private double precision;
+	private double error_val;
+	private double prob_elitismo;
 	
 	private Seleccion seleccion;
-	private Cruce cruce;
-	private Mutacion mutacion;
+	//private Cruce cruce;
+	//private Mutacion mutacion;
+	
 	//falta el porcentaje de elitismo
 	// la condicion de finalizacion depende de la funcion usada? Debería estar aqui?
+	
+	public AlgoritmoGenetico() {//esto es de prueba
+		tam_pob = 100;
+		num_max_gen = 10;
+		prob_cruce = 10.3;
+		prob_mutacion = 0.6;
+		error_val = 0.01;
+		prob_elitismo= 11.1;
+		
+		
+	}
 	
 	public AlgoritmoGenetico(int problema, int tam, int max_gen, float p_cruce, float p_mut, float prec) {
 		tam_pob = tam;
@@ -59,6 +71,10 @@ public class AlgoritmoGenetico {
 		//		Evaluar(p(t))
 		// 		Guarda el mejor Individuo
 		
+	}
+	
+	public int getTamPob() {
+		return tam_pob;
 	}
 	
 	public String muestraMejor() {
