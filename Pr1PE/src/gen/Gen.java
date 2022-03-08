@@ -20,4 +20,7 @@ public abstract class Gen {
 		return alelo.get(pos);
 	}
 	
+	public void setAlelo(int pos, Object o) {
+		alelo.set(pos, o);
+	}
 }
