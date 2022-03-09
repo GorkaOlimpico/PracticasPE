@@ -4,7 +4,7 @@ import algoritmoGenetico.seleccion.Seleccion;
 
 import individuos.Individuo;
 
-public class AlgoritmoGenetic {
+public class AlgoritmoGenetico {
 
 	private Individuo[] poblacion;
 	private int tam_pob;
@@ -15,7 +15,7 @@ public class AlgoritmoGenetic {
 	private double prob_mutacion;
 	private double precision;
 	private double error_val;
-	private double prob_elitismo;
+	private double prob_elite;
 	
 	private Seleccion seleccion;
 	//private Cruce cruce;
@@ -24,18 +24,18 @@ public class AlgoritmoGenetic {
 	//falta el porcentaje de elitismo
 	// la condicion de finalizacion depende de la funcion usada? Debería estar aqui?
 	
-	public AlgoritmoGenetic() {//esto es de prueba
+	public AlgoritmoGenetico() {//esto es de prueba
 		tam_pob = 100;
 		num_max_gen = 10;
 		prob_cruce = 10.3;
 		prob_mutacion = 0.6;
 		error_val = 0.01;
-		prob_elitismo= 11.1;
+		prob_elite= 11.1;
 		
 		
 	}
 	
-	public AlgoritmoGenetic(int problema, int tam, int max_gen, float p_cruce, float p_mut, float prec) {
+	public AlgoritmoGenetico(int problema, int tam, int max_gen, float p_cruce, float p_mut, float prec) {
 		tam_pob = tam;
 		num_max_gen = max_gen;
 		prob_cruce = p_cruce;
@@ -74,8 +74,29 @@ public class AlgoritmoGenetic {
 		
 	}
 	
-	public int getTamPob() {
+	public int getTamPoblacion() {
 		return tam_pob;
+	}
+	public int getMaxGen() {
+		return num_max_gen;
+	}
+	public double getErrorVal() {
+		return error_val;
+	}
+	public double getProbCruce() {
+		return prob_cruce;
+	}
+	public double getProbMutacion() {
+		return prob_mutacion;
+	}
+	public double getProbElite() {
+		return prob_elite;
+	}
+	public Seleccion getSeleccion() {
+		return seleccion;
+	}
+	public void setSeleccion(Seleccion seleccion) {
+		this.seleccion = seleccion;
 	}
 	
 	public String muestraMejor() {
