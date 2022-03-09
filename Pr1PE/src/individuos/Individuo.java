@@ -3,6 +3,8 @@ package individuos;
 import java.util.ArrayList;
 import java.util.List;
 
+import algoritmoGenetico.cruce.Cruce;
+import algoritmoGenetico.mutacion.Mutacion;
 import gen.Gen;
 import gen.GenBinario;
 
@@ -28,6 +30,16 @@ public abstract class Individuo {
 	public abstract double getFitness();
 	
 	protected abstract double getFenotipo(int i);
+	
+	public static Cruce[] getCruces()
+	{
+		return null;
+	}
+	
+	public static Mutacion[] getMutaciones()
+	{
+		return null;
+	}
 	
 	//Creo que no es necesario
 	//protected abstract void setGen(int i, double gen);

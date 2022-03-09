@@ -1,5 +1,7 @@
 package individuos;
 
+import algoritmoGenetico.cruce.Cruce;
+import algoritmoGenetico.mutacion.Mutacion;
 import gen.GenBinario;
 
 public class IndividuoFuncion4Bin extends Individuo {
@@ -56,4 +58,13 @@ public class IndividuoFuncion4Bin extends Individuo {
 		return ((fenotipo * valorError) + min.get(0)) % (max.get(0) - min.get(0));
 	}
 
+	public static Cruce[] getCruces()
+	{
+		return Cruce.getCrucesBin();
+	}
+	
+	public static Mutacion[] getMutaciones()
+	{
+		return Mutacion.getMutacionesBin();
+	}
 }

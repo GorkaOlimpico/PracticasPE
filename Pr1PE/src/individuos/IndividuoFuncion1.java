@@ -2,6 +2,8 @@ package individuos;
 
 
 
+import algoritmoGenetico.cruce.Cruce;
+import algoritmoGenetico.mutacion.Mutacion;
 import gen.Gen;
 import gen.GenBinario;
 
@@ -54,6 +56,16 @@ public class IndividuoFuncion1 extends Individuo {
 			potencia *= 2;
 		}
 		return ((fenotipo * valorError) + min.get(i)) % (max.get(i) - min.get(i));
+	}
+	
+	public static Cruce[] getCruces()
+	{
+		return Cruce.getCrucesBin();
+	}
+	
+	public static Mutacion[] getMutaciones()
+	{
+		return Mutacion.getMutacionesBin();
 	}
 
 	////Creo que no es necesario, esta funcion pasa un double a array de bool
