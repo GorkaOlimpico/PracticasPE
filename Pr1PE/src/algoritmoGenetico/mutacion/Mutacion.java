@@ -6,7 +6,6 @@ import individuos.Individuo;
 
 public abstract class Mutacion {
 
-	
 	private static Mutacion[] mutacionBin= {
 			new MutacionBasica(),
 	};
