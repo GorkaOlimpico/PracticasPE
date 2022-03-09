@@ -15,6 +15,7 @@ import algoritmoGenetico.AlgoritmoGenetico;
 import algoritmoGenetico.seleccion.*;
 import gui.ConfigPanel.*;
 import gui.ConfigPanel.ConfigListener;
+import individuos.Individuo;
 
 
 public class MainFrame extends JFrame {
@@ -22,6 +23,7 @@ public class MainFrame extends JFrame {
 	private AlgoritmoGenetico AG;
 	private ConfigPanel<AlgoritmoGenetico> formulario;
 	private JSplitPane panelCentral;
+	private Individuo ind;
 
 	/**
 	 * Launch the application.
@@ -55,7 +57,7 @@ public class MainFrame extends JFrame {
 		// Panel superior
 		JPanel panelSuperior = new JPanel();
 		JComboBox problema = new JComboBox<>();
-		String[] opciones = new String[] {"1","2","3","4 Boolean", "4 Double"};
+		String[] opciones = Individuo.getStrings();
 		for (String op : opciones) {
 			problema.addItem(op);
 		}
@@ -80,7 +82,8 @@ public class MainFrame extends JFrame {
 					num.setVisible(false);
 					num_var.setVisible(false);
 				}
-				
+				ind = Individuo.seleccionarIndividuo(1, new String[] {opciones[problema.getSelectedIndex()]})[0];
+				//TODO crear de nuevo seleccionador mutaciones y cruces
 			}
 		});
 		

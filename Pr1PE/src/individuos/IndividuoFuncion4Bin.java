@@ -7,16 +7,25 @@ import gen.GenBinario;
 public class IndividuoFuncion4Bin extends Individuo {
 	private int n;
 	private int tam;
+	private final static String id = "4-Bin";  
+	
+	public IndividuoFuncion4Bin()
+	{
+		super(0, id);
+	}
 	
 	public IndividuoFuncion4Bin(double valorError, int n)
 	{
-		super(valorError);
+		super(valorError, id);
 		this.n = n;
 		min.add(0.0);															
 		max.add(Math.PI);
 		int tam = tamGen(min.get(0), max.get(0));
 		for(int i = 0; i < n; i++)
+		{
 			genes.add(new GenBinario(tam));
+			fenotipo.add(getFenotipo(i));
+		}
 	}
 	
 	private int tamGen(double min, double max) {
@@ -25,11 +34,10 @@ public class IndividuoFuncion4Bin extends Individuo {
 	
 	public double getValor()
 	{
-		double x, sum = 0;
+		double sum = 0;
 		for(int i = 0; i < n; i++)
 		{
-			x = getFenotipo(i);
-			sum += Math.sin(x) * Math.pow(Math.sin(((i + 1) * x * x) / Math.PI), 20);
+			sum += Math.sin(getFenotipo(i)) * Math.pow(Math.sin(((i + 1) * getFenotipo(i) * getFenotipo(i)) / Math.PI), 20);
 		}
 		return sum;
 	}
@@ -66,5 +74,19 @@ public class IndividuoFuncion4Bin extends Individuo {
 	public static Mutacion[] getMutaciones()
 	{
 		return Mutacion.getMutacionesBin();
+	}
+	
+	protected Individuo[] parse(int tam, String[] datos) {
+		IndividuoFuncion4Bin[] ind = null;
+		if(datos[0] == id)
+		{
+			ind = new IndividuoFuncion4Bin[tam];
+			if(datos.length == 1)
+				ind[0] = new IndividuoFuncion4Bin();
+			else
+				for(int i = 0; i < tam; i++)
+					ind[i] = new IndividuoFuncion4Bin(Double.parseDouble(datos[1]), Integer.parseInt(datos[2]));
+		}
+		return ind;
 	}
 }

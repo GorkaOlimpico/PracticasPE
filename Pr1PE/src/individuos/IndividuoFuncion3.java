@@ -5,16 +5,24 @@ import algoritmoGenetico.mutacion.Mutacion;
 import gen.GenBinario;
 
 public class IndividuoFuncion3 extends Individuo {
-
+	private final static String id = "3";  
+	
+	public IndividuoFuncion3()
+	{
+		super(0, id);
+	}
+	
 	public IndividuoFuncion3(double valorError)
 	{
-		super(valorError);
+		super(valorError, id);
 		min.add(-512.0);															//x1
 		max.add(512.0);
-		genes.add(new GenBinario(tamGen(min.get(0), max.get(0)))); 
+		genes.add(new GenBinario(tamGen(min.get(0), max.get(0))));
+		fenotipo.add(getFenotipo(0));
 		min.add(-512.0);															//x1
 		max.add(512.0);
 		genes.add(new GenBinario(tamGen(min.get(1), max.get(1)))); 
+		fenotipo.add(getFenotipo(1));
 	}
 	
 	private int tamGen(double min, double max) {
@@ -23,9 +31,9 @@ public class IndividuoFuncion3 extends Individuo {
 	
 	public double getValor()
 	{
-		double x1 = this.getFenotipo(0), x2 = this.getFenotipo(1), sum1 = 0, sum2 = 0;
-		sum1 = -(x2 + 47) * Math.sin(Math.sqrt(Math.abs(x2 + (x1 / 2) + 47)));
-		sum2 = -x1 * Math.sin(Math.sqrt(Math.abs(x1 - (x2 + 47))));
+		double sum1 = 0, sum2 = 0;
+		sum1 = -(getFenotipo(1) + 47) * Math.sin(Math.sqrt(Math.abs(getFenotipo(1) + (getFenotipo(0) / 2) + 47)));
+		sum2 = -getFenotipo(0) * Math.sin(Math.sqrt(Math.abs(getFenotipo(0) - (getFenotipo(1) + 47))));
 		return sum1 + sum2;
 	}
 	
@@ -61,5 +69,19 @@ public class IndividuoFuncion3 extends Individuo {
 	public static Mutacion[] getMutaciones()
 	{
 		return Mutacion.getMutacionesBin();
+	}
+	
+	protected Individuo[] parse(int tam, String[] datos) {
+		IndividuoFuncion3[] ind = null;
+		if(datos[0] == id)
+		{
+			ind = new IndividuoFuncion3[tam];
+			if(datos.length == 1)
+				ind[0] = new IndividuoFuncion3();
+			else
+				for(int i = 0; i < tam; i++)
+					ind[i] = new IndividuoFuncion3(Double.parseDouble(datos[1]));
+		}
+		return ind;
 	}
 }

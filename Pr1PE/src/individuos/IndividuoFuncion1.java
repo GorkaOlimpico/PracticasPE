@@ -13,15 +13,24 @@ public class IndividuoFuncion1 extends Individuo {
 	
 	// Representación de IndividuoFuncion1:
 	// 
+	private final static String id = "1"; 
+	
+	public IndividuoFuncion1()
+	{
+		super(0, id);
+	}
+	
 	public IndividuoFuncion1(double valorError)
 	{
-		super(valorError);
+		super(valorError, id);
 		min.add(-3.0);															//x1
 		max.add(12.1);
 		genes.add(new GenBinario(tamGen(min.get(0), max.get(0)))); 
+		fenotipo.add(getFenotipo(0));
 		min.add(4.1);															//x2
 		max.add(5.8);
 		genes.add(new GenBinario(tamGen(min.get(1), max.get(1)))); 
+		fenotipo.add(getFenotipo(1));
 	}
 	
 	private int tamGen(double min, double max) {
@@ -30,8 +39,7 @@ public class IndividuoFuncion1 extends Individuo {
 	
 	public double getValor()
 	{
-		double x1 = this.getFenotipo(0), x2 = this.getFenotipo(1);
-		return (21.5 + x1 * Math.sin(4 * Math.PI * x1) + x2 * Math.sin(20 * Math.PI * x2));
+		return (21.5 + getFenotipo(0) * Math.sin(4 * Math.PI * getFenotipo(0)) + getFenotipo(1) * Math.sin(20 * Math.PI * getFenotipo(1)));
 	}
 	
 	public double getFitness()
@@ -66,6 +74,21 @@ public class IndividuoFuncion1 extends Individuo {
 	public static Mutacion[] getMutaciones()
 	{
 		return Mutacion.getMutacionesBin();
+	}
+
+	@Override
+	protected Individuo[] parse(int tam, String[] datos) {
+		IndividuoFuncion1[] ind = null;
+		if(datos[0] == id)
+		{
+			ind = new IndividuoFuncion1[tam];
+			if(datos.length == 1)
+				ind[0] = new IndividuoFuncion1();
+			else
+				for(int i = 0; i < tam; i++)
+					ind[i] = new IndividuoFuncion1(Double.parseDouble(datos[1]));
+		}
+		return ind;
 	}
 
 	////Creo que no es necesario, esta funcion pasa un double a array de bool

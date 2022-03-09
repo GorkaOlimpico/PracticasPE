@@ -5,6 +5,7 @@ import java.util.List;
 
 import algoritmoGenetico.cruce.Cruce;
 import algoritmoGenetico.mutacion.Mutacion;
+import algoritmoGenetico.mutacion.MutacionBasica;
 import gen.Gen;
 import gen.GenBinario;
 
@@ -15,15 +16,20 @@ public abstract class Individuo {
 	private float punt_acumulada;
 	protected List<Double> min;
 	protected List<Double> max;
+	protected List<Double> fenotipo;
 	protected double valorError;
+	private final String id;  
 	
-	public Individuo(double valorError)
+	public Individuo(double valorError, String id)
 	{
+		this.id = id;
 		this.valorError = valorError;
 		genes = new ArrayList<>();
 		min = new ArrayList<>();
 		max = new ArrayList<>();
+		fenotipo = new ArrayList<>();
 	}
+	
 	
 	public abstract double getValor();
 	
@@ -39,6 +45,52 @@ public abstract class Individuo {
 	public static Mutacion[] getMutaciones()
 	{
 		return null;
+	}
+	
+	private static Individuo[] individuos= {
+			new IndividuoFuncion1(),
+			new IndividuoFuncion2(),
+			new IndividuoFuncion3(),
+			new IndividuoFuncion4Bin(),
+			new IndividuoFuncion4Real(),
+	};
+	
+	public static String[] getStrings()
+	{
+		String[] s = new String[5];
+		for(int i = 0; i < s.length; i++)
+			s[i] = individuos[i].getId();
+		return s;
+	}
+	
+	protected String getId() {
+		return id;
+	}
+
+
+	public static Individuo[] seleccionarIndividuo(int tam, String[] datos) //datos = id, valorError, n (si necesario)
+	{
+		Individuo ind[] = null;
+		if(datos.length > 0)
+			for(int i = 0; i < individuos.length && ind == null; i++)
+			{
+				ind = individuos[i].parse(tam, datos);
+			}
+		return ind;
+	}
+	
+	protected abstract Individuo[] parse(int tam, String[] datos);
+
+	public List<Gen> getGenes() {
+		return genes;
+	}
+
+
+	public void recalcularFenotipo() {
+		for(int i = 0; i < genes.size(); i++)
+		{
+			fenotipo.set(i, getFenotipo(i));
+		}
 	}
 	
 	//Creo que no es necesario
