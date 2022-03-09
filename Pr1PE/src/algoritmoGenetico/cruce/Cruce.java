@@ -1,5 +1,7 @@
 package algoritmoGenetico.cruce;
 
+import individuos.Individuo;
+
 public class Cruce {
 	
 	
@@ -11,5 +13,10 @@ public class Cruce {
 	public static Cruce[] getCrucesBin()
 	{
 		return crucesBin;
+	}
+	
+	public void cruzar(Individuo[] ind, double prob)
+	{
+		
 	}
 }
