@@ -1,12 +1,13 @@
 package algoritmoGenetico;
 
 import algoritmoGenetico.seleccion.Seleccion;
+
 import individuos.Individuo;
 
-public class AlgoritmoGenetico {
+public class AlgoritmoGenetic {
 
 	private Individuo[] poblacion;
-	public int tam_pob;
+	private int tam_pob;
 	private int num_max_gen;
 	private Individuo elMejor;
 	private int pos_mejor;
@@ -23,7 +24,7 @@ public class AlgoritmoGenetico {
 	//falta el porcentaje de elitismo
 	// la condicion de finalizacion depende de la funcion usada? Debería estar aqui?
 	
-	public AlgoritmoGenetico() {//esto es de prueba
+	public AlgoritmoGenetic() {//esto es de prueba
 		tam_pob = 100;
 		num_max_gen = 10;
 		prob_cruce = 10.3;
@@ -34,7 +35,7 @@ public class AlgoritmoGenetico {
 		
 	}
 	
-	public AlgoritmoGenetico(int problema, int tam, int max_gen, float p_cruce, float p_mut, float prec) {
+	public AlgoritmoGenetic(int problema, int tam, int max_gen, float p_cruce, float p_mut, float prec) {
 		tam_pob = tam;
 		num_max_gen = max_gen;
 		prob_cruce = p_cruce;

@@ -9,17 +9,16 @@ import javax.swing.*;
 
 import org.math.plot.Plot2DPanel;
 
-import algoritmoGenetico.AlgoritmoGenetico;
+import algoritmoGenetico.AlgoritmoGenetic;
 import algoritmoGenetico.seleccion.*;
-import algoritmoGenetico.*;
 import gui.ConfigPanel.*;
 import gui.ConfigPanel.ConfigListener;
 
 
 public class MainFrame extends JFrame {
 
-	private AlgoritmoGenetico AG;
-	private ConfigPanel<AlgoritmoGenetico> formulario;
+	private AlgoritmoGenetic AG;
+	private ConfigPanel<AlgoritmoGenetic> formulario;
 	private JSplitPane panelCentral;
 
 	/**
@@ -52,7 +51,7 @@ public class MainFrame extends JFrame {
 		
 		setLayout(new BorderLayout());
 		
-		AG = new AlgoritmoGenetico();
+		AG = new AlgoritmoGenetic();
 		
 		panelCentral = new JSplitPane();
 		add(panelCentral, BorderLayout.CENTER);
@@ -76,8 +75,7 @@ public class MainFrame extends JFrame {
 		//btnEjecutar.setBounds(143, 478, 89, 23);
 		add(btnEjecutar, BorderLayout.SOUTH);
 		
-		// Formulario
-	
+		// Panel izq	
 		panelCentral.setLeftComponent(creaFormulario());
 			
 		
@@ -90,7 +88,7 @@ public class MainFrame extends JFrame {
 
 	}
 	
-	private ConfigPanel<AlgoritmoGenetico> creaFormulario() {
+	private ConfigPanel<AlgoritmoGenetic> creaFormulario() {
 		
 		// aquí necesito tener los arrays con los tipos de cruce, seleccion, etc...
 
@@ -103,47 +101,47 @@ public class MainFrame extends JFrame {
 		
 		// se pueden añadir las opciones de forma independiente, o "de seguido"; el resultado es el mismo.
 		formulario
-			  .addOption(new IntegerOption<AlgoritmoGenetico>(  
+			  .addOption(new IntegerOption<AlgoritmoGenetic>(  
 				"Tamaño población", 					    
 				"Tamaño población",       
-				"tam_pob",  						    
+				"tamPob",  						    
 				1, Integer.MAX_VALUE))							     
-			  .addOption(new IntegerOption<AlgoritmoGenetico>(  
+			  .addOption(new IntegerOption<AlgoritmoGenetic>(  
 				"Número de Generaciones", 					     
 				"Número de Generaciones",      
 				"num_max_gen",  						     
 				1, Integer.MAX_VALUE))							                
-			  .addOption(new DoubleOption<AlgoritmoGenetico>( 
+			  .addOption(new DoubleOption<AlgoritmoGenetic>( 
 						"Valor de error", 					     
 						"Valor de error",       
 						"error_val",  						     
 						0, 0.1))							     
-			  .addOption(new StrategyOption<AlgoritmoGenetico>(  
+			  .addOption(new StrategyOption<AlgoritmoGenetic>(  
 						"Tipo de selección", 					    
 						"Tipo de selección",       
 						"seleccion",  						     
 						tipos_seleccion))						
-			 /* .addOption(new StrategyOption<AlgoritmoGenetico>(  
+			 /* .addOption(new StrategyOption<AlgoritmoGenetic>(  
 						"Tipo de cruce", 					    
 						"Tipo de cruce",       
 						"cruce",  						     
 						tipos_cruce))*/
-			  .addOption(new DoubleOption<AlgoritmoGenetico>( 
+			  .addOption(new DoubleOption<AlgoritmoGenetic>( 
 						"Probabilidad de cruce", 					     
 						"Probabilidad de cruce",       
 						"prob_cruce",  						     
 						0, 100))
-			  /*.addOption(new StrategyOption<AlgoritmoGenetico>(  
+			  /*.addOption(new StrategyOption<AlgoritmoGenetic>(  
 						"Tipo de mutación", 					    
 						"Tipo de mutación",       
 						"mutacion",  						     
 						tipos_mutacion))*/
-			  .addOption(new DoubleOption<AlgoritmoGenetico>( 
+			  .addOption(new DoubleOption<AlgoritmoGenetic>( 
 						"Probabilidad de mutación", 					     
 						"Probabilidad de mutación",       
 						"prob_mutacion",  						     
 						0, 100))
-			  .addOption(new DoubleOption<AlgoritmoGenetico>( 
+			  .addOption(new DoubleOption<AlgoritmoGenetic>( 
 						"Probabilidad de elitismo", 					     
 						"Probabilidad de elitismo",       
 						"prob_elitismo", 						     
