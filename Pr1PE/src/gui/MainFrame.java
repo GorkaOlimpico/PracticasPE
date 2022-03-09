@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.*;
 
 import javax.swing.*;
@@ -44,15 +46,53 @@ public class MainFrame extends JFrame {
 		setTitle("Practica 1 PE");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1400, 1000);
-		//contentPane = new JPanel();
-		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		//setContentPane(contentPane);
-		//contentPane.setLayout(new BorderLayout());
+
 		
 		setLayout(new BorderLayout());
 		
 		AG = new AlgoritmoGenetico();
+	
+		// Panel superior
+		JPanel panelSuperior = new JPanel();
+		JComboBox problema = new JComboBox<>();
+		String[] opciones = new String[] {"1","2","3","4 Boolean", "4 Double"};
+		for (String op : opciones) {
+			problema.addItem(op);
+		}
 		
+		JLabel prob = new JLabel("Problema");
+		
+		// Num variables
+		JLabel num = new JLabel("Número de variables");
+		JTextField num_var = new JTextField();
+		num_var.setPreferredSize(new Dimension(42,25));
+		num.setVisible(false);
+		num_var.setVisible(false);
+		
+		problema.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (problema.getSelectedIndex() == 3 || problema.getSelectedIndex() == 4) {
+					num.setVisible(true);
+					num_var.setVisible(true);
+				}
+				else {
+					num.setVisible(false);
+					num_var.setVisible(false);
+				}
+				
+			}
+		});
+		
+		panelSuperior.add(num);
+		panelSuperior.add(num_var);
+		panelSuperior.add(prob);
+		panelSuperior.add(problema);
+		add(panelSuperior, BorderLayout.NORTH);
+		
+		
+		
+		// Panel central
 		panelCentral = new JSplitPane();
 		add(panelCentral, BorderLayout.CENTER);
 		
@@ -71,13 +111,44 @@ public class MainFrame extends JFrame {
 		panelCentral.setRightComponent(plot);
 		
 		
-		JButton btnEjecutar = new JButton("Ejecutar");
-		//btnEjecutar.setBounds(143, 478, 89, 23);
-		add(btnEjecutar, BorderLayout.SOUTH);
 		
-		// Panel izq	
+		// Formulario	
 		panelCentral.setLeftComponent(creaFormulario());
 			
+		
+		
+		
+		
+		// Panel inferior
+		
+		JPanel panelInferior = new JPanel();
+		
+		JButton btnEjecutar = new JButton("Ejecutar");
+		btnEjecutar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ejecutar();				
+			}
+		});
+		
+		JButton btnReset = new JButton("Reset");
+		btnReset.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				reset();				
+			}
+		});
+		JLabel sol = new JLabel("Solución:");
+		JTextField solucion = new JTextField();
+		// Solución muestra: variable X1, variable X2, valor de la función. Pero esto se recibe como una String
+		solucion.setText(AG.getStrSol());
+		
+		panelInferior.add(btnReset);
+		panelInferior.add(sol);
+		panelInferior.add(solucion);	
+		panelInferior.add(btnEjecutar);		
+		add(panelInferior, BorderLayout.SOUTH);
+		
 		
 		formulario.addConfigListener(new ConfigListener() {
 			@Override
@@ -85,7 +156,6 @@ public class MainFrame extends JFrame {
 				btnEjecutar.setEnabled(isConfigValid);				
 			}
 		});
-
 	}
 	
 	private ConfigPanel<AlgoritmoGenetico> creaFormulario() {
@@ -93,6 +163,9 @@ public class MainFrame extends JFrame {
 		// aquí necesito tener los arrays con los tipos de cruce, seleccion, etc...
 
 		Seleccion[] tipos_seleccion = new Seleccion[] {new SeleccionPrueba(), new SeleccionPrueba()}; 
+		String[] funciones = new String[] {"1","2","3","4 Boolean", "4 Double"};
+		
+		
 		// tipos_cruce []
 		// tipos_mutacion []
 		
@@ -152,5 +225,22 @@ public class MainFrame extends JFrame {
 		formulario.setTarget(AG);
 		formulario.initialize();
 		return formulario;
+	}
+	
+	public void reset() {
+		AG = new AlgoritmoGenetico();
+		formulario.setTarget(AG);
+		formulario.initialize();
+	}
+	public void ejecutar() {
+		AG = new AlgoritmoGenetico();
+		formulario.setTarget(AG);
+		formulario.initialize();
+		
+		// AG.setNumvariables
+		
+		// AG.setFuncion
+		
+		// AG.run
 	}
 }
