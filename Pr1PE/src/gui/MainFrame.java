@@ -171,8 +171,8 @@ public class MainFrame extends JFrame {
 		
 		// aquí necesito tener los arrays con los tipos de cruce, seleccion, etc...
 
-		Seleccion[] tipos_seleccion = new Seleccion[] {new SeleccionPrueba(), new SeleccionPrueba()};
-		// TODO falta getSelecciones() en individuo
+		Seleccion[] tipos_seleccion = Seleccion.getSelecciones();
+		
 		Cruce[] tipos_cruce = ind.getCruces();
 		Mutacion[] tipos_mutacion = ind.getMutaciones();
 		
@@ -201,21 +201,21 @@ public class MainFrame extends JFrame {
 						"Tipo de selección",       
 						"seleccion",  						     
 						tipos_seleccion))						
-			 /* .addOption(new StrategyOption<AlgoritmoGenetico>(  
+			  .addOption(new StrategyOption<AlgoritmoGenetico>(  
 						"Tipo de cruce", 					    
 						"Tipo de cruce",       
 						"cruce",  						     
-						tipos_cruce))*/
+						tipos_cruce))
 			  .addOption(new DoubleOption<AlgoritmoGenetico>( 
 						"Probabilidad de cruce", 					     
 						"Probabilidad de cruce",       
 						"probCruce",  						     
 						0, 100))
-			  /*.addOption(new StrategyOption<AlgoritmoGenetico>(  
+			  .addOption(new StrategyOption<AlgoritmoGenetico>(  
 						"Tipo de mutación", 					    
 						"Tipo de mutación",       
 						"mutacion",  						     
-						tipos_mutacion))*/
+						tipos_mutacion))
 			  .addOption(new DoubleOption<AlgoritmoGenetico>( 
 						"Probabilidad de mutación", 					     
 						"Probabilidad de mutación",       

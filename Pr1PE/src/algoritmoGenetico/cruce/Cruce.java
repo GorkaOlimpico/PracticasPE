@@ -6,7 +6,7 @@ import java.util.Random;
 
 import individuos.Individuo;
 
-public abstract class Cruce {
+public abstract class Cruce implements Cloneable{
 	protected String id;
 	
 	public Cruce() {}
