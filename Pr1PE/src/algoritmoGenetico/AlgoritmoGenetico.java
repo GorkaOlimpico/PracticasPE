@@ -1,8 +1,5 @@
 package algoritmoGenetico;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import algoritmoGenetico.cruce.Cruce;
 import algoritmoGenetico.mutacion.Mutacion;
 import algoritmoGenetico.seleccion.Seleccion;
@@ -44,48 +41,19 @@ public class AlgoritmoGenetico {
 		prob_mutacion = 0.6;
 		error_val = 0.01;
 		elite= 11.1;
+		//mejoresGeneracion = new double[];
 		
 		num_variables = 2; // está bien así?
 		
 	}
 	
 	
-	private Individuo[] creaPoblacion(String problema) {		
+	public Individuo[] creaPoblacion(String problema) {		
 		this.problema = problema;
 		return Individuo.seleccionarIndividuo(tam_pob, new String[]{problema, Double.toString(error_val), Integer.toString(num_variables)});
 	}
 	
-	private void ordenarPoblacion()
-	{
-		List<Double> fitness = new ArrayList<>();
-		for(int i = 0; i < fitness.size(); i++)
-			fitness.add(poblacion[i].getFitness());
-		
-		for(int i = 0; i < fitness.size() - 1; i++)
-		{
-			int max = i;
-			for(int j = i; j < fitness.size(); j++)
-			{
-				if(poblacion[0].max())
-				{
-					if(fitness.get(j) > fitness.get(max))
-						max = j;
-				}
-				else
-					if(fitness.get(j) < fitness.get(max))
-						max = j;
-					
-			}
-			double aux1 = fitness.get(i);
-			fitness.set(i, fitness.get(max));
-			fitness.set(max, aux1);
-			
-			Individuo aux2 = poblacion[i];
-			poblacion[i] = poblacion[max];
-			poblacion[max] = aux2;
-		}
-	}
-
+	
 	public void run() {
 		//TODO
 				
