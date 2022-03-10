@@ -12,7 +12,7 @@ public abstract class Cruce implements Cloneable{
 	public Cruce() {}
 	
 	private static Cruce[] crucesBin= {
-			new CruceMonopunto(),
+			new CruceMonopuntoBin(),
 			new CruceUniforme(),
 	};
 	
@@ -30,7 +30,7 @@ public abstract class Cruce implements Cloneable{
 	}
 	
 	private static Cruce[] crucesReal= {
-			new CruceMonopunto(),
+			new CruceMonopuntoReal(),
 			new CruceDiscretoUniforme(),
 			new CruceAritmetico(),
 			new CruceBLX(),

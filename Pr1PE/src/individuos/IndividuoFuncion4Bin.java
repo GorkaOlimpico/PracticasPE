@@ -26,7 +26,7 @@ public class IndividuoFuncion4Bin extends Individuo {
 		Random rand = new Random();
 		min.add(0.0);															
 		max.add(Math.PI);
-		int tam = tamGen(min.get(0), max.get(0));
+		int tam = tamGen(min.get(0), max.get(0)); //Como todas tienen el mismo intervalo su tamaño de codificacion es el mismo
 		for(int i = 0; i < n; i++)
 		{
 			aux = new GenBinario(tam);
@@ -47,7 +47,7 @@ public class IndividuoFuncion4Bin extends Individuo {
 		{
 			sum += Math.sin(fenotipo.get(i)) * Math.pow(Math.sin(((i + 1) * fenotipo.get(i) * fenotipo.get(i)) / Math.PI), 20);
 		}
-		return sum;
+		return -sum;
 	}
 	
 	public double getFitness()
@@ -61,7 +61,7 @@ public class IndividuoFuncion4Bin extends Individuo {
 		int potencia = 1;
 		int alelo;
 		
-		for(int j = tam - 1; j >= 0; j--)
+		for(int j = genes.get(i).getLongitud() - 1; j >= 0; j--)
 		{
 			if((boolean) genes.get(i).getAlelo(j))
 				alelo = 1;
