@@ -74,7 +74,7 @@ public class AlgoritmoGenetico {
 		
 		// 2. While (no ha llegado al numero máximo de generaciones
 		//				&& no se ha cumplido la condición de terminar){
-		while((generacionActual < num_max_gen)) {
+		while((generacionActual < num_max_gen - 1)) {
 			// cumplir la condicion de terminar quiere decir llegar al máximo de la funcion en cada problema?
 		//		ordena pob
 		
@@ -193,21 +193,20 @@ public class AlgoritmoGenetico {
 			media += fitness;
 			
 			if(fitness > elMejorGeneracion.getFitness()) {
-				elMejorGeneracion = ind;
-				
-				
-				
+				elMejorGeneracion = ind;			
 			}
 			
 		}
 		
-		i_mejoresGen++;
+		
 		mejoresGeneracion[i_mejoresGen] = elMejorGeneracion.getFitness();
+		i_mejoresGen++;
 		
 		if(elMejorGeneracion.getFitness() >= elMejor.getFitness()) {
 			elMejor = elMejorGeneracion;
-			i_mejoresGlo++;
+			
 			mejoresGlobales[i_mejoresGlo] = elMejor.getFitness();
+			i_mejoresGlo++;
 		}
 		media = media/poblacion.length;
 		mediaGeneracion[generacionActual] = media;
