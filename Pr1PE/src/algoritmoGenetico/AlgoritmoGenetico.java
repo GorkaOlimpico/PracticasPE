@@ -16,7 +16,9 @@ public class AlgoritmoGenetico {
 	private double precision;
 	private double error_val;
 	private double prob_elite;
+	
 	private int num_variables;
+	
 	
 	private double[] mejoresGeneracion;
 	private double[] mejoresGlobales;

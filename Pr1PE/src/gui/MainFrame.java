@@ -240,11 +240,13 @@ public class MainFrame extends JFrame {
 	}
 	public void ejecutar() {
 		AG = new AlgoritmoGenetico();
+		// Puedo no pasar todos los datos recogidos y hacer que sean los botones los que llaman a los setters
+		
 		formulario.setTarget(AG);
 		formulario.initialize();
 		
-		int num = 
-		AG.setVariables();
+		
+		AG.setVariables(Integer.parseInt(num_var.getText()));
 		
 		// AG.setFuncion
 		
