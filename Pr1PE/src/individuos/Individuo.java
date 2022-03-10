@@ -38,15 +38,10 @@ public abstract class Individuo {
 	
 	protected abstract double getFenotipo(int i);
 	
-	public static Cruce[] getCruces()
-	{
-		return null;
-	}
+	public abstract Cruce[] getCruces();
 	
-	public static Mutacion[] getMutaciones()
-	{
-		return null;
-	}
+	public abstract Mutacion[] getMutaciones();
+
 	
 	public static String[] getCrucesId()
 	{

@@ -59,6 +59,9 @@ public class MainFrame extends JFrame {
 		
 		AG = new AlgoritmoGenetico();
 	
+		// Panel central
+		panelCentral = new JSplitPane();
+		
 		// Panel superior
 		JPanel panelSuperior = new JPanel();
 		problema = new JComboBox<>();
@@ -91,7 +94,7 @@ public class MainFrame extends JFrame {
 					num_var.setVisible(false);
 				}
 				ind = Individuo.seleccionarIndividuo(1, new String[] {opciones[problema.getSelectedIndex()]})[0];
-				
+				panelCentral.setLeftComponent(creaFormulario());
 			}
 		});
 		
@@ -104,7 +107,7 @@ public class MainFrame extends JFrame {
 		
 		
 		// Panel central
-		panelCentral = new JSplitPane();
+		//panelCentral = new JSplitPane();
 		add(panelCentral, BorderLayout.CENTER);
 		
 		// Gráfica
@@ -124,7 +127,7 @@ public class MainFrame extends JFrame {
 		
 		
 		// Formulario	
-		panelCentral.setLeftComponent(creaFormulario());
+		//panelCentral.setLeftComponent(creaFormulario());
 			
 		
 		
@@ -160,13 +163,13 @@ public class MainFrame extends JFrame {
 		panelInferior.add(btnEjecutar);		
 		add(panelInferior, BorderLayout.SOUTH);
 		
-		
-		formulario.addConfigListener(new ConfigListener() {
-			@Override
-			public void configChanged(boolean isConfigValid) {
-				btnEjecutar.setEnabled(isConfigValid);				
-			}
-		});
+		//TODO he comentado esto porque si no saltaban excepciones, no se si pasa algo por que no este
+//		formulario.addConfigListener(new ConfigListener() {
+//			@Override
+//			public void configChanged(boolean isConfigValid) {
+//				btnEjecutar.setEnabled(isConfigValid);				
+//			}
+//		});
 	}
 	
 	private ConfigPanel<AlgoritmoGenetico> creaFormulario() {

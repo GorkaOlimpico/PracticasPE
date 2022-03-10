@@ -2,10 +2,12 @@ package individuos;
 
 import java.util.Random;
 
+import algoritmoGenetico.cruce.Cruce;
+import algoritmoGenetico.mutacion.Mutacion;
 import gen.GenReal;
 
 public class IndividuoFuncion4Real extends Individuo {
-	private final static String type = "1"; 
+	private final static String type = "4-Real"; 
 	private int n;
 	
 	public IndividuoFuncion4Real()
@@ -73,4 +75,14 @@ public class IndividuoFuncion4Real extends Individuo {
 	public double getMax(int i) {return max.get(0);}
 	
 	public double getMin(int i) {return min.get(0);}
+
+	@Override
+	public Cruce[] getCruces() {
+		return Cruce.getCrucesReal();
+	}
+
+	@Override
+	public Mutacion[] getMutaciones() {
+		return Mutacion.getMutacionesReal();
+	}
 }

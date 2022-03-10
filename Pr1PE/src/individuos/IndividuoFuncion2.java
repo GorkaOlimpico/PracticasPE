@@ -74,12 +74,12 @@ public class IndividuoFuncion2 extends Individuo {
 		return ((fenotipo * valorError) + min.get(i)) % (max.get(i) - min.get(i));
 	}
 
-	public static Cruce[] getCruces()
+	public Cruce[] getCruces()
 	{
 		return Cruce.getCrucesBin();
 	}
 	
-	public static Mutacion[] getMutaciones()
+	public Mutacion[] getMutaciones()
 	{
 		return Mutacion.getMutacionesBin();
 	}

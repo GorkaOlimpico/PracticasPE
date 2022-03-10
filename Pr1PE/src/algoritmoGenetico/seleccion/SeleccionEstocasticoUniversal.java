@@ -39,7 +39,7 @@ public class SeleccionEstocasticoUniversal extends Seleccion {
 		
 		Random rand = new Random();
 		int j = 0;
-		double c = 1 / ind.length, r = rand.nextInt(ind.length * 1000) / (1000 * ind.length * ind.length);
+		double c = 1 / ind.length, r = rand.nextDouble() / ind.length;
 		for(int i = 0; i < ind.length; i++)
 		{
 			while(prob.get(j) < r) {j++;}

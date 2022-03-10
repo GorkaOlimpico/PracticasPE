@@ -9,7 +9,7 @@ import gen.GenBinario;
 public class IndividuoFuncion4Bin extends Individuo {
 	private int n;
 	private int tam;
-	private final static String type = "1"; 
+	private final static String type = "4-Bin"; 
 	
 	public IndividuoFuncion4Bin()
 	{
@@ -74,12 +74,12 @@ public class IndividuoFuncion4Bin extends Individuo {
 		return ((fenotipo * valorError) + min.get(0)) % (max.get(0) - min.get(0));
 	}
 
-	public static Cruce[] getCruces()
+	public Cruce[] getCruces()
 	{
 		return Cruce.getCrucesBin();
 	}
 	
-	public static Mutacion[] getMutaciones()
+	public Mutacion[] getMutaciones()
 	{
 		return Mutacion.getMutacionesBin();
 	}
