@@ -89,7 +89,7 @@ public class MainFrame extends JFrame {
 					num_var.setVisible(false);
 				}
 				ind = Individuo.seleccionarIndividuo(1, new String[] {opciones[problema.getSelectedIndex()]})[0];
-				//TODO crear de nuevo seleccionador mutaciones y cruces
+				
 			}
 		});
 		
@@ -172,6 +172,7 @@ public class MainFrame extends JFrame {
 		// aquí necesito tener los arrays con los tipos de cruce, seleccion, etc...
 
 		Seleccion[] tipos_seleccion = new Seleccion[] {new SeleccionPrueba(), new SeleccionPrueba()};
+		// TODO falta getSelecciones() en individuo
 		Cruce[] tipos_cruce = ind.getCruces();
 		Mutacion[] tipos_mutacion = ind.getMutaciones();
 		
@@ -239,10 +240,10 @@ public class MainFrame extends JFrame {
 		formulario.initialize();
 	}
 	public void ejecutar() {
-		// AG = new AlgoritmoGenetico();
-		// Puedo no pasar todos los datos recogidos y hacer que sean los botones los que llaman a los setters
+		 AG = new AlgoritmoGenetico();
 		
-		// Aquí ya tengo un AG inicializado, pero no se si ha recogido los datos introduces
+		// Todos los datos del formulario se pondrán en AG
+		
 		
 		formulario.setTarget(AG);
 		formulario.initialize();

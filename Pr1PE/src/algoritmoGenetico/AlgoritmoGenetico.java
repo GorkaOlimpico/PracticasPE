@@ -109,10 +109,24 @@ public class AlgoritmoGenetico {
 		return seleccion;
 	}
 	
+	public void setTamPoblacion(int tamPob) {
+		tam_pob = tamPob;
+	}
+	public void setMaxGen(int maxGen) {
+		num_max_gen = maxGen;
+	}
+	public void setErrorVal(double errorVal) {
+		error_val = errorVal;
+	}
+	public void setProbCruce(double probCruce) {
+		prob_cruce = probCruce;
+	}
+	public void setProbMutacion(double probMut) {
+		prob_mutacion = probMut;
+	}
 	public void setProbElite(double probElite) {
 		prob_elite = probElite;
 	}
-
 	public void setSeleccion(Seleccion seleccion) {
 		this.seleccion = seleccion;
 	}
