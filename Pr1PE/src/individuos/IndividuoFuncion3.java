@@ -5,16 +5,18 @@ import algoritmoGenetico.mutacion.Mutacion;
 import gen.GenBinario;
 
 public class IndividuoFuncion3 extends Individuo {
-	private final static String id = "3";  
+	private final static String type = "3"; 
 	
 	public IndividuoFuncion3()
 	{
-		super(0, id);
+		super(0);
+		super.id = type;
 	}
 	
 	public IndividuoFuncion3(double valorError)
 	{
-		super(valorError, id);
+		super(valorError);
+		super.id = type;
 		min.add(-512.0);															//x1
 		max.add(512.0);
 		genes.add(new GenBinario(tamGen(min.get(0), max.get(0))));
@@ -69,6 +71,16 @@ public class IndividuoFuncion3 extends Individuo {
 	public static Mutacion[] getMutaciones()
 	{
 		return Mutacion.getMutacionesBin();
+	}
+	
+	public static String[] getCrucesId()
+	{
+		return Cruce.getCrucesBinId();
+	}
+	
+	public static String[] getMutacionesId()
+	{
+		return Mutacion.getMutacionesBinId();
 	}
 	
 	protected Individuo[] parse(int tam, String[] datos) {

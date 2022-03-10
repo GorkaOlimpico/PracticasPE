@@ -1,15 +1,18 @@
 package individuos;
 
 public class IndividuoFuncion4Real extends Individuo {
-	private final static String id = "4-Real";  
+	private final static String type = "1"; 
 	
 	public IndividuoFuncion4Real()
 	{
-		super(0, id);
+		super(0);
+		super.id = type;
 	}
 	
-	public IndividuoFuncion4Real(double valorError, int n) {
-		super(valorError, id);
+	public IndividuoFuncion4Real(double valorError, int n)
+	{
+		super(valorError);
+		super.id = type;
 		// TODO Auto-generated constructor stub
 	}
 

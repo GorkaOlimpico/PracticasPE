@@ -18,11 +18,10 @@ public abstract class Individuo {
 	protected List<Double> max;
 	protected List<Double> fenotipo;
 	protected double valorError;
-	private final String id;  
+	protected String id;  
 	
-	public Individuo(double valorError, String id)
+	public Individuo(double valorError)
 	{
-		this.id = id;
 		this.valorError = valorError;
 		genes = new ArrayList<>();
 		min = new ArrayList<>();
@@ -43,6 +42,16 @@ public abstract class Individuo {
 	}
 	
 	public static Mutacion[] getMutaciones()
+	{
+		return null;
+	}
+	
+	public static String[] getCrucesId()
+	{
+		return null;
+	}
+	
+	public static String[] getMutacionesId()
 	{
 		return null;
 	}

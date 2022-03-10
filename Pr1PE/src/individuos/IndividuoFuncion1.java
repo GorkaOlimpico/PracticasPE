@@ -13,16 +13,18 @@ public class IndividuoFuncion1 extends Individuo {
 	
 	// Representación de IndividuoFuncion1:
 	// 
-	private final static String id = "1"; 
+	private final static String type = "1"; 
 	
 	public IndividuoFuncion1()
 	{
-		super(0, id);
+		super(0);
+		super.id = type;
 	}
 	
 	public IndividuoFuncion1(double valorError)
 	{
-		super(valorError, id);
+		super(valorError);
+		super.id = type;
 		min.add(-3.0);															//x1
 		max.add(12.1);
 		genes.add(new GenBinario(tamGen(min.get(0), max.get(0)))); 
@@ -74,6 +76,16 @@ public class IndividuoFuncion1 extends Individuo {
 	public static Mutacion[] getMutaciones()
 	{
 		return Mutacion.getMutacionesBin();
+	}
+	
+	public static String[] getCrucesId()
+	{
+		return Cruce.getCrucesBinId();
+	}
+	
+	public static String[] getMutacionesId()
+	{
+		return Mutacion.getMutacionesBinId();
 	}
 
 	@Override

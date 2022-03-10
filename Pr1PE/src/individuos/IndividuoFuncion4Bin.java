@@ -7,16 +7,18 @@ import gen.GenBinario;
 public class IndividuoFuncion4Bin extends Individuo {
 	private int n;
 	private int tam;
-	private final static String id = "4-Bin";  
+	private final static String type = "1"; 
 	
 	public IndividuoFuncion4Bin()
 	{
-		super(0, id);
+		super(0);
+		super.id = type;
 	}
 	
 	public IndividuoFuncion4Bin(double valorError, int n)
 	{
-		super(valorError, id);
+		super(valorError);
+		super.id = type;
 		this.n = n;
 		min.add(0.0);															
 		max.add(Math.PI);
@@ -74,6 +76,16 @@ public class IndividuoFuncion4Bin extends Individuo {
 	public static Mutacion[] getMutaciones()
 	{
 		return Mutacion.getMutacionesBin();
+	}
+	
+	public static String[] getCrucesId()
+	{
+		return Cruce.getCrucesBinId();
+	}
+	
+	public static String[] getMutacionesId()
+	{
+		return Mutacion.getMutacionesBinId();
 	}
 	
 	protected Individuo[] parse(int tam, String[] datos) {
