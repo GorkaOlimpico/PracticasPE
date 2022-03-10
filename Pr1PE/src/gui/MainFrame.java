@@ -163,7 +163,6 @@ public class MainFrame extends JFrame {
 		panelInferior.add(btnEjecutar);		
 		add(panelInferior, BorderLayout.SOUTH);
 		
-		//TODO he comentado esto porque si no saltaban excepciones, no se si pasa algo por que no este
 		formulario.addConfigListener(new ConfigListener() {
 			@Override
 			public void configChanged(boolean isConfigValid) {
