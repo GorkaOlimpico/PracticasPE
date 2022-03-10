@@ -37,11 +37,11 @@ public class AlgoritmoGenetico {
 		
 	public AlgoritmoGenetico() {// Aquí valores por defecto
 		tam_pob = 100;
-		num_max_gen = 20;
+		num_max_gen = 100;
 		prob_cruce = 60;
 		prob_mutacion = 5;
-		error_val = 0.01;
-		elite= 5;
+		error_val = 0.001;
+		elite= 2;
 		num_variables = 2; 
 		
 		generacionActual = 0;
