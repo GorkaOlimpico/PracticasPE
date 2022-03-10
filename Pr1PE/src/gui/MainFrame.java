@@ -154,7 +154,7 @@ public class MainFrame extends JFrame {
 		});
 		JLabel sol = new JLabel("Solución:");
 		solucion = new JTextField();
-		
+		solucion.setPreferredSize(new Dimension(800, 25));
 		solucion.setText("Sin solución");
 		
 		panelInferior.add(btnReset);
@@ -250,7 +250,7 @@ public class MainFrame extends JFrame {
 		
 		
 		formulario.setTarget(AG);
-		formulario.initialize();	
+		formulario.update();	
 		
 		// falta comprobar que los datos introducidos son correctos
 		
@@ -265,8 +265,8 @@ public class MainFrame extends JFrame {
 	
 	public static void generaGrafica(double[] mejoresGlobales, double[] mejoresGeneracion, double[] mediaGeneracion) {
 		Plot2DPanel plot = new Plot2DPanel();
-		double num_generaciones[] = new double[mejoresGeneracion.length];
-		int i = 1;
+		double num_generaciones[] = new double[mediaGeneracion.length];
+		int i = 0;
 		for(double mejor:mejoresGeneracion) {
 			num_generaciones[i] = i;
 			i++;

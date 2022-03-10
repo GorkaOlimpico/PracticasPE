@@ -26,6 +26,9 @@ public class AlgoritmoGenetico {
 	private double[] mejoresGeneracion;
 	private double[] mejoresGlobales;
 	private double[] mediaGeneracion;
+	private int i_mejoresGen;
+	private int i_mejoresGlo;
+	private int generacionActual;
 	
 	private Seleccion seleccion;
 	private Cruce cruce;
@@ -41,7 +44,13 @@ public class AlgoritmoGenetico {
 		prob_mutacion = 0.6;
 		error_val = 0.01;
 		elite= 11.1;
-		//mejoresGeneracion = new double[];
+		mejoresGeneracion = new double[num_max_gen];
+		mejoresGlobales = new double[num_max_gen];
+		mediaGeneracion = new double[num_max_gen];
+		i_mejoresGen = 0;
+		i_mejoresGlo = 0;
+		generacionActual = 0;
+		
 		
 		num_variables = 2; // está bien así?
 		
@@ -55,20 +64,22 @@ public class AlgoritmoGenetico {
 	
 	
 	public void run() {
-		//TODO
-				
+		// Inicializo elMejor con el primer individuo de la poblacion
+		elMejor = poblacion[0];
 		// 1. Evaluar p(t)
 		// 		Guarda el mejor Individuo, mejoresGlobales, mejoresGeneracion, mediaGeneracion
 		evaluarPoblacion();
 		
+		
+		
 		// 2. While (no ha llegado al numero máximo de generaciones
 		//				&& no se ha cumplido la condición de terminar){
-		while((mediaGeneracion.length < num_max_gen)) {
+		while((generacionActual < num_max_gen)) {
 			// cumplir la condicion de terminar quiere decir llegar al máximo de la funcion en cada problema?
 		//		ordena pob
 		
-		// 		t++
-		//		p(t) = Seleccion(p(t-1))
+			generacionActual++;
+			
 			Individuo[] poblacionAux = creaPoblacion(problema); // revisar esto. Solo lo he puesto así por comodidad
 			seleccion.select(poblacion, poblacionAux);
 			
@@ -175,25 +186,31 @@ public class AlgoritmoGenetico {
 	public void evaluarPoblacion() {
 		double media = 0;
 		double fitness;
-		double elMejorGeneracion = 0;
+		Individuo elMejorGeneracion = poblacion[0];
 		
 		for(Individuo ind:poblacion) {
 			fitness= ind.getFitness();
 			media += fitness;
-			if(fitness > elMejorGeneracion) {
-				elMejorGeneracion = fitness;
-				mejoresGeneracion[mejoresGeneracion.length] = elMejorGeneracion;
+			
+			if(fitness > elMejorGeneracion.getFitness()) {
+				elMejorGeneracion = ind;
 				
-				if(fitness >= elMejor.getFitness()) {
-					elMejor = ind;
-					mejoresGlobales[mejoresGlobales.length] = elMejor.getFitness();
-				}
+				
+				
 			}
 			
 		}
 		
+		i_mejoresGen++;
+		mejoresGeneracion[i_mejoresGen] = elMejorGeneracion.getFitness();
+		
+		if(elMejorGeneracion.getFitness() >= elMejor.getFitness()) {
+			elMejor = elMejorGeneracion;
+			i_mejoresGlo++;
+			mejoresGlobales[i_mejoresGlo] = elMejor.getFitness();
+		}
 		media = media/poblacion.length;
-		mediaGeneracion[mediaGeneracion.length] = media;
+		mediaGeneracion[generacionActual] = media;
 		
 	}
 }
