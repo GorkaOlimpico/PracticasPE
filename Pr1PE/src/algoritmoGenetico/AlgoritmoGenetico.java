@@ -171,13 +171,27 @@ public class AlgoritmoGenetico {
 	
 	public void evaluarPoblacion() {
 		// Hace la funcion fitness para todos los elementos de la poblacion
+		double media = 0;
+		double fitness;
+		double elMejorGeneracion = 0;
 		
-		// saca la media de la generacion y la añade a la lista
+		for(Individuo ind:poblacion) {
+			fitness= ind.getFitness();
+			media += fitness;
+			if(fitness > elMejorGeneracion) {
+				elMejorGeneracion = fitness;
+				mejoresGeneracion[mejoresGeneracion.length] = elMejorGeneracion;
+				
+				if(fitness >= elMejor.getFitness()) {
+					elMejor = ind;
+					mejoresGlobales[mejoresGlobales.length] = elMejor.getFitness();
+				}
+			}
+			
+		}
 		
-		// saca el mejor de la generacion y lo añade a la lista
-		
-		// actualiza la lista mejor global si es necesario
-		
+		media = media/poblacion.length;
+		mediaGeneracion[mediaGeneracion.length] = media;
 		
 	}
 }
