@@ -3,11 +3,19 @@ package algoritmoGenetico.mutacion;
 import java.util.List;
 import java.util.Random;
 
+import algoritmoGenetico.cruce.Cruce;
+import algoritmoGenetico.cruce.CruceMonopunto;
 import gen.Gen;
 import individuos.Individuo;
 
 public class MutacionBasica extends Mutacion {
 	private final double prob = 0.05;
+	private final String type = "Basica";
+	
+	public MutacionBasica()
+	{
+		super.id = type;
+	}
 	
 	@Override
 	protected void mutarIndividuo(Individuo ind) {
@@ -29,4 +37,10 @@ public class MutacionBasica extends Mutacion {
 			ind.recalcularFenotipo();
 	}
 
+	@Override
+	protected Mutacion parse(String id) {
+		if(id == type)
+			return new MutacionBasica();
+		return null;
+	}
 }
