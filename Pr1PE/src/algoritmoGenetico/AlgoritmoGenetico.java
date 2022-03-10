@@ -138,6 +138,12 @@ public class AlgoritmoGenetico {
 	public void setSeleccion(Seleccion seleccion) {
 		this.seleccion = seleccion;
 	}
+	public void setCruce(Cruce cruce) {
+		this.cruce = cruce;
+	}
+	public void setMutacion(Mutacion mutacion) {
+		this.mutacion = mutacion;
+	}
 	
 	public String generaSolucion() {
 		String sol = "";
