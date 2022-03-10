@@ -7,6 +7,11 @@ import gen.Gen;
 import individuos.Individuo;
 
 public class CruceMonopunto extends Cruce {
+	private final String type = "Monopunto";
+	
+	public CruceMonopunto() {
+		super.id = type;
+	}
 
 	@Override
 	protected void cruzarIndividuos(Individuo i1, Individuo i2) {
@@ -23,5 +28,14 @@ public class CruceMonopunto extends Cruce {
 			}
 		}
 	}
+
+	@Override
+	protected Cruce parse(String id) {
+		if(id == type)
+			return new CruceMonopunto();
+		return null;
+	}
+	
+	
 
 }

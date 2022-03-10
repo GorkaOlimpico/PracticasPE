@@ -7,7 +7,9 @@ import java.util.Random;
 import individuos.Individuo;
 
 public abstract class Cruce {
+	protected String id;
 	
+	public Cruce() {}
 	
 	private static Cruce[] crucesBin= {
 			new CruceMonopunto(),
@@ -18,6 +20,31 @@ public abstract class Cruce {
 	{
 		return crucesBin;
 	}
+	
+	public static String[] getCrucesBinId()
+	{
+		String[] s = new String[crucesBin.length];
+		for(int i = 0; i < s.length; i++)
+			s[i] = crucesBin[i].getId();
+		return s;
+	}
+	
+	protected String getId()
+	{
+		return id;
+	}
+	
+	public static Cruce seleccionarIndividuo(String id, Individuo ind)
+	{
+		Cruce c = null;
+		for(int i = 0; i < ind.getCruces().length && c == null; i++)
+		{
+			c = ind.getCruces()[i].parse(id);
+		}
+		return c;
+	}
+	
+	protected abstract Cruce parse(String id);
 	
 	public void cruzar(Individuo[] ind, double prob)
 	{

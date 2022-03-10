@@ -8,6 +8,11 @@ import individuos.Individuo;
 
 public class CruceUniforme extends Cruce {
 	private final double prob = 0.5;
+	private final String type = "Uniforme";
+	
+	public CruceUniforme() {
+		super.id = type;
+	}
 	
 	@Override
 	protected void cruzarIndividuos(Individuo i1, Individuo i2) {
@@ -28,4 +33,10 @@ public class CruceUniforme extends Cruce {
 		}
 	}
 
+	@Override
+	protected Cruce parse(String id) {
+		if(id == type)
+			return new CruceUniforme();
+		return null;
+	}
 }
