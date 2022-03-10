@@ -3,7 +3,7 @@ package algoritmoGenetico;
 import algoritmoGenetico.cruce.Cruce;
 import algoritmoGenetico.mutacion.Mutacion;
 import algoritmoGenetico.seleccion.Seleccion;
-
+import gui.MainFrame;
 import individuos.Individuo;
 
 public class AlgoritmoGenetico {
@@ -17,8 +17,9 @@ public class AlgoritmoGenetico {
 	private double prob_mutacion;
 	private double precision;
 	private double error_val;
-	private double prob_elite;
+	private double elite;
 	
+	private String problema;
 	private int num_variables;
 	
 	
@@ -39,7 +40,7 @@ public class AlgoritmoGenetico {
 		prob_cruce = 10.3;
 		prob_mutacion = 0.6;
 		error_val = 0.01;
-		prob_elite= 11.1;
+		elite= 11.1;
 		
 		num_variables = 2; // está bien así?
 		
@@ -47,6 +48,7 @@ public class AlgoritmoGenetico {
 	
 	
 	public Individuo[] creaPoblacion(String problema) {		
+		this.problema = problema;
 		return Individuo.seleccionarIndividuo(tam_pob, new String[]{problema, Double.toString(error_val), Integer.toString(num_variables)});
 	}
 	
@@ -55,27 +57,40 @@ public class AlgoritmoGenetico {
 		//TODO
 				
 		// 1. Evaluar p(t)
+		// 		Guarda el mejor Individuo, mejoresGlobales, mejoresGeneracion, mediaGeneracion
 		evaluarPoblacion();
 		
 		// 2. While (no ha llegado al numero máximo de generaciones
 		//				&& no se ha cumplido la condición de terminar){
-		
+		while((mediaGeneracion.length < num_max_gen)) {
+			// cumplir la condicion de terminar quiere decir llegar al máximo de la funcion en cada problema?
 		//		ordena pob
 		
 		// 		t++
 		//		p(t) = Seleccion(p(t-1))
+			Individuo[] poblacionAux = creaPoblacion(problema); // revisar esto. Solo lo he puesto así por comodidad
+			seleccion.select(poblacion, poblacionAux);
+			
 		// 		Reproduccion(p(t))
+			cruce.cruzar(poblacion, prob_cruce);
+			
 		// 		Mutacion(p(t))
+			mutacion.mutar(poblacion, prob_mutacion);
+			
 		//		Evaluar(p(t))
 		// 		Guarda el mejor Individuo, mejoresGlobales, mejoresGeneracion, mediaGeneracion
+			evaluarPoblacion();
+			
 		
-		// 		MainFrame.generaGrafica(mejoresGlobales, mejoresGeneracion, mediaGeneracion);
+		//		Actualiza la gráfica
+			MainFrame.generaGrafica(mejoresGlobales, mejoresGeneracion, mediaGeneracion);
 		
-		//		generacionActual++;
+		// Creo que no hace falta actualizar la generacion porque en mediaGeneracion siempre se añade un elemento al final
 		
-		//		ordena pob
+			//		ordena pob
+		}
 		
-		// 3. MainFrame.setSol(generaSolucion());
+		MainFrame.setSolucion(generaSolucion());
 	}
 	
 	
@@ -96,8 +111,8 @@ public class AlgoritmoGenetico {
 	public double getProbMutacion() {
 		return prob_mutacion;
 	}
-	public double getProbElite() {
-		return prob_elite;
+	public double getElite() {
+		return elite;
 	}
 	public Seleccion getSeleccion() {
 		return seleccion;
@@ -124,8 +139,8 @@ public class AlgoritmoGenetico {
 	public void setProbMutacion(double probMut) {
 		prob_mutacion = probMut;
 	}
-	public void setProbElite(double probElite) {
-		prob_elite = probElite;
+	public void setElite(double elite) {
+		this.elite = elite;
 	}
 	public void setSeleccion(Seleccion seleccion) {
 		this.seleccion = seleccion;

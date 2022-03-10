@@ -228,7 +228,7 @@ public class MainFrame extends JFrame {
 			  .addOption(new DoubleOption<AlgoritmoGenetico>( 
 						"Élite", 					     
 						"Élite",       
-						"probElite", 						     
+						"elite", 						     
 						0, 100))
 
 		  	  .endOptions();
@@ -250,12 +250,9 @@ public class MainFrame extends JFrame {
 		
 		
 		formulario.setTarget(AG);
-		formulario.initialize();
-		
-		
+		formulario.initialize();	
 		
 		// falta comprobar que los datos introducidos son correctos
-		
 		
 		
 		AG.setVariables(Integer.parseInt(num_var.getText()));
