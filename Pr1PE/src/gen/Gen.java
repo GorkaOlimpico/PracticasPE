@@ -23,4 +23,10 @@ public abstract class Gen {
 	public void setAlelo(int pos, Object o) {
 		alelo.set(pos, o);
 	}
+	
+	public void copiarGen(Gen g)
+	{
+		for(int i = 0; i < getLongitud(); i++)
+			g.setAlelo(i, getAlelo(i));
+	}
 }

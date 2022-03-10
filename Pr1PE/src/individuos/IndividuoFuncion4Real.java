@@ -47,4 +47,9 @@ public class IndividuoFuncion4Real extends Individuo {
 		}
 		return ind;
 	}
+	
+	@Override
+	public boolean max() {
+		return false;
+	}
 }

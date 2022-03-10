@@ -96,4 +96,9 @@ public class IndividuoFuncion3 extends Individuo {
 		}
 		return ind;
 	}
+	
+	@Override
+	public boolean max() {
+		return false;
+	}
 }

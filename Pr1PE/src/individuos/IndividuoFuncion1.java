@@ -103,6 +103,11 @@ public class IndividuoFuncion1 extends Individuo {
 		return ind;
 	}
 
+	@Override
+	public boolean max() {
+		return true;
+	}
+
 	////Creo que no es necesario, esta funcion pasa un double a array de bool
 //	@Override
 //	protected void setGen(int i, double gen) {

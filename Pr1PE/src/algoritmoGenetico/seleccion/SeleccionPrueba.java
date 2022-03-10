@@ -1,5 +1,7 @@
 package algoritmoGenetico.seleccion;
 
+import individuos.Individuo;
+
 public class SeleccionPrueba extends Seleccion {
 	private final String type = "Prueba";
 	
@@ -12,4 +14,7 @@ public class SeleccionPrueba extends Seleccion {
 			return new SeleccionPrueba();
 		return null;
 	}
+
+	@Override
+	protected void seleccionar(Individuo[] ind, Individuo[] aux) {}
 }

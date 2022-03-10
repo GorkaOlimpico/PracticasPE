@@ -29,6 +29,7 @@ public abstract class Individuo {
 		fenotipo = new ArrayList<>();
 	}
 	
+	public abstract boolean max();
 	
 	public abstract double getValor();
 	

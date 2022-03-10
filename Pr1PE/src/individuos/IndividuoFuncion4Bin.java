@@ -101,4 +101,9 @@ public class IndividuoFuncion4Bin extends Individuo {
 		}
 		return ind;
 	}
+	
+	@Override
+	public boolean max() {
+		return false;
+	}
 }
