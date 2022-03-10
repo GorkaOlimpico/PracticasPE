@@ -46,7 +46,7 @@ public class SeleccionRestos extends Seleccion {
 		for(int i = 0; i < ind.length; i++)
 			for(int j = 0; j < restos.get(i); j++)
 			{
-				copiarIndividuo(ind[i], aux[j]);
+				copiarIndividuo(ind[i], aux[contador]);
 				contador++;
 			}
 	}

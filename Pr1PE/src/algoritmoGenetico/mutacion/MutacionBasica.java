@@ -3,8 +3,6 @@ package algoritmoGenetico.mutacion;
 import java.util.List;
 import java.util.Random;
 
-import algoritmoGenetico.cruce.Cruce;
-import algoritmoGenetico.cruce.CruceMonopunto;
 import gen.Gen;
 import individuos.Individuo;
 

@@ -8,7 +8,7 @@ public abstract class Gen {
 	protected int long_gen;
 	
 	public Gen(int long_gen) {
-		this.alelo = new LinkedList();
+		this.alelo = new LinkedList<>();
 		this.long_gen = long_gen;
 	}
 	
