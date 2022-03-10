@@ -14,6 +14,13 @@ public class CruceMonopunto extends Cruce {
 	}
 
 	@Override
+	protected Cruce parse(String id) {
+		if(id == type)
+			return new CruceMonopunto();
+		return null;
+	}
+	
+	@Override
 	protected void cruzarIndividuos(Individuo i1, Individuo i2) {
 		Random rand = new Random();
 		List<Gen> g1 = i1.getGenes(), g2 = i2.getGenes();
@@ -28,14 +35,4 @@ public class CruceMonopunto extends Cruce {
 			}
 		}
 	}
-
-	@Override
-	protected Cruce parse(String id) {
-		if(id == type)
-			return new CruceMonopunto();
-		return null;
-	}
-	
-	
-
 }

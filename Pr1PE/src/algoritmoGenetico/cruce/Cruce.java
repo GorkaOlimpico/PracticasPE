@@ -29,6 +29,26 @@ public abstract class Cruce {
 		return s;
 	}
 	
+	private static Cruce[] crucesReal= {
+			new CruceMonopunto(),
+			new CruceDiscretoUniforme(),
+			new CruceAritmetico(),
+			new CruceBLX(),
+	};
+	
+	public static Cruce[] getCrucesReal()
+	{
+		return crucesReal;
+	}
+	
+	public static String[] getCrucesRealId()
+	{
+		String[] s = new String[crucesReal.length];
+		for(int i = 0; i < s.length; i++)
+			s[i] = crucesReal[i].getId();
+		return s;
+	}
+	
 	protected String getId()
 	{
 		return id;

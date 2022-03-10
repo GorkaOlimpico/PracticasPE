@@ -18,6 +18,13 @@ public class MutacionBasica extends Mutacion {
 	}
 	
 	@Override
+	protected Mutacion parse(String id) {
+		if(id == type)
+			return new MutacionBasica();
+		return null;
+	}
+	
+	@Override
 	protected void mutarIndividuo(Individuo ind) {
 		Random rand = new Random();
 		List<Gen> g = ind.getGenes();
@@ -35,12 +42,5 @@ public class MutacionBasica extends Mutacion {
 		}
 		if(cambiar)
 			ind.recalcularFenotipo();
-	}
-
-	@Override
-	protected Mutacion parse(String id) {
-		if(id == type)
-			return new MutacionBasica();
-		return null;
 	}
 }

@@ -1,7 +1,12 @@
 package individuos;
 
+import java.util.Random;
+
+import gen.GenReal;
+
 public class IndividuoFuncion4Real extends Individuo {
 	private final static String type = "1"; 
+	private int n;
 	
 	public IndividuoFuncion4Real()
 	{
@@ -13,25 +18,37 @@ public class IndividuoFuncion4Real extends Individuo {
 	{
 		super(valorError);
 		super.id = type;
-		// TODO Auto-generated constructor stub
+		this.n = n;
+		GenReal aux;
+		Random rand = new Random();
+		min.add(0.0);															
+		max.add(Math.PI);
+		for(int i = 0; i < n; i++)
+		{
+			aux = new GenReal();
+			aux.initializeGen(rand, max.get(0), min.get(0));
+			genes.add(aux); 
+		}
 	}
 
 	@Override
 	public double getValor() {
-		// TODO Auto-generated method stub
-		return 0;
+		double sum = 0;
+		for(int i = 0; i < n; i++)
+		{
+			sum += Math.sin(getFenotipo(i)) * Math.pow(Math.sin(((i + 1) * getFenotipo(i) * getFenotipo(i)) / Math.PI), 20);
+		}
+		return sum;
 	}
 
 	@Override
 	public double getFitness() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getValor();
 	}
 
 	@Override
 	protected double getFenotipo(int i) {
-		// TODO Auto-generated method stub
-		return 0;
+		return (double) genes.get(i).getAlelo(0);
 	}
 	
 	protected Individuo[] parse(int tam, String[] datos) {

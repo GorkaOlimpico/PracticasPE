@@ -10,7 +10,7 @@ public class GenBinario extends Gen{
 		this.alelo = new LinkedList();
 	}
 	
-	public void initializeGene(Random randomNumber) {
+	public void initializeGen(Random randomNumber) {
 		for(int i=0; i < this.getLongitud(); i++){
 			this.alelo.add(randomNumber.nextBoolean());
 		}

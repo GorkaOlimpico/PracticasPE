@@ -11,9 +11,6 @@ import gen.GenBinario;
 
 public abstract class Individuo {
 	protected List<Gen> genes;
-	private float aptitud;
-	private float puntuacion;
-	private float punt_acumulada;
 	protected List<Double> min;
 	protected List<Double> max;
 	protected List<Double> fenotipo;

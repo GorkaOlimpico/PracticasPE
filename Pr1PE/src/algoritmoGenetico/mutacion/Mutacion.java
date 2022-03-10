@@ -27,6 +27,23 @@ public abstract class Mutacion {
 		return s;
 	}
 	
+	private static Mutacion[] mutacionReal= {
+			new MutacionUniforme(),
+	};
+	
+	public static Mutacion[] getMutacionesReal()
+	{
+		return mutacionReal;
+	}
+	
+	public static String[] getMutacionesRealId()
+	{
+		String[] s = new String[mutacionReal.length];
+		for(int i = 0; i < s.length; i++)
+			s[i] = mutacionReal[i].getId();
+		return s;
+	}
+	
 	protected String getId()
 	{
 		return id;

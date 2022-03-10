@@ -1,5 +1,7 @@
 package individuos;
 
+import java.util.Random;
+
 import algoritmoGenetico.cruce.Cruce;
 import algoritmoGenetico.mutacion.Mutacion;
 import gen.GenBinario;
@@ -17,13 +19,19 @@ public class IndividuoFuncion3 extends Individuo {
 	{
 		super(valorError);
 		super.id = type;
+		GenBinario aux;
+		Random rand = new Random();
 		min.add(-512.0);															//x1
 		max.add(512.0);
-		genes.add(new GenBinario(tamGen(min.get(0), max.get(0))));
+		aux = new GenBinario(tamGen(min.get(0), max.get(0)));
+		aux.initializeGen(rand);
+		genes.add(aux); 
 		fenotipo.add(getFenotipo(0));
 		min.add(-512.0);															//x1
 		max.add(512.0);
-		genes.add(new GenBinario(tamGen(min.get(1), max.get(1)))); 
+		aux = new GenBinario(tamGen(min.get(1), max.get(1)));
+		aux.initializeGen(rand);
+		genes.add(aux); 
 		fenotipo.add(getFenotipo(1));
 	}
 	
@@ -34,8 +42,8 @@ public class IndividuoFuncion3 extends Individuo {
 	public double getValor()
 	{
 		double sum1 = 0, sum2 = 0;
-		sum1 = -(getFenotipo(1) + 47) * Math.sin(Math.sqrt(Math.abs(getFenotipo(1) + (getFenotipo(0) / 2) + 47)));
-		sum2 = -getFenotipo(0) * Math.sin(Math.sqrt(Math.abs(getFenotipo(0) - (getFenotipo(1) + 47))));
+		sum1 = -(fenotipo.get(1) + 47) * Math.sin(Math.sqrt(Math.abs(fenotipo.get(1) + (fenotipo.get(0) / 2) + 47)));
+		sum2 = -fenotipo.get(0) * Math.sin(Math.sqrt(Math.abs(fenotipo.get(0) - (fenotipo.get(1) + 47))));
 		return sum1 + sum2;
 	}
 	

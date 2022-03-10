@@ -2,6 +2,8 @@ package individuos;
 
 
 
+import java.util.Random;
+
 import algoritmoGenetico.cruce.Cruce;
 import algoritmoGenetico.mutacion.Mutacion;
 import gen.Gen;
@@ -25,13 +27,19 @@ public class IndividuoFuncion1 extends Individuo {
 	{
 		super(valorError);
 		super.id = type;
+		GenBinario aux;
+		Random rand = new Random();
 		min.add(-3.0);															//x1
 		max.add(12.1);
-		genes.add(new GenBinario(tamGen(min.get(0), max.get(0)))); 
+		aux = new GenBinario(tamGen(min.get(0), max.get(0)));
+		aux.initializeGen(rand);
+		genes.add(aux); 
 		fenotipo.add(getFenotipo(0));
 		min.add(4.1);															//x2
 		max.add(5.8);
-		genes.add(new GenBinario(tamGen(min.get(1), max.get(1)))); 
+		aux = new GenBinario(tamGen(min.get(1), max.get(1)));
+		aux.initializeGen(rand);
+		genes.add(aux); 
 		fenotipo.add(getFenotipo(1));
 	}
 	
@@ -41,7 +49,7 @@ public class IndividuoFuncion1 extends Individuo {
 	
 	public double getValor()
 	{
-		return (21.5 + getFenotipo(0) * Math.sin(4 * Math.PI * getFenotipo(0)) + getFenotipo(1) * Math.sin(20 * Math.PI * getFenotipo(1)));
+		return (21.5 + fenotipo.get(0) * Math.sin(4 * Math.PI * fenotipo.get(0)) + fenotipo.get(1) * Math.sin(20 * Math.PI * fenotipo.get(1)));
 	}
 	
 	public double getFitness()
