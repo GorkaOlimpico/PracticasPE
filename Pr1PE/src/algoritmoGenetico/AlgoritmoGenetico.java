@@ -150,6 +150,9 @@ public class AlgoritmoGenetico {
 	public void setMutacion(Mutacion mutacion) {
 		this.mutacion = mutacion;
 	}
+	public void setPoblacion(Individuo[] poblacion) {
+		this.poblacion = poblacion;
+	}
 	
 	public String generaSolucion() {
 		String sol = "";

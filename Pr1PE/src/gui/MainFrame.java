@@ -254,10 +254,11 @@ public class MainFrame extends JFrame {
 		
 		// falta comprobar que los datos introducidos son correctos
 		
-		
-		AG.setVariables(Integer.parseInt(num_var.getText()));
-		
-		AG.creaPoblacion(Individuo.getStrings()[problema.getSelectedIndex()]);
+		if(problema.getSelectedIndex() == 3 || problema.getSelectedIndex() == 4) {
+			AG.setVariables(Integer.parseInt(num_var.getText()));
+		}
+	
+		AG.setPoblacion(AG.creaPoblacion(Individuo.getStrings()[problema.getSelectedIndex()]));
 		
 		AG.run();
 	}
