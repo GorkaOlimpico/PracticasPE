@@ -30,7 +30,7 @@ public abstract class Seleccion implements Cloneable{
 		return id;
 	}
 	
-	public static Seleccion seleccionarIndividuo(String id)
+	public static Seleccion seleccionarSeleccion(String id)
 	{
 		Seleccion c = null;
 		for(int i = 0; i < getSelecciones().length && c == null; i++)

@@ -32,7 +32,7 @@ public abstract class Mutacion {
 		return id;
 	}
 	
-	public static Mutacion seleccionarIndividuo(String id, Individuo ind)
+	public static Mutacion seleccionarMutacion(String id, Individuo ind)
 	{
 		Mutacion m = null;
 		for(int i = 0; i < ind.getMutaciones().length && m == null; i++)

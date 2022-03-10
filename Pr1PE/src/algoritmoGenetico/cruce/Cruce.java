@@ -34,7 +34,7 @@ public abstract class Cruce {
 		return id;
 	}
 	
-	public static Cruce seleccionarIndividuo(String id, Individuo ind)
+	public static Cruce seleccionarCruce(String id, Individuo ind)
 	{
 		Cruce c = null;
 		for(int i = 0; i < ind.getCruces().length && c == null; i++)
