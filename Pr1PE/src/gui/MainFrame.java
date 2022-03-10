@@ -24,6 +24,7 @@ public class MainFrame extends JFrame {
 	private ConfigPanel<AlgoritmoGenetico> formulario;
 	private JSplitPane panelCentral;
 	private Individuo ind;
+	private static JTextField solucion;
 
 	/**
 	 * Launch the application.
@@ -70,6 +71,8 @@ public class MainFrame extends JFrame {
 		num_var.setPreferredSize(new Dimension(42,25));
 		num.setVisible(false);
 		num_var.setVisible(false);
+		
+		ind = Individuo.seleccionarIndividuo(1, new String[] {opciones[problema.getSelectedIndex()]})[0];
 		
 		problema.addActionListener(new ActionListener() {
 			@Override
@@ -142,9 +145,9 @@ public class MainFrame extends JFrame {
 			}
 		});
 		JLabel sol = new JLabel("Solución:");
-		JTextField solucion = new JTextField();
-		// Solución muestra: variable X1, variable X2, valor de la función. Pero esto se recibe como una String
-		solucion.setText(AG.getStrSol());
+		solucion = new JTextField();
+		
+		solucion.setText("Sin solución");
 		
 		panelInferior.add(btnReset);
 		panelInferior.add(sol);
@@ -165,8 +168,7 @@ public class MainFrame extends JFrame {
 		
 		// aquí necesito tener los arrays con los tipos de cruce, seleccion, etc...
 
-		Seleccion[] tipos_seleccion = new Seleccion[] {new SeleccionPrueba(), new SeleccionPrueba()}; 
-		String[] funciones = new String[] {"1","2","3","4 Boolean", "4 Double"};
+		Seleccion[] tipos_seleccion = new Seleccion[] {new SeleccionPrueba(), new SeleccionPrueba()};
 		
 		
 		// tipos_cruce []
@@ -245,5 +247,12 @@ public class MainFrame extends JFrame {
 		// AG.setFuncion
 		
 		// AG.run
+	}
+	
+	public static void generaGrafica(double[] mejoresGlobales, double[] mejoresGeneracion, double[] mediaGeneracion) {
+		// TODO
+	}
+	public static void setSolucion(String sol){
+		solucion.setText(sol);
 	}
 }

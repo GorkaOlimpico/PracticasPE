@@ -16,7 +16,6 @@ public class AlgoritmoGenetico {
 	private double precision;
 	private double error_val;
 	private double prob_elite;
-	private String strSol;
 	
 	private Seleccion seleccion;
 	//private Cruce cruce;
@@ -33,7 +32,6 @@ public class AlgoritmoGenetico {
 		error_val = 0.01;
 		prob_elite= 11.1;
 		
-		strSol = "sin solucion";
 	}
 	
 	public AlgoritmoGenetico(int problema, int tam, int max_gen, float p_cruce, float p_mut, float prec) {
@@ -73,6 +71,11 @@ public class AlgoritmoGenetico {
 		//		Evaluar(p(t))
 		// 		Guarda el mejor Individuo
 		
+		// 		MainFrame.generaGrafica(mejoresGlobales, mejoresGeneracion, mediaGeneracion);
+		
+		//		generacionActual++;
+		
+		// 4. MainFrame.setSol(generaSolucion());
 	}
 	
 	public int getTamPoblacion() {
@@ -96,18 +99,17 @@ public class AlgoritmoGenetico {
 	public Seleccion getSeleccion() {
 		return seleccion;
 	}
-	public String getStrSol() {
-		return strSol;
-	}
+
 	public void setSeleccion(Seleccion seleccion) {
 		this.seleccion = seleccion;
 	}
 	
-	public String muestraMejor() {
-		String resultado = "";
+	public String generaSolucion() {
+		String sol = "";
 		
-		// resultado = toString(elMejor.getPuntuacion());
+		// TODO
 		
-		return resultado;
+		return sol;
 	}
+	
 }
