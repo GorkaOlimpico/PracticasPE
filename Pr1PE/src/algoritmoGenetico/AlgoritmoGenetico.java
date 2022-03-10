@@ -16,6 +16,11 @@ public class AlgoritmoGenetico {
 	private double precision;
 	private double error_val;
 	private double prob_elite;
+	private int num_variables;
+	
+	private double[] mejoresGeneracion;
+	private double[] mejoresGlobales;
+	private double[] mediaGeneracion;
 	
 	private Seleccion seleccion;
 	//private Cruce cruce;
@@ -31,6 +36,8 @@ public class AlgoritmoGenetico {
 		prob_mutacion = 0.6;
 		error_val = 0.01;
 		prob_elite= 11.1;
+		
+		num_variables = 2; // está bien así?
 		
 	}
 	
@@ -107,9 +114,13 @@ public class AlgoritmoGenetico {
 	public String generaSolucion() {
 		String sol = "";
 		
-		// TODO
+		//TODO preguntar a rober cómo acceder a x1 y x2
 		
 		return sol;
+	}
+	
+	public void setVariables(int num) {
+		num_variables = num;
 	}
 	
 }

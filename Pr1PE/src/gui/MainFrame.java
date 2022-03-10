@@ -25,6 +25,7 @@ public class MainFrame extends JFrame {
 	private JSplitPane panelCentral;
 	private Individuo ind;
 	private static JTextField solucion;
+	private JTextField num_var;
 
 	/**
 	 * Launch the application.
@@ -67,7 +68,7 @@ public class MainFrame extends JFrame {
 		
 		// Num variables
 		JLabel num = new JLabel("Número de variables");
-		JTextField num_var = new JTextField();
+		num_var = new JTextField();
 		num_var.setPreferredSize(new Dimension(42,25));
 		num.setVisible(false);
 		num_var.setVisible(false);
@@ -242,7 +243,8 @@ public class MainFrame extends JFrame {
 		formulario.setTarget(AG);
 		formulario.initialize();
 		
-		// AG.setNumvariables
+		int num = 
+		AG.setVariables();
 		
 		// AG.setFuncion
 		
@@ -250,8 +252,25 @@ public class MainFrame extends JFrame {
 	}
 	
 	public static void generaGrafica(double[] mejoresGlobales, double[] mejoresGeneracion, double[] mediaGeneracion) {
-		// TODO
+		Plot2DPanel plot = new Plot2DPanel();
+		double num_generaciones[] = new double[mejoresGeneracion.length];
+		int i = 1;
+		for(double mejor:mejoresGeneracion) {
+			num_generaciones[i] = i;
+			i++;
+		}
+		
+		plot.setBorder(BorderFactory.createTitledBorder("Grafica"));
+		plot.setPreferredSize(new Dimension(600,600));
+		
+		plot.setAxisLabels("Número de generaciones","Valor de la función");
+		plot.addLinePlot("Mejor absoluto", Color.BLUE, num_generaciones, mejoresGlobales);
+		plot.addLinePlot("Mejor de la generación", Color.RED, num_generaciones, mejoresGeneracion);
+		plot.addLinePlot("Media de la generación", Color.GREEN, num_generaciones, mediaGeneracion);
+		plot.addLegend("SOUTH");
 	}
+	
+	
 	public static void setSolucion(String sol){
 		solucion.setText(sol);
 	}
