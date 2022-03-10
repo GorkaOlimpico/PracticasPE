@@ -1,5 +1,7 @@
 package algoritmoGenetico;
 
+import algoritmoGenetico.cruce.Cruce;
+import algoritmoGenetico.mutacion.Mutacion;
 import algoritmoGenetico.seleccion.Seleccion;
 
 import individuos.Individuo;
@@ -25,8 +27,8 @@ public class AlgoritmoGenetico {
 	private double[] mediaGeneracion;
 	
 	private Seleccion seleccion;
-	//private Cruce cruce;
-	//private Mutacion mutacion;
+	private Cruce cruce;
+	private Mutacion mutacion;
 	
 	//falta el porcentaje de elitismo
 	// la condicion de finalizacion depende de la funcion usada? Debería estar aqui?
@@ -107,6 +109,12 @@ public class AlgoritmoGenetico {
 	}
 	public Seleccion getSeleccion() {
 		return seleccion;
+	}
+	public Cruce getCruce() {
+		return cruce;
+	}
+	public Mutacion getMutacion() {
+		return mutacion;
 	}
 	
 	public void setTamPoblacion(int tamPob) {
