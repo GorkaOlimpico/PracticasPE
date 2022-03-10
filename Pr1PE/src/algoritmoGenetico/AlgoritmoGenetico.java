@@ -60,13 +60,15 @@ public class AlgoritmoGenetico {
 	
 	public void run() {
 		//TODO
-		// 1. Generar poblacion inicial
+				
+		// 1. Evaluar p(t)
+		evaluarPoblacion();
 		
-		
-		// 2. Evaluar p(t)
-		
-		// 3. While (no ha llegado al numero máximo de generaciones
+		// 2. While (no ha llegado al numero máximo de generaciones
 		//				&& no se ha cumplido la condición de terminar){
+		
+		//		ordena pob
+		
 		// 		t++
 		//		p(t) = Seleccion(p(t-1))
 		// 		Reproduccion(p(t))
@@ -78,7 +80,9 @@ public class AlgoritmoGenetico {
 		
 		//		generacionActual++;
 		
-		// 4. MainFrame.setSol(generaSolucion());
+		//		ordena pob
+		
+		// 3. MainFrame.setSol(generaSolucion());
 	}
 	
 	
@@ -157,4 +161,15 @@ public class AlgoritmoGenetico {
 		num_variables = num;
 	}
 	
+	public void evaluarPoblacion() {
+		// Hace la funcion fitness para todos los elementos de la poblacion
+		
+		// saca la media de la generacion y la añade a la lista
+		
+		// saca el mejor de la generacion y lo añade a la lista
+		
+		// actualiza la lista mejor global si es necesario
+		
+		
+	}
 }
