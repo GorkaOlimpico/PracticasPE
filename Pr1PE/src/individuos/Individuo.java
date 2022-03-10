@@ -26,6 +26,10 @@ public abstract class Individuo {
 		fenotipo = new ArrayList<>();
 	}
 	
+	public double getMax(int i) {return max.get(i);}
+	
+	public double getMin(int i) {return min.get(i);}
+	
 	public abstract boolean max();
 	
 	public abstract double getValor();

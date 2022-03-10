@@ -13,4 +13,12 @@ public class GenReal extends Gen {
 	public void initializeGen(Random randomNumber, double max, double min) {
 		this.alelo.add(randomNumber.nextDouble() * (max - min) + min);
 	}
+	
+	public Object getAlelo(int pos){
+		return alelo.get(0);
+	}
+	
+	public void setAlelo(int pos, Object o) {
+		alelo.set(0, o);
+	}
 }

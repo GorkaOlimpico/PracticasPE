@@ -32,8 +32,8 @@ public class CruceDiscretoUniforme extends Cruce {
 		for(int i = 0; i < prob.size(); i++)
 		{
 			aux = i1.getGenes().get(i).getAlelo(0);
-			i1.getGenes().get(i).setAlelo(i, i1.getGenes().get(i).getAlelo(0));
-			i2.getGenes().get(i).setAlelo(i, aux);
+			i1.getGenes().get(i).setAlelo(0, i1.getGenes().get(i).getAlelo(0));
+			i2.getGenes().get(i).setAlelo(0, aux);
 		}
 	}
 

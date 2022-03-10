@@ -69,4 +69,8 @@ public class IndividuoFuncion4Real extends Individuo {
 	public boolean max() {
 		return false;
 	}
+	
+	public double getMax(int i) {return max.get(0);}
+	
+	public double getMin(int i) {return min.get(0);}
 }

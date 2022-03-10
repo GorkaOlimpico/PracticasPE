@@ -37,8 +37,8 @@ public class CruceBLX extends Cruce {
 			min = min - I * alfa;
 			max = max + I * alfa;
 			I = max - min;
-			i1.getGenes().get(i).setAlelo(i, rand.nextDouble() * I + min);
-			i2.getGenes().get(i).setAlelo(i, rand.nextDouble() * I + min);
+			i1.getGenes().get(i).setAlelo(0, rand.nextDouble() * I + min);
+			i2.getGenes().get(i).setAlelo(0, rand.nextDouble() * I + min);
 		}
 	}
 

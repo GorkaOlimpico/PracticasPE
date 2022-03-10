@@ -23,8 +23,8 @@ public class CruceAritmetico extends Cruce {
 		{
 			double h1 = ((double) i1.getGenes().get(i).getAlelo(0) + (double) i2.getGenes().get(i).getAlelo(0)) / 2;
 			double h2 = ((double) i1.getGenes().get(i).getAlelo(0)) * alfa + (1 - alfa) * (double) i2.getGenes().get(i).getAlelo(0);
-			i1.getGenes().get(i).setAlelo(i, h1);
-			i2.getGenes().get(i).setAlelo(i, h2);
+			i1.getGenes().get(i).setAlelo(0, h1);
+			i2.getGenes().get(i).setAlelo(0, h2);
 		}
 	}
 
