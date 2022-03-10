@@ -93,8 +93,7 @@ public class AlgoritmoGenetico {
 		MainFrame.setSolucion(generaSolucion());
 	}
 	
-	
-	
+
 	
 	public int getTamPoblacion() {
 		return tam_pob;
@@ -170,7 +169,6 @@ public class AlgoritmoGenetico {
 	}
 	
 	public void evaluarPoblacion() {
-		// Hace la funcion fitness para todos los elementos de la poblacion
 		double media = 0;
 		double fitness;
 		double elMejorGeneracion = 0;
