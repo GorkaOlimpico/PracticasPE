@@ -62,8 +62,9 @@ public abstract class Seleccion implements Cloneable{
 		}
 	}
 	
-	protected void desplazamiento(List<Double> prob, boolean max)
+	protected void desplazamiento(List<Double> prob, boolean max, Individuo[] ind)
 	{
+		ordenar(prob, ind);
 		if(max)
 			desplazamientoMax(prob);
 		else
@@ -71,12 +72,42 @@ public abstract class Seleccion implements Cloneable{
 	}
 
 	private void desplazamientoMin(List<Double> prob) {
-		// TODO Auto-generated method stub
-		
+		double max = 1.05 * prob.get(0);
+		for(int i = 0; i < prob.size(); i++)
+		{
+			prob.set(i, max - prob.get(i));
+		}
 	}
 
-	protected void desplazamientoMax(List<Double> prob)
+	private void desplazamientoMax(List<Double> prob)
 	{
-		//TODO
+		if(prob.get(prob.size() - 1) < 0)
+		{
+			double min = 1.05 * prob.get(prob.size() - 1);
+			for(int i = 0; i < prob.size(); i++)
+			{
+				prob.set(i, min + prob.get(i));
+			}
+		}
+	}
+	
+	private void ordenar(List<Double> prob, Individuo[] ind)
+	{
+		for(int i = 0; i < prob.size() - 1; i++)
+		{
+			int max = i;
+			for(int j = i; j < prob.size(); j++)
+			{
+				if(prob.get(j) > prob.get(max))
+					max = j;
+			}
+			double aux1 = prob.get(i);
+			prob.set(i, prob.get(max));
+			prob.set(max, aux1);
+			
+			Individuo aux2 = ind[i];
+			ind[i] = ind[max];
+			ind[max] = aux2;
+		}
 	}
 }

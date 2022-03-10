@@ -27,7 +27,7 @@ public class SeleccionRuleta extends Seleccion {
 		for(int i = 0; i < ind.length; i++)
 			prob.add(ind[i].getFitness());
 		
-		desplazamiento(prob, aux[0].max());
+		desplazamiento(prob, aux[0].max(), ind);
 		
 		double sum = 0;
 		for(int i = 0; i < ind.length; i++)

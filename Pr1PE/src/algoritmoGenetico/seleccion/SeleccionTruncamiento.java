@@ -30,8 +30,7 @@ public class SeleccionTruncamiento extends Seleccion {
 		for(int i = 0; i < ind.length; i++)
 			prob.add(ind[i].getFitness());
 		
-		desplazamiento(prob, aux[0].max());
-		ordenar(prob, ind);
+		desplazamiento(prob, aux[0].max(), ind);
 		
 		int repetido = (int) (1 / trunc), limite = (int) (ind.length * trunc), contador = 0;
 		for(int i = 0; i < limite; i++)
@@ -48,10 +47,5 @@ public class SeleccionTruncamiento extends Seleccion {
 			copiarIndividuo(ind[i], aux[contador]);
 			contador++;
 		}
-	}
-	
-	private void ordenar(List<Double> prob, Individuo[] ind)
-	{
-		//TODO ordenar por maximos segun prob (prob e ind)
 	}
 }
