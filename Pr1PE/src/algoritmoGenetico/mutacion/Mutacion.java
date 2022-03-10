@@ -4,7 +4,7 @@ import java.util.Random;
 
 import individuos.Individuo;
 
-public abstract class Mutacion {
+public abstract class Mutacion implements Cloneable {
 
 	protected String id;
 	

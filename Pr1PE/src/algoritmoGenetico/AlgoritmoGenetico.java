@@ -1,5 +1,7 @@
 package algoritmoGenetico;
 
+import algoritmoGenetico.cruce.Cruce;
+import algoritmoGenetico.mutacion.Mutacion;
 import algoritmoGenetico.seleccion.Seleccion;
 
 import individuos.Individuo;
@@ -25,8 +27,8 @@ public class AlgoritmoGenetico {
 	private double[] mediaGeneracion;
 	
 	private Seleccion seleccion;
-	//private Cruce cruce;
-	//private Mutacion mutacion;
+	private Cruce cruce;
+	private Mutacion mutacion;
 	
 	//falta el porcentaje de elitismo
 	// la condicion de finalizacion depende de la funcion usada? Debería estar aqui?
@@ -108,11 +110,31 @@ public class AlgoritmoGenetico {
 	public Seleccion getSeleccion() {
 		return seleccion;
 	}
+	public Cruce getCruce() {
+		return cruce;
+	}
+	public Mutacion getMutacion() {
+		return mutacion;
+	}
 	
+	public void setTamPoblacion(int tamPob) {
+		tam_pob = tamPob;
+	}
+	public void setMaxGen(int maxGen) {
+		num_max_gen = maxGen;
+	}
+	public void setErrorVal(double errorVal) {
+		error_val = errorVal;
+	}
+	public void setProbCruce(double probCruce) {
+		prob_cruce = probCruce;
+	}
+	public void setProbMutacion(double probMut) {
+		prob_mutacion = probMut;
+	}
 	public void setProbElite(double probElite) {
 		prob_elite = probElite;
 	}
-
 	public void setSeleccion(Seleccion seleccion) {
 		this.seleccion = seleccion;
 	}
