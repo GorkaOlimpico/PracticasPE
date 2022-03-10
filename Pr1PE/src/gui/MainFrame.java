@@ -226,8 +226,8 @@ public class MainFrame extends JFrame {
 						"probMutacion",  						     
 						0, 100))
 			  .addOption(new DoubleOption<AlgoritmoGenetico>( 
-						"Probabilidad de élite", 					     
-						"Probabilidad de élite",       
+						"Élite", 					     
+						"Élite",       
 						"probElite", 						     
 						0, 100))
 

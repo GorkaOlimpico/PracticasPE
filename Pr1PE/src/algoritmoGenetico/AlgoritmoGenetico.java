@@ -33,7 +33,7 @@ public class AlgoritmoGenetico {
 	//falta el porcentaje de elitismo
 	// la condicion de finalizacion depende de la funcion usada? Debería estar aqui?
 	
-	public AlgoritmoGenetico() {//esto es de prueba
+	public AlgoritmoGenetico() {// Aquí valores por defecto
 		tam_pob = 100;
 		num_max_gen = 10;
 		prob_cruce = 10.3;
@@ -46,10 +46,9 @@ public class AlgoritmoGenetico {
 	}
 	
 	
-	public Individuo[] creaPoblacion(int problema) {
+	public Individuo[] creaPoblacion(String problema) {
 		//TODO
-		//problema {0,1,2,3,4} siendo 4 = Funcion 4 Real
-		
+	
 		Individuo [] poblacion = null;
 		
 		// if problema == 1...
@@ -73,7 +72,7 @@ public class AlgoritmoGenetico {
 		// 		Reproduccion(p(t))
 		// 		Mutacion(p(t))
 		//		Evaluar(p(t))
-		// 		Guarda el mejor Individuo
+		// 		Guarda el mejor Individuo, mejoresGlobales, mejoresGeneracion, mediaGeneracion
 		
 		// 		MainFrame.generaGrafica(mejoresGlobales, mejoresGeneracion, mediaGeneracion);
 		
