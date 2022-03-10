@@ -28,6 +28,7 @@ public class MainFrame extends JFrame {
 	private Individuo ind;
 	private static JTextField solucion;
 	private JTextField num_var;
+	private JComboBox problema;
 
 	/**
 	 * Launch the application.
@@ -60,7 +61,7 @@ public class MainFrame extends JFrame {
 	
 		// Panel superior
 		JPanel panelSuperior = new JPanel();
-		JComboBox problema = new JComboBox<>();
+		problema = new JComboBox<>();
 		String[] opciones = Individuo.getStrings();
 		for (String op : opciones) {
 			problema.addItem(op);
@@ -76,6 +77,7 @@ public class MainFrame extends JFrame {
 		num_var.setVisible(false);
 		
 		ind = Individuo.seleccionarIndividuo(1, new String[] {opciones[problema.getSelectedIndex()]})[0];
+		// TODO creo que no se está creando bien el individuo
 		
 		problema.addActionListener(new ActionListener() {
 			@Override
@@ -248,7 +250,6 @@ public class MainFrame extends JFrame {
 		formulario.setTarget(AG);
 		formulario.initialize();
 		
-		System.out.println("elite: " +AG.getProbElite());
 		
 		
 		// falta comprobar que los datos introducidos son correctos
@@ -257,9 +258,9 @@ public class MainFrame extends JFrame {
 		
 		AG.setVariables(Integer.parseInt(num_var.getText()));
 		
-		// AG.setFuncion
+		AG.creaPoblacion(problema.getSelectedIndex());
 		
-		// AG.run
+		AG.run();
 	}
 	
 	public static void generaGrafica(double[] mejoresGlobales, double[] mejoresGeneracion, double[] mediaGeneracion) {

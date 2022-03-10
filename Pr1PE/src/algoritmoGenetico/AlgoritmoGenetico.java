@@ -45,18 +45,10 @@ public class AlgoritmoGenetico {
 		
 	}
 	
-	public AlgoritmoGenetico(int problema, int tam, int max_gen, float p_cruce, float p_mut, float prec) {
-		tam_pob = tam;
-		num_max_gen = max_gen;
-		prob_cruce = p_cruce;
-		prob_mutacion = p_mut;
-		precision = prec;
-		//falta hacer la opción por defecto de estos valores
-		poblacion = creaPoblacion(problema);
-	}
 	
 	public Individuo[] creaPoblacion(int problema) {
-		//dado un tipo de Individuo (F1, F2, F3, F4) crea la población inicial
+		//TODO
+		//problema {0,1,2,3,4} siendo 4 = Funcion 4 Real
 		
 		Individuo [] poblacion = null;
 		
@@ -68,6 +60,7 @@ public class AlgoritmoGenetico {
 	
 	
 	public void run() {
+		//TODO
 		// 1. Generar poblacion inicial
 		
 		
@@ -88,6 +81,9 @@ public class AlgoritmoGenetico {
 		
 		// 4. MainFrame.setSol(generaSolucion());
 	}
+	
+	
+	
 	
 	public int getTamPoblacion() {
 		return tam_pob;
@@ -148,7 +144,12 @@ public class AlgoritmoGenetico {
 	public String generaSolucion() {
 		String sol = "";
 		
-		//TODO preguntar a rober cómo acceder a x1 y x2
+		int x = 0;
+		for(double fenotipo:elMejor.getFenotipo()) {
+			sol += "X" + x + " = " + fenotipo + ", ";
+		}
+
+		sol += "Valor de la función: " + elMejor.getFitness();
 		
 		return sol;
 	}

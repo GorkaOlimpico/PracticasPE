@@ -104,6 +104,9 @@ public abstract class Individuo {
 		}
 	}
 	
+	public List<Double> getFenotipo(){
+		return fenotipo;
+	}
 	//Creo que no es necesario
 	//protected abstract void setGen(int i, double gen);
 }
