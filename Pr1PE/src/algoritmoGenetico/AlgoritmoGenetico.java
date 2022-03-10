@@ -46,15 +46,8 @@ public class AlgoritmoGenetico {
 	}
 	
 	
-	public Individuo[] creaPoblacion(String problema) {
-		//TODO
-	
-		Individuo [] poblacion = null;
-		
-		// if problema == 1...
-		// poblacion = new IndividuoFuncion1...
-		
-		return poblacion;
+	public Individuo[] creaPoblacion(String problema) {		
+		return Individuo.seleccionarIndividuo(tam_pob, new String[]{problema, Double.toString(error_val), Integer.toString(num_variables)});
 	}
 	
 	
