@@ -127,7 +127,7 @@ public class MainFrame extends JFrame {
 		
 		
 		// Formulario	
-		//panelCentral.setLeftComponent(creaFormulario());
+		panelCentral.setLeftComponent(creaFormulario());
 			
 		
 		
@@ -164,12 +164,12 @@ public class MainFrame extends JFrame {
 		add(panelInferior, BorderLayout.SOUTH);
 		
 		//TODO he comentado esto porque si no saltaban excepciones, no se si pasa algo por que no este
-//		formulario.addConfigListener(new ConfigListener() {
-//			@Override
-//			public void configChanged(boolean isConfigValid) {
-//				btnEjecutar.setEnabled(isConfigValid);				
-//			}
-//		});
+		formulario.addConfigListener(new ConfigListener() {
+			@Override
+			public void configChanged(boolean isConfigValid) {
+				btnEjecutar.setEnabled(isConfigValid);				
+			}
+		});
 	}
 	
 	private ConfigPanel<AlgoritmoGenetico> creaFormulario() {
