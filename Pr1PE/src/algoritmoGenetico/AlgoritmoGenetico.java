@@ -108,6 +108,10 @@ public class AlgoritmoGenetico {
 	public Seleccion getSeleccion() {
 		return seleccion;
 	}
+	
+	public void setProbElite(double probElite) {
+		prob_elite = probElite;
+	}
 
 	public void setSeleccion(Seleccion seleccion) {
 		this.seleccion = seleccion;

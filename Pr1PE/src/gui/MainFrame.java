@@ -12,6 +12,8 @@ import javax.swing.*;
 import org.math.plot.Plot2DPanel;
 
 import algoritmoGenetico.AlgoritmoGenetico;
+import algoritmoGenetico.cruce.Cruce;
+import algoritmoGenetico.mutacion.Mutacion;
 import algoritmoGenetico.seleccion.*;
 import gui.ConfigPanel.*;
 import gui.ConfigPanel.ConfigListener;
@@ -170,10 +172,8 @@ public class MainFrame extends JFrame {
 		// aquí necesito tener los arrays con los tipos de cruce, seleccion, etc...
 
 		Seleccion[] tipos_seleccion = new Seleccion[] {new SeleccionPrueba(), new SeleccionPrueba()};
-		
-		
-		// tipos_cruce []
-		// tipos_mutacion []
+		Cruce[] tipos_cruce = ind.getCruces();
+		Mutacion[] tipos_mutacion = ind.getMutaciones();
 		
 		
 		formulario = new ConfigPanel<>();
@@ -239,11 +239,19 @@ public class MainFrame extends JFrame {
 		formulario.initialize();
 	}
 	public void ejecutar() {
-		AG = new AlgoritmoGenetico();
+		// AG = new AlgoritmoGenetico();
 		// Puedo no pasar todos los datos recogidos y hacer que sean los botones los que llaman a los setters
+		
+		// Aquí ya tengo un AG inicializado, pero no se si ha recogido los datos introduces
 		
 		formulario.setTarget(AG);
 		formulario.initialize();
+		
+		System.out.println("elite: " +AG.getProbElite());
+		
+		
+		// falta comprobar que los datos introducidos son correctos
+		
 		
 		
 		AG.setVariables(Integer.parseInt(num_var.getText()));
