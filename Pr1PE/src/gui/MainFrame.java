@@ -258,7 +258,7 @@ public class MainFrame extends JFrame {
 			AG.setVariables(Integer.parseInt(num_var.getText()));
 		}
 	
-		AG.setPoblacion(AG.creaPoblacion(Individuo.getStrings()[problema.getSelectedIndex()]));
+		AG.setProblema(Individuo.getStrings()[problema.getSelectedIndex()]);
 		
 		AG.run();
 	}

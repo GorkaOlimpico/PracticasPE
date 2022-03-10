@@ -162,8 +162,8 @@ public class AlgoritmoGenetico {
 	public void setMutacion(Mutacion mutacion) {
 		this.mutacion = mutacion;
 	}
-	public void setPoblacion(Individuo[] poblacion) {
-		this.poblacion = poblacion;
+	public void setProblema(String problema) {
+		this.problema = problema;
 	}
 	
 	public String generaSolucion() {
