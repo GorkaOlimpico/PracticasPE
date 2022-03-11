@@ -24,7 +24,7 @@ public class MainFrame extends JFrame {
 
 	private AlgoritmoGenetico AG;
 	private ConfigPanel<AlgoritmoGenetico> formulario;
-	private JSplitPane panelCentral;
+	private static JSplitPane panelCentral;
 	private Individuo ind;
 	private static JTextField solucion;
 	private JTextField num_var;
@@ -263,7 +263,7 @@ public class MainFrame extends JFrame {
 		AG.run();
 	}
 	
-	public static void generaGrafica(double[] mejoresGlobales, double[] mejoresGeneracion, double[] mediaGeneracion) {
+	public static Plot2DPanel generaGrafica(double[] mejoresGlobales, double[] mejoresGeneracion, double[] mediaGeneracion) {
 		Plot2DPanel plot = new Plot2DPanel();
 		double num_generaciones[] = new double[mediaGeneracion.length];
 		int i = 0;
@@ -276,11 +276,18 @@ public class MainFrame extends JFrame {
 		plot.setPreferredSize(new Dimension(600,600));
 		
 		plot.setAxisLabels("Número de generaciones","Valor de la función");
+		plot.addLegend("SOUTH");
 		plot.addLinePlot("Mejor absoluto", Color.BLUE, num_generaciones, mejoresGlobales);
 		plot.addLinePlot("Mejor de la generación", Color.RED, num_generaciones, mejoresGeneracion);
 		plot.addLinePlot("Media de la generación", Color.GREEN, num_generaciones, mediaGeneracion);
-		plot.addLegend("SOUTH");
+		
+		return plot;
 	}
+	
+	public static void imprimeGrafica(double[] mejoresGlobales, double[] mejoresGeneracion, double[] mediaGeneracion) {
+		panelCentral.setRightComponent(generaGrafica(mejoresGlobales, mejoresGeneracion, mediaGeneracion));
+	}
+	
 	
 	
 	public static void setSolucion(String sol){

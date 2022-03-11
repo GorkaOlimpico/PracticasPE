@@ -27,7 +27,7 @@ public class IndividuoFuncion2 extends Individuo {
 		aux.initializeGen(rand);
 		genes.add(aux);  
 		fenotipo.add(getFenotipo(0));
-		min.add(10.0);															//x2
+		min.add(-10.0);															//x2
 		max.add(10.0);
 		aux = new GenBinario(tamGen(min.get(1), max.get(1)));
 		aux.initializeGen(rand);
