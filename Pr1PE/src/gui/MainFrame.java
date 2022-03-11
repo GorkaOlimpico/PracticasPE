@@ -29,6 +29,7 @@ public class MainFrame extends JFrame {
 	private static JTextField solucion;
 	private JTextField num_var;
 	private JComboBox problema;
+	private JButton btnEjecutar;
 
 	/**
 	 * Launch the application.
@@ -137,7 +138,7 @@ public class MainFrame extends JFrame {
 		
 		JPanel panelInferior = new JPanel();
 		
-		JButton btnEjecutar = new JButton("Ejecutar");
+		btnEjecutar = new JButton("Ejecutar");
 		btnEjecutar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -242,6 +243,7 @@ public class MainFrame extends JFrame {
 		AG = new AlgoritmoGenetico();
 		formulario.setTarget(AG);
 		formulario.initialize();
+		btnEjecutar.setEnabled(true);
 	}
 	public void ejecutar() {
 		 AG = new AlgoritmoGenetico();
