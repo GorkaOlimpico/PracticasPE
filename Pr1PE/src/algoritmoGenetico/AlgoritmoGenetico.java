@@ -90,7 +90,7 @@ public class AlgoritmoGenetico {
 		poblacion = creaPoblacion(problema, tam_pob);
 		ordenarPoblacion();
 		elMejor = creaPoblacion(problema,(int) 1)[0];
-		copiarIndividuo(elMejor, poblacion[0]);
+		copiarIndividuo(poblacion[0], elMejor);
 		generacionActual = 0;
 		mejoresGeneracion = new double[num_max_gen + 1]; //Hay num_max_gen generaciones + la generacion 0 (la creada de forma aleatoria)
 		mejoresGlobales = new double[num_max_gen + 1];
@@ -250,22 +250,22 @@ public class AlgoritmoGenetico {
 		double media = 0;
 		double fitness;
 		Individuo elMejorGeneracion = creaPoblacion(problema,(int) 1)[0];
-		copiarIndividuo(elMejorGeneracion, poblacion[0]);
+		copiarIndividuo(poblacion[0], elMejorGeneracion);
 		
 		for(Individuo ind:poblacion) 
 		{
-			fitness= ind.getFitness();
+			fitness = ind.getFitness();
 			media += fitness;
 			
-			if(poblacion[0].max())//si el problema es F1
+			if(elMejor.max())//si el problema es F1
 			{
 				if(fitness > elMejorGeneracion.getFitness()) 
-					copiarIndividuo(elMejorGeneracion, ind);	
+					copiarIndividuo(ind, elMejorGeneracion);	
 			}
 			else
 			{
 				if(fitness < elMejorGeneracion.getFitness()) 
-					copiarIndividuo(elMejorGeneracion, ind);	
+					copiarIndividuo(ind, elMejorGeneracion);	
 			}
 		}
 		
@@ -273,13 +273,10 @@ public class AlgoritmoGenetico {
 		
 		//El propio generacionActual hace de indice para los arrays
 		
-		if(poblacion[0].max())//si el problema es F1
+		if(elMejor.max())//si el problema es F1
 		{
 			if(elMejorGeneracion.getFitness() > elMejor.getFitness()) 
 			{
-				
-				
-				
 				elMejor = elMejorGeneracion;
 
 				mejoresGlobales[generacionActual] = elMejor.getFitness();
