@@ -161,10 +161,13 @@ public class AlgoritmoGenetico {
 	
 	private void copiarIndividuo(Individuo i1, Individuo i2) //Copia los datos de i1 a i2
 	{
+		System.out.println("Individuo 1: "+ i1.getFitness());
+		System.out.println("Individuo 2 antes: "+ i2.getFitness());
 		for(int i = 0; i < i1.getGenes().size(); i++)
 		{
 			i1.getGenes().get(i).copiarGen(i2.getGenes().get(i));
 		}
+		System.out.println("Individuo 2 despues: "+ i2.getFitness());
 	}
 	
 	public int getTamPoblacion() {
