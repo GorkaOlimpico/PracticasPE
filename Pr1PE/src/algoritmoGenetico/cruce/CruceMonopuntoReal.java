@@ -34,5 +34,7 @@ private final String type = "Monopunto-Real";
 				g2.get(i).setAlelo(j, aux);
 			}
 		}
+		i1.recalcularFenotipo();
+		i2.recalcularFenotipo();
 	}
 }

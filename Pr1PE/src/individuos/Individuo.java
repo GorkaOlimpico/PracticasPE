@@ -45,7 +45,6 @@ public abstract class Individuo {
 	public abstract Cruce[] getCruces();
 	
 	public abstract Mutacion[] getMutaciones();
-
 	
 	public static String[] getCrucesId()
 	{
@@ -113,9 +112,9 @@ public abstract class Individuo {
 		for(int i = 0; i < genes.size(); i++)
 			genes.get(i).copiarGen(ind.getGenes().get(i));
 		recalcularFenotipo();
-		if(valor == ind.getFitness())
+		if(valor == ind.getFitness()) //Se ha copiado bien
 			System.out.println("Si");
 		else
-			System.out.println("No");
+			System.out.println("No"); //No se ha copiado bien
 	}
 }

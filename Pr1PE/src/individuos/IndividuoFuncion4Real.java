@@ -40,14 +40,14 @@ public class IndividuoFuncion4Real extends Individuo {
 		double sum = 0;
 		for(int i = 1; i <= n; i++)
 		{
-			sum += Math.sin(getFenotipo(i - 1)) * Math.pow(Math.sin(((i + 1) * getFenotipo(i - 1) * getFenotipo(i - 1)) / Math.PI), 20);
+			sum += Math.sin(fenotipo.get(i - 1)) * Math.pow(Math.sin(((i + 1) * fenotipo.get(i - 1) * fenotipo.get(i - 1)) / Math.PI), 20);
 		}
 		return -sum;
 	}
 
 	@Override
 	protected double getFenotipo(int i) {
-		return (double) genes.get(i).getAlelo(0);
+		return ((double) genes.get(i).getAlelo(0)) % (max.get(0) - min.get(0)) + min.get(0);
 	}
 	
 	protected Individuo[] parse(int tam, String[] datos) {

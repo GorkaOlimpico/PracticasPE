@@ -9,7 +9,7 @@ public class GenReal extends Gen {
 	}
 
 	public void initializeGen(Random randomNumber, double max, double min) {
-		this.alelo.add(randomNumber.nextDouble() * (max - min) + min);
+		this.alelo.add(randomNumber.nextDouble() * (max - min));
 	}
 	
 	@Override

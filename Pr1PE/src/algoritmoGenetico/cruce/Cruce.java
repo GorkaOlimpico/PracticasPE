@@ -80,6 +80,8 @@ public abstract class Cruce implements Cloneable{
 			while(i == j)
 				j = rand.nextInt(paraCruzar.size());
 			cruzarIndividuos(paraCruzar.get(i), paraCruzar.get(j));
+			paraCruzar.get(i).recalcularFenotipo();
+			paraCruzar.get(j).recalcularFenotipo();
 			if(i < j)
 			{
 				paraCruzar.remove(j);

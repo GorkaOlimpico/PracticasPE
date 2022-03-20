@@ -18,24 +18,18 @@ public class CruceUniforme extends Cruce {
 	protected void cruzarIndividuos(Individuo i1, Individuo i2) {
 		Random rand = new Random();
 		List<Gen> g1 = i1.getGenes(), g2 = i2.getGenes();
-		boolean aux, cambiar = false;
+		boolean aux;
 		for(int i = 0; i < g1.size(); i++)
 		{
 			for(int j = 0; j < g1.get(i).getLongitud(); j++)
 			{
 				if(rand.nextDouble() < prob)
 				{
-					cambiar = true;
 					aux = (boolean) g1.get(i).getAlelo(j);
 					g1.get(i).setAlelo(j, g2.get(i).getAlelo(j));
 					g2.get(i).setAlelo(j, aux);
 				}
 			}
-		}
-		if(cambiar)
-		{
-			i1.recalcularFenotipo();
-			i2.recalcularFenotipo();
 		}
 	}
 

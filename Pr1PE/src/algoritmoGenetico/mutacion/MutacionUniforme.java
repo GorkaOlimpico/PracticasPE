@@ -23,10 +23,17 @@ public class MutacionUniforme extends Mutacion {
 	@Override
 	protected void mutarIndividuo(Individuo ind) {
 		Random rand = new Random();
+		boolean cambio = false;
 		for(int i = 0; i < ind.getGenes().size(); i++)
 		{
-			if(rand.nextDouble() < prob)
-				ind.getGenes().get(i).setAlelo(0, rand.nextDouble() * (ind.getMax(i) - ind.getMin(i)) + ind.getMin(i));
+			for(int j = 0; j < ind.getGenes().get(i).getLongitud(); j++)
+				if(rand.nextDouble() < prob)
+				{
+					ind.getGenes().get(i).setAlelo(j, rand.nextDouble() * (ind.getMax(i) - ind.getMin(i)));
+					cambio = true;
+				}
 		}
+		if(cambio)
+			ind.recalcularFenotipo();
 	}
 }

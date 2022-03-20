@@ -40,6 +40,8 @@ public class CruceBLX extends Cruce {
 			i1.getGenes().get(i).setAlelo(0, rand.nextDouble() * I + min);
 			i2.getGenes().get(i).setAlelo(0, rand.nextDouble() * I + min);
 		}
+		i1.recalcularFenotipo();
+		i2.recalcularFenotipo();
 	}
 
 }

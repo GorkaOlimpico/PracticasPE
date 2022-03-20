@@ -26,7 +26,7 @@ public class IndividuoFuncion4Bin extends Individuo {
 		Random rand = new Random();
 		min.add(0.0);															
 		max.add(Math.PI);
-		int tam = tamGen(min.get(0), max.get(0)); //Como todas tienen el mismo intervalo su tamaño de codificacion es el mismo
+		tam = tamGen(min.get(0), max.get(0)); //Como todas tienen el mismo intervalo su tamaño de codificacion es el mismo
 		for(int i = 0; i < n; i++)
 		{
 			aux = new GenBinario(tam);

@@ -38,6 +38,8 @@ public class CruceDiscretoUniforme extends Cruce {
 				i2.getGenes().get(i).setAlelo(0, aux);
 			}
 		}
+		i1.recalcularFenotipo();
+		i2.recalcularFenotipo();
 	}
 
 }
