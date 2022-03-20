@@ -26,19 +26,9 @@ public class MutacionBasica extends Mutacion {
 	protected void mutarIndividuo(Individuo ind) {
 		Random rand = new Random();
 		List<Gen> g = ind.getGenes();
-		boolean cambiar = false;
 		for(int i = 0; i < g.size(); i++)
-		{
 			for(int j = 0; j < g.get(i).getLongitud(); j++)
-			{
 				if(rand.nextDouble() < prob)
-				{
 					g.get(i).setAlelo(j, rand.nextBoolean());
-					cambiar = true;
-				}
-			}
-		}
-		if(cambiar)
-			ind.recalcularFenotipo();
 	}
 }

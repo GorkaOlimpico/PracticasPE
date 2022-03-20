@@ -66,7 +66,10 @@ public abstract class Mutacion implements Cloneable {
 		Random rand = new Random();
 		for(int i = 0; i < ind.length; i++)
 			if(rand.nextDouble() < prob)
+			{
 				mutarIndividuo(ind[i]);
+				ind[i].recalcularFenotipo();
+			}
 	}
 	
 	protected abstract void mutarIndividuo(Individuo ind);

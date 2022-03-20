@@ -34,7 +34,5 @@ public class CruceMonopuntoBin extends Cruce {
 				g2.get(i).setAlelo(j, aux);
 			}
 		}
-		i1.recalcularFenotipo();
-		i2.recalcularFenotipo();
 	}
 }
