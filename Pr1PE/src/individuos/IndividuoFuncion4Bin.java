@@ -34,6 +34,7 @@ public class IndividuoFuncion4Bin extends Individuo {
 			genes.add(aux); 
 			fenotipo.add(getFenotipo(i));
 		}
+		valor = getValor();
 	}
 	
 	private int tamGen(double min, double max) {
@@ -48,11 +49,6 @@ public class IndividuoFuncion4Bin extends Individuo {
 			sum += Math.sin(fenotipo.get(i)) * Math.pow(Math.sin(((i + 1) * fenotipo.get(i) * fenotipo.get(i)) / Math.PI), 20);
 		}
 		return -sum;
-	}
-	
-	public double getFitness()
-	{
-		return getValor();
 	}
 	
 	protected double getFenotipo(int i)

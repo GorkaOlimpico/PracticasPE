@@ -17,6 +17,5 @@ public class GenBinario extends Gen{
 	@Override
 	public void setAlelo(int pos, Object o) {
 		this.alelo.set(pos, (boolean) o);
-		
 	}
 }

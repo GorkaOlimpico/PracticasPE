@@ -14,6 +14,7 @@ public abstract class Individuo {
 	protected List<Double> min;
 	protected List<Double> max;
 	protected List<Double> fenotipo;
+	protected double valor;
 	protected double valorError;
 	protected String id;  
 	
@@ -34,7 +35,10 @@ public abstract class Individuo {
 	
 	public abstract double getValor();
 	
-	public abstract double getFitness();
+	public double getFitness()
+	{
+		return valor;
+	}
 	
 	protected abstract double getFenotipo(int i);
 	
@@ -97,6 +101,7 @@ public abstract class Individuo {
 		{
 			fenotipo.set(i, getFenotipo(i));
 		}
+		valor = getValor();
 	}
 	
 	public List<Double> getFenotipo(){
@@ -107,5 +112,10 @@ public abstract class Individuo {
 	{
 		for(int i = 0; i < genes.size(); i++)
 			genes.get(i).copiarGen(ind.getGenes().get(i));
+		recalcularFenotipo();
+		if(valor == ind.getFitness())
+			System.out.println("Si");
+		else
+			System.out.println("No");
 	}
 }

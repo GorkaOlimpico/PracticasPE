@@ -31,6 +31,7 @@ public class IndividuoFuncion4Real extends Individuo {
 			aux.initializeGen(rand, max.get(0), min.get(0));
 			genes.add(aux); 
 		}
+		valor = getValor();
 	}
 
 	@Override
@@ -41,11 +42,6 @@ public class IndividuoFuncion4Real extends Individuo {
 			sum += Math.sin(getFenotipo(i)) * Math.pow(Math.sin(((i + 1) * getFenotipo(i) * getFenotipo(i)) / Math.PI), 20);
 		}
 		return -sum;
-	}
-
-	@Override
-	public double getFitness() {
-		return getValor();
 	}
 
 	@Override

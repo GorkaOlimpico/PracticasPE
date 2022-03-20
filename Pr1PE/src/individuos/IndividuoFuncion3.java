@@ -33,6 +33,7 @@ public class IndividuoFuncion3 extends Individuo {
 		aux.initializeGen(rand);
 		genes.add(aux); 
 		fenotipo.add(getFenotipo(1));
+		valor = getValor();
 	}
 	
 	private int tamGen(double min, double max) {
@@ -45,11 +46,6 @@ public class IndividuoFuncion3 extends Individuo {
 		sum1 = -(fenotipo.get(1) + 47) * Math.sin(Math.sqrt(Math.abs(fenotipo.get(1) + (fenotipo.get(0) / 2) + 47)));
 		sum2 = -fenotipo.get(0) * Math.sin(Math.sqrt(Math.abs(fenotipo.get(0) - (fenotipo.get(1) + 47))));
 		return sum1 + sum2;
-	}
-	
-	public double getFitness()
-	{
-		return getValor();
 	}
 	
 	protected double getFenotipo(int i)

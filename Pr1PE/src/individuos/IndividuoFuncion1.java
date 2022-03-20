@@ -41,6 +41,7 @@ public class IndividuoFuncion1 extends Individuo {
 		aux.initializeGen(rand);
 		genes.add(aux); 
 		fenotipo.add(getFenotipo(1));
+		valor = getValor();
 	}
 	
 	private int tamGen(double min, double max) {
@@ -50,11 +51,6 @@ public class IndividuoFuncion1 extends Individuo {
 	public double getValor()
 	{
 		return (21.5 + fenotipo.get(0) * Math.sin(4 * Math.PI * fenotipo.get(0)) + fenotipo.get(1) * Math.sin(20 * Math.PI * fenotipo.get(1)));
-	}
-	
-	public double getFitness()
-	{
-		return getValor();
 	}
 	
 	protected double getFenotipo(int i)
