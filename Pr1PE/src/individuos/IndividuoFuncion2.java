@@ -45,8 +45,8 @@ public class IndividuoFuncion2 extends Individuo {
 		double sum1 = 0, sum2 = 0;
 		for(int i = 1; i <= 5; i++)
 		{
-			sum1 += i * Math.cos((i + 1) * fenotipo.get(0) + i) + i;
-			sum2 += i * Math.cos((i + 1) * fenotipo.get(1) + i) + i;
+			sum1 += i * Math.cos((i + 1) * fenotipo.get(0) + i);
+			sum2 += i * Math.cos((i + 1) * fenotipo.get(1) + i);
 		}
 		return sum1 * sum2;
 	}

@@ -71,8 +71,8 @@ public class AlgoritmoGenetico {
 		/*for(Individuo pob:poblacion) {
 			System.out.println(pob.getFitness());
 		}*/
-		while(generacionActual < 3) {
-		//while(generacionActual < num_max_gen) {
+
+		while(generacionActual < num_max_gen) {
 			
 			generacionActual++;
 			

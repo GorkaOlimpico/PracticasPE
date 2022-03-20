@@ -37,9 +37,9 @@ public class IndividuoFuncion4Real extends Individuo {
 	@Override
 	public double getValor() {
 		double sum = 0;
-		for(int i = 0; i < n; i++)
+		for(int i = 1; i <= n; i++)
 		{
-			sum += Math.sin(getFenotipo(i)) * Math.pow(Math.sin(((i + 1) * getFenotipo(i) * getFenotipo(i)) / Math.PI), 20);
+			sum += Math.sin(getFenotipo(i - 1)) * Math.pow(Math.sin(((i + 1) * getFenotipo(i - 1) * getFenotipo(i - 1)) / Math.PI), 20);
 		}
 		return -sum;
 	}

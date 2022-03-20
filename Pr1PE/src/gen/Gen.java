@@ -22,9 +22,9 @@ public abstract class Gen {
 	
 	public abstract void setAlelo(int pos, Object o);
 	
-	public void copiarGen(Gen g) //Copia this a g
+	public void copiarGen(Gen g) //Copia g a this
 	{
 		for(int i = 0; i < getLongitud(); i++)
-			g.setAlelo(i, getAlelo(i));
+			setAlelo(i, g.getAlelo(i));
 	}
 }

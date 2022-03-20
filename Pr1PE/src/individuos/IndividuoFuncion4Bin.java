@@ -44,9 +44,9 @@ public class IndividuoFuncion4Bin extends Individuo {
 	public double getValor()
 	{
 		double sum = 0;
-		for(int i = 0; i < n; i++)
+		for(int i = 1; i <= n; i++)
 		{
-			sum += Math.sin(fenotipo.get(i)) * Math.pow(Math.sin(((i + 1) * fenotipo.get(i) * fenotipo.get(i)) / Math.PI), 20);
+			sum += Math.sin(fenotipo.get(i - 1)) * Math.pow(Math.sin(((i + 1) * fenotipo.get(i - 1) * fenotipo.get(i - 1)) / Math.PI), 20);
 		}
 		return -sum;
 	}
