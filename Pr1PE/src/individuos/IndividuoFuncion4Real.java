@@ -30,6 +30,7 @@ public class IndividuoFuncion4Real extends Individuo {
 			aux = new GenReal();
 			aux.initializeGen(rand, max.get(0), min.get(0));
 			genes.add(aux); 
+			fenotipo.add(getFenotipo(i));
 		}
 		valor = getValor();
 	}

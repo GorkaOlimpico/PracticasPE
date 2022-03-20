@@ -50,7 +50,7 @@ public class IndividuoFuncion1 extends Individuo {
 	
 	public double getValor()
 	{
-		return (21.5 + fenotipo.get(0) * Math.sin(4 * Math.PI * fenotipo.get(0)) + fenotipo.get(1) * Math.sin(20 * Math.PI * fenotipo.get(1)));
+		return 21.5 + fenotipo.get(0) * Math.sin(4 * Math.PI * fenotipo.get(0)) + fenotipo.get(1) * Math.sin(20 * Math.PI * fenotipo.get(1));
 	}
 	
 	protected double getFenotipo(int i)
