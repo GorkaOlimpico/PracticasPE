@@ -37,14 +37,14 @@ public class SeleccionTruncamiento extends Seleccion {
 		{
 			for(int j = 0; j < repetido; j++)
 			{
-				copiarIndividuo(ind[i], aux[contador]);
+				aux[contador].copiarIndividuo(ind[i]);
 				contador++;
 			}
 		}
 		
 		for(int i = 0; contador < ind.length; i++)
 		{
-			copiarIndividuo(ind[i], aux[contador]);
+			aux[contador].copiarIndividuo(ind[i]);
 			contador++;
 		}
 	}

@@ -50,7 +50,7 @@ public class SeleccionTorneoDeterministico extends Seleccion {
 					j = i2;
 				else
 					j = i3;
-			copiarIndividuo(ind[j], aux[i]);
+			aux[i].copiarIndividuo(ind[j]);
 		}
 	}
 }

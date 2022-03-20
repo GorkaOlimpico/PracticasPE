@@ -54,14 +54,6 @@ public abstract class Seleccion implements Cloneable{
 	
 	protected abstract void seleccionar(Individuo[] ind, Individuo[] aux);
 	
-	protected void copiarIndividuo(Individuo i1, Individuo i2)
-	{
-		for(int i = 0; i < i1.getGenes().size(); i++)
-		{
-			i1.getGenes().get(i).copiarGen(i2.getGenes().get(i));
-		}
-	}
-	
 	protected void desplazamiento(List<Double> prob, boolean max, Individuo[] ind)
 	{
 		ordenar(prob, ind);
@@ -72,10 +64,12 @@ public abstract class Seleccion implements Cloneable{
 	}
 
 	private void desplazamientoMin(List<Double> prob) {
-		double max = 1.05 * prob.get(0);
+		double max = 0;
+		if(prob.get(prob.size() - 1) > 0)
+			max = 1.05 * prob.get(prob.size() - 1);
 		for(int i = 0; i < prob.size(); i++)
 		{
-			prob.set(i, max - prob.get(i));
+			prob.set(i, - (prob.get(i) - max));
 		}
 	}
 
@@ -98,8 +92,14 @@ public abstract class Seleccion implements Cloneable{
 			int max = i;
 			for(int j = i; j < prob.size(); j++)
 			{
-				if(prob.get(j) > prob.get(max))
+				if(ind[0].max())
+				{
+					if(prob.get(j) > prob.get(max))
+						max = j;
+				}
+				else if(prob.get(j) < prob.get(max))
 					max = j;
+						
 			}
 			double aux1 = prob.get(i);
 			prob.set(i, prob.get(max));

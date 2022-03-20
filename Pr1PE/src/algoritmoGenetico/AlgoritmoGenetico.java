@@ -90,7 +90,7 @@ public class AlgoritmoGenetico {
 		poblacion = creaPoblacion(problema, tam_pob);
 		ordenarPoblacion();
 		elMejor = creaPoblacion(problema,(int) 1)[0];
-		copiarIndividuo(poblacion[0], elMejor);
+		elMejor.copiarIndividuo(poblacion[0]);
 		generacionActual = 0;
 		mejoresGeneracion = new double[num_max_gen + 1]; //Hay num_max_gen generaciones + la generacion 0 (la creada de forma aleatoria)
 		mejoresGlobales = new double[num_max_gen + 1];
@@ -146,7 +146,7 @@ public class AlgoritmoGenetico {
 	{
 		for(int i = 0; i < e.length; i++)
 		{
-			copiarIndividuo(poblacion[i], e[i]);
+			e[i].copiarIndividuo(poblacion[i]);
 		}
 	}
 	
@@ -154,20 +154,9 @@ public class AlgoritmoGenetico {
 	{
 		for(int i = 0; i < e.length; i++)
 		{
-			copiarIndividuo(e[i], poblacion[poblacion.length - i - 1]);
+			poblacion[poblacion.length - i - 1].copiarIndividuo(e[i]);
 		}
 		ordenarPoblacion();
-	}
-	
-	private void copiarIndividuo(Individuo i1, Individuo i2) //Copia los datos de i1 a i2
-	{
-		System.out.println("Individuo 1: "+ i1.getFitness());
-		System.out.println("Individuo 2 antes: "+ i2.getFitness());
-		for(int i = 0; i < i1.getGenes().size(); i++)
-		{
-			i1.getGenes().get(i).copiarGen(i2.getGenes().get(i));
-		}
-		System.out.println("Individuo 2 despues: "+ i2.getFitness());
 	}
 	
 	public int getTamPoblacion() {
@@ -253,7 +242,7 @@ public class AlgoritmoGenetico {
 		double media = 0;
 		double fitness;
 		Individuo elMejorGeneracion = creaPoblacion(problema,(int) 1)[0];
-		copiarIndividuo(poblacion[0], elMejorGeneracion);
+		elMejorGeneracion.copiarIndividuo(poblacion[0]);
 		
 		for(Individuo ind:poblacion) 
 		{
@@ -263,12 +252,12 @@ public class AlgoritmoGenetico {
 			if(elMejor.max())//si el problema es F1
 			{
 				if(fitness > elMejorGeneracion.getFitness()) 
-					copiarIndividuo(ind, elMejorGeneracion);	
+					elMejorGeneracion.copiarIndividuo(ind);	
 			}
 			else
 			{
 				if(fitness < elMejorGeneracion.getFitness()) 
-					copiarIndividuo(ind, elMejorGeneracion);	
+					elMejorGeneracion.copiarIndividuo(ind);	
 			}
 		}
 		

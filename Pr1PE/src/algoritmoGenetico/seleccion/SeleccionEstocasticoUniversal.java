@@ -43,7 +43,7 @@ public class SeleccionEstocasticoUniversal extends Seleccion {
 		for(int i = 0; i < ind.length; i++)
 		{
 			while(prob.get(j) < r) {j++;}
-			copiarIndividuo(ind[j], aux[i]);
+			aux[i].copiarIndividuo(ind[j]);
 			r += c;
 		}
 	}

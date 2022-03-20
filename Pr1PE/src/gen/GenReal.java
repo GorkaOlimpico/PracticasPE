@@ -17,6 +17,6 @@ public class GenReal extends Gen {
 	}
 	
 	public void setAlelo(int pos, Object o) {
-		alelo.set(0, o);
+		alelo.set(0, (double) o);
 	}
 }

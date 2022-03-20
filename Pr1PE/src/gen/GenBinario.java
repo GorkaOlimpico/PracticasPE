@@ -13,4 +13,10 @@ public class GenBinario extends Gen{
 			this.alelo.add(randomNumber.nextBoolean());
 		}
 	}
+
+	@Override
+	public void setAlelo(int pos, Object o) {
+		this.alelo.set(pos, (boolean) o);
+		
+	}
 }
