@@ -8,6 +8,7 @@ import algoritmoGenetico.mutacion.Mutacion;
 import algoritmoGenetico.seleccion.Seleccion;
 import gui.MainFrame;
 import individuos.Individuo;
+import individuos.IndividuoFuncion1;
 
 public class AlgoritmoGenetico {
 
@@ -50,6 +51,8 @@ public class AlgoritmoGenetico {
 	}
 
 	public void run() {
+	
+		
 		// Inicializo elMejor con el primer individuo de la poblacion
 		poblacion = creaPoblacion(problema, tam_pob);
 		ordenarPoblacion();
@@ -177,6 +180,7 @@ public class AlgoritmoGenetico {
 		int x = 0;
 		for(double fenotipo:elMejor.getFenotipo()) {
 			sol += "X" + x + " = " + fenotipo + ", ";
+			x++;
 		}
 
 		sol += "Valor de la función: " + elMejor.getFitness();
@@ -227,7 +231,7 @@ public class AlgoritmoGenetico {
 		double media = 0;
 		double fitness;
 		Individuo elMejorGeneracion = creaPoblacion(problema,(int) 1)[0];
-		elMejorGeneracion.copiarIndividuo(poblacion[0]);
+		elMejorGeneracion.copiarIndividuo(poblacion[0]); // Aquí selecciona el mejor de la generación
 		//int max_aux = 0;
 		//for(int i = 0; i < poblacion.length; i++)
 		
@@ -236,25 +240,23 @@ public class AlgoritmoGenetico {
 			fitness = ind.getFitness();
 			media += fitness;
 			
-			//Como se ordena siempre antes de llamar a evalucion, poblacion[0] va a ser el mejor individuo de la generacion
-//			if(elMejor.max())
-//			{
-//				if(fitness > poblacion[max_aux].getFitness()) 
-//					max_aux = i;	
-//			}
-//			else if(fitness < poblacion[max_aux].getFitness()) 
-//				max_aux = i;
 		}
 		media = media / poblacion.length;
 //		elMejorGeneracion.copiarIndividuo(poblacion[max_aux]);
 		
 		if(elMejor.max())
 		{
-			if(elMejorGeneracion.getFitness() > elMejor.getFitness()) 
+			if(elMejorGeneracion.getFitness() > elMejor.getFitness()) {
 				elMejor = elMejorGeneracion;
+				//System.out.println("fenotipo 0: " + elMejor.fenotipo.get(0));
+				//System.out.println("fenotipo 1: " + elMejor.fenotipo.get(1));
+			}
 		}
-		else if(elMejorGeneracion.getFitness() < elMejor.getFitness()) 
+		else if(elMejorGeneracion.getFitness() < elMejor.getFitness()) {
 				elMejor = elMejorGeneracion;
+				//System.out.println("fenotipo 0: " + elMejor.fenotipo.get(0));
+				//System.out.println("fenotipo 1: " + elMejor.fenotipo.get(1));
+		}
 		
 		mejoresGlobales[generacionActual] = elMejor.getFitness();
 		mejoresGeneracion[generacionActual] = elMejorGeneracion.getFitness();

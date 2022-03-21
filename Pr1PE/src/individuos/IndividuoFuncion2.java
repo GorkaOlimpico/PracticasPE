@@ -51,7 +51,7 @@ public class IndividuoFuncion2 extends Individuo {
 		return sum1 * sum2;
 	}
 	
-	protected double getFenotipo(int i)
+	public double getFenotipo(int i)
 	{
 		double fenotipo = 0;
 		int potencia = 1;
@@ -67,6 +67,7 @@ public class IndividuoFuncion2 extends Individuo {
 			fenotipo += potencia * alelo;
 			potencia *= 2;
 		}
+
 		return ((fenotipo * valorError) + min.get(i)) % (max.get(i) - min.get(i));
 	}
 

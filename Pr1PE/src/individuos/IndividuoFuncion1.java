@@ -13,8 +13,7 @@ public class IndividuoFuncion1 extends Individuo {
 	// f(x1 , x2) = 21.5 + x1.sen(4π x1)+x2.sen(20π x2) 
 	// donde x1∈ [-3.0,12.1] x2∈ [4.1,5.8]
 	
-	// Representación de IndividuoFuncion1:
-	// 
+
 	private final static String type = "1"; 
 	
 	public IndividuoFuncion1()
@@ -53,7 +52,7 @@ public class IndividuoFuncion1 extends Individuo {
 		return 21.5 + fenotipo.get(0) * Math.sin(4 * Math.PI * fenotipo.get(0)) + fenotipo.get(1) * Math.sin(20 * Math.PI * fenotipo.get(1));
 	}
 	
-	protected double getFenotipo(int i)
+	public double getFenotipo(int i)
 	{
 		double fenotipo = 0;
 		int potencia = 1;
@@ -69,8 +68,30 @@ public class IndividuoFuncion1 extends Individuo {
 			fenotipo += potencia * alelo;
 			potencia *= 2;
 		}
-		return ((fenotipo * valorError) + min.get(i)) % (max.get(i) - min.get(i));
+
+		double valor = ((fenotipo * valorError) + min.get(i)) % (max.get(i) - min.get(i));
+		
+		/*
+		System.out.println("fenotipo valor: " + fenotipo);
+		System.out.println("Valor error:" + valorError);
+		System.out.println("minimo: "+ min.get(i));
+		System.out.println("max: "+ max.get(i));
+		
+		System.out.println("fenotipo: " + i);
+		System.out.println("Valor: " + valor);
+		System.out.println("---");
+		*/
+		
+		if(i == 0 && (valor>max.get(i)||valor<min.get(i))) {
+			System.out.println("Error en 0");
+		}
+		if(i == 1 && (valor>max.get(i)||valor<min.get(i))) {
+			System.out.println("Error en 1");
+		}
+		return valor;
 	}
+	
+	
 	
 	public Cruce[] getCruces()
 	{

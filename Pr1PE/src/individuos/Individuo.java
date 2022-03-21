@@ -13,7 +13,7 @@ public abstract class Individuo {
 	protected List<Gen> genes;
 	protected List<Double> min;
 	protected List<Double> max;
-	protected List<Double> fenotipo;
+	public List<Double> fenotipo;
 	protected double valor;
 	protected double valorError;
 	protected String id;  
@@ -26,6 +26,7 @@ public abstract class Individuo {
 		max = new ArrayList<>();
 		fenotipo = new ArrayList<>();
 	}
+	
 	
 	public double getMax(int i) {return max.get(i);}
 	
@@ -40,7 +41,7 @@ public abstract class Individuo {
 		return valor;
 	}
 	
-	protected abstract double getFenotipo(int i);
+	public abstract double getFenotipo(int i);
 	
 	public abstract Cruce[] getCruces();
 	
@@ -112,8 +113,9 @@ public abstract class Individuo {
 		for(int i = 0; i < genes.size(); i++)
 			genes.get(i).copiarGen(ind.getGenes().get(i));
 		recalcularFenotipo();
-		if(valor == ind.getFitness()) //Se ha copiado bien
-			System.out.println("Si");
+		if(valor == ind.getFitness()) {//Se ha copiado bien
+			//System.out.println("Si");
+		}
 		else
 			System.out.println("No"); //No se ha copiado bien
 	}

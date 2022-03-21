@@ -46,7 +46,7 @@ public class IndividuoFuncion4Real extends Individuo {
 	}
 
 	@Override
-	protected double getFenotipo(int i) {
+	public double getFenotipo(int i) {
 		return ((double) genes.get(i).getAlelo(0)) % (max.get(0) - min.get(0)) + min.get(0);
 	}
 	

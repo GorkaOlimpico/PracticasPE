@@ -51,12 +51,12 @@ public class IndividuoFuncion4Bin extends Individuo {
 		return -sum;
 	}
 	
-	protected double getFenotipo(int i)
+	public double getFenotipo(int i)
 	{
 		double fenotipo = 0;
 		int potencia = 1;
 		int alelo;
-		
+
 		for(int j = genes.get(i).getLongitud() - 1; j >= 0; j--)
 		{
 			if((boolean) genes.get(i).getAlelo(j))
