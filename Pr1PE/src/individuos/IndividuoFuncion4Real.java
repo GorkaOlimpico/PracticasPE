@@ -47,7 +47,14 @@ public class IndividuoFuncion4Real extends Individuo {
 
 	@Override
 	public double getFenotipo(int i) {
-		return ((double) genes.get(i).getAlelo(0)) % (max.get(0) - min.get(0)) + min.get(0);
+		/*
+		double valor = min.get(0) + (double) genes.get(i).getAlelo(0)*((max.get(0) - min.get(0))/(Math.pow(2,genes.get(i).getLongitud()) - 1));
+
+		double valor2 = ((double) genes.get(i).getAlelo(0)) % (max.get(0) - min.get(0)) + min.get(0);
+		
+		*/
+		
+		return (double) genes.get(i).getAlelo(0);
 	}
 	
 	protected Individuo[] parse(int tam, String[] datos) {

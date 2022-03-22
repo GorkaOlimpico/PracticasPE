@@ -67,7 +67,9 @@ public class IndividuoFuncion4Bin extends Individuo {
 			fenotipo += potencia * alelo;
 			potencia *= 2;
 		}
-		return ((fenotipo * valorError) + min.get(0)) % (max.get(0) - min.get(0));
+		double valor = min.get(0) + fenotipo*((max.get(0) - min.get(0))/(Math.pow(2,genes.get(0).getLongitud()) - 1));
+
+		return valor;
 	}
 
 	public Cruce[] getCruces()

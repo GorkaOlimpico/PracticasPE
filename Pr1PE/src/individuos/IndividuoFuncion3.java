@@ -65,15 +65,9 @@ public class IndividuoFuncion3 extends Individuo {
 			potencia *= 2;
 		}
 
-		double valor = ((fenotipo * valorError)) % (max.get(i) - min.get(i)) + min.get(i);
-		if(i == 0 && (valor>max.get(i)||valor<min.get(i))) {
-			System.out.println("Error en 0");
-		}
-		if(i == 1 && (valor>max.get(i)||valor<min.get(i))) {
-			System.out.println("Error en 1");
-		}
+		double valor = min.get(i) + fenotipo*((max.get(i) - min.get(i))/(Math.pow(2,genes.get(i).getLongitud()) - 1));
+
 		return valor;
-		//return ((fenotipo * valorError) + min.get(i)) % (max.get(i) - min.get(i));
 	}
 
 	public Cruce[] getCruces()
