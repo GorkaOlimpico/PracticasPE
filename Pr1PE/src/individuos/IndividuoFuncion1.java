@@ -15,6 +15,7 @@ public class IndividuoFuncion1 extends Individuo {
 	
 
 	private final static String type = "1"; 
+
 	
 	public IndividuoFuncion1()
 	{
@@ -24,7 +25,9 @@ public class IndividuoFuncion1 extends Individuo {
 	
 	public IndividuoFuncion1(double valorError)
 	{
+		
 		super(valorError);
+		
 		super.id = type;
 		GenBinario aux;
 		Random rand = new Random();
@@ -69,7 +72,7 @@ public class IndividuoFuncion1 extends Individuo {
 			potencia *= 2;
 		}
 
-		double valor = ((fenotipo * valorError) + min.get(i)) % (max.get(i) - min.get(i));
+		double valor = ((fenotipo * valorError)) % (max.get(i) - min.get(i)) + min.get(i);
 		
 		/*
 		System.out.println("fenotipo valor: " + fenotipo);
@@ -88,6 +91,9 @@ public class IndividuoFuncion1 extends Individuo {
 		if(i == 1 && (valor>max.get(i)||valor<min.get(i))) {
 			System.out.println("Error en 1");
 		}
+
+		
+		
 		return valor;
 	}
 	

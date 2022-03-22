@@ -67,8 +67,16 @@ public class IndividuoFuncion2 extends Individuo {
 			fenotipo += potencia * alelo;
 			potencia *= 2;
 		}
-
-		return ((fenotipo * valorError) + min.get(i)) % (max.get(i) - min.get(i));
+		
+		double valor = ((fenotipo * valorError)) % (max.get(i) - min.get(i)) + min.get(i);
+		if(i == 0 && (valor>max.get(i)||valor<min.get(i))) {
+			System.out.println("Error en 0");
+		}
+		if(i == 1 && (valor>max.get(i)||valor<min.get(i))) {
+			System.out.println("Error en 1");
+		}
+		return valor;
+		//return ((fenotipo * valorError) + min.get(i)) % (max.get(i) - min.get(i));
 	}
 
 	public Cruce[] getCruces()
