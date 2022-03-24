@@ -8,7 +8,7 @@ import algoritmoGenetico.mutacion.Mutacion;
 import algoritmoGenetico.seleccion.Seleccion;
 import gui.MainFrame;
 import individuos.Individuo;
-import individuos.IndividuoFuncion1;
+import individuos.Pair;
 
 public class AlgoritmoGenetico {
 
@@ -18,11 +18,12 @@ public class AlgoritmoGenetico {
 	private Individuo elMejor;
 	private double prob_cruce;
 	private double prob_mutacion;
-	private double error_val;
+	private double error_val;			//Practica 1
 	private double elite;
+	private String tEspera, TEL, vuelos; 	//Practica 2	//TODO hacer que se escriba en la GUI el nombre del archivo
 	
 	private String problema;
-	private int num_variables;
+	private int num_variables;			//Practica 1
 	
 	private double[] mejoresGeneracion;
 	private double[] mejoresGlobales;
@@ -33,21 +34,45 @@ public class AlgoritmoGenetico {
 	private Cruce cruce;
 	private Mutacion mutacion;
 		
-	public AlgoritmoGenetico() {// Aquí valores por defecto
-		tam_pob = 100;
-		num_max_gen = 100;
-		prob_cruce = 60;
-		prob_mutacion = 5;
-		error_val = 0.001;
-		elite= 2;
-		num_variables = 2; 
-		
-		generacionActual = 0;
-	}
+//	public AlgoritmoGenetico() {		// Practica 1
+//		tam_pob = 100;
+//		num_max_gen = 100;
+//		prob_cruce = 60;
+//		prob_mutacion = 5;
+//		error_val = 0.001;
+//		elite= 2;
+//		num_variables = 2; 
+//		
+//		generacionActual = 0;
+//	}
 	
-	public Individuo[] creaPoblacion(String problema, int tam) {		
+	public AlgoritmoGenetico() {		// Practica 2
+	tam_pob = 100;
+	num_max_gen = 100;
+	prob_cruce = 60;
+	prob_mutacion = 5;
+	elite= 2;
+
+	tEspera = "tEspera.txt";
+	TEL = "TEL.txt";
+	vuelos = "vuelos.txt";
+	
+	generacionActual = 0;
+}
+	
+//	public Individuo[] creaPoblacion(String problema, int tam) {		//Practica 1
+//		this.problema = problema;
+//		return Individuo.seleccionarIndividuo(tam, new Object[]{problema, error_val, num_variables});
+//	}
+	
+	public Individuo[] creaPoblacion(String problema, int tam) {		//Practica 2
+		List<Pair<Integer, String>> vuelos = new ArrayList<>();			//Tipo de vuelo: W = 0, G = 1, P = 2; Nombre
+		List<List<Double>> TEL = new ArrayList<>();
+		double[][] tEspera = new double[3][3];
+		//TODO leer ficheros y rellenar listas
+		//TODO ver si se lee aqui o hacer la variable global y que se lea en el set al cambiar el nombre
 		this.problema = problema;
-		return Individuo.seleccionarIndividuo(tam, new String[]{problema, Double.toString(error_val), Integer.toString(num_variables)});
+		return Individuo.seleccionarIndividuo(tam, new Object[]{problema, vuelos, TEL, tEspera});
 	}
 
 	public void run() {
@@ -121,7 +146,7 @@ public class AlgoritmoGenetico {
 	public int getMaxGen() {
 		return num_max_gen;
 	}
-	public double getErrorVal() {
+	public double getErrorVal() {	//Practica 1
 		return error_val;
 	}
 	public double getProbCruce() {
@@ -149,7 +174,7 @@ public class AlgoritmoGenetico {
 	public void setMaxGen(int maxGen) {
 		num_max_gen = maxGen;
 	}
-	public void setErrorVal(double errorVal) {
+	public void setErrorVal(double errorVal) {	//Practica 1
 		error_val = errorVal;
 	}
 	public void setProbCruce(double probCruce) {
@@ -190,7 +215,7 @@ public class AlgoritmoGenetico {
 		return sol;
 	}
 	
-	public void setVariables(int num) {
+	public void setVariables(int num) {			//Practica 1
 		num_variables = num;
 	}
 	

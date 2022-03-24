@@ -12,7 +12,6 @@ public class IndividuoFuncion4Real extends Individuo {
 	
 	public IndividuoFuncion4Real()
 	{
-		super(0);
 		super.id = type;
 	}
 	
@@ -58,16 +57,16 @@ public class IndividuoFuncion4Real extends Individuo {
 		return valor;
 	}
 	
-	protected Individuo[] parse(int tam, String[] datos) {
+	protected Individuo[] parse(int tam, Object[] datos) {
 		IndividuoFuncion4Real[] ind = null;
-		if(datos[0] == id)
+		if((String) datos[0] == id)
 		{
 			ind = new IndividuoFuncion4Real[tam];
 			if(datos.length == 1)
 				ind[0] = new IndividuoFuncion4Real();
 			else
 				for(int i = 0; i < tam; i++)
-					ind[i] = new IndividuoFuncion4Real(Double.parseDouble(datos[1]), Integer.parseInt(datos[2]));
+					ind[i] = new IndividuoFuncion4Real((double) datos[1], (int) datos[2]);
 		}
 		return ind;
 	}

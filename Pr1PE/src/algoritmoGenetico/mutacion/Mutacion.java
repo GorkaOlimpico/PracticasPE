@@ -19,14 +19,6 @@ public abstract class Mutacion implements Cloneable {
 		return mutacionBin;
 	}
 	
-	public static String[] getMutacionesBinId()
-	{
-		String[] s = new String[mutacionBin.length];
-		for(int i = 0; i < s.length; i++)
-			s[i] = mutacionBin[i].getId();
-		return s;
-	}
-	
 	private static Mutacion[] mutacionReal= {
 			new MutacionUniforme(),
 	};
@@ -36,15 +28,19 @@ public abstract class Mutacion implements Cloneable {
 		return mutacionReal;
 	}
 	
-	public static String[] getMutacionesRealId()
+	private static Mutacion[] mutacionPr2= {
+			new MutacionInsercion(),
+			new MutacionIntercambio(),
+			new MutacionInversion(),
+			new MutacionHeuristica(),
+	};
+	
+	public static Mutacion[] getMutacionesPr2()
 	{
-		String[] s = new String[mutacionReal.length];
-		for(int i = 0; i < s.length; i++)
-			s[i] = mutacionReal[i].getId();
-		return s;
+		return mutacionPr2;
 	}
 	
-	protected String getId()
+	public String getId()
 	{
 		return id;
 	}

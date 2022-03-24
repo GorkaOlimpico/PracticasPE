@@ -37,6 +37,11 @@ public class SeleccionRuleta extends Seleccion {
 		for(int i = 1; i < ind.length; i++)
 			prob.set(i, (prob.get(i) / sum) + prob.get(i - 1));
 		
+		ruleta(ind, aux, prob);
+	}
+	
+	protected void ruleta(Individuo[] ind, Individuo[] aux, List<Double> prob)
+	{
 		Random rand = new Random();
 		int j;
 		double r;

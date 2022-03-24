@@ -27,6 +27,14 @@ public abstract class Individuo {
 		fenotipo = new ArrayList<>();
 	}
 	
+	public Individuo()
+	{
+		genes = new ArrayList<>();
+		min = new ArrayList<>();
+		max = new ArrayList<>();
+		fenotipo = new ArrayList<>();
+	}
+	
 	
 	public double getMax(int i) {return max.get(i);}
 	
@@ -47,17 +55,7 @@ public abstract class Individuo {
 	
 	public abstract Mutacion[] getMutaciones();
 	
-	public static String[] getCrucesId()
-	{
-		return null;
-	}
-	
-	public static String[] getMutacionesId()
-	{
-		return null;
-	}
-	
-	private static Individuo[] individuos= {
+	private static Individuo[] individuos= { //Practica 1
 			new IndividuoFuncion1(),
 			new IndividuoFuncion2(),
 			new IndividuoFuncion3(),
@@ -65,21 +63,25 @@ public abstract class Individuo {
 			new IndividuoFuncion4Real(),
 	};
 	
+//	private static Individuo[] individuos= { //Practica 2
+//			new IndividuoPr2(),
+//	};
+	
 	public static String[] getStrings()
 	{
-		String[] s = new String[5];
+		String[] s = new String[individuos.length];
 		for(int i = 0; i < s.length; i++)
 			s[i] = individuos[i].getId();
 		return s;
 	}
 	
-	protected String getId() {
+	public String getId() {
 		return id;
 	}
 
 
-	public static Individuo[] seleccionarIndividuo(int tam, String[] datos) //datos = id, valorError, n (si necesario)
-	{
+	public static Individuo[] seleccionarIndividuo(int tam, Object[] datos) //datos = id, valorError, n (si necesario) 	Practica 1
+	{																		//datos = id, vuelos, TEL, tEspera			Practica 2
 		Individuo ind[] = null;
 		if(datos.length > 0)
 			for(int i = 0; i < individuos.length && ind == null; i++)
@@ -89,7 +91,7 @@ public abstract class Individuo {
 		return ind;
 	}
 	
-	protected abstract Individuo[] parse(int tam, String[] datos);
+	protected abstract Individuo[] parse(int tam, Object[] datos);
 
 	public List<Gen> getGenes() {
 		return genes;

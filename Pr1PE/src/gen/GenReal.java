@@ -7,6 +7,10 @@ public class GenReal extends Gen {
 	public GenReal() {
 		super(1);
 	}
+	
+	public GenReal(int longitud) {
+		super(longitud);
+	}
 
 	public void initializeGen(Random randomNumber, double max, double min) {
 		this.alelo.add(randomNumber.nextDouble() * (max - min));

@@ -11,7 +11,6 @@ public class IndividuoFuncion2 extends Individuo {
 	
 	public IndividuoFuncion2()
 	{
-		super(0);
 		super.id = type;
 	}
 	
@@ -84,26 +83,16 @@ public class IndividuoFuncion2 extends Individuo {
 		return Mutacion.getMutacionesBin();
 	}
 	
-	public static String[] getCrucesId()
-	{
-		return Cruce.getCrucesBinId();
-	}
-	
-	public static String[] getMutacionesId()
-	{
-		return Mutacion.getMutacionesBinId();
-	}
-	
-	protected Individuo[] parse(int tam, String[] datos) {
+	protected Individuo[] parse(int tam, Object[] datos) {
 		IndividuoFuncion2[] ind = null;
-		if(datos[0] == id)
+		if((String) datos[0] == id)
 		{
 			ind = new IndividuoFuncion2[tam];
 			if(datos.length == 1)
 				ind[0] = new IndividuoFuncion2();
 			else
 				for(int i = 0; i < tam; i++)
-					ind[i] = new IndividuoFuncion2(Double.parseDouble(datos[1]));
+					ind[i] = new IndividuoFuncion2((double) datos[1]);
 		}
 		return ind;
 	}

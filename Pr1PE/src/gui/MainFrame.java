@@ -81,7 +81,7 @@ public class MainFrame extends JFrame {
 		num.setVisible(false);
 		num_var.setVisible(false);
 		
-		ind = Individuo.seleccionarIndividuo(1, new String[] {opciones[problema.getSelectedIndex()]})[0];
+		ind = Individuo.seleccionarIndividuo(1, new Object[] {opciones[problema.getSelectedIndex()]})[0];
 		// TODO creo que no se está creando bien el individuo
 		
 		problema.addActionListener(new ActionListener() {
@@ -95,7 +95,7 @@ public class MainFrame extends JFrame {
 					num.setVisible(false);
 					num_var.setVisible(false);
 				}
-				ind = Individuo.seleccionarIndividuo(1, new String[] {opciones[problema.getSelectedIndex()]})[0];
+				ind = Individuo.seleccionarIndividuo(1, new Object[] {opciones[problema.getSelectedIndex()]})[0];
 				panelCentral.setLeftComponent(creaFormulario());
 			}
 		});

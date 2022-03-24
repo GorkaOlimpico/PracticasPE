@@ -13,7 +13,6 @@ public class IndividuoFuncion4Bin extends Individuo {
 	
 	public IndividuoFuncion4Bin()
 	{
-		super(0);
 		super.id = type;
 	}
 	
@@ -82,26 +81,16 @@ public class IndividuoFuncion4Bin extends Individuo {
 		return Mutacion.getMutacionesBin();
 	}
 	
-	public static String[] getCrucesId()
-	{
-		return Cruce.getCrucesBinId();
-	}
-	
-	public static String[] getMutacionesId()
-	{
-		return Mutacion.getMutacionesBinId();
-	}
-	
-	protected Individuo[] parse(int tam, String[] datos) {
+	protected Individuo[] parse(int tam, Object[] datos) {
 		IndividuoFuncion4Bin[] ind = null;
-		if(datos[0] == id)
+		if((String) datos[0] == id)
 		{
 			ind = new IndividuoFuncion4Bin[tam];
 			if(datos.length == 1)
 				ind[0] = new IndividuoFuncion4Bin();
 			else
 				for(int i = 0; i < tam; i++)
-					ind[i] = new IndividuoFuncion4Bin(Double.parseDouble(datos[1]), Integer.parseInt(datos[2]));
+					ind[i] = new IndividuoFuncion4Bin((double) datos[1], (int) datos[2]);
 		}
 		return ind;
 	}

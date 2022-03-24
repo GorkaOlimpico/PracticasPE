@@ -21,14 +21,6 @@ public abstract class Cruce implements Cloneable{
 		return crucesBin;
 	}
 	
-	public static String[] getCrucesBinId()
-	{
-		String[] s = new String[crucesBin.length];
-		for(int i = 0; i < s.length; i++)
-			s[i] = crucesBin[i].getId();
-		return s;
-	}
-	
 	private static Cruce[] crucesReal= {
 			new CruceMonopuntoReal(),
 			new CruceDiscretoUniforme(),
@@ -41,15 +33,20 @@ public abstract class Cruce implements Cloneable{
 		return crucesReal;
 	}
 	
-	public static String[] getCrucesRealId()
+	private static Cruce[] crucesPr2= {
+			new CrucePMX(),
+			new CruceOX(),
+			new CruceOXPP(),
+			new CruceCX(),
+			new CruceCO(),
+	};
+	
+	public static Cruce[] getCrucesPr2()
 	{
-		String[] s = new String[crucesReal.length];
-		for(int i = 0; i < s.length; i++)
-			s[i] = crucesReal[i].getId();
-		return s;
+		return crucesPr2;
 	}
 	
-	protected String getId()
+	public String getId()
 	{
 		return id;
 	}

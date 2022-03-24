@@ -14,19 +14,12 @@ public abstract class Seleccion implements Cloneable{
 			new SeleccionTorneoDeterministico(),
 			new SeleccionTorneoProbabilistico(),
 			new SeleccionTruncamiento(),
+			new SeleccionRanking(),
 	};
 	
 	public static Seleccion[] getSelecciones()
 	{
 		return selecciones;
-	}
-	
-	public static String[] getSeleccionesId()
-	{
-		String[] s = new String[selecciones.length];
-		for(int i = 0; i < s.length; i++)
-			s[i] = selecciones[i].getId();
-		return s;
 	}
 	
 	protected String getId()
@@ -64,12 +57,10 @@ public abstract class Seleccion implements Cloneable{
 	}
 
 	private void desplazamientoMin(List<Double> prob) {
-		double max = 0;
-		if(prob.get(prob.size() - 1) > 0)
-			max = 1.05 * prob.get(prob.size() - 1);
+		double max = 1.05 * prob.get(prob.size() - 1);
 		for(int i = 0; i < prob.size(); i++)
 		{
-			prob.set(i, - (prob.get(i) - max));
+			prob.set(i, max - prob.get(i));
 		}
 	}
 
