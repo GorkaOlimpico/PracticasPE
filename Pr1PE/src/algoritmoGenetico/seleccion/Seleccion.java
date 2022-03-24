@@ -22,7 +22,7 @@ public abstract class Seleccion implements Cloneable{
 		return selecciones;
 	}
 	
-	protected String getId()
+	public String getId()
 	{
 		return id;
 	}
