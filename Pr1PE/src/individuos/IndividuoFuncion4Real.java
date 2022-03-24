@@ -47,14 +47,15 @@ public class IndividuoFuncion4Real extends Individuo {
 
 	@Override
 	public double getFenotipo(int i) {
-		/*
-		double valor = min.get(0) + (double) genes.get(i).getAlelo(0)*((max.get(0) - min.get(0))/(Math.pow(2,genes.get(i).getLongitud()) - 1));
-
-		double valor2 = ((double) genes.get(i).getAlelo(0)) % (max.get(0) - min.get(0)) + min.get(0);
-		
-		*/
-		
-		return (double) genes.get(i).getAlelo(0);
+		// Hay que evitar que los cruces o mutaciones saquen del rango permitido
+		double valor = (double) genes.get(i).getAlelo(0);
+		if(valor > max.get(0)) {
+			valor = max.get(0);
+		}
+		else if (valor < min.get(0)) {
+			valor = min.get(0);
+		}
+		return valor;
 	}
 	
 	protected Individuo[] parse(int tam, String[] datos) {
