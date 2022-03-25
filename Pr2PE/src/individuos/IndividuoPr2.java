@@ -45,8 +45,44 @@ public class IndividuoPr2 extends Individuo {
 
 	@Override
 	public double getValor() {
-		// TODO Auto-generated method stub
-		return 0;
+		asignarPista();
+		double suma = 0;
+		int min;
+		for(int i = 0; i < solucion.size(); i++)
+		{
+			min = 0;
+			for(int j = 1; j < solucion.get(i).size();j++)
+				if(solucion.get(i).get(j).getSecond() < solucion.get(i).get(min).getSecond())
+					min = j;
+			suma += solucion.get(i).get(min).getSecond();
+		}
+		return suma;
+	}
+	
+	private void asignarPista()
+	{
+		//TODO asignar a cada vuelo la pista de aterrizaje y su TLA
+		double min, aux;
+		int pos;
+		for(int i = 0; i < genes.get(0).getLongitud(); i++)
+		{
+			min = Double.MAX_VALUE;
+			pos = 0;
+			for(int j = 0; j < TEL.size(); j++)
+			{
+				aux = 0;
+				if(solucion.get(j).size() > 0)
+					aux += tEspera[vuelos.get(solucion.get(j).get(solucion.get(j).size() - 1).getFirst()).getFirst()][vuelos.get((int) genes.get(0).getAlelo(i)).getFirst()];
+				aux += TEL.get(j).get(i);
+				if(aux < min)
+				{
+					min = aux;
+					pos = j;
+				}
+			}
+			Pair<Integer, Double> par = new Pair<Integer, Double>((int) genes.get(0).getAlelo(i), min);
+			solucion.get(pos).add(par);
+		}
 	}
 
 	@Override
