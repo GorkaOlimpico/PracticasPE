@@ -5,9 +5,7 @@ import java.util.List;
 
 import algoritmoGenetico.cruce.Cruce;
 import algoritmoGenetico.mutacion.Mutacion;
-import algoritmoGenetico.mutacion.MutacionBasica;
 import gen.Gen;
-import gen.GenBinario;
 
 public abstract class Individuo {
 	protected List<Gen> genes;
@@ -55,17 +53,9 @@ public abstract class Individuo {
 	
 	public abstract Mutacion[] getMutaciones();
 	
-	private static Individuo[] individuos= { //Practica 1
-			new IndividuoFuncion1(),
-			new IndividuoFuncion2(),
-			new IndividuoFuncion3(),
-			new IndividuoFuncion4Bin(),
-			new IndividuoFuncion4Real(),
+	private static Individuo[] individuos= { 
+			new IndividuoPr2(),
 	};
-	
-//	private static Individuo[] individuos= { //Practica 2
-//			new IndividuoPr2(),
-//	};
 	
 	public static String[] getStrings()
 	{
@@ -80,8 +70,8 @@ public abstract class Individuo {
 	}
 
 
-	public static Individuo[] seleccionarIndividuo(int tam, Object[] datos) //datos = id, valorError, n (si necesario) 	Practica 1
-	{																		//datos = id, vuelos, TEL, tEspera			Practica 2
+	public static Individuo[] seleccionarIndividuo(int tam, Object[] datos) 	//datos = id, vuelos, TEL, tEspera
+	{																					
 		Individuo ind[] = null;
 		if(datos.length > 0)
 			for(int i = 0; i < individuos.length && ind == null; i++)
@@ -121,4 +111,6 @@ public abstract class Individuo {
 		else
 			System.out.println("No"); //No se ha copiado bien
 	}
+	
+	public abstract String solutionToString();
 }

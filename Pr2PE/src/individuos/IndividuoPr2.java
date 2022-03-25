@@ -61,7 +61,6 @@ public class IndividuoPr2 extends Individuo {
 	
 	private void asignarPista()
 	{
-		//TODO asignar a cada vuelo la pista de aterrizaje y su TLA
 		double min, aux;
 		int pos;
 		for(int i = 0; i < genes.get(0).getLongitud(); i++)
@@ -118,5 +117,41 @@ public class IndividuoPr2 extends Individuo {
 			}
 		}
 		return ind;
+	}
+
+	@Override
+	public String solutionToString() {
+		String s = "|";;
+		for(int i = 0; i < solucion.size(); i++)
+			s += String.format("{0,9}Pista {1,2}{2,9}|", "", i + 1, "");	//26 caracteres por pista
+		s += "|\n|";
+		
+		for(int i = 0; i < solucion.size(); i++)
+			s += String.format("{0,2}Vuelo{1,3}Nombre{2,4}TLA{3,3}|,", "", "", "", "");
+		s += "|\n|";
+		
+		int i = 0;
+		boolean continuar = true;
+		while(continuar)
+		{
+			continuar = false;
+			for(int j = 0; j < solucion.size(); j++)
+			{
+				if(i < solucion.get(j).size())
+				{
+					continuar = true;
+					s += String.format("{0,2}{1,3}{2,4}{3,8}{4,3}{5,4}{6,2},", "", 
+							solucion.get(j).get(i).getFirst(),  "", 
+							vuelos.get(solucion.get(j).get(i).getFirst()).getSecond(), "",
+							solucion.get(j).get(i).getSecond(), "");
+				}
+				else
+					s += String.format("{0,26}", "");
+				s += "|\n";
+			}
+			i++;
+		}
+		//TODO comprobar que se muestra correctamente
+		return s;
 	}
 }

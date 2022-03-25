@@ -33,19 +33,6 @@ public abstract class Cruce implements Cloneable{
 		return crucesReal;
 	}
 	
-	private static Cruce[] crucesPr2= {
-			new CrucePMX(),
-			new CruceOX(),
-			new CruceOXPP(),
-			new CruceCX(),
-			new CruceCO(),
-	};
-	
-	public static Cruce[] getCrucesPr2()
-	{
-		return crucesPr2;
-	}
-	
 	public String getId()
 	{
 		return id;

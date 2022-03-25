@@ -18,12 +18,10 @@ public class AlgoritmoGenetico {
 	private Individuo elMejor;
 	private double prob_cruce;
 	private double prob_mutacion;
-	private double error_val;			//Practica 1
 	private double elite;
-	private String tEspera, TEL, vuelos; 	//Practica 2	//TODO hacer que se escriba en la GUI el nombre del archivo
+	private String tEspera, TEL, vuelos; 	//TODO hacer que se escriba en la GUI el nombre del archivo
 	
 	private String problema;
-	private int num_variables;			//Practica 1
 	
 	private double[] mejoresGeneracion;
 	private double[] mejoresGlobales;
@@ -35,26 +33,22 @@ public class AlgoritmoGenetico {
 	private Mutacion mutacion;
 		
 	
-	public AlgoritmoGenetico() {		// Practica 2
-	tam_pob = 100;
-	num_max_gen = 100;
-	prob_cruce = 60;
-	prob_mutacion = 5;
-	elite= 2;
-
-	tEspera = "tEspera.txt";
-	TEL = "TEL.txt";
-	vuelos = "vuelos.txt";
+	public AlgoritmoGenetico() 
+	{		
+		tam_pob = 100;
+		num_max_gen = 100;
+		prob_cruce = 60;
+		prob_mutacion = 5;
+		elite= 2;
 	
-	generacionActual = 0;
-}
+		tEspera = "tEspera.txt";
+		TEL = "TEL.txt";
+		vuelos = "vuelos.txt";
+		
+		generacionActual = 0;
+	}
 	
-//	public Individuo[] creaPoblacion(String problema, int tam) {		//Practica 1
-//		this.problema = problema;
-//		return Individuo.seleccionarIndividuo(tam, new Object[]{problema, error_val, num_variables});
-//	}
-	
-	public Individuo[] creaPoblacion(String problema, int tam) {		//Practica 2
+	public Individuo[] creaPoblacion(String problema, int tam) {		
 		List<Pair<Integer, String>> vuelos = new ArrayList<>();			//Tipo de vuelo: W = 0, G = 1, P = 2; Nombre
 		List<List<Double>> TEL = new ArrayList<>();
 		double[][] tEspera = new double[3][3];
@@ -135,9 +129,6 @@ public class AlgoritmoGenetico {
 	public int getMaxGen() {
 		return num_max_gen;
 	}
-	public double getErrorVal() {	//Practica 1
-		return error_val;
-	}
 	public double getProbCruce() {
 		return prob_cruce;
 	}
@@ -162,9 +153,6 @@ public class AlgoritmoGenetico {
 	}
 	public void setMaxGen(int maxGen) {
 		num_max_gen = maxGen;
-	}
-	public void setErrorVal(double errorVal) {	//Practica 1
-		error_val = errorVal;
 	}
 	public void setProbCruce(double probCruce) {
 		prob_cruce = probCruce;
@@ -202,10 +190,6 @@ public class AlgoritmoGenetico {
 		
 		
 		return sol;
-	}
-	
-	public void setVariables(int num) {			//Practica 1
-		num_variables = num;
 	}
 	
 	private void ordenarPoblacion()

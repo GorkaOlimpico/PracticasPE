@@ -257,10 +257,6 @@ public class MainFrame extends JFrame {
 		formulario.update();	
 		
 		// falta comprobar que los datos introducidos son correctos
-		
-		if(problema.getSelectedIndex() == 3 || problema.getSelectedIndex() == 4) {
-			AG.setVariables(Integer.parseInt(num_var.getText()));
-		}
 	
 		AG.setProblema(Individuo.getStrings()[problema.getSelectedIndex()]);
 		
@@ -270,11 +266,8 @@ public class MainFrame extends JFrame {
 	public static Plot2DPanel generaGrafica(double[] mejoresGlobales, double[] mejoresGeneracion, double[] mediaGeneracion) {
 		Plot2DPanel plot = new Plot2DPanel();
 		double num_generaciones[] = new double[mediaGeneracion.length];
-		int i = 0;
-		for(double mejor:mejoresGeneracion) {
+		for(int i = 0; i < mejoresGeneracion.length; i++)
 			num_generaciones[i] = i;
-			i++;
-		}
 		
 		plot.setBorder(BorderFactory.createTitledBorder("Grafica"));
 		plot.setPreferredSize(new Dimension(600,600));

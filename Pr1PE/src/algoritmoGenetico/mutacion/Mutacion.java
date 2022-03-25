@@ -28,18 +28,6 @@ public abstract class Mutacion implements Cloneable {
 		return mutacionReal;
 	}
 	
-	private static Mutacion[] mutacionPr2= {
-			new MutacionInsercion(),
-			new MutacionIntercambio(),
-			new MutacionInversion(),
-			new MutacionHeuristica(),
-	};
-	
-	public static Mutacion[] getMutacionesPr2()
-	{
-		return mutacionPr2;
-	}
-	
 	public String getId()
 	{
 		return id;

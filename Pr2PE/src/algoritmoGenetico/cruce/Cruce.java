@@ -11,28 +11,6 @@ public abstract class Cruce implements Cloneable{
 	
 	public Cruce() {}
 	
-	private static Cruce[] crucesBin= {
-			new CruceMonopuntoBin(),
-			new CruceUniforme(),
-	};
-	
-	public static Cruce[] getCrucesBin()
-	{
-		return crucesBin;
-	}
-	
-	private static Cruce[] crucesReal= {
-			new CruceMonopuntoReal(),
-			new CruceDiscretoUniforme(),
-			new CruceAritmetico(),
-			new CruceBLX(),
-	};
-	
-	public static Cruce[] getCrucesReal()
-	{
-		return crucesReal;
-	}
-	
 	private static Cruce[] crucesPr2= {
 			new CrucePMX(),
 			new CruceOX(),

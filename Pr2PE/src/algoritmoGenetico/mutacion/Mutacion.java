@@ -10,24 +10,6 @@ public abstract class Mutacion implements Cloneable {
 	
 	public Mutacion() {}
 	
-	private static Mutacion[] mutacionBin= {
-			new MutacionBasica(),
-	};
-	
-	public static Mutacion[] getMutacionesBin()
-	{
-		return mutacionBin;
-	}
-	
-	private static Mutacion[] mutacionReal= {
-			new MutacionUniforme(),
-	};
-	
-	public static Mutacion[] getMutacionesReal()
-	{
-		return mutacionReal;
-	}
-	
 	private static Mutacion[] mutacionPr2= {
 			new MutacionInsercion(),
 			new MutacionIntercambio(),
