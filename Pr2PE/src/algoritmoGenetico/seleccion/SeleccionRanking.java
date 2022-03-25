@@ -29,8 +29,9 @@ private final String type = "Ranking";
 		
 		desplazamiento(prob, aux[0].max(), ind);
 
-		for(int i = 0; i < prob.size(); i++)													//TODO no estoy muy seguro de que este bien
-			prob.set(i, (beta - 2 * (beta - 1) * (i - 1) / (prob.size()) - 1) / prob.size()); 	
+		prob.set(0, beta / prob.size()); 
+		for(int i = 1; i < prob.size(); i++)													//TODO no estoy muy seguro de que este bien
+			prob.set(i, ((beta - 2 * (beta - 1) * i / (prob.size()) - 1) / prob.size()) + prob.get(i - 1)); 	
 		
 		SeleccionRuleta ruleta = new SeleccionRuleta();
 		ruleta.ruleta(ind,  aux,  prob);
