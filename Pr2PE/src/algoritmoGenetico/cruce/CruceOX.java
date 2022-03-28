@@ -23,7 +23,7 @@ public class CruceOX extends Cruce {
 		Random rand = new Random();
 		for(int i = 0; i < i1.getGenes().size(); i++)
 		{
-			int ini = rand.nextInt(2 * i1.getGenes().get(i).getLongitud() / 3), fin = rand.nextInt(i1.getGenes().get(i).getLongitud() - ini) + ini;
+			int ini = rand.nextInt(i1.getGenes().get(i).getLongitud()), fin = rand.nextInt(i1.getGenes().get(i).getLongitud() - ini) + ini;
 			
 			OXPP(i1, i, ini, fin);
 			OXPP(i2, i, ini, fin);

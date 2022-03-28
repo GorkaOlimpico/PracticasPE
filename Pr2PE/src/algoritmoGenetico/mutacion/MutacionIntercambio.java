@@ -1,5 +1,7 @@
 package algoritmoGenetico.mutacion;
 
+import java.util.Random;
+
 import individuos.Individuo;
 
 public class MutacionIntercambio extends Mutacion {
@@ -20,8 +22,20 @@ public class MutacionIntercambio extends Mutacion {
 
 	@Override
 	protected void mutarIndividuo(Individuo ind) {
-		// TODO Auto-generated method stub
-
+		Random rand = new Random();
+		int i1, i2;
+		for(int i = 0; i < ind.getGenes().size(); i++)
+		{
+			do
+			{
+				i1 = rand.nextInt(ind.getGenes().get(i).getLongitud());
+				i2 = rand.nextInt(ind.getGenes().get(i).getLongitud());
+			}while(i1 == i2);
+			
+			Object aux = ind.getGenes().get(i).getAlelo(i1);
+			ind.getGenes().get(i).setAlelo(i1, ind.getGenes().get(i).getAlelo(i2));
+			ind.getGenes().get(i).setAlelo(i2, aux);
+		}
 	}
 
 }

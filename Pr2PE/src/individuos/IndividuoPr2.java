@@ -48,13 +48,16 @@ public class IndividuoPr2 extends Individuo {
 		asignarPista();
 		double suma = 0;
 		int min;
-		for(int i = 0; i < solucion.size(); i++)
+		for(int i = 0; i < m; i++)
 		{
-			min = 0;
-			for(int j = 1; j < solucion.get(i).size();j++)
-				if(solucion.get(i).get(j).getSecond() < solucion.get(i).get(min).getSecond())
-					min = j;
-			suma += solucion.get(i).get(min).getSecond();
+			for(int j = 0; j < solucion.get(i).size();j++)
+			{
+				min = 0;									//Minimo TEL para el avion -solucion.get(i).get(j).getFirst()-
+				for(int k = 1; k < m; k++)	
+					if(TEL.get(k).get(solucion.get(i).get(j).getFirst()) < TEL.get(min).get(solucion.get(i).get(j).getFirst()))
+						min = k;
+				suma += Math.pow(solucion.get(i).get(j).getSecond() - TEL.get(i).get(solucion.get(min).get(solucion.get(i).get(j).getFirst()).getFirst()), 2);
+			}
 		}
 		return suma;
 	}
