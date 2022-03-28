@@ -3,10 +3,17 @@ package algoritmoGenetico.cruce;
 import individuos.Individuo;
 
 public class CruceCX extends Cruce {
-
+private final String type = "CX";
+	
+	public CruceCX()
+	{
+		super.id = type;
+	}
+	
 	@Override
 	protected Cruce parse(String id) {
-		// TODO Auto-generated method stub
+		if(id == type)
+			return new CruceCX();
 		return null;
 	}
 

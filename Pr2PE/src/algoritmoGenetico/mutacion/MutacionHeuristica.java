@@ -4,9 +4,17 @@ import individuos.Individuo;
 
 public class MutacionHeuristica extends Mutacion {
 
+	private final String type = "Heuristica";
+	
+	public MutacionHeuristica()
+	{
+		super.id = type;
+	}
+	
 	@Override
 	protected Mutacion parse(String id) {
-		// TODO Auto-generated method stub
+		if(id == type)
+			return new MutacionHeuristica();
 		return null;
 	}
 

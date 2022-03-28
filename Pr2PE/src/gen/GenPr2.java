@@ -27,4 +27,11 @@ public class GenPr2 extends Gen {
 	public void setAlelo(int pos, Object o) {
 		alelo.set(pos, (int) o);
 	}
+
+	@Override
+	public void intercambiarAlelo(int pos, Gen g) {
+		int aux = (int) g.getAlelo(pos);
+		g.setAlelo(pos, (int) alelo.get(pos));
+		setAlelo(pos, aux);
+	}
 }

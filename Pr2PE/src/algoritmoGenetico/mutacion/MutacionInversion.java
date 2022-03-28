@@ -4,9 +4,17 @@ import individuos.Individuo;
 
 public class MutacionInversion extends Mutacion {
 
+	private final String type = "Inversion";
+	
+	public MutacionInversion()
+	{
+		super.id = type;
+	}
+	
 	@Override
 	protected Mutacion parse(String id) {
-		// TODO Auto-generated method stub
+		if(id == type)
+			return new MutacionInversion();
 		return null;
 	}
 

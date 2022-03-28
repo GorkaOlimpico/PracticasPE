@@ -27,4 +27,6 @@ public abstract class Gen {
 		for(int i = 0; i < getLongitud(); i++)
 			setAlelo(i, g.getAlelo(i));
 	}
+	
+	public abstract void intercambiarAlelo(int pos, Gen g);
 }
