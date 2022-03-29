@@ -68,7 +68,14 @@ public class IndividuoFuncion2 extends Individuo {
 		}
 		
 		double valor = min.get(i) + fenotipo*((max.get(i) - min.get(i))/(Math.pow(2,genes.get(i).getLongitud()) - 1));
-
+		
+		if(valor < min.get(i)) {
+			System.out.println("Error min: "+ i);
+		}
+		if(valor > max.get(i)) {
+			System.out.println("Error max: "+ i);
+		}
+		
 		return valor;
 
 	}

@@ -79,6 +79,9 @@ public class AlgoritmoGenetico {
 			
 			generacionActual++;
 			
+			
+			
+			
 			sacarElites(elites);
 			
 			seleccion.select(poblacion, poblacionAux);
@@ -89,6 +92,7 @@ public class AlgoritmoGenetico {
 			
 			ordenarPoblacion();
 			meterElites(elites);
+
 			
 			evaluarPoblacion();
 		}

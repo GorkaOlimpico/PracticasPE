@@ -1,6 +1,7 @@
 package algoritmoGenetico;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import algoritmoGenetico.cruce.Cruce;
@@ -9,6 +10,7 @@ import algoritmoGenetico.seleccion.Seleccion;
 import gui.MainFrame;
 import individuos.Individuo;
 import individuos.Pair;
+
 
 public class AlgoritmoGenetico {
 
