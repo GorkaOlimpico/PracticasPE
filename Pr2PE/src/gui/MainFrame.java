@@ -19,6 +19,7 @@ import algoritmoGenetico.seleccion.*;
 import gui.ConfigPanel.*;
 import gui.ConfigPanel.ConfigListener;
 import individuos.Individuo;
+import individuos.IndividuoPr2;
 
 
 public class MainFrame extends JFrame {
@@ -29,7 +30,9 @@ public class MainFrame extends JFrame {
 	private Individuo ind;
 	private static JTextField solucion;
 	private JTextField num_var;
-	private JComboBox problema;
+	private JTextField tEspera;
+	private JTextField TEL;
+	private JTextField vuelos;
 	private JButton btnEjecutar;
 
 	/**
@@ -67,44 +70,27 @@ public class MainFrame extends JFrame {
 		
 		// Panel superior
 		JPanel panelSuperior = new JPanel();
-		problema = new JComboBox<>();
-		String[] opciones = Individuo.getStrings();
-		for (String op : opciones) {
-			problema.addItem(op);
-		}
 		
-		JLabel prob = new JLabel("Problema");
+		JLabel tEsp = new JLabel("Tiempo de espera: ");
+		tEspera = new JTextField();
+		tEspera.setPreferredSize(new Dimension(100,25));
 		
-		// Num variables
-		JLabel num = new JLabel("Número de variables");
-		num_var = new JTextField();
-		num_var.setPreferredSize(new Dimension(42,25));
-		num.setVisible(false);
-		num_var.setVisible(false);
+		JLabel tel = new JLabel("TEL: ");
+		TEL = new JTextField();
+		TEL.setPreferredSize(new Dimension(100,25));
 		
-		ind = Individuo.seleccionarIndividuo(1, new Object[] {opciones[problema.getSelectedIndex()]})[0];
-		// TODO creo que no se está creando bien el individuo
+		JLabel vue = new JLabel("Vuelos: ");
+		vuelos = new JTextField();
+		vuelos.setPreferredSize(new Dimension(100,25));
 		
-		problema.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (problema.getSelectedIndex() == 3 || problema.getSelectedIndex() == 4) {
-					num.setVisible(true);
-					num_var.setVisible(true);
-				}
-				else {
-					num.setVisible(false);
-					num_var.setVisible(false);
-				}
-				ind = Individuo.seleccionarIndividuo(1, new Object[] {opciones[problema.getSelectedIndex()]})[0];
-				panelCentral.setLeftComponent(creaFormulario());
-			}
-		});
 		
-		panelSuperior.add(num);
-		panelSuperior.add(num_var);
-		panelSuperior.add(prob);
-		panelSuperior.add(problema);
+		panelSuperior.add(tEsp);
+		panelSuperior.add(tEspera);
+		panelSuperior.add(tel);
+		panelSuperior.add(TEL);
+		panelSuperior.add(vue);
+		panelSuperior.add(vuelos);
+		
 		add(panelSuperior, BorderLayout.NORTH);
 		
 		
@@ -127,6 +113,8 @@ public class MainFrame extends JFrame {
 		
 		panelCentral.setRightComponent(plot);
 		
+		// TODO mirar si esto está bien
+		ind = new IndividuoPr2();
 		
 		
 		// Formulario	
@@ -197,12 +185,7 @@ public class MainFrame extends JFrame {
 				"Número de Generaciones", 					     
 				"Número de Generaciones",      
 				"maxGen",  						     
-				1, Integer.MAX_VALUE))							                
-			  .addOption(new DoubleOption<AlgoritmoGenetico>( 
-						"Valor de error", 					     
-						"Valor de error",       
-						"errorVal",  						     
-						0, 0.1))							     
+				1, Integer.MAX_VALUE))							                							     
 			  .addOption(new StrategyOption<AlgoritmoGenetico>(  
 						"Tipo de selección", 					    
 						"Tipo de selección",       
@@ -258,7 +241,9 @@ public class MainFrame extends JFrame {
 		
 		// falta comprobar que los datos introducidos son correctos
 	
-		AG.setProblema(Individuo.getStrings()[problema.getSelectedIndex()]);
+		// Inicializar individuo si hace falta
+		ind = new IndividuoPr2();
+		//AG.setProblema(IndividuoPr2);
 		
 		AG.run();
 	}
