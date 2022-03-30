@@ -112,14 +112,23 @@ public class IndividuoPr2 extends Individuo {
 				ind[0] = new IndividuoPr2();
 			else
 			{
-				List<Pair<Integer, String>> vuelos = (List<Pair<Integer, String>>) datos[1];	//TODO comprobas por si acaso porque sale warning
-				List<List<Double>> TEL = (List<List<Double>>) datos[2];									
-				List<List<Double>> tEspera = (List<List<Double>>) datos[3];
 				for(int i = 0; i < tam; i++)
-					ind[i] = new IndividuoPr2(vuelos, TEL, tEspera);
+					ind[i] = nuevoInd(datos);
 			}
 		}
 		return ind;
+	}
+	
+	public IndividuoPr2 nuevoInd(Object[] datos) {
+		IndividuoPr2 individuo = new IndividuoPr2();
+		
+		List<Pair<Integer, String>> vuelos = (List<Pair<Integer, String>>) datos[1];	//TODO comprobas por si acaso porque sale warning
+		List<List<Double>> TEL = (List<List<Double>>) datos[2];									
+		List<List<Double>> tEspera = (List<List<Double>>) datos[3];
+		
+		individuo = new IndividuoPr2(vuelos, TEL, tEspera);
+		
+		return individuo;
 	}
 
 	@Override

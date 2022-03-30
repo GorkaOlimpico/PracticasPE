@@ -1,13 +1,20 @@
 package algoritmoGenetico.cruce;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import gen.Gen;
 import individuos.Individuo;
 
 public class CruceCO extends Cruce {
 	private final String type = "CO";
+	private List<Integer> lista;
 	
 	public CruceCO()
 	{
 		super.id = type;
+	
 	}
 	
 	@Override
@@ -19,8 +26,72 @@ public class CruceCO extends Cruce {
 
 	@Override
 	protected void cruzarIndividuos(Individuo i1, Individuo i2) {
-		// TODO Auto-generated method stub
-
+		// 1. Codifica. Son listas de posiciones relativas
+		List<Integer> cod1 = codifica(i1);
+		List<Integer> cod2 = codifica(i2);
+		
+		// 2. Cruce Monopunto entre codificados
+		cruzeMonopunto(cod1, cod2);
+		
+		// 3. Decodifica los 2 individuos
+		decodifica(i1, cod1);
+		decodifica(i2, cod2);
+	}
+	
+	public List<Integer> codifica(Individuo i1) {
+		int n = i1.getGenes().size();
+		lista = new ArrayList<Integer>();
+		for(int i=1; i<=n; i++) {
+			lista.add(i);
+		}
+		
+		List<Integer> cod = new ArrayList<Integer>();
+		
+		for(int k=0; k<n; k++) { // recorro la List de alelos(vuelos) y apunto su posición relativa de lista
+			int pos = 0;
+			for(int i= 0; i<n; i++) {
+				if(i1.getpos(k)==lista.get(i)) {
+					pos = i;
+					lista.remove(i);
+				}
+			}
+			cod.add(pos);
+		}
+		return cod;
+	}
+	
+	public void cruzeMonopunto(List<Integer> cod1, List<Integer> cod2) {
+		Random rand = new Random();
+		int aux;
+		for(int i = 0; i < cod1.size(); i++) {
+			for(int j = rand.nextInt(cod1.size()); j < cod1.size(); j++) {
+				aux = cod1.get(j);
+				cod1.remove(j);
+				cod1.add(j, cod2.get(j));
+				cod2.remove(j);
+				cod2.add(j, aux);
+			}
+		}
+		/*
+		Random rand = new Random();
+		List<Gen> g1 = i1.getGenes(), g2 = i2.getGenes();
+		double aux;
+		for(int i = 0; i < g1.size(); i++)
+		{
+			for(int j = rand.nextInt(g1.get(i).getLongitud()); j < g1.get(i).getLongitud(); j++)
+			{
+				aux = (double) g1.get(i).getAlelo(j);
+				g1.get(i).setAlelo(j, g2.get(i).getAlelo(j));
+				g2.get(i).setAlelo(j, aux);
+			}
+		}
+		*/
+	}
+	
+	public void decodifica(Individuo i1, List<Integer> cod1) {
+		for(int i = 0; i<cod1.size(); i++) {
+			i1.getpos(i) = lista.get(cod1.get(i));
+		}
 	}
 
 }
