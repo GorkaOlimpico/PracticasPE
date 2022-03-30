@@ -1,8 +1,10 @@
 package algoritmoGenetico;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Scanner;
 
 import algoritmoGenetico.cruce.Cruce;
 import algoritmoGenetico.mutacion.Mutacion;
@@ -21,7 +23,10 @@ public class AlgoritmoGenetico {
 	private double prob_cruce;
 	private double prob_mutacion;
 	private double elite;
-	private String tEspera, TEL, vuelos; 	//TODO hacer que se escriba en la GUI el nombre del archivo
+	private String s_tEspera, s_TEL, s_vuelos; 	//TODO hacer que se escriba en la GUI el nombre del archivo
+	List<Pair<Integer, String>> vuelos;			//Tipo de vuelo: W = 0, G = 1, P = 2; Nombre
+	List<List<Double>> TEL = new ArrayList<>();
+	List<List<Double>> tEspera;
 	
 	private String problema;
 	
@@ -43,23 +48,134 @@ public class AlgoritmoGenetico {
 		prob_mutacion = 5;
 		elite= 2;
 	
-		tEspera = "tEspera.txt";
-		TEL = "TEL.txt";
-		vuelos = "vuelos.txt";
+		s_tEspera = "tEspera.txt";
+		s_TEL = "TEL.txt";
+		s_vuelos = "vuelos.txt";
+		leerVuelos();
+		leerTEspera();
+		leerTEL();
 		
 		generacionActual = 0;
 	}
 	
 	public Individuo[] creaPoblacion(String problema, int tam) {		
-		List<Pair<Integer, String>> vuelos = new ArrayList<>();			//Tipo de vuelo: W = 0, G = 1, P = 2; Nombre
-		List<List<Double>> TEL = new ArrayList<>();
-		double[][] tEspera = new double[3][3];
-		//TODO leer ficheros y rellenar listas
-		//TODO ver si se lee aqui o hacer la variable global y que se lea en el set al cambiar el nombre
 		this.problema = problema;
 		return Individuo.seleccionarIndividuo(tam, new Object[]{problema, vuelos, TEL, tEspera});
 	}
+	
+	private void leerVuelos()
+	{
+		File fichero = new File(s_vuelos);
+		Scanner s = null;
+		try {
+			s = new Scanner(fichero);
+			vuelos = new ArrayList<>();
+			while (s.hasNextLine()) {
+				String linea = s.nextLine(); 	
+				String nombre = "";
+				int i = 0;
+				while(linea.charAt(i) != ' ')
+				{
+					nombre += linea.charAt(i);
+					i++;
+				}
+				char tipo = linea.charAt(i + 1);
+				i = -1;
+				if(tipo == 'W')							//Tipo de vuelo: W = 0, G = 1, P = 2
+					i = 0;
+				else if(tipo == 'G')							
+					i = 1;
+				else if(tipo == 'P')							
+					i = 2;
+				vuelos.add(new Pair<Integer, String>(i, nombre));
+			}
 
+		} catch (Exception ex) {
+			System.out.println("Mensaje: " + ex.getMessage());
+		} finally {
+			try {
+				if (s != null)
+					s.close();
+			} catch (Exception ex2) {
+				System.out.println("Mensaje 2: " + ex2.getMessage());
+			}
+		}
+	}
+	
+	private void leerTEL()
+	{
+		File fichero = new File(s_TEL);
+		Scanner s = null;
+		try {
+			s = new Scanner(fichero);
+			TEL = new ArrayList<>();
+			while (s.hasNextLine()) {
+				String linea = s.nextLine(); 	
+				String n;
+				int i = 0;
+				TEL.add(new ArrayList<>());
+				while(i < linea.length())
+				{
+					n = "";
+					while(linea.charAt(i) != ' ' && linea.charAt(i) != '\n')
+					{
+						n += linea.charAt(i);
+						i++;
+					}
+					TEL.get(TEL.size() - 1).add(Double.parseDouble(n));
+					i++;
+				}
+			}
+
+		} catch (Exception ex) {
+			System.out.println("Mensaje: " + ex.getMessage());
+		} finally {
+			try {
+				if (s != null)
+					s.close();
+			} catch (Exception ex2) {
+				System.out.println("Mensaje 2: " + ex2.getMessage());
+			}
+		}
+	}
+	
+	private void leerTEspera() 
+	{
+		File fichero = new File(s_tEspera);
+		Scanner s = null;
+		try {
+			s = new Scanner(fichero);
+			tEspera = new ArrayList<>();
+			while (s.hasNextLine()) {
+				String linea = s.nextLine(); 	
+				String n;
+				int i = 0;
+				tEspera.add(new ArrayList<>());
+				while(i < linea.length())
+				{
+					n = "";
+					while(linea.charAt(i) != ' ' && linea.charAt(i) != '\n')
+					{
+						n += linea.charAt(i);
+						i++;
+					}
+					tEspera.get(tEspera.size() - 1).add(Double.parseDouble(n));
+					i++;
+				}
+			}
+
+		} catch (Exception ex) {
+			System.out.println("Mensaje: " + ex.getMessage());
+		} finally {
+			try {
+				if (s != null)
+					s.close();
+			} catch (Exception ex2) {
+				System.out.println("Mensaje 2: " + ex2.getMessage());
+			}
+		}
+	}
+	
 	public void run() {
 	
 		
@@ -176,6 +292,21 @@ public class AlgoritmoGenetico {
 	}
 	public void setProblema(String problema) {
 		this.problema = problema;
+	}
+	public void setVuelos(String s_vuelos)
+	{
+		this.s_vuelos = s_vuelos;
+		leerVuelos();
+	}
+	public void setTEspera(String s_tEspera)
+	{
+		this.s_tEspera = s_tEspera;
+		leerTEspera();
+	}
+	public void setTEL(String s_TEL)
+	{
+		this.s_TEL = s_TEL;
+		leerTEL();
 	}
 	
 	public String generaSolucion() {

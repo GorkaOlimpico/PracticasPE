@@ -9,11 +9,11 @@ public class GenPr2 extends Gen {
 	}
 
 	public void initializeGen(Random randomNumber) {
-		for(int i = 1; i <= long_gen; i++)
+		for(int i = 0; i < long_gen; i++)
 			this.alelo.add(i);
 		
-		int aux, pos1, pos2;
-		for(int i = 0; i < long_gen; i++)
+		int aux, pos1, pos2, n_intercambios = randomNumber.nextInt(long_gen);;
+		for(int i = 0; i < n_intercambios; i++)
 		{
 			pos1 = randomNumber.nextInt(long_gen);
 			pos2 = randomNumber.nextInt(long_gen);

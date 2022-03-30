@@ -15,9 +15,9 @@ public class IndividuoPr2 extends Individuo {
 	private List<List<Pair<Integer, Double>>> solucion; //Pista, (vuelo, TLA)
 	private List<Pair<Integer, String>> vuelos;			//Tipo de vuelo: W = 0, G = 1, P = 2; Nombre
 	private List<List<Double>> TEL;						// m x n
-	private double[][] tEspera;							// m x m
+	private List<List<Double>> tEspera;							
 	
-	public IndividuoPr2(List<Pair<Integer, String>> vuelos, List<List<Double>> TEL, double[][] tEspera) {
+	public IndividuoPr2(List<Pair<Integer, String>> vuelos, List<List<Double>> TEL, List<List<Double>> tEspera) {
 		super.id = type;
 		n = TEL.get(0).size();
 		m = TEL.size();
@@ -74,7 +74,7 @@ public class IndividuoPr2 extends Individuo {
 			{
 				aux = 0;
 				if(solucion.get(j).size() > 0)
-					aux += tEspera[vuelos.get(solucion.get(j).get(solucion.get(j).size() - 1).getFirst()).getFirst()][vuelos.get((int) genes.get(0).getAlelo(i)).getFirst()];
+					aux += tEspera.get(vuelos.get(solucion.get(j).get(solucion.get(j).size() - 1).getFirst()).getFirst()).get(vuelos.get((int) genes.get(0).getAlelo(i)).getFirst());
 				aux += TEL.get(j).get(i);
 				if(aux < min)
 				{
@@ -114,7 +114,7 @@ public class IndividuoPr2 extends Individuo {
 			{
 				List<Pair<Integer, String>> vuelos = (List<Pair<Integer, String>>) datos[1];	//TODO comprobas por si acaso porque sale warning
 				List<List<Double>> TEL = (List<List<Double>>) datos[2];									
-				double[][] tEspera = (double[][]) datos[3];
+				List<List<Double>> tEspera = (List<List<Double>>) datos[3];
 				for(int i = 0; i < tam; i++)
 					ind[i] = new IndividuoPr2(vuelos, TEL, tEspera);
 			}
