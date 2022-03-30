@@ -31,7 +31,7 @@ public class CruceCO extends Cruce {
 		List<Integer> cod2 = codifica(i2);
 		
 		// 2. Cruce Monopunto entre codificados
-		cruzeMonopunto(cod1, cod2);
+		cruceMonopunto(cod1, cod2);
 		
 		// 3. Decodifica los 2 individuos
 		decodifica(i1, cod1);
@@ -60,7 +60,7 @@ public class CruceCO extends Cruce {
 		return cod;
 	}
 	
-	public void cruzeMonopunto(List<Integer> cod1, List<Integer> cod2) {
+	public void cruceMonopunto(List<Integer> cod1, List<Integer> cod2) {
 		Random rand = new Random();
 		int aux;
 		for(int i = 0; i < cod1.size(); i++) {
