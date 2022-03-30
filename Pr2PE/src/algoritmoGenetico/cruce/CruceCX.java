@@ -1,5 +1,7 @@
 package algoritmoGenetico.cruce;
 
+import java.util.List;
+
 import individuos.Individuo;
 import individuos.IndividuoPr2;
 
@@ -20,12 +22,73 @@ private final String type = "CX";
 
 	@Override
 	protected void cruzarIndividuos(Individuo i1, Individuo i2) {
+		for(int j = 0; j < i1.getGenes().size(); j++) { // para varios genes
+			
+		
+			// 1. Inicializo a todo 0s los i3 e i4
+			Individuo i3 = i1;
+			Individuo i4 = i2;
+			
+			for(int i = 0; i < i3.getGenes().get(j).getLongitud(); i++) { 
+				i3.getGenes().get(j).setAlelo(i, 0);
+			}
+			for(int i = 0; i < i4.getGenes().get(j).getLongitud(); i++) { 
+				i4.getGenes().get(j).setAlelo(i, 0);
+			}
+			
+			// 2. Hago un ciclo y paro. Esto con los dos individuos
 
-		Individuo i3 = i1;
-		for(int i = 0; i < i3.getGenes().size(); i++) { // no diferencio entre gen y alelo. Suppongo que seria alelos.size()
-			i3.getGenes()
+			int i = 0;
+			while(!contenidoEn(i2.getGenes().get(j).getAlelo(i),i3.getGenes().get(j).getAlelos())) { //si el i2[i] no está en i3
+				for(int k = 0; k < i1.getGenes().get(j).getLongitud(); k++) { // por cada alelo de i1
+					if(i2.getGenes().get(j).getAlelo(i) == i1.getGenes().get(j).getAlelo(k)) { // si ese alelo == i2[i]
+						i3.getGenes().get(j).setAlelo(k, i1.getGenes().get(j).getAlelo(k)); // lo insertamos en la lista
+						i = k; // nos movemos a la siguiente posicion siguiendo el ciclo
+					}
+				}
+			}
+			
+			i = 0;
+			while(!contenidoEn(i1.getGenes().get(j).getAlelo(i),i4.getGenes().get(j).getAlelos())) { //si el i2[i] no está en i3
+				for(int k = 0; k < i2.getGenes().get(j).getLongitud(); k++) { // por cada alelo de i1
+					if(i1.getGenes().get(j).getAlelo(i) == i2.getGenes().get(j).getAlelo(k)) { // si ese alelo == i2[i]
+						i4.getGenes().get(j).setAlelo(k, i2.getGenes().get(j).getAlelo(k)); // lo insertamos en la lista
+						i = k; // nos movemos a la siguiente posicion siguiendo el ciclo
+					}
+				}
+			}
+			
+			// 3. Por cada posición que haya un 0 coloco en alelo correspondiente
+			
+			for(int k = 0; k < i3.getGenes().get(j).getLongitud(); k++) {
+				if(i3.getGenes().get(j).getAlelo(k) == (Object) 0) {
+					i3.getGenes().get(j).setAlelo(k, i2.getGenes().get(j).getAlelo(k));
+				}
+			}
+			
+			for(int k = 0; k < i4.getGenes().get(j).getLongitud(); k++) {
+				if(i4.getGenes().get(j).getAlelo(k) == (Object) 0) {
+					i4.getGenes().get(j).setAlelo(k, i1.getGenes().get(j).getAlelo(k));
+				}
+			}
+			
+			// 4. i1 ahora es i3, i2 ahora es i4
+			
+			i1 = i3;
+			i2 = i4;
+			//TODO Ojo esto puede dar problemas por los punteros y tal
 		}
-
+	}
+	
+	public boolean contenidoEn(Object o, List<Object> lista) {
+		boolean contenido = false;
+		for(Object objeto : lista) {
+			if(o == objeto) {
+				contenido = true;
+			}
+		}
+		
+		return contenido;
 	}
 
 }

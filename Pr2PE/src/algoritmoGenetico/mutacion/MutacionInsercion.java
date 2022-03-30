@@ -1,5 +1,7 @@
 package algoritmoGenetico.mutacion;
 
+import java.util.Random;
+
 import individuos.Individuo;
 
 public class MutacionInsercion extends Mutacion {
@@ -21,7 +23,8 @@ public class MutacionInsercion extends Mutacion {
 	@Override
 	protected void mutarIndividuo(Individuo ind) {
 		// TODO Auto-generated method stub
-
+		Random rand = new Random();
+		
 	}
 
 }

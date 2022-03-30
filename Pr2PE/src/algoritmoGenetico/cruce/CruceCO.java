@@ -39,23 +39,27 @@ public class CruceCO extends Cruce {
 	}
 	
 	public List<Integer> codifica(Individuo i1) {
-		int n = i1.getGenes().size();
-		lista = new ArrayList<Integer>();
-		for(int i=1; i<=n; i++) {
-			lista.add(i);
-		}
-		
 		List<Integer> cod = new ArrayList<Integer>();
-		
-		for(int k=0; k<n; k++) { // recorro la List de alelos(vuelos) y apunto su posición relativa de lista
-			int pos = 0;
-			for(int i= 0; i<n; i++) {
-				if(i1.getpos(k)==lista.get(i)) {
-					pos = i;
-					lista.remove(i);
-				}
+		for(int j = 0; j < i1.getGenes().size(); j++) { // para varios genes
+			
+			int n = i1.getGenes().get(j).getLongitud();
+			lista = new ArrayList<Integer>();
+			for(int i=1; i<=n; i++) {
+				lista.add(i);
 			}
-			cod.add(pos);
+			
+			
+			
+			for(int k=0; k<n; k++) { // recorro la List de alelos(vuelos) y apunto su posición relativa de lista
+				int pos = 0;
+				for(int i= 0; i<n; i++) {
+					if(i1.getGenes().get(j).getAlelo(k)==lista.get(i)) {
+						pos = i;
+						lista.remove(i);
+					}
+				}
+				cod.add(pos);
+			}
 		}
 		return cod;
 	}
@@ -90,7 +94,7 @@ public class CruceCO extends Cruce {
 	
 	public void decodifica(Individuo i1, List<Integer> cod1) {
 		for(int i = 0; i<cod1.size(); i++) {
-			i1.getpos(i) = lista.get(cod1.get(i));
+			i1.getGenes().get(0).setAlelo(i, lista.get(cod1.get(i)));
 		}
 	}
 

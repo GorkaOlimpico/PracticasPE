@@ -20,6 +20,10 @@ public abstract class Gen {
 		return alelo.get(pos);
 	}
 	
+	public List<Object> getAlelos(){
+		return alelo;
+	}
+	
 	public abstract void setAlelo(int pos, Object o);
 	
 	public void copiarGen(Gen g) //Copia g a this
