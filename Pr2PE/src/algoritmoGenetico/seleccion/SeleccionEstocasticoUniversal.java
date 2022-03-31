@@ -11,7 +11,7 @@ public class SeleccionEstocasticoUniversal extends Seleccion {
 	
 	public SeleccionEstocasticoUniversal()
 	{
-		super.id = type;;
+		super.id = type;
 	}
 	
 	protected Seleccion parse(String id) {
@@ -46,5 +46,9 @@ public class SeleccionEstocasticoUniversal extends Seleccion {
 			aux[i].copiarIndividuo(ind[j]);
 			r += c;
 		}
+	}
+	
+	public String toString() {
+		return "Estocástico Universal";
 	}
 }

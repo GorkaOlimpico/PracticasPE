@@ -53,4 +53,7 @@ public class SeleccionTorneoDeterministico extends Seleccion {
 			aux[i].copiarIndividuo(ind[j]);
 		}
 	}
+	public String toString() {
+		return "Torneo Determinístico";
+	}
 }

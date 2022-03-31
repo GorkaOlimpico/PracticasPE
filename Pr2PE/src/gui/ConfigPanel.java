@@ -875,6 +875,7 @@ public class ConfigPanel<T> extends JPanel {
 				choiceClasses.add(o.getClass());
 				initialChoices.add(o);
 			}
+			
 		}
 		public StrategyOption(String label, String tooltip, Cloneable[] choices) {
 			this(label, tooltip, null, choices);
@@ -883,6 +884,7 @@ public class ConfigPanel<T> extends JPanel {
 		@Override
 		public JComponent getControlComponent() {
 			JComboBox jcb = new JComboBox(new Vector<Object>(initialChoices));
+			
 			jcb.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {

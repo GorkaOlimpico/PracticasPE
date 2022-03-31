@@ -56,7 +56,7 @@ public class MainFrame extends JFrame {
 	 */
 	public MainFrame() {
 		
-		setTitle("Practica 1 PE");
+		setTitle("Practica 2 PE");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1400, 1000);
 
@@ -74,14 +74,18 @@ public class MainFrame extends JFrame {
 		JLabel tEsp = new JLabel("Tiempo de espera: ");
 		tEspera = new JTextField();
 		tEspera.setPreferredSize(new Dimension(100,25));
+		tEspera.setText("tEspera.txt");
+
 		
 		JLabel tel = new JLabel("TEL: ");
 		TEL = new JTextField();
 		TEL.setPreferredSize(new Dimension(100,25));
+		TEL.setText("TEL.txt");
 		
 		JLabel vue = new JLabel("Vuelos: ");
 		vuelos = new JTextField();
 		vuelos.setPreferredSize(new Dimension(100,25));
+		vuelos.setText("vuelos.txt");
 		
 		
 		panelSuperior.add(tEsp);
@@ -167,7 +171,6 @@ public class MainFrame extends JFrame {
 		// aquí necesito tener los arrays con los tipos de cruce, seleccion, etc...
 
 		Seleccion[] tipos_seleccion = Seleccion.getSelecciones();
-		
 		Cruce[] tipos_cruce = ind.getCruces();
 		Mutacion[] tipos_mutacion = ind.getMutaciones();
 		
@@ -218,6 +221,7 @@ public class MainFrame extends JFrame {
 						0, 100))
 
 		  	  .endOptions();
+
 		
 		formulario.setTarget(AG);
 		formulario.initialize();

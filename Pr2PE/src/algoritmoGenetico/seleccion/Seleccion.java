@@ -101,4 +101,5 @@ public abstract class Seleccion implements Cloneable{
 			ind[max] = aux2;
 		}
 	}
+	
 }

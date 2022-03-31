@@ -35,6 +35,9 @@ private final String type = "Ranking";
 		
 		SeleccionRuleta ruleta = new SeleccionRuleta();
 		ruleta.ruleta(ind,  aux,  prob);
-;	}
+	}
 
+	public String toString() {
+		return "Ranking";
+	}
 }

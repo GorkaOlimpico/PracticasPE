@@ -97,5 +97,8 @@ public class CruceCO extends Cruce {
 			i1.getGenes().get(0).setAlelo(i, lista.get(cod1.get(i)));
 		}
 	}
+	public String toString() {
+		return "CO";
+	}
 
 }

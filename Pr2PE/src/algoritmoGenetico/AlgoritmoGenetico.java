@@ -48,6 +48,7 @@ public class AlgoritmoGenetico {
 		prob_mutacion = 5;
 		elite= 2;
 	
+		problema = "Practica 2";
 		s_tEspera = "tEspera.txt";
 		s_TEL = "TEL.txt";
 		s_vuelos = "vuelos.txt";
@@ -63,118 +64,7 @@ public class AlgoritmoGenetico {
 		return Individuo.seleccionarIndividuo(tam, new Object[]{problema, vuelos, TEL, tEspera});
 	}
 	
-	private void leerVuelos()
-	{
-		File fichero = new File(s_vuelos);
-		Scanner s = null;
-		try {
-			s = new Scanner(fichero);
-			vuelos = new ArrayList<>();
-			while (s.hasNextLine()) {
-				String linea = s.nextLine(); 	
-				String nombre = "";
-				int i = 0;
-				while(linea.charAt(i) != ' ')
-				{
-					nombre += linea.charAt(i);
-					i++;
-				}
-				char tipo = linea.charAt(i + 1);
-				i = -1;
-				if(tipo == 'W')							//Tipo de vuelo: W = 0, G = 1, P = 2
-					i = 0;
-				else if(tipo == 'G')							
-					i = 1;
-				else if(tipo == 'P')							
-					i = 2;
-				vuelos.add(new Pair<Integer, String>(i, nombre));
-			}
-
-		} catch (Exception ex) {
-			System.out.println("Mensaje: " + ex.getMessage());
-		} finally {
-			try {
-				if (s != null)
-					s.close();
-			} catch (Exception ex2) {
-				System.out.println("Mensaje 2: " + ex2.getMessage());
-			}
-		}
-	}
 	
-	private void leerTEL()
-	{
-		File fichero = new File(s_TEL);
-		Scanner s = null;
-		try {
-			s = new Scanner(fichero);
-			TEL = new ArrayList<>();
-			while (s.hasNextLine()) {
-				String linea = s.nextLine(); 	
-				String n;
-				int i = 0;
-				TEL.add(new ArrayList<>());
-				while(i < linea.length())
-				{
-					n = "";
-					while(linea.charAt(i) != ' ' && linea.charAt(i) != '\n')
-					{
-						n += linea.charAt(i);
-						i++;
-					}
-					TEL.get(TEL.size() - 1).add(Double.parseDouble(n));
-					i++;
-				}
-			}
-
-		} catch (Exception ex) {
-			System.out.println("Mensaje: " + ex.getMessage());
-		} finally {
-			try {
-				if (s != null)
-					s.close();
-			} catch (Exception ex2) {
-				System.out.println("Mensaje 2: " + ex2.getMessage());
-			}
-		}
-	}
-	
-	private void leerTEspera() 
-	{
-		File fichero = new File(s_tEspera);
-		Scanner s = null;
-		try {
-			s = new Scanner(fichero);
-			tEspera = new ArrayList<>();
-			while (s.hasNextLine()) {
-				String linea = s.nextLine(); 	
-				String n;
-				int i = 0;
-				tEspera.add(new ArrayList<>());
-				while(i < linea.length())
-				{
-					n = "";
-					while(linea.charAt(i) != ' ' && linea.charAt(i) != '\n')
-					{
-						n += linea.charAt(i);
-						i++;
-					}
-					tEspera.get(tEspera.size() - 1).add(Double.parseDouble(n));
-					i++;
-				}
-			}
-
-		} catch (Exception ex) {
-			System.out.println("Mensaje: " + ex.getMessage());
-		} finally {
-			try {
-				if (s != null)
-					s.close();
-			} catch (Exception ex2) {
-				System.out.println("Mensaje 2: " + ex2.getMessage());
-			}
-		}
-	}
 	
 	public void run() {
 	
@@ -392,5 +282,120 @@ public class AlgoritmoGenetico {
 		mejoresGlobales[generacionActual] = elMejor.getFitness();
 		mejoresGeneracion[generacionActual] = elMejorGeneracion.getFitness();
 		mediaGeneracion[generacionActual] = media;
+	}
+	
+	private void leerVuelos()
+	{
+		File fichero = new File(s_vuelos);
+		Scanner s = null;
+		try {
+			s = new Scanner(fichero);
+			vuelos = new ArrayList<>();
+			while (s.hasNextLine()) {
+				String linea = s.nextLine(); 	
+				String nombre = "";
+				int i = 0;
+				while(linea.charAt(i) != '\t')
+				{
+					nombre += linea.charAt(i);
+					i++;
+				}
+				char tipo = linea.charAt(i + 1);
+						
+				
+				i = -1;
+				if(tipo == 'W')							//Tipo de vuelo: W = 0, G = 1, P = 2
+					i = 0;
+				else if(tipo == 'G')							
+					i = 1;
+				else if(tipo == 'P')							
+					i = 2;
+				vuelos.add(new Pair<Integer, String>(i, nombre));
+			}
+
+		} catch (Exception ex) {
+			System.out.println("Mensaje: " + ex.getMessage());
+		} finally {
+			try {
+				if (s != null)
+					s.close();
+			} catch (Exception ex2) {
+				System.out.println("Mensaje 2: " + ex2.getMessage());
+			}
+		}
+	}
+	
+	private void leerTEL()
+	{
+		File fichero = new File(s_TEL);
+		Scanner s = null;
+		try {
+			s = new Scanner(fichero);
+			TEL = new ArrayList<>();
+			while (s.hasNextLine()) {
+				String linea = s.nextLine(); 	
+				String n;
+				int i = 0;
+				TEL.add(new ArrayList<>());
+				while(i < linea.length())
+				{
+					n = "";
+					while(i < linea.length() && linea.charAt(i) != '\t')
+					{
+						n += linea.charAt(i);
+						i++;
+					}
+					TEL.get(TEL.size() - 1).add(Double.parseDouble(n));
+					i++;
+				}
+			}
+
+		} catch (Exception ex) {
+			System.out.println("Mensaje: " + ex.getMessage());
+		} finally {
+			try {
+				if (s != null)
+					s.close();
+			} catch (Exception ex2) {
+				System.out.println("Mensaje 2: " + ex2.getMessage());
+			}
+		}
+	}
+	
+	private void leerTEspera() 
+	{
+		File fichero = new File(s_tEspera);
+		Scanner s = null;
+		try {
+			s = new Scanner(fichero);
+			tEspera = new ArrayList<>();
+			while (s.hasNextLine()) {
+				String linea = s.nextLine(); 	
+				String n;
+				int i = 0;
+				tEspera.add(new ArrayList<>());
+				while(i < linea.length())
+				{
+					n = "";
+					while(i < linea.length() && linea.charAt(i) != '\t')
+					{
+						n += linea.charAt(i);
+						i++;
+					}
+					tEspera.get(tEspera.size() - 1).add(Double.parseDouble(n));
+					i++;
+				}
+			}
+
+		} catch (Exception ex) {
+			System.out.println("Mensaje: " + ex.getMessage());
+		} finally {
+			try {
+				if (s != null)
+					s.close();
+			} catch (Exception ex2) {
+				System.out.println("Mensaje 2: " + ex2.getMessage());
+			}
+		}
 	}
 }

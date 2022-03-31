@@ -91,4 +91,7 @@ private final String type = "CX";
 		return contenido;
 	}
 
+	public String toString() {
+		return "CX";
+	}
 }

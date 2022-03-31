@@ -27,10 +27,9 @@ public class IndividuoPr2 extends Individuo {
 		Random rand = new Random();
 		GenPr2 aux = new GenPr2(n);
 		aux.initializeGen(rand);
+		genes.add(aux);
 		valor = getValor();
-		solucion = new ArrayList<>();
-		for(int i = 0; i < m; i++)
-			solucion.add(new ArrayList<>());
+		
 	}
 	
 	public IndividuoPr2()
@@ -53,9 +52,15 @@ public class IndividuoPr2 extends Individuo {
 			for(int j = 0; j < solucion.get(i).size();j++)
 			{
 				min = 0;									//Minimo TEL para el avion -solucion.get(i).get(j).getFirst()-
-				for(int k = 1; k < m; k++)	
+				for(int k = 0; k < m; k++)	
 					if(TEL.get(k).get(solucion.get(i).get(j).getFirst()) < TEL.get(min).get(solucion.get(i).get(j).getFirst()))
 						min = k;
+
+				// Para el debug: Aquí es donde da el fallo
+				Pair<Integer, Double> z = solucion.get(min).get(solucion.get(i).get(j).getFirst());
+				double y = solucion.get(min).get(solucion.get(i).get(j).getFirst()).getFirst();
+				//----------------------------------------
+
 				suma += Math.pow(solucion.get(i).get(j).getSecond() - TEL.get(i).get(solucion.get(min).get(solucion.get(i).get(j).getFirst()).getFirst()), 2);
 			}
 		}
@@ -64,6 +69,9 @@ public class IndividuoPr2 extends Individuo {
 	
 	private void asignarPista()
 	{
+		solucion = new ArrayList<>();
+		for(int i = 0; i < m; i++)
+			solucion.add(new ArrayList<>());
 		double min, aux;
 		int pos;
 		for(int i = 0; i < genes.get(0).getLongitud(); i++)
@@ -72,9 +80,14 @@ public class IndividuoPr2 extends Individuo {
 			pos = 0;
 			for(int j = 0; j < TEL.size(); j++)
 			{
-				aux = 0;
-				if(solucion.get(j).size() > 0)
-					aux += tEspera.get(vuelos.get(solucion.get(j).get(solucion.get(j).size() - 1).getFirst()).getFirst()).get(vuelos.get((int) genes.get(0).getAlelo(i)).getFirst());
+				aux = TEL.get(j).get(i);
+				if(solucion.get(j).size() != 0) {
+					double calculo = tEspera.get(vuelos.get(solucion.get(j).get(solucion.get(j).size() - 1).getFirst()).getFirst()).get(vuelos.get((int) genes.get(0).getAlelo(i)).getFirst()) + solucion.get(j).get(solucion.get(j).size() - 1).getSecond();
+					if(aux < calculo) {
+						aux = calculo;
+					}
+				}
+					
 				aux += TEL.get(j).get(i);
 				if(aux < min)
 				{
@@ -166,4 +179,6 @@ public class IndividuoPr2 extends Individuo {
 		//TODO comprobar que se muestra correctamente
 		return s;
 	}
+	
+	 
 }

@@ -104,4 +104,7 @@ private final String type = "PMX";
 		
 		return pos;
 	}
+	public String toString() {
+		return "PMX";
+	}
 }
