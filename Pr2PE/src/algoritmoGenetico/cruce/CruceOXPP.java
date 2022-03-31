@@ -28,12 +28,18 @@ public class CruceOXPP extends Cruce {
 		for(int i = 0; i < i1.getGenes().size(); i++)
 		{
 			List<Integer> pos = new ArrayList<>();
-			for(int j = 0; j < i1.getGenes().get(i).getLongitud(); j++)		//Se elige que alelos se intercambian
-				if(rand.nextDouble() < prob)
+			do {
+				for(int j = 0; j < i1.getGenes().get(i).getLongitud(); j++)		//Se elige que alelos se intercambian
 				{
-					pos.add(j);
-					i1.getGenes().get(i).intercambiarAlelo(j, i2.getGenes().get(i));
+					if(rand.nextDouble() < prob)
+					{
+						pos.add(j);
+						i1.getGenes().get(i).intercambiarAlelo(j, i2.getGenes().get(i));
+					}
 				}
+			}
+			while(pos.size() == 0);
+			
 			OXPP(i1, pos, i);
 			OXPP(i2, pos, i);
 		}

@@ -89,10 +89,10 @@ public abstract class Individuo {
 
 
 	public void recalcularFenotipo() {
-		for(int i = 0; i < genes.size(); i++)
-		{
-			fenotipo.set(i, getFenotipo(i));
-		}
+//		for(int i = 0; i < genes.size(); i++)
+//		{
+//			fenotipo.set(i, getFenotipo(i));
+//		}
 		valor = getValor();
 	}
 	

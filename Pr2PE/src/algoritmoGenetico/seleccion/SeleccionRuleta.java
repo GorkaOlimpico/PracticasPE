@@ -49,7 +49,7 @@ public class SeleccionRuleta extends Seleccion {
 		{
 			j = 0;
 			r = rand.nextDouble();
-			while(j < prob.size() && prob.get(j) < r) {j++;}
+			while(j < prob.size() - 1 && prob.get(j) < r) {j++;}
 			aux[i].copiarIndividuo(ind[j]);
 		}
 	}
