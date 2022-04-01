@@ -34,28 +34,39 @@ private final String type = "CX";
 			// 2. Hago un ciclo y paro. Esto con los dos individuos
 
 			int i = 0;
-			while(!contenidoEn(i2.getGenes().get(j).getAlelo(i),l3)) { //si el i2[i] no está en l3
-				for(int k = 0; k < i1.getGenes().get(j).getLongitud(); k++) { // por cada alelo de i1
-					if(i2.getGenes().get(j).getAlelo(i) == i1.getGenes().get(j).getAlelo(k)) { // si ese alelo == i2[i]
-						//i3.getGenes().get(j).setAlelo(k, i1.getGenes().get(j).getAlelo(k)); // lo insertamos en la lista
-						Pair p = new Pair(k, i1.getGenes().get(j).getAlelo(k));
-						l3.add(p);
-						i = k; // nos movemos a la siguiente posicion siguiendo el ciclo
+
+			while(!contenidoEn(i2.getGenes().get(j).getAlelo(i),l3)) {
+				Pair p = new Pair(i,i1.getGenes().get(j).getAlelo(i));
+				l3.add(p);
+				boolean encontrado = false;
+
+				for(int k = 0; k < i1.getGenes().get(j).getLongitud() && !encontrado; k++) { // se busca el elemento homologo de i2 en i1 para bajarlo
+					if(i1.getGenes().get(j).getAlelo(k) == i2.getGenes().get(j).getAlelo(i)) {
+						i = k;
+						encontrado = true;
 					}
 				}
+				
 			}
 			
+		
+			
 			i = 0;
-			while(!contenidoEn(i1.getGenes().get(j).getAlelo(i),l4)) { //si el i2[i] no está en i3
-				for(int k = 0; k < i2.getGenes().get(j).getLongitud(); k++) { // por cada alelo de i1
-					if(i1.getGenes().get(j).getAlelo(i) == i2.getGenes().get(j).getAlelo(k)) { // si ese alelo == i2[i]
-						//i4.getGenes().get(j).setAlelo(k, i2.getGenes().get(j).getAlelo(k)); // lo insertamos en la lista
-						Pair p = new Pair(k, i2.getGenes().get(j).getAlelo(k));
-						l4.add(p);
-						i = k; // nos movemos a la siguiente posicion siguiendo el ciclo
+
+			while(!contenidoEn(i1.getGenes().get(j).getAlelo(i),l3)) {
+				Pair p = new Pair(i,i2.getGenes().get(j).getAlelo(i));
+				l4.add(p);
+				boolean encontrado = false;
+
+				for(int k = 0; k < i2.getGenes().get(j).getLongitud() && !encontrado; k++) { // se busca el elemento homologo de i1 en i2 para bajarlo
+					if(i2.getGenes().get(j).getAlelo(k) == i1.getGenes().get(j).getAlelo(i)) {
+						i = k;
+						encontrado = true;
 					}
 				}
+				
 			}
+			
 			
 			// 3. Apunto cuales han sido las posiciones de i1 e i2 que no se han tocado
 			
