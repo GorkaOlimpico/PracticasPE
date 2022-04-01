@@ -1,9 +1,12 @@
 package algoritmoGenetico.cruce;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import individuos.Individuo;
+import individuos.IndividuoPr2;
+import individuos.Pair;
 
 public class CrucePMX extends Cruce {
 private final String type = "PMX";
@@ -24,62 +27,63 @@ private final String type = "PMX";
 	protected void cruzarIndividuos(Individuo i1, Individuo i2) {
 		for(int j = 0; j < i1.getGenes().size(); j++) { // para varios genes
 			
-			// 1. Se seleccionan 2 puntos de corte al azar. Max(i1.long-2) y no puede caer en el mismo sitio
+			// 1. Se seleccionan 2 puntos de corte al azar. Max(i1.long-2) y no puede caer en el mismo sitio. Minimo 0, es decir corte entre elemento 0 y 1
 			Random rand = new Random();
 			int p1 = rand.nextInt(i1.getGenes().get(j).getLongitud()-1);
 			int p2 = rand.nextInt(i1.getGenes().get(j).getLongitud()-1);
 			while (p1 == p2) {
 				p2 = rand.nextInt(i1.getGenes().get(j).getLongitud()-1);
 			}
-			
-			// 2. Inicializo i3 e i4
-			Individuo i3 = i1;
-			Individuo i4 = i2;
-			
-			for(int i = 0; i < i3.getGenes().get(j).getLongitud(); i++) { 
-				i3.getGenes().get(j).setAlelo(i, 0);
-			}
-			for(int i = 0; i < i4.getGenes().get(j).getLongitud(); i++) { 
-				i4.getGenes().get(j).setAlelo(i, 0);
-			}
-			// hago que p1 sea el número menor 
-			if(p2 < p1) {
+			if(p1 > p2) {
 				int aux = p2;
 				p2 = p1;
 				p1 = aux;
 			}
+			//p2 = p1 +2;
 			
-			// 3. Se intercambian las zonas intermedias (usando i3 e i4)
-			int long_mitad = p2-p1;
-			for(int i = p1;i<long_mitad; i++) {
-				i3.getGenes().get(j).setAlelo(i, i2.getGenes().get(j).getAlelo(i));
-				i4.getGenes().get(j).setAlelo(i, i1.getGenes().get(j).getAlelo(i));
-			}
 			
-			// 4. Se ponen los valores que no entren en conflicto. Si entran en conflicto se pone su homólogo
+			// 2. Se intercambian las mitades
+			for(int i = p1+1; i <= p2; i++)
+				i1.getGenes().get(j).intercambiarAlelo(i, i2.getGenes().get(j));
 			
-			//Esto para i3
-			for(int i = p2;i<i1.getGenes().get(j).getLongitud(); i++) {
-				if(!contenidoEn(i1.getGenes().get(j).getAlelo(i), i3.getGenes().get(j).getAlelos())) { // Si no hay conflicto
-					i3.getGenes().get(j).setAlelo(i, i1.getGenes().get(j).getAlelo(i));
-				}
-				else {
-					int pos = buscaPos(i1.getGenes().get(j).getAlelo(i), i3.getGenes().get(j).getAlelos());
-					i3.getGenes().get(j).setAlelo(i, i4.getGenes().get(j).getAlelo(pos));
-				}
-			}
-			
-			//Esto para i4
-			for(int i = p2;i<i2.getGenes().get(j).getLongitud(); i++) {
-				if(!contenidoEn(i2.getGenes().get(j).getAlelo(i), i4.getGenes().get(j).getAlelos())) { // Si no hay conflicto
-					i4.getGenes().get(j).setAlelo(i, i2.getGenes().get(j).getAlelo(i));
-				}
-				else {
-					int pos = buscaPos(i2.getGenes().get(j).getAlelo(i), i4.getGenes().get(j).getAlelos());
-					i4.getGenes().get(j).setAlelo(i, i3.getGenes().get(j).getAlelo(pos));
+			// 3. Se recorren i1 e i2 para incluir el resto de números. Si el elemento ya está incluido entonces ponen su homólogo.
+			// Puedo apoyarme en 2 listas para no alterar a los individuos en el proceso y así evitar errores.
+			List<Pair> l1 = new ArrayList<Pair>();
+
+			for(int i = 0; i<i1.getGenes().get(j).getLongitud(); i++) {
+				for(int k = i+1; k < i1.getGenes().get(j).getLongitud(); k++) {
+					if(i1.getGenes().get(j).getAlelo(i) == i1.getGenes().get(j).getAlelo(k)) { // Si ya está en la lista:
+						if(i > p1 && i <= p2){//si el elem i pertece a la mitad intercambiada se intercambia el otro
+							//i1.getGenes().get(j).setAlelo(k, i2.getGenes().get(j).getAlelo(i)); // Se cambia por su homólogo
+							Pair p = new Pair(k, i2.getGenes().get(j).getAlelo(i));
+							l1.add(p);
+						}
+						else {
+							//i1.getGenes().get(j).setAlelo(i, i2.getGenes().get(j).getAlelo(k));
+							Pair p = new Pair(i, i2.getGenes().get(j).getAlelo(k));
+							l1.add(p);
+						}
+					}
 				}
 			}
 			
+			for(int i = 0; i<i2.getGenes().get(j).getLongitud(); i++) {
+				for(int k = i+1; k < i2.getGenes().get(j).getLongitud(); k++) {
+					if(i2.getGenes().get(j).getAlelo(i) == i2.getGenes().get(j).getAlelo(k)) { // Si ya está en la lista:
+						if(i > p1 && i <= p2)//si el elem i pertece a la mitad intercambiada se intercambia el otro
+							i2.getGenes().get(j).setAlelo(k, i1.getGenes().get(j).getAlelo(i)); // Se cambia por su homólogo
+						else 
+							i2.getGenes().get(j).setAlelo(i, i1.getGenes().get(j).getAlelo(k));
+					}
+				}
+			}
+			// Recorro la lista y sustituyo los elementos correspondientes
+			for(Pair p: l1) {
+				i1.getGenes().get(j).setAlelo((int) p.getFirst(), p.getSecond());
+			}
+			System.out.println("p1: "+ p1);
+			System.out.println("p2: "+ p2);
+			System.out.println("---------");
 		}
 	}
 	
