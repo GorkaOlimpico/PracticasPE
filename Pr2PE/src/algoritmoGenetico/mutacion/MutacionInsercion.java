@@ -58,6 +58,7 @@ public class MutacionInsercion extends Mutacion {
 			// la última posición
 			ind.getGenes().get(j).setAlelo(p1, alelo_aux);
 		}
+
 	}
 	
 	public String toString() {

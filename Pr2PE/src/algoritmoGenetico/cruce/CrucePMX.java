@@ -81,9 +81,7 @@ private final String type = "PMX";
 			for(Pair p: l1) {
 				i1.getGenes().get(j).setAlelo((int) p.getFirst(), p.getSecond());
 			}
-			System.out.println("p1: "+ p1);
-			System.out.println("p2: "+ p2);
-			System.out.println("---------");
+
 		}
 	}
 	
@@ -98,16 +96,7 @@ private final String type = "PMX";
 		return contenido;
 	}
 
-	public int buscaPos(Object o, List<Object> lista) {
-		int pos = -1;
-		for(int i = 0; i< lista.size(); i++) {
-			if(lista.get(i) == o) {
-				pos = i;
-			}
-		}
-		
-		return pos;
-	}
+	
 	public String toString() {
 		return "PMX";
 	}

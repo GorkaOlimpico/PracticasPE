@@ -31,68 +31,44 @@ private final String type = "CX";
 			List<Pair> l3 = new ArrayList<Pair>();
 			List<Pair> l4 = new ArrayList<Pair>();
 			
-			// 2. Hago un ciclo y paro. Esto con los dos individuos
-
+			// 2. Hago un ciclo guardando los valores correspondientes en la lista. 
 			int i = 0;
-
-			while(!contenidoEn(i2.getGenes().get(j).getAlelo(i),l3)) {
+			boolean terminado = false;
+			while(!terminado){
 				Pair p = new Pair(i,i1.getGenes().get(j).getAlelo(i));
 				l3.add(p);
-				boolean encontrado = false;
-
-				for(int k = 0; k < i1.getGenes().get(j).getLongitud() && !encontrado; k++) { // se busca el elemento homologo de i2 en i1 para bajarlo
-					if(i1.getGenes().get(j).getAlelo(k) == i2.getGenes().get(j).getAlelo(i)) {
-						i = k;
-						encontrado = true;
-					}
-				}
-				
+				i = buscaPos(p.getSecond(), i1.getGenes().get(j).getAlelos());
+				if(i==0) terminado=true;
 			}
 			
-		
-			
-			i = 0;
-
-			while(!contenidoEn(i1.getGenes().get(j).getAlelo(i),l3)) {
+			i=0;
+			terminado = false;
+			while(!terminado){
 				Pair p = new Pair(i,i2.getGenes().get(j).getAlelo(i));
 				l4.add(p);
-				boolean encontrado = false;
-
-				for(int k = 0; k < i2.getGenes().get(j).getLongitud() && !encontrado; k++) { // se busca el elemento homologo de i1 en i2 para bajarlo
-					if(i2.getGenes().get(j).getAlelo(k) == i1.getGenes().get(j).getAlelo(i)) {
-						i = k;
-						encontrado = true;
-					}
-				}
-				
+				i = buscaPos(p.getSecond(), i2.getGenes().get(j).getAlelos());
+				if(i==0) terminado=true;
 			}
 			
-			
-			// 3. Apunto cuales han sido las posiciones de i1 e i2 que no se han tocado
-			
-			List<Integer> posiciones = new ArrayList<Integer>();
-			
-			for(int k = 0; k < l3.size(); k++) {
-				boolean aparece = false;
-				for(Pair p: l3) {
-					if(k == (int) p.getFirst()) {
-						aparece = true;
-					}
-				}
-				if(!aparece) {
-					posiciones.add(k);
+			// 3. Guardo el resto de elementos de las listas de la forma: 
+			//		elementos i1 => l4
+			//		elementos i2 => l3
+	
+			for(int k = 0; k < i1.getGenes().get(j).getLongitud(); k++) {
+				if(!contenidoEn(i1.getGenes().get(j).getAlelo(k),l4)) {
+					Pair p = new Pair(k,i1.getGenes().get(j).getAlelo(k));
+					l4.add(p);
 				}
 			}
-
 			
-			// 4. Intercambio los alelos de las posiciones correspondientes
-			for(int pos: posiciones) {
-				i1.getGenes().get(j).intercambiarAlelo(pos, i2.getGenes().get(j));
+			for(int k = 0; k < i2.getGenes().get(j).getLongitud(); k++) {
+				if(!contenidoEn(i2.getGenes().get(j).getAlelo(k),l3)) {
+					Pair p = new Pair(k,i2.getGenes().get(j).getAlelo(k));
+					l3.add(p);
+				}
 			}
 			
-			// 5. Hago que el orden de las listas sea el nuevo orden en los individuos
-			
-			
+			// 4. Paso de lista a individuo
 			for(Pair p: l3) {
 				i1.getGenes().get(j).setAlelo((int) p.getFirst(), p.getSecond());
 			}
@@ -100,7 +76,6 @@ private final String type = "CX";
 			for(Pair p: l4) {
 				i2.getGenes().get(j).setAlelo((int) p.getFirst(), p.getSecond());
 			}
-			System.out.println("final");
 		}
 	}
 	
@@ -113,6 +88,16 @@ private final String type = "CX";
 		}
 		
 		return contenido;
+	}
+	public int buscaPos(Object o, List<Object> lista) {
+		int pos = -1;
+		for(int i = 0; i< lista.size(); i++) {
+			if(lista.get(i) == o) {
+				pos = i;
+			}
+		}
+		
+		return pos;
 	}
 
 	public String toString() {
