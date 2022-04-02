@@ -28,7 +28,8 @@ public class IndividuoPr2 extends Individuo {
 		GenPr2 aux = new GenPr2(n);
 		aux.initializeGen(rand);
 		genes.add(aux);
-		valor = getValor();
+		//valor = getValor();
+		valor = getFitness2();
 		
 	}
 	
@@ -42,6 +43,29 @@ public class IndividuoPr2 extends Individuo {
 		return false;
 	}
 
+	@Override
+	public double getFitness2() {
+		asignarPista();
+		double suma = 0;
+		
+		// 1. Se recorre cada pista calculando los retardos de cada avion de la forma:
+		// 		retardo = (TLA - menor TEL de esa pista)
+		int i = 0;
+		for(List<Pair<Integer, Double>> pista : solucion) {
+			for(Pair<Integer, Double> avion : pista) {
+				double retardo;
+				
+				double tel = TEL.get(i).get(avion.getFirst()); // TEL [n pista][n vuelo] 
+				double tla = avion.getSecond();
+				
+				retardo = Math.pow((tla - tel), 2);
+				suma += retardo;
+			}
+			i++;
+		}
+		
+		return suma;
+	}
 	@Override
 	public double getValor() {
 		asignarPista();
@@ -174,6 +198,5 @@ public class IndividuoPr2 extends Individuo {
 		//TODO comprobar que se muestra correctamente
 		return s;
 	}
-	
-	 
+
 }

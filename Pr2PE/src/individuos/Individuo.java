@@ -41,6 +41,7 @@ public abstract class Individuo {
 	public abstract boolean max();
 	
 	public abstract double getValor();
+	public abstract double getFitness2();
 	
 	public double getFitness()
 	{
@@ -93,7 +94,8 @@ public abstract class Individuo {
 //		{
 //			fenotipo.set(i, getFenotipo(i));
 //		}
-		valor = getValor();
+		//valor = getValor();
+		valor = getFitness2();
 	}
 	
 	public List<Double> getFenotipo(){
@@ -109,7 +111,7 @@ public abstract class Individuo {
 			//System.out.println("Si");
 		}
 		else
-			System.out.println("No"); //No se ha copiado bien
+			System.out.println("Da el mismo valor al copiarse"); //No se ha copiado bien
 	}
 	
 	public abstract String solutionToString();
