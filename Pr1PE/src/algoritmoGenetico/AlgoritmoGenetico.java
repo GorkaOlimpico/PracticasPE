@@ -236,8 +236,7 @@ public class AlgoritmoGenetico {
 		double fitness;
 		Individuo elMejorGeneracion = creaPoblacion(problema,(int) 1)[0];
 		elMejorGeneracion.copiarIndividuo(poblacion[0]); // Aquí selecciona el mejor de la generación
-		//int max_aux = 0;
-		//for(int i = 0; i < poblacion.length; i++)
+
 		
 		for(Individuo ind:poblacion) 
 		{
@@ -246,20 +245,18 @@ public class AlgoritmoGenetico {
 			
 		}
 		media = media / poblacion.length;
-//		elMejorGeneracion.copiarIndividuo(poblacion[max_aux]);
+
 		
 		if(elMejor.max())
 		{
 			if(elMejorGeneracion.getFitness() > elMejor.getFitness()) {
 				elMejor = elMejorGeneracion;
-				//System.out.println("fenotipo 0: " + elMejor.fenotipo.get(0));
-				//System.out.println("fenotipo 1: " + elMejor.fenotipo.get(1));
+
 			}
 		}
 		else if(elMejorGeneracion.getFitness() < elMejor.getFitness()) {
 				elMejor = elMejorGeneracion;
-				//System.out.println("fenotipo 0: " + elMejor.fenotipo.get(0));
-				//System.out.println("fenotipo 1: " + elMejor.fenotipo.get(1));
+
 		}
 		
 		mejoresGlobales[generacionActual] = elMejor.getFitness();
