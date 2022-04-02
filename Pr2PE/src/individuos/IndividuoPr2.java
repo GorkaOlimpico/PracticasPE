@@ -30,7 +30,6 @@ public class IndividuoPr2 extends Individuo {
 		aux.initializeGen(rand);
 		genes.add(aux);
 		recalcularFenotipo();
-		
 	}
 	
 	public IndividuoPr2()
@@ -104,16 +103,17 @@ public class IndividuoPr2 extends Individuo {
 			for(int j = 0; j < m; j++) 
 			{
 				calculo = 0;
-				aux = TEL.get(j).get((int) g.getAlelo(i));
+				aux = TEL.get(j).get((int) g.getAlelo(i));	//TEL vuelo en la pista j
 				if(solucion.get(j).size() > 0)
 				{
 					int vueloAnt = solucion.get(j).size() - 1;
+					//TLA vuelo anterior + tiempo de espera correspondiente al tipo de vuelo
 					calculo = solucion.get(j).get(vueloAnt).getSecond() + 
-							tEspera.get(vuelos.get(solucion.get(j).get(vueloAnt).getFirst()).getFirst()).get(vuelos.get((int) g.getAlelo(i)).getFirst());
+							tEspera.get(vuelos.get(solucion.get(j).get(vueloAnt).getFirst()).getFirst()).get(vuelos.get((int) g.getAlelo(i)).getFirst()); 
 				}						//tipo del ultimo vuelo en la pista j									tipo del vuelo a añadir
-				if(calculo > aux)
-					aux = calculo;
-				if(aux < tla)
+				if(calculo > aux)	
+					aux = calculo;		//El TLA de asignarse esta pista seria el mmaximo entre el TEL y el TLA del vuelo anterior + retraso
+				if(aux < tla)			//El vuelo se asigna a la pista con menor TLA
 				{
 					pos = j;
 					tla = aux;
@@ -159,7 +159,7 @@ public class IndividuoPr2 extends Individuo {
 	public IndividuoPr2 nuevoInd(Object[] datos) {
 		IndividuoPr2 individuo = new IndividuoPr2();
 		
-		List<Pair<Integer, String>> vuelos = (List<Pair<Integer, String>>) datos[1];	//TODO comprobas por si acaso porque sale warning
+		List<Pair<Integer, String>> vuelos = (List<Pair<Integer, String>>) datos[1];	
 		List<List<Double>> TEL = (List<List<Double>>) datos[2];									
 		List<List<Double>> tEspera = (List<List<Double>>) datos[3];
 		

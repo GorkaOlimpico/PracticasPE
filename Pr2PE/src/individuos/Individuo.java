@@ -90,8 +90,8 @@ public abstract class Individuo {
 
 
 	public void recalcularFenotipo() {
-//		valor = getValor();
-		valor = getFitness2();
+		valor = getValor();
+//		valor = getFitness2();
 	}
 	
 	public abstract String genToString();
@@ -114,8 +114,5 @@ public abstract class Individuo {
 	
 	public abstract String solutionToString();
 
-	public List<List<Pair<Integer, Double>>> getSolucion() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract List<List<Pair<Integer, Double>>> getSolucion();
 }
