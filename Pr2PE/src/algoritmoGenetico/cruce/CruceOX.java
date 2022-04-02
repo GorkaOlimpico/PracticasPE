@@ -27,7 +27,7 @@ public class CruceOX extends Cruce {
 			do {
 				fin = rand.nextInt(i1.getGenes().get(i).getLongitud() - ini) + ini;
 			}while(fin == ini);
-			System.out.print("Inicio: " + ini + ", Fin: " + fin + "\n\n");
+			
 			Object aux;			//Se intercambian los alelos entre ini y fin
 			for(int j = ini; j <= fin; j++)
 			{
@@ -35,11 +35,9 @@ public class CruceOX extends Cruce {
 				i1.getGenes().get(i).setAlelo(j, i2.getGenes().get(i).getAlelo(j));
 				i2.getGenes().get(i).setAlelo(j, aux);
 			}
-			System.out.print("1-Paso 1: " + i1.genToString() + "\n");
+			
 			OX(i1, i, ini, fin, i2);
-			System.out.print("\n" + "\n" +"2-Paso 1: " + i2.genToString() + "\n");
 			OX(i2, i, ini, fin, i1);
-			System.out.print("\n" + "\n");
 		}
   	}
 
@@ -58,12 +56,9 @@ public class CruceOX extends Cruce {
 			
 			if(valido)												//Si no esta se pone en la siguiente posicion (next)
 			{	
-				
 				i1.getGenes().get(i).setAlelo(next, i1.getGenes().get(i).getAlelo(posicion));
-				next++;
-				next = next % i1.getGenes().get(i).getLongitud();
+				next = (next + 1) % i1.getGenes().get(i).getLongitud();
 			}
-			System.out.print("Paso 2: " + valido + " " + "  posicion: " + posicion + "  next: " + next + "\n");
 		}
 		
 		for(int j = ini; j <= fin; j++)
@@ -80,7 +75,6 @@ public class CruceOX extends Cruce {
 				i1.getGenes().get(i).setAlelo(next, i2.getGenes().get(i).getAlelo(j));
 				next++;
 			}
-			System.out.print("Paso 3: " + valido + " " + "  posicion: " + j + "  next: " + next + "\n");
 		}
 	}
 	
