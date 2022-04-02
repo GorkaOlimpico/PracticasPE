@@ -189,11 +189,15 @@ public class AlgoritmoGenetico {
 
 		sol += "Valor de la función: " + elMejor.getFitness();
 		
-		
+		muestraSolucionConsola();
 		
 		return sol;
 	}
 	
+	public void muestraSolucionConsola() {
+		// Mostrar elMejor
+		elMejor.getSolucion();
+	}
 	public void setVariables(int num) {			
 		num_variables = num;
 	}

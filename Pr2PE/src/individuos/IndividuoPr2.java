@@ -12,7 +12,7 @@ public class IndividuoPr2 extends Individuo {
 	private int n;	//nº vuelos
 	private int m;	//nº pistas
 	private final static String type = "Practica 2"; 
-	private List<List<Pair<Integer, Double>>> solucion; //Pista, (vuelo, TLA)
+	public List<List<Pair<Integer, Double>>> solucion; //Pista, (vuelo, TLA)
 	private List<Pair<Integer, String>> vuelos;			//Tipo de vuelo: W = 0, G = 1, P = 2; Nombre
 	private List<List<Double>> TEL;						// m x n
 	private List<List<Double>> tEspera;							
@@ -199,4 +199,8 @@ public class IndividuoPr2 extends Individuo {
 		return s;
 	}
 
+	@Override
+	public List<List<Pair<Integer, Double>>> getSolucion(){
+		return solucion;
+	}
 }

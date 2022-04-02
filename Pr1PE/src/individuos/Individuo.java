@@ -121,4 +121,6 @@ public abstract class Individuo {
 		else
 			System.out.println("No"); //No se ha copiado bien
 	}
+
+	
 }

@@ -115,4 +115,9 @@ public abstract class Individuo {
 	}
 	
 	public abstract String solutionToString();
+
+	public List<List<Pair<Integer, Double>>> getSolucion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
