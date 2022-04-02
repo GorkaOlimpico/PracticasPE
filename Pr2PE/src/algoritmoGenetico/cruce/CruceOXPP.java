@@ -40,13 +40,9 @@ public class CruceOXPP extends Cruce {
 						i2.getGenes().get(i).setAlelo(j, aux);
 					}
 				}
-			}
-			while(pos.size() == 0);
-			System.out.print("1-Paso 1: " + i1.genToString() + "\n");
-			System.out.print("Intercambiar: " + pos + "\n");
+			}while(pos.size() == 0);
+			
 			OXPP(i1, pos, i, i2);
-			System.out.print("2-Paso 1: " + i2.genToString() + "\n");
-			System.out.print("Intercambiar: " + pos + "\n");
 			OXPP(i2, pos, i, i1);
 		}
   	}
@@ -71,8 +67,6 @@ public class CruceOXPP extends Cruce {
 					if((int) i1.getGenes().get(i).getAlelo(pos.get(k)) == (int) i1.getGenes().get(i).getAlelo(posicion))
 						valido = false;
 				
-				System.out.print("Paso 2-2: posicion " + posicion + ", next " + next + ", valido " + valido + "\n");
-				
 				if(valido)														//Si no esta se pone en la siguiente posicion (next)
 				{
 					i1.getGenes().get(i).setAlelo(next, i1.getGenes().get(i).getAlelo(posicion));
@@ -91,8 +85,6 @@ public class CruceOXPP extends Cruce {
 			for(int k = 0; k < pos.size() && valido; k++)
 				if((int) i1.getGenes().get(i).getAlelo(pos.get(k)) == (int) i2.getGenes().get(i).getAlelo(pos.get(j)))
 					valido = false;
-			
-			System.out.print("Paso 2-1: posicion " + pos.get(j) + ", indice " + indice + ", next " + next + ", valido " + valido + "\n");
 			
 			if(valido)														//Si no esta se pone en la siguiente posicion (next)
 			{
