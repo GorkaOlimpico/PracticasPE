@@ -6,13 +6,14 @@ import java.util.Random;
 
 import algoritmoGenetico.cruce.Cruce;
 import algoritmoGenetico.mutacion.Mutacion;
+import gen.Gen;
 import gen.GenPr2;
 
 public class IndividuoPr2 extends Individuo {
 	private int n;	//nº vuelos
 	private int m;	//nº pistas
 	private final static String type = "Practica 2"; 
-	public List<List<Pair<Integer, Double>>> solucion; //Pista, (vuelo, TLA)
+	private List<List<Pair<Integer, Double>>> solucion; //Pista, (vuelo, TLA)
 	private List<Pair<Integer, String>> vuelos;			//Tipo de vuelo: W = 0, G = 1, P = 2; Nombre
 	private List<List<Double>> TEL;						// m x n
 	private List<List<Double>> tEspera;							
@@ -66,22 +67,23 @@ public class IndividuoPr2 extends Individuo {
 		
 		return suma;
 	}
+	
 	@Override
 	public double getValor() {
 		asignarPista();
 		double suma = 0;
-		int min;
-		for(int i = 0; i < m; i++)
-		{
-			for(int j = 0; j < solucion.get(i).size();j++)
-			{
-				min = 0;									//Minimo TEL para el avion -solucion.get(i).get(j).getFirst()-
-				for(int k = 0; k < m; k++)	
-					if(TEL.get(k).get(solucion.get(i).get(j).getFirst()) < TEL.get(min).get(solucion.get(i).get(j).getFirst()))
-						min = k;
-
-
-				suma += Math.pow(solucion.get(i).get(j).getSecond() - TEL.get(min).get(solucion.get(i).get(j).getFirst()), 2);
+		for(List<Pair<Integer, Double>> pista : solucion) {
+			for(Pair<Integer, Double> avion : pista) {
+				double retardo;
+				
+				double tel = TEL.get(0).get(avion.getFirst()); 
+				for(int i = 1; i < m; i++)
+					if(TEL.get(i).get(avion.getFirst()) < tel)
+						tel = TEL.get(i).get(avion.getFirst());	//Menor TEL de ese vuelo
+				double tla = avion.getSecond();
+				
+				retardo = Math.pow((tla - tel), 2);
+				suma += retardo;
 			}
 		}
 		return suma;
@@ -92,29 +94,33 @@ public class IndividuoPr2 extends Individuo {
 		solucion = new ArrayList<>();
 		for(int i = 0; i < m; i++)
 			solucion.add(new ArrayList<>());
-		double min, aux;
+		double tla, aux, calculo;
 		int pos;
-		for(int i = 0; i < genes.get(0).getLongitud(); i++)
+		
+		Gen g = genes.get(0);
+		for(int i = 0; i < n; i++)
 		{
-			min = Double.MAX_VALUE;
+			tla = Double.MAX_VALUE;
 			pos = 0;
-			for(int j = 0; j < TEL.size(); j++)
+			for(int j = 0; j < m; j++) 
 			{
-				aux = TEL.get(j).get(i);
-				if(solucion.get(j).size() != 0) {
-					double calculo = tEspera.get(vuelos.get(solucion.get(j).get(solucion.get(j).size() - 1).getFirst()).getFirst()).get(vuelos.get((int) genes.get(0).getAlelo(i)).getFirst()) + solucion.get(j).get(solucion.get(j).size() - 1).getSecond();
-					if(aux < calculo) {
-						aux = calculo;
-					}
-				}
-					
-				if(aux < min)
+				calculo = 0;
+				aux = TEL.get(j).get((int) g.getAlelo(i));
+				if(solucion.get(j).size() > 0)
 				{
-					min = aux;
+					int vueloAnt = solucion.get(j).size() - 1;
+					calculo = solucion.get(j).get(vueloAnt).getSecond() + 
+							tEspera.get(vuelos.get(solucion.get(j).get(vueloAnt).getFirst()).getFirst()).get(vuelos.get((int) g.getAlelo(i)).getFirst());
+				}						//tipo del ultimo vuelo en la pista j									tipo del vuelo a añadir
+				if(calculo > aux)
+					aux = calculo;
+				if(aux < tla)
+				{
 					pos = j;
+					tla = aux;
 				}
 			}
-			Pair<Integer, Double> par = new Pair<Integer, Double>((int) genes.get(0).getAlelo(i), min);
+			Pair<Integer, Double> par = new Pair<Integer, Double>((int) genes.get(0).getAlelo(i), tla);
 			solucion.get(pos).add(par);
 		}
 	}
