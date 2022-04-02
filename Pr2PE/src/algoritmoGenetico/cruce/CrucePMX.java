@@ -81,6 +81,7 @@ private final String type = "PMX";
 			for(Pair p: l1) {
 				i1.getGenes().get(j).setAlelo((int) p.getFirst(), p.getSecond());
 			}
+			
 
 		}
 	}

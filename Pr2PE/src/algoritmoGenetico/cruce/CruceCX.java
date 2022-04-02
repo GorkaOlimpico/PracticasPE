@@ -7,6 +7,7 @@ import individuos.Individuo;
 import individuos.IndividuoPr2;
 import individuos.Pair;
 
+
 public class CruceCX extends Cruce {
 private final String type = "CX";
 	
@@ -26,7 +27,7 @@ private final String type = "CX";
 	protected void cruzarIndividuos(Individuo i1, Individuo i2) {
 		for(int j = 0; j < i1.getGenes().size(); j++) { // para varios genes
 			
-		
+
 			// 1. Inicializo a todo 0s los i3 e i4
 			List<Pair> l3 = new ArrayList<Pair>();
 			List<Pair> l4 = new ArrayList<Pair>();
@@ -37,7 +38,7 @@ private final String type = "CX";
 			while(!terminado){
 				Pair p = new Pair(i,i1.getGenes().get(j).getAlelo(i));
 				l3.add(p);
-				i = buscaPos(p.getSecond(), i1.getGenes().get(j).getAlelos());
+				i = buscaPos(i2.getGenes().get(j).getAlelo(i), i1.getGenes().get(j).getAlelos());
 				if(i==0) terminado=true;
 			}
 			
@@ -46,7 +47,7 @@ private final String type = "CX";
 			while(!terminado){
 				Pair p = new Pair(i,i2.getGenes().get(j).getAlelo(i));
 				l4.add(p);
-				i = buscaPos(p.getSecond(), i2.getGenes().get(j).getAlelos());
+				i = buscaPos(i1.getGenes().get(j).getAlelo(i), i2.getGenes().get(j).getAlelos());
 				if(i==0) terminado=true;
 			}
 			
@@ -77,6 +78,7 @@ private final String type = "CX";
 				i2.getGenes().get(j).setAlelo((int) p.getFirst(), p.getSecond());
 			}
 		}
+
 	}
 	
 	public boolean contenidoEn(Object o, List<Pair> lista) {
@@ -92,7 +94,7 @@ private final String type = "CX";
 	public int buscaPos(Object o, List<Object> lista) {
 		int pos = -1;
 		for(int i = 0; i< lista.size(); i++) {
-			if(lista.get(i) == o) {
+			if(o == lista.get(i)) {
 				pos = i;
 			}
 		}

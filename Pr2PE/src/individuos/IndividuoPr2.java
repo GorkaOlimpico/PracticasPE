@@ -56,10 +56,6 @@ public class IndividuoPr2 extends Individuo {
 					if(TEL.get(k).get(solucion.get(i).get(j).getFirst()) < TEL.get(min).get(solucion.get(i).get(j).getFirst()))
 						min = k;
 
-				// Para el debug: Aquí es donde da el fallo
-//				Pair<Integer, Double> z = solucion.get(min).get(solucion.get(i).get(j).getFirst());
-//				double y = solucion.get(min).get(solucion.get(i).get(j).getFirst()).getFirst();
-				//----------------------------------------
 
 				suma += Math.pow(solucion.get(i).get(j).getSecond() - TEL.get(min).get(solucion.get(i).get(j).getFirst()), 2);
 			}
