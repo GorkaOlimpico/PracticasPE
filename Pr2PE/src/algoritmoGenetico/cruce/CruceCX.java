@@ -103,6 +103,6 @@ private final String type = "CX";
 	}
 
 	public String toString() {
-		return "CX";
+		return super.getId();
 	}
 }

@@ -37,6 +37,6 @@ public class MutacionInversion extends Mutacion {
 	}
 
 	public String toString() {
-		return "Inversión";
+		return super.getId();
 	}
 }

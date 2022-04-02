@@ -62,7 +62,8 @@ public class CruceOXPP extends Cruce {
 				i1.getGenes().get(i).setAlelo(next, i1.getGenes().get(i).getAlelo(posicion));
 		}
 	}
+	
 	public String toString() {
-		return "OXPP";
+		return super.getId();
 	}
 }

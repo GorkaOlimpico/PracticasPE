@@ -48,7 +48,8 @@ public class SeleccionTruncamiento extends Seleccion {
 			contador++;
 		}
 	}
+	
 	public String toString() {
-		return "Truncamiento";
+		return super.getId();
 	}
 }

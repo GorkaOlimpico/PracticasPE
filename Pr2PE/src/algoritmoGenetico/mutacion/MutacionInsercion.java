@@ -62,7 +62,6 @@ public class MutacionInsercion extends Mutacion {
 	}
 	
 	public String toString() {
-		return "Inserción";
+		return super.getId();
 	}
-
 }

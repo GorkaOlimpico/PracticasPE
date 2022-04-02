@@ -23,31 +23,68 @@ public class CruceOX extends Cruce {
 		Random rand = new Random();
 		for(int i = 0; i < i1.getGenes().size(); i++)
 		{
-			int ini = rand.nextInt(i1.getGenes().get(i).getLongitud()), fin = rand.nextInt(i1.getGenes().get(i).getLongitud() - ini) + ini;
-			
-			OXPP(i1, i, ini, fin);
-			OXPP(i2, i, ini, fin);
+			int ini = rand.nextInt(i1.getGenes().get(i).getLongitud() - 1), fin;
+			do {
+				fin = rand.nextInt(i1.getGenes().get(i).getLongitud() - ini) + ini;
+			}while(fin == ini);
+			System.out.print("Inicio: " + ini + ", Fin: " + fin + "\n\n");
+			Object aux;			//Se intercambian los alelos entre ini y fin
+			for(int j = ini; j <= fin; j++)
+			{
+				aux = i1.getGenes().get(i).getAlelo(j);
+				i1.getGenes().get(i).setAlelo(j, i2.getGenes().get(i).getAlelo(j));
+				i2.getGenes().get(i).setAlelo(j, aux);
+			}
+			System.out.print("1-Paso 1: " + i1.genToString() + "\n");
+			OX(i1, i, ini, fin, i2);
+			System.out.print("\n" + "\n" +"2-Paso 1: " + i2.genToString() + "\n");
+			OX(i2, i, ini, fin, i1);
+			System.out.print("\n" + "\n");
 		}
   	}
 
-	private void OXPP(Individuo i1, int i, int ini, int fin)
+	private void OX(Individuo i1, int i, int ini, int fin, Individuo i2)
 	{
-		int next = fin + 1;		
-		for(int j = 1; j < i1.getGenes().get(i).getLongitud(); j++)
+		int next = (fin + 1) % i1.getGenes().get(i).getLongitud();		
+		int longitud = i1.getGenes().get(i).getLongitud() - (fin - ini);
+		for(int j = 1; j < longitud; j++)
 		{
 			int posicion = (fin + j) % i1.getGenes().get(i).getLongitud();
-			next %= i1.getGenes().get(i).getLongitud();
 			
 			boolean valido = true;									//Se comprueba si el elemento en la posicion (posicion) esta entre los intercambiados
-			for(int k = ini; k < fin && valido; k++)
-				if(i1.getGenes().get(i).getAlelo(k) == i1.getGenes().get(i).getAlelo(posicion))
+			for(int k = ini; k <= fin && valido; k++)
+				if((int) i1.getGenes().get(i).getAlelo(k) == (int) i1.getGenes().get(i).getAlelo(posicion))
 					valido = false;
 			
 			if(valido)												//Si no esta se pone en la siguiente posicion (next)
+			{	
+				
 				i1.getGenes().get(i).setAlelo(next, i1.getGenes().get(i).getAlelo(posicion));
+				next++;
+				next = next % i1.getGenes().get(i).getLongitud();
+			}
+			System.out.print("Paso 2: " + valido + " " + "  posicion: " + posicion + "  next: " + next + "\n");
+		}
+		
+		for(int j = ini; j <= fin; j++)
+		{
+			next %= i1.getGenes().get(i).getLongitud();
+			
+			boolean valido = true;									//Se comprueba si el elemento en la posicion (posicion) esta entre los intercambiados
+			for(int k = ini; k <= fin && valido; k++)
+				if((int) i1.getGenes().get(i).getAlelo(k) == (int) i2.getGenes().get(i).getAlelo(j))
+					valido = false;
+			
+			if(valido)												//Si no esta se pone en la siguiente posicion (next)
+			{	
+				i1.getGenes().get(i).setAlelo(next, i2.getGenes().get(i).getAlelo(j));
+				next++;
+			}
+			System.out.print("Paso 3: " + valido + " " + "  posicion: " + j + "  next: " + next + "\n");
 		}
 	}
+	
 	public String toString() {
-		return "OX";
+		return super.getId();
 	}
 }

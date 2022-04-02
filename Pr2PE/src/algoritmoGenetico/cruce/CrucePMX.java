@@ -99,6 +99,6 @@ private final String type = "PMX";
 
 	
 	public String toString() {
-		return "PMX";
+		return super.getId();
 	}
 }

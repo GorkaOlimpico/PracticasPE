@@ -38,6 +38,6 @@ private final String type = "Ranking";
 	}
 
 	public String toString() {
-		return "Ranking";
+		return super.getId();
 	}
 }

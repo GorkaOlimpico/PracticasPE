@@ -39,6 +39,6 @@ public class MutacionIntercambio extends Mutacion {
 	}
 
 	public String toString() {
-		return "Intercambio";
+		return super.getId();
 	}
 }

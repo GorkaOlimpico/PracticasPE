@@ -210,24 +210,8 @@ public class AlgoritmoGenetico {
 
 		sol += "Valor de la función: " + elMejor.getFitness();
 		
-		muestraSolucion();
-		
+		System.out.print(elMejor.solutionToString());
 		return sol;
-	}
-	
-	public void muestraSolucion() {
-		List<List<Pair<Integer, Double>>> solucion = elMejor.getSolucion();
-		
-		int i = 1;
-		for(List<Pair<Integer, Double>> pista : solucion) {
-			
-			System.out.println("Pista "+ i + ":");
-			for(Pair<Integer, Double> avion : pista) {
-				System.out.println("Vuelo: "+ avion.getFirst() + "\t TLA: " + avion.getSecond());
-			}
-			System.out.println("\n");
-			i++;
-		}
 	}
 	
 	private void ordenarPoblacion()

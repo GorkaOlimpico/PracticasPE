@@ -29,8 +29,7 @@ public class IndividuoPr2 extends Individuo {
 		GenPr2 aux = new GenPr2(n);
 		aux.initializeGen(rand);
 		genes.add(aux);
-		//valor = getValor();
-		valor = getFitness2();
+		recalcularFenotipo();
 		
 	}
 	
@@ -171,38 +170,30 @@ public class IndividuoPr2 extends Individuo {
 
 	@Override
 	public String solutionToString() {
-		String s = "|";;
-		for(int i = 0; i < solucion.size(); i++)
-			s += String.format("{0,9}Pista {1,2}{2,9}|", "", i + 1, "");	//26 caracteres por pista
-		s += "|\n|";
-		
-		for(int i = 0; i < solucion.size(); i++)
-			s += String.format("{0,2}Vuelo{1,3}Nombre{2,4}TLA{3,3}|,", "", "", "", "");
-		s += "|\n|";
-		
-		int i = 0;
-		boolean continuar = true;
-		while(continuar)
+		String s = "Gen: ";
+		for(int i = 0; i < n; i++)
+			s += ((int) genes.get(0).getAlelo(i) + 1) + " ";
+		s += "\n";
+		int i = 1;
+		for(List<Pair<Integer, Double>> pista : solucion) 
 		{
-			continuar = false;
-			for(int j = 0; j < solucion.size(); j++)
+			s += "Pista " + i + ":\n";
+			for(Pair<Integer, Double> avion : pista) 
 			{
-				if(i < solucion.get(j).size())
-				{
-					continuar = true;
-					s += String.format("{0,2}{1,3}{2,4}{3,8}{4,3}{5,4}{6,2},", "", 
-							solucion.get(j).get(i).getFirst(),  "", 
-							vuelos.get(solucion.get(j).get(i).getFirst()).getSecond(), "",
-							solucion.get(j).get(i).getSecond(), "");
-				}
-				else
-					s += String.format("{0,26}", "");
-				s += "|\n";
+				s += "Vuelo: "+ (avion.getFirst() + 1) + "\t Nombre: " + vuelos.get(avion.getFirst()).getSecond() + "\t TLA: " + avion.getSecond() + "\n";
 			}
+			s += "\n";
 			i++;
 		}
-		//TODO comprobar que se muestra correctamente
 		return s;
+	}
+	
+	public String genToString()
+	{
+		String s = "";
+		for(int i = 0; i < n; i++)
+			s += ((int) genes.get(0).getAlelo(i) + 1) + " ";
+		return s + "\n";
 	}
 
 	@Override

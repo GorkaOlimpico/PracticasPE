@@ -107,8 +107,8 @@ public class CruceCO extends Cruce {
 			lista.remove(index);
 		}
 	}
+	
 	public String toString() {
-		return "CO";
+		return super.getId();
 	}
-
 }

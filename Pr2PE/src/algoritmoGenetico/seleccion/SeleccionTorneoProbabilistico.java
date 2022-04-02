@@ -66,7 +66,8 @@ public class SeleccionTorneoProbabilistico extends Seleccion {
 			aux[i].copiarIndividuo(ind[j]);
 		}
 	}
+	
 	public String toString() {
-		return "Torneo Probabilístico";
+		return super.getId();
 	}
 }

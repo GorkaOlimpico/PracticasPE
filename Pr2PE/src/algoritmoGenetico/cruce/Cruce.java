@@ -54,7 +54,11 @@ public abstract class Cruce implements Cloneable{
 			int i = rand.nextInt(paraCruzar.size()), j = rand.nextInt(paraCruzar.size());
 			while(i == j)
 				j = rand.nextInt(paraCruzar.size());
+			System.out.print(1 + " Antes:" + paraCruzar.get(i).genToString());
+			System.out.print(2 + " Antes:" + paraCruzar.get(j).genToString() + "\n");
 			cruzarIndividuos(paraCruzar.get(i), paraCruzar.get(j));
+			System.out.print(1 + " Despues:" + paraCruzar.get(i).genToString());
+			System.out.print(2 + " Despues:" + paraCruzar.get(j).genToString() + "\n\n");
 			paraCruzar.get(i).recalcularFenotipo();
 			paraCruzar.get(j).recalcularFenotipo();
 			if(i < j)

@@ -46,7 +46,8 @@ public class MutacionHeuristica extends Mutacion {
 		
 		}
 	}
+	
 	public String toString() {
-		return "Heurística";
+		return super.getId();
 	}
 }

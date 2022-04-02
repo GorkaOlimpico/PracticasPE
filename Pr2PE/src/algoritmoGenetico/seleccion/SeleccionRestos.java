@@ -50,7 +50,8 @@ public class SeleccionRestos extends Seleccion {
 				contador++;
 			}
 	}
+	
 	public String toString() {
-		return "Restos";
+		return super.getId();
 	}
 }

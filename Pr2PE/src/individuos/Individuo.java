@@ -90,13 +90,11 @@ public abstract class Individuo {
 
 
 	public void recalcularFenotipo() {
-//		for(int i = 0; i < genes.size(); i++)
-//		{
-//			fenotipo.set(i, getFenotipo(i));
-//		}
-		//valor = getValor();
+//		valor = getValor();
 		valor = getFitness2();
 	}
+	
+	public abstract String genToString();
 	
 	public List<Double> getFenotipo(){
 		return fenotipo;

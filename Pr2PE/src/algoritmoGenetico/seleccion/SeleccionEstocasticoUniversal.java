@@ -49,6 +49,6 @@ public class SeleccionEstocasticoUniversal extends Seleccion {
 	}
 	
 	public String toString() {
-		return "Estocástico Universal";
+		return super.getId();
 	}
 }
