@@ -28,7 +28,7 @@ private final String type = "CX";
 		for(int j = 0; j < i1.getGenes().size(); j++) { // para varios genes
 			
 
-			// 1. Inicializo a todo 0s los i3 e i4
+			// 1. Inicializo las listas
 			List<Pair> l3 = new ArrayList<Pair>();
 			List<Pair> l4 = new ArrayList<Pair>();
 			

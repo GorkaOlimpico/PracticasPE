@@ -39,9 +39,54 @@ private final String type = "PMX";
 				p2 = p1;
 				p1 = aux;
 			}
-			//p2 = p1 +2;
+			
+			List<Pair> l3 = new ArrayList<Pair>();
+			List<Pair> l4 = new ArrayList<Pair>();
+			
+			int long_mitad = p2 - p1;
+			
+			// 2. Se ponen la zona intermedia en l3 y l4
+			for(int i = p1 +1; i <= p1 + long_mitad; i++) {
+				Pair p = new Pair(i,i2.getGenes().get(j).getAlelo(i));
+				l3.add(p);
+				
+				Pair pp = new Pair(i,i1.getGenes().get(j).getAlelo(i));
+				l4.add(pp);
+			}
+			
+			// 3. Se ponen los demás valores de los individuos originales y si entran en conflicto se pone su homólogo
+			
+			for(int i = 0; i< i1.getGenes().get(j).getLongitud(); i++) {
+				if(i <= p1 || i > p2) { // fuera de la mitad ya intercambiada
+					if(!contenidoEn(i1.getGenes().get(i), l3)) {
+						Pair p = new Pair(i,i1.getGenes().get(j).getAlelo(i));
+						l3.add(p);
+					}
+					else {
+						int pos = buscaPos(i2.getGenes().get(j).getAlelo(i), l3);
+						Pair p = new Pair(i, i2.getGenes().get(j).getAlelo(pos));
+						l3.add(p);
+					}
+				}
+			}
+			
+			for(int i = 0; i< i2.getGenes().get(j).getLongitud(); i++) {
+				if(i <= p1 || i > p2) { // fuera de la mitad ya intercambiada
+					if(!contenidoEn(i2.getGenes().get(i), l4)) {
+						Pair p = new Pair(i,i2.getGenes().get(j).getAlelo(i));
+						l4.add(p);
+					}
+					else {
+						int pos = buscaPos(i1.getGenes().get(j).getAlelo(i), l4);
+						Pair p = new Pair(i, i1.getGenes().get(j).getAlelo(pos));
+						l4.add(p);
+					}
+				}
+			}
 			
 			
+			
+			/*
 			// 2. Se intercambian las mitades
 			for(int i = p1+1; i <= p2; i++)
 				i1.getGenes().get(j).intercambiarAlelo(i, i2.getGenes().get(j));
@@ -82,14 +127,14 @@ private final String type = "PMX";
 				i1.getGenes().get(j).setAlelo((int) p.getFirst(), p.getSecond());
 			}
 			
-
+		*/
 		}
 	}
 	
-	public boolean contenidoEn(Object o, List<Object> lista) {
+	public boolean contenidoEn(Object o, List<Pair> lista) {
 		boolean contenido = false;
-		for(Object objeto : lista) {
-			if(o == objeto) {
+		for(Pair p : lista) {
+			if(p.getSecond() == o) {
 				contenido = true;
 			}
 		}
@@ -97,7 +142,16 @@ private final String type = "PMX";
 		return contenido;
 	}
 
-	
+	public int buscaPos(Object o, List<Pair> l3) {
+		int pos = -1;
+		for(int i = 0; i< l3.size(); i++) {
+			if(o == l3.get(i).getSecond()) {
+				pos = i;
+			}
+		}
+		
+		return pos;
+	}
 	public String toString() {
 		return super.getId();
 	}
