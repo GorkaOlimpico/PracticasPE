@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
 import algoritmoGenetico.cruce.Cruce;
 import algoritmoGenetico.mutacion.Mutacion;
 import gen.Gen;
@@ -70,6 +71,7 @@ public class IndividuoPr2 extends Individuo {
 	@Override
 	public double getValor() {
 		asignarPista();
+		//asigPista2();
 		double suma = 0;
 		int x = 0;
 		double retardo1 = 0;
@@ -122,11 +124,11 @@ public class IndividuoPr2 extends Individuo {
 		int pos;
 		
 		Gen g = genes.get(0);
-		for(int i = 0; i < n; i++)
+		for(int i = 0; i < n; i++) // por n vuelos
 		{
 			tla = Double.MAX_VALUE;
 			pos = 0;
-			for(int j = 0; j < m; j++) 
+			for(int j = 0; j < m; j++) // por n pistas
 			{
 				calculo = 0;
 				aux = TEL.get(j).get((int) g.getAlelo(i));	//TEL vuelo en la pista j
@@ -138,7 +140,7 @@ public class IndividuoPr2 extends Individuo {
 							tEspera.get(vuelos.get(solucion.get(j).get(vueloAnt).getFirst()).getFirst()).get(vuelos.get((int) g.getAlelo(i)).getFirst()); 
 				}						//tipo del ultimo vuelo en la pista j									tipo del vuelo a añadir
 				if(calculo > aux)	
-					aux = calculo;		//El TLA de asignarse esta pista seria el mmaximo entre el TEL y el TLA del vuelo anterior + retraso
+					aux = calculo;		//El TLA de asignarse esta pista seria el maximo entre el TEL y el TLA del vuelo anterior + retraso
 				if(aux < tla)			//El vuelo se asigna a la pista con menor TLA
 				{
 					pos = j;
@@ -148,6 +150,88 @@ public class IndividuoPr2 extends Individuo {
 			Pair<Integer, Double> par = new Pair<Integer, Double>((int) genes.get(0).getAlelo(i), tla);
 			solucion.get(pos).add(par);
 		}
+	}
+	
+	private void asigPista2() {
+		solucion = new ArrayList<>();
+		for(int i = 0; i < m; i++)
+			solucion.add(new ArrayList<>());
+		Gen g = genes.get(0);
+		
+
+		for(int i = 0; i < n; i++) {
+			
+			// 1. Por cada vuelo: Lo asigno a las 3 pistas y calculo su retardo posible
+			double maxRetardo = Double.MAX_VALUE;
+			int mejorPista = -1;
+			double tla = -1;
+			
+			for(int j = 0; j < m; j++) { // pistas de 0 a m
+				Object aux_tla = new Integer(-1);
+				//double aux_tla = -1;
+				double retardo = asignaAPista(genes.get(0).getAlelo(i), j, aux_tla);
+				if(retardo < maxRetardo) { // aqui siempre escoge la primera opción que tenía menos retardo
+					maxRetardo = retardo;
+					mejorPista = j;
+					tla = (double) aux_tla;
+				}
+			}
+			
+			// 2. Lo asigno a la pista en la cual tiene menos retardo
+			Pair<Integer, Double> par = new Pair<Integer, Double>((int) genes.get(0).getAlelo(i), tla);
+			solucion.get(mejorPista).add(par);
+			
+		}
+
+		
+	}
+	
+	private double asignaAPista(Object avion, int numPista, Object aux_tla) {
+		double retardo = 0;
+		double tel = TEL.get(numPista).get((int) avion);
+		double tlaAnterior = ultimoTLA(numPista);
+		
+		int tipoAnterior = -1;
+		if(solucion.get(numPista).size() > 0) {
+			int avionAnterior = solucion.get(numPista).get(solucion.get(numPista).size()-1).getFirst();
+			tipoAnterior = vuelos.get(avionAnterior).getFirst();
+		}
+		int tipoActual = vuelos.get((int) avion).getFirst();
+		
+		double diferencia = diferencia(tipoActual, tipoAnterior);
+		
+		if(tel >= tlaAnterior + diferencia) {
+			aux_tla = tel;
+		}
+		else {
+			aux_tla = tlaAnterior + diferencia;
+		}
+		
+		retardo = Math.pow(((double) aux_tla - tel), 2);
+		
+		return retardo;
+	}
+	
+	public double ultimoTLA(int numPista) {
+		double tla = -1;
+		
+		if(solucion.get(numPista).size() > 0) {//si hay algun avion en la pista
+			tla = solucion.get(numPista).get(solucion.get(numPista).size() -1).getSecond(); //selecciono el último asignado
+		}
+		else {
+			tla = 0;
+		}
+		
+		return tla;
+	}
+	
+	public double diferencia(int tipo1, int tipo2) {
+		// W = 0, G = 1, P = 2
+		double diferencia = 0;
+		if(tipo2 != -1) {
+			diferencia = tEspera.get(tipo2).get(tipo1);
+		}
+		return diferencia;
 	}
 
 	@Override
