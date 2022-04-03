@@ -90,8 +90,8 @@ public abstract class Individuo {
 
 
 	public void recalcularFenotipo() {
-		valor = getValor();
-//		valor = getFitness2();
+		valor = getValor();			//(TLA - menor TEL)^2
+//		valor = getFitness2();		//(TLA -TEL pista)^2
 	}
 	
 	public abstract String genToString();

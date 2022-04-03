@@ -46,11 +46,11 @@ public class IndividuoPr2 extends Individuo {
 
 	@Override
 	public double getFitness2() {
-		asignarPista();
+		asignarPistaMenorTLA();
 		double suma = 0;
 		
 		// 1. Se recorre cada pista calculando los retardos de cada avion de la forma:
-		// 		retardo = (TLA - menor TEL de esa pista)
+		// 		retardo = (TLA - menor TEL de esa pista)^2
 		int i = 0;
 		for(List<Pair<Integer, Double>> pista : solucion) {
 			for(Pair<Integer, Double> avion : pista) {
@@ -70,37 +70,25 @@ public class IndividuoPr2 extends Individuo {
 	
 	@Override
 	public double getValor() {
-		asignarPista();
+		asignarPistaMenorRetardo();
 		//asigPista2();
 		double suma = 0;
-		int x = 0;
-
-		
 		for(List<Pair<Integer, Double>> pista : solucion) {
-			x++;
 			for(Pair<Integer, Double> avion : pista) {
 				double retardo = 0;
-
-				
 				double tel = TEL.get(0).get(avion.getFirst()); 
 				for(int i = 1; i < m; i++)
 					if(TEL.get(i).get(avion.getFirst()) < tel)
 						tel = TEL.get(i).get(avion.getFirst());	//Menor TEL de ese vuelo
 				double tla = avion.getSecond();
-				
 				retardo = Math.pow((tla - tel), 2);
-
 				suma += retardo;
-
 			}
-			
-			
 		}
-		
 		return suma;
 	}
 	
-	private void asignarPista()
+	private void asignarPistaMenorRetardo()
 	{
 		solucion = new ArrayList<>();
 		for(int i = 0; i < m; i++)
@@ -134,12 +122,49 @@ public class IndividuoPr2 extends Individuo {
 				}						//tipo del ultimo vuelo en la pista j									tipo del vuelo a añadir
 				if(aux_tla < tel)	
 					aux_tla = tel;		//El TLA de asignarse esta pista seria el maximo entre el TEL y el TLA del vuelo anterior + retraso
-				aux_retardo = Math.pow(aux_tla - aux_tel, 2);
+				aux_retardo = aux_tla - aux_tel;
 				if(aux_retardo < retardo)			//El vuelo se asigna a la pista con menor TLA
 				{
 					pos = j;
 					tla = aux_tla;
 					retardo = aux_retardo;
+				}
+			}
+			Pair<Integer, Double> par = new Pair<Integer, Double>((int) genes.get(0).getAlelo(i), tla);
+			solucion.get(pos).add(par);
+		}
+	}
+	
+	private void asignarPistaMenorTLA()
+	{
+		solucion = new ArrayList<>();
+		for(int i = 0; i < m; i++)
+			solucion.add(new ArrayList<>());
+		double tla, tel, aux_tla;
+		int pos;
+		
+		Gen g = genes.get(0);
+		for(int i = 0; i < n; i++) // por n vuelos
+		{
+			pos = 0;
+			tla = Double.MAX_VALUE;
+			for(int j = 0; j < m; j++) // por m pistas
+			{
+				aux_tla = 0;
+				tel = TEL.get(j).get((int) g.getAlelo(i));	//TEL vuelo en la pista j
+				if(solucion.get(j).size() != 0)
+				{
+					int vueloAnt = solucion.get(j).size() - 1;
+					//TLA vuelo anterior + tiempo de espera correspondiente al tipo de vuelo
+					aux_tla = solucion.get(j).get(vueloAnt).getSecond() + 
+							tEspera.get(vuelos.get(solucion.get(j).get(vueloAnt).getFirst()).getFirst()).get(vuelos.get((int) g.getAlelo(i)).getFirst()); 
+				}						//tipo del ultimo vuelo en la pista j									tipo del vuelo a añadir
+				if(aux_tla < tel)	
+					aux_tla = tel;		//El TLA de asignarse esta pista seria el maximo entre el TEL y el TLA del vuelo anterior + retraso
+				if(aux_tla < tla)			//El vuelo se asigna a la pista con menor TLA
+				{
+					pos = j;
+					tla = aux_tla;
 				}
 			}
 			Pair<Integer, Double> par = new Pair<Integer, Double>((int) genes.get(0).getAlelo(i), tla);
