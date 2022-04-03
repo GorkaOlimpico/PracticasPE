@@ -209,7 +209,7 @@ public class AlgoritmoGenetico {
 		}
 
 		sol += "Valor de la función: " + elMejor.getFitness();
-		
+		System.out.println(sol);
 		System.out.print(elMejor.solutionToString());
 		return sol;
 	}

@@ -74,9 +74,7 @@ public class IndividuoPr2 extends Individuo {
 		asigPista2();
 		double suma = 0;
 		int x = 0;
-		double retardo1 = 0;
-		double retardo2 = 0;
-		double retardo3 = 0;
+
 		
 		for(List<Pair<Integer, Double>> pista : solucion) {
 			x++;
@@ -91,27 +89,14 @@ public class IndividuoPr2 extends Individuo {
 				double tla = avion.getSecond();
 				
 				retardo = Math.pow((tla - tel), 2);
-				if(x==1) {
-					retardo1 += retardo;
-				}
-				if(x==2) {
-					retardo2 += retardo;
-				}
-				if(x==3) {
-					retardo3 += retardo;
-				}
+
 				suma += retardo;
 
 			}
 			
-			System.out.println("Suma hasta pista " + x + ": " + suma);
+			
 		}
-		if(suma == 11.25) {
-			System.out.println("Retardo1:" + retardo1);
-			System.out.println("Retardo2:" + retardo2);
-			System.out.println("Retardo3:" + retardo3);
-			System.out.println(this.solutionToString());
-		}
+		
 		return suma;
 	}
 	

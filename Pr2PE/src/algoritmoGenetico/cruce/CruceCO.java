@@ -80,20 +80,7 @@ public class CruceCO extends Cruce {
 				cod2.add(j, aux);
 			}
 		}
-		/*
-		Random rand = new Random();
-		List<Gen> g1 = i1.getGenes(), g2 = i2.getGenes();
-		double aux;
-		for(int i = 0; i < g1.size(); i++)
-		{
-			for(int j = rand.nextInt(g1.get(i).getLongitud()); j < g1.get(i).getLongitud(); j++)
-			{
-				aux = (double) g1.get(i).getAlelo(j);
-				g1.get(i).setAlelo(j, g2.get(i).getAlelo(j));
-				g2.get(i).setAlelo(j, aux);
-			}
-		}
-		*/
+		
 	}
 	
 	public void decodifica(Individuo ind, List<Integer> cod) {
