@@ -1,8 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
-
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.*;
@@ -81,12 +78,12 @@ public class MainFrame extends JFrame {
 		JLabel tel = new JLabel("TEL: ");
 		TEL = new JTextField();
 		TEL.setPreferredSize(new Dimension(100,25));
-		TEL.setText("TEL.txt");
+		TEL.setText("TEL1.txt");
 		
 		JLabel vue = new JLabel("Vuelos: ");
 		vuelos = new JTextField();
 		vuelos.setPreferredSize(new Dimension(100,25));
-		vuelos.setText("vuelos.txt");
+		vuelos.setText("vuelos1.txt");
 		
 		
 		panelSuperior.add(tEsp);
@@ -126,15 +123,21 @@ public class MainFrame extends JFrame {
 		JPanel panelIzquierdo = new JPanel();
 		panelIzquierdo.setLayout(new BorderLayout());
 		
+		
+
+		
 		solucion = new JTextArea();
-		solucion.setPreferredSize(new Dimension(200, 650));
+
 		solucion.setText("Sin solución");
 		solucion.setBackground(Color.lightGray);
-		JScrollPane s = new JScrollPane(solucion);
-		s.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		s.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		panelIzquierdo.add(s, BorderLayout.SOUTH);
 		
+		JScrollPane s = new JScrollPane();
+		s.setPreferredSize(new Dimension(200, 650));
+		s.setViewportView(solucion);
+
+		
+		panelIzquierdo.add(s, BorderLayout.SOUTH);
+
 		// Formulario	
 		
 //		panelCentral.setLeftComponent(creaFormulario());
