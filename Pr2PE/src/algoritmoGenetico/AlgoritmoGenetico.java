@@ -209,7 +209,7 @@ public class AlgoritmoGenetico {
 		}
 
 		sol += "Valor de la función: " + elMejor.getFitness();
-		
+		System.out.println(sol);
 		System.out.print(elMejor.solutionToString());
 		return sol;
 	}
@@ -272,7 +272,7 @@ public class AlgoritmoGenetico {
 				//System.out.println("fenotipo 1: " + elMejor.fenotipo.get(1));
 			}
 		}
-		else if(elMejorGeneracion.getFitness() < elMejor.getFitness()) {
+		else if(elMejorGeneracion.getFitness() <= elMejor.getFitness()) {
 				elMejor = elMejorGeneracion;
 				//System.out.println("fenotipo 0: " + elMejor.fenotipo.get(0));
 				//System.out.println("fenotipo 1: " + elMejor.fenotipo.get(1));
