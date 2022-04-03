@@ -8,7 +8,7 @@ import individuos.Individuo;
 
 public class CruceOXPP extends Cruce {
 	private final String type = "OX-PP";
-	private final double prob = 0.15; //Probabilidad de elegir la posicion como punto de intercambio
+	private final double prob = 0.1; //Probabilidad de elegir la posicion como punto de intercambio
 	
 	public CruceOXPP()
 	{
