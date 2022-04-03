@@ -63,7 +63,7 @@ public class MainFrame extends JFrame {
 		
 		setLayout(new BorderLayout());
 		
-		AG = new AlgoritmoGenetico();
+		
 	
 		// Panel central
 		panelCentral = new JSplitPane();
@@ -97,6 +97,7 @@ public class MainFrame extends JFrame {
 		
 		add(panelSuperior, BorderLayout.NORTH);
 		
+		AG = new AlgoritmoGenetico(tEspera.getText(), TEL.getText(), vuelos.getText());
 		
 		
 		// Panel central
@@ -229,13 +230,13 @@ public class MainFrame extends JFrame {
 	}
 	
 	public void reset() {
-		AG = new AlgoritmoGenetico();
+		AG = new AlgoritmoGenetico(tEspera.getText(), TEL.getText(), vuelos.getText());
 		formulario.setTarget(AG);
 		formulario.initialize();
 		btnEjecutar.setEnabled(true);
 	}
 	public void ejecutar() {
-		 AG = new AlgoritmoGenetico();
+		 AG = new AlgoritmoGenetico(tEspera.getText(), TEL.getText(), vuelos.getText());
 		
 		// Todos los datos del formulario se pondrán en AG
 		

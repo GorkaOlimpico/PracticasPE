@@ -167,7 +167,7 @@ public class IndividuoPr2 extends Individuo {
 				
 				
 				double retardo = asignaAPista((int) genes.get(0).getAlelo(i), j, -1.0);
-				double aux_tla = asignaAPistaTLA(genes.get(0).getAlelo(i), j);
+				double aux_tla = asignaAPistaTLA((int)genes.get(0).getAlelo(i), j);
 				if(retardo <= maxRetardo) { // aqui siempre escoge la primera opción que tenía menos retardo
 
 					maxRetardo = retardo;
@@ -207,6 +207,9 @@ public class IndividuoPr2 extends Individuo {
 			tipoAnterior = vuelos.get(avionAnterior).getFirst();
 		}
 		int tipoActual = vuelos.get(avion).getFirst();
+		if(tipoActual == -1) {
+			System.out.println("tipoactual = -1");
+		}
 		
 		double diferencia = diferencia(tipoActual, tipoAnterior);
 		
@@ -333,7 +336,7 @@ public class IndividuoPr2 extends Individuo {
 		return solucion;
 	}
 	
-	private double asignaAPistaTLA(Object avion, int numPista) {
+	private double asignaAPistaTLA(int avion, int numPista) {
 		double retardo = 0;
 		double aux_tla = -1;
 		double tel = TEL.get(numPista).get((int) avion);
@@ -344,7 +347,10 @@ public class IndividuoPr2 extends Individuo {
 			int avionAnterior = solucion.get(numPista).get(solucion.get(numPista).size()-1).getFirst();
 			tipoAnterior = vuelos.get(avionAnterior).getFirst();
 		}
-		int tipoActual = vuelos.get((int) avion).getFirst();
+		int tipoActual = vuelos.get(avion).getFirst();
+		if(tipoActual == -1) {
+			System.out.println("tipoactual = -1");
+		}
 		
 		double diferencia = diferencia(tipoActual, tipoAnterior);
 		

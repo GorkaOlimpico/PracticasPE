@@ -40,7 +40,7 @@ public class AlgoritmoGenetico {
 	private Mutacion mutacion;
 		
 	
-	public AlgoritmoGenetico() 
+	public AlgoritmoGenetico(String str_espera, String str_tel, String str_vuelos) 
 	{		
 		tam_pob = 100;
 		num_max_gen = 100;
@@ -49,9 +49,9 @@ public class AlgoritmoGenetico {
 		elite= 2;
 	
 		problema = "Practica 2";
-		s_tEspera = "tEspera.txt";
-		s_TEL = "TEL.txt";
-		s_vuelos = "vuelos.txt";
+		s_tEspera = str_espera;
+		s_TEL = str_tel;
+		s_vuelos = str_vuelos;
 		leerVuelos();
 		leerTEspera();
 		leerTEL();

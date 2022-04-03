@@ -91,8 +91,8 @@ private final String type = "PMX";
 			}
 			
 			// Adaptación para elementos repetidos:
-			rellenaHuecos(l3);
-			rellenaHuecos(l4);
+			rellenaHuecos(i1, l3);
+			rellenaHuecos(i2, l4);
 			
 			
 			// 4. Se pasa de las listas a los individuos
@@ -107,19 +107,19 @@ private final String type = "PMX";
 			
 		}
 	}
-	public void rellenaHuecos(List<Pair> lista) {
-		for(int i = 0; i < 12; i++) {
+	public void rellenaHuecos(Individuo ind, List<Pair> lista) {
+		for(int i = 0; i < ind.getGenes().get(0).getLongitud(); i++) {
 			if(!contenidoEn(i, lista)) {
-				int hueco = primerHueco(lista);
+				int hueco = primerHueco(ind, lista);
 				Pair p = new Pair(hueco, i);
 				lista.add(p);
 			}
 		}
 	}
 	
-	public int primerHueco(List<Pair> lista) {
+	public int primerHueco(Individuo ind, List<Pair> lista) {
 		List<Integer> posiciones = new ArrayList<Integer>();
-		for(int i = 0; i < 12; i++) {
+		for(int i = 0; i < ind.getGenes().get(0).getLongitud(); i++) {
 			posiciones.add(i);
 		}
 		
