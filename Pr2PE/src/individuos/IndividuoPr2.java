@@ -70,8 +70,8 @@ public class IndividuoPr2 extends Individuo {
 	
 	@Override
 	public double getValor() {
-		asignarPista();
-		//asigPista2();
+		//asignarPista();
+		asigPista2();
 		double suma = 0;
 		int x = 0;
 		double retardo1 = 0;
@@ -167,13 +167,24 @@ public class IndividuoPr2 extends Individuo {
 			double tla = -1;
 			
 			for(int j = 0; j < m; j++) { // pistas de 0 a m
-				Object aux_tla = new Integer(-1);
-				//double aux_tla = -1;
-				double retardo = asignaAPista(genes.get(0).getAlelo(i), j, aux_tla);
+				
+				
+				double retardo = asignaAPista(genes.get(0).getAlelo(i), j, -1.0);
+				double aux_tla = asignaAPistaTLA(genes.get(0).getAlelo(i), j);
 				if(retardo < maxRetardo) { // aqui siempre escoge la primera opción que tenía menos retardo
 					maxRetardo = retardo;
 					mejorPista = j;
-					tla = (double) aux_tla;
+					tla = aux_tla;
+				}
+				if(retardo == maxRetardo) { // 50% de quedarse con el otro retardo
+					Random rand = new Random();
+					int prob = rand.nextInt(1);
+					if(prob == 1) {
+						maxRetardo = retardo;
+						mejorPista = j;
+						tla = aux_tla;
+					}
+						
 				}
 			}
 			
@@ -186,8 +197,9 @@ public class IndividuoPr2 extends Individuo {
 		
 	}
 	
-	private double asignaAPista(Object avion, int numPista, Object aux_tla) {
+	private double asignaAPista(Object avion, int numPista, double aux_tla) {
 		double retardo = 0;
+		double minTel = minTEL(avion); // este es el mínimo TEL global
 		double tel = TEL.get(numPista).get((int) avion);
 		double tlaAnterior = ultimoTLA(numPista);
 		
@@ -207,9 +219,21 @@ public class IndividuoPr2 extends Individuo {
 			aux_tla = tlaAnterior + diferencia;
 		}
 		
-		retardo = Math.pow(((double) aux_tla - tel), 2);
+		retardo = Math.pow((aux_tla - minTel), 2);
 		
 		return retardo;
+	}
+	
+	public double minTEL(Object avion) {
+		double minTel = Double.MAX_VALUE;
+		for(List<Double> pista : TEL) {
+			double tel = pista.get((int) avion);
+			if(tel < minTel) {
+				minTel = tel;
+			}
+		}
+		
+		return minTel;
 	}
 	
 	public double ultimoTLA(int numPista) {
@@ -309,5 +333,32 @@ public class IndividuoPr2 extends Individuo {
 	@Override
 	public List<List<Pair<Integer, Double>>> getSolucion(){
 		return solucion;
+	}
+	
+	private double asignaAPistaTLA(Object avion, int numPista) {
+		double retardo = 0;
+		double aux_tla = -1;
+		double tel = TEL.get(numPista).get((int) avion);
+		double tlaAnterior = ultimoTLA(numPista);
+		
+		int tipoAnterior = -1;
+		if(solucion.get(numPista).size() > 0) {
+			int avionAnterior = solucion.get(numPista).get(solucion.get(numPista).size()-1).getFirst();
+			tipoAnterior = vuelos.get(avionAnterior).getFirst();
+		}
+		int tipoActual = vuelos.get((int) avion).getFirst();
+		
+		double diferencia = diferencia(tipoActual, tipoAnterior);
+		
+		if(tel >= tlaAnterior + diferencia) {
+			aux_tla = tel;
+		}
+		else {
+			aux_tla = tlaAnterior + diferencia;
+		}
+		
+		retardo = Math.pow(((double) aux_tla - tel), 2);
+		
+		return aux_tla;
 	}
 }
