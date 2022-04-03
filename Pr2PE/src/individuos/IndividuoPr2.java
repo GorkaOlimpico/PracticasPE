@@ -70,8 +70,8 @@ public class IndividuoPr2 extends Individuo {
 	
 	@Override
 	public double getValor() {
-		//asignarPista();
-		asigPista2();
+		asignarPista();
+		//asigPista2();
 		double suma = 0;
 		int x = 0;
 
@@ -305,7 +305,8 @@ public class IndividuoPr2 extends Individuo {
 
 	@Override
 	public String solutionToString() {
-		String s = "Gen: ";
+		String s = "El valor de la funcion es: " + super.getFitness() + "\n";
+		s += "Gen: ";
 		for(int i = 0; i < n; i++)
 			s += ((int) genes.get(0).getAlelo(i) + 1) + " ";
 		s += "\n";

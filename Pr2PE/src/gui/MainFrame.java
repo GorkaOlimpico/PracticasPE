@@ -28,7 +28,8 @@ public class MainFrame extends JFrame {
 	private ConfigPanel<AlgoritmoGenetico> formulario;
 	private static JSplitPane panelCentral;
 	private Individuo ind;
-	private static JTextField solucion;
+	private static JTextField fitness;
+	private static JTextArea solucion;
 	private JTextField num_var;
 	private JTextField tEspera;
 	private JTextField TEL;
@@ -121,10 +122,24 @@ public class MainFrame extends JFrame {
 		// TODO mirar si esto está bien
 		ind = new IndividuoPr2();
 		
+		//Parte Izquierda del panel central
+		JPanel panelIzquierdo = new JPanel();
+		panelIzquierdo.setLayout(new BorderLayout());
+		
+		solucion = new JTextArea();
+		solucion.setPreferredSize(new Dimension(200, 650));
+		solucion.setText("Sin solución");
+		solucion.setBackground(Color.lightGray);
+		JScrollPane s = new JScrollPane(solucion);
+		s.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		s.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		panelIzquierdo.add(s, BorderLayout.SOUTH);
 		
 		// Formulario	
-		panelCentral.setLeftComponent(creaFormulario());
-			
+		
+//		panelCentral.setLeftComponent(creaFormulario());
+		panelIzquierdo.add(creaFormulario(), BorderLayout.CENTER);
+		panelCentral.setLeftComponent(panelIzquierdo);
 		
 		
 		
@@ -148,14 +163,14 @@ public class MainFrame extends JFrame {
 				reset();				
 			}
 		});
-		JLabel sol = new JLabel("Solución:");
-		solucion = new JTextField();
-		solucion.setPreferredSize(new Dimension(800, 25));
-		solucion.setText("Sin solución");
+		JLabel sol_fitness = new JLabel("Solución:");
+		fitness = new JTextField();
+		fitness.setPreferredSize(new Dimension(800, 25));
+		fitness.setText("Sin solución");
 		
 		panelInferior.add(btnReset);
-		panelInferior.add(sol);
-		panelInferior.add(solucion);	
+		panelInferior.add(sol_fitness);
+		panelInferior.add(fitness);	
 		panelInferior.add(btnEjecutar);		
 		add(panelInferior, BorderLayout.SOUTH);
 		
@@ -277,7 +292,8 @@ public class MainFrame extends JFrame {
 	
 	
 	
-	public static void setSolucion(String sol){
+	public static void setSolucion(String f, String sol){
+		fitness.setText(f);
 		solucion.setText(sol);
 	}
 }

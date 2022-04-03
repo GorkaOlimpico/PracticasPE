@@ -111,7 +111,7 @@ public class AlgoritmoGenetico {
 		
 		MainFrame.imprimeGrafica(mejoresGlobales, mejoresGeneracion, mediaGeneracion);
 		
-		MainFrame.setSolucion(generaSolucion());
+		MainFrame.setSolucion(generaSolucion(), elMejor.solutionToString());
 	}
 	
 	private void sacarElites(Individuo[] e) //Guarda los mejores antes del proceso de seleccion, cruce y mutacion
@@ -202,14 +202,13 @@ public class AlgoritmoGenetico {
 	public String generaSolucion() {
 		String sol = "";
 		
-		int x = 0;
-		for(double fenotipo:elMejor.getFenotipo()) {
-			sol += "X" + x + " = " + fenotipo + ", ";
-			x++;
-		}
+//		int x = 0;
+//		for(double fenotipo:elMejor.getFenotipo()) {
+//			sol += "X" + x + " = " + fenotipo + ", ";
+//			x++;
+//		}
 
 		sol += "Valor de la función: " + elMejor.getFitness();
-		System.out.println(sol);
 		System.out.print(elMejor.solutionToString());
 		return sol;
 	}
