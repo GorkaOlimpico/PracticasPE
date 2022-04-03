@@ -58,79 +58,78 @@ private final String type = "PMX";
 			
 			for(int i = 0; i< i1.getGenes().get(j).getLongitud(); i++) {
 				if(i <= p1 || i > p2) { // fuera de la mitad ya intercambiada
-					if(!contenidoEn(i1.getGenes().get(i), l3)) {
+					if(!contenidoEn(i1.getGenes().get(j).getAlelo(i), l3)) {
 						Pair p = new Pair(i,i1.getGenes().get(j).getAlelo(i));
 						l3.add(p);
 					}
 					else {
-						int pos = buscaPos(i2.getGenes().get(j).getAlelo(i), l3);
-						Pair p = new Pair(i, i2.getGenes().get(j).getAlelo(pos));
-						l3.add(p);
+						int pos = buscaPos(i1.getGenes().get(j).getAlelo(i), l3);
+						if(!contenidoEn(i1.getGenes().get(j).getAlelo(pos), l3)) {
+							Pair p = new Pair(i, i1.getGenes().get(j).getAlelo(pos));
+							l3.add(p);
+						}
+						
 					}
 				}
 			}
 			
 			for(int i = 0; i< i2.getGenes().get(j).getLongitud(); i++) {
 				if(i <= p1 || i > p2) { // fuera de la mitad ya intercambiada
-					if(!contenidoEn(i2.getGenes().get(i), l4)) {
+					if(!contenidoEn(i2.getGenes().get(j).getAlelo(i), l4)) {
 						Pair p = new Pair(i,i2.getGenes().get(j).getAlelo(i));
 						l4.add(p);
 					}
 					else {
-						int pos = buscaPos(i1.getGenes().get(j).getAlelo(i), l4);
-						Pair p = new Pair(i, i1.getGenes().get(j).getAlelo(pos));
-						l4.add(p);
-					}
-				}
-			}
-			
-			
-			
-			/*
-			// 2. Se intercambian las mitades
-			for(int i = p1+1; i <= p2; i++)
-				i1.getGenes().get(j).intercambiarAlelo(i, i2.getGenes().get(j));
-			
-			// 3. Se recorren i1 e i2 para incluir el resto de números. Si el elemento ya está incluido entonces ponen su homólogo.
-			// Puedo apoyarme en 2 listas para no alterar a los individuos en el proceso y así evitar errores.
-			List<Pair> l1 = new ArrayList<Pair>();
-
-			for(int i = 0; i<i1.getGenes().get(j).getLongitud(); i++) {
-				for(int k = i+1; k < i1.getGenes().get(j).getLongitud(); k++) {
-					if(i1.getGenes().get(j).getAlelo(i) == i1.getGenes().get(j).getAlelo(k)) { // Si ya está en la lista:
-						if(i > p1 && i <= p2){//si el elem i pertece a la mitad intercambiada se intercambia el otro
-							//i1.getGenes().get(j).setAlelo(k, i2.getGenes().get(j).getAlelo(i)); // Se cambia por su homólogo
-							Pair p = new Pair(k, i2.getGenes().get(j).getAlelo(i));
-							l1.add(p);
+						int pos = buscaPos(i2.getGenes().get(j).getAlelo(i), l4);
+						if(!contenidoEn(i2.getGenes().get(j).getAlelo(pos), l4)) {
+							Pair p = new Pair(i, i2.getGenes().get(j).getAlelo(pos));
+							l4.add(p);
 						}
-						else {
-							//i1.getGenes().get(j).setAlelo(i, i2.getGenes().get(j).getAlelo(k));
-							Pair p = new Pair(i, i2.getGenes().get(j).getAlelo(k));
-							l1.add(p);
-						}
+						
 					}
 				}
 			}
 			
-			for(int i = 0; i<i2.getGenes().get(j).getLongitud(); i++) {
-				for(int k = i+1; k < i2.getGenes().get(j).getLongitud(); k++) {
-					if(i2.getGenes().get(j).getAlelo(i) == i2.getGenes().get(j).getAlelo(k)) { // Si ya está en la lista:
-						if(i > p1 && i <= p2)//si el elem i pertece a la mitad intercambiada se intercambia el otro
-							i2.getGenes().get(j).setAlelo(k, i1.getGenes().get(j).getAlelo(i)); // Se cambia por su homólogo
-						else 
-							i2.getGenes().get(j).setAlelo(i, i1.getGenes().get(j).getAlelo(k));
-					}
-				}
-			}
-			// Recorro la lista y sustituyo los elementos correspondientes
-			for(Pair p: l1) {
+			// Adaptación para elementos repetidos:
+			rellenaHuecos(l3);
+			rellenaHuecos(l4);
+			
+			
+			// 4. Se pasa de las listas a los individuos
+			for(Pair p: l3) {
 				i1.getGenes().get(j).setAlelo((int) p.getFirst(), p.getSecond());
 			}
 			
-		*/
+			for(Pair p: l4) {
+				i2.getGenes().get(j).setAlelo((int) p.getFirst(), p.getSecond());
+			}
+			
+			
+		}
+	}
+	public void rellenaHuecos(List<Pair> lista) {
+		for(int i = 0; i < 12; i++) {
+			if(!contenidoEn(i, lista)) {
+				int hueco = primerHueco(lista);
+				Pair p = new Pair(hueco, i);
+				lista.add(p);
+			}
 		}
 	}
 	
+	public int primerHueco(List<Pair> lista) {
+		List<Integer> posiciones = new ArrayList<Integer>();
+		for(int i = 0; i < 12; i++) {
+			posiciones.add(i);
+		}
+		
+		for(Pair p : lista) {
+			if(posiciones.contains(p.getFirst())) {
+				posiciones.remove((Object) p.getFirst());
+			}
+		}
+		return posiciones.get(0);
+	}
 	public boolean contenidoEn(Object o, List<Pair> lista) {
 		boolean contenido = false;
 		for(Pair p : lista) {
@@ -142,11 +141,12 @@ private final String type = "PMX";
 		return contenido;
 	}
 
-	public int buscaPos(Object o, List<Pair> l3) {
+	public int buscaPos(Object o, List<Pair> lista) {
 		int pos = -1;
-		for(int i = 0; i< l3.size(); i++) {
-			if(o == l3.get(i).getSecond()) {
-				pos = i;
+		for(int i = 0; i < lista.size(); i++) {
+			if(o == lista.get(i).getSecond()) {
+				pos = (int) lista.get(i).getFirst();
+				break;
 			}
 		}
 		
