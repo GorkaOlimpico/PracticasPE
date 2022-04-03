@@ -156,14 +156,15 @@ public class IndividuoPr2 extends Individuo {
 				
 				double retardo = asignaAPista(genes.get(0).getAlelo(i), j, -1.0);
 				double aux_tla = asignaAPistaTLA(genes.get(0).getAlelo(i), j);
-				if(retardo < maxRetardo) { // aqui siempre escoge la primera opción que tenía menos retardo
+				if(retardo <= maxRetardo) { // aqui siempre escoge la primera opción que tenía menos retardo
 					maxRetardo = retardo;
 					mejorPista = j;
 					tla = aux_tla;
 				}
+				/*
 				if(retardo == maxRetardo) { // 50% de quedarse con el otro retardo
 					Random rand = new Random();
-					int prob = rand.nextInt(1);
+					int prob = rand.nextInt(2);
 					if(prob == 1) {
 						maxRetardo = retardo;
 						mejorPista = j;
@@ -171,6 +172,7 @@ public class IndividuoPr2 extends Individuo {
 					}
 						
 				}
+				*/
 			}
 			
 			// 2. Lo asigno a la pista en la cual tiene menos retardo
