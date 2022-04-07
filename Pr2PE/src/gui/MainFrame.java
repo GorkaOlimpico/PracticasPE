@@ -78,12 +78,12 @@ public class MainFrame extends JFrame {
 		JLabel tel = new JLabel("TEL: ");
 		TEL = new JTextField();
 		TEL.setPreferredSize(new Dimension(100,25));
-		TEL.setText("TEL1.txt");
+		TEL.setText("TEL.txt");
 		
 		JLabel vue = new JLabel("Vuelos: ");
 		vuelos = new JTextField();
 		vuelos.setPreferredSize(new Dimension(100,25));
-		vuelos.setText("vuelos1.txt");
+		vuelos.setText("vuelos.txt");
 		
 		
 		panelSuperior.add(tEsp);
