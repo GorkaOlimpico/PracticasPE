@@ -55,7 +55,7 @@ public abstract class Individuo {
 	public abstract Mutacion[] getMutaciones();
 	
 	private static Individuo[] individuos= { 
-			new IndividuoPr2(),
+			new IndividuoPr3(),
 	};
 	
 	public static String[] getStrings()
@@ -114,5 +114,4 @@ public abstract class Individuo {
 	
 	public abstract String solutionToString();
 
-	public abstract List<List<Pair<Integer, Double>>> getSolucion();
 }

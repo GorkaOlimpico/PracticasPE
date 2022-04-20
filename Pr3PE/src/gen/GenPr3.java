@@ -2,9 +2,9 @@ package gen;
 
 import java.util.Random;
 
-public class GenPr2 extends Gen {
+public class GenPr3 extends Gen {
 
-	public GenPr2(int long_gen) {
+	public GenPr3(int long_gen) {
 		super(long_gen);
 	}
 
@@ -12,7 +12,7 @@ public class GenPr2 extends Gen {
 		for(int i = 0; i < long_gen; i++)
 			this.alelo.add(i);
 		
-		int aux, pos1, pos2, n_intercambios = randomNumber.nextInt(long_gen);;
+		int aux, pos1, pos2, n_intercambios = randomNumber.nextInt(long_gen);
 		for(int i = 0; i < n_intercambios; i++)
 		{
 			pos1 = randomNumber.nextInt(long_gen);

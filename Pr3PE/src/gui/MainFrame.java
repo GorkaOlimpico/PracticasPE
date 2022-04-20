@@ -16,7 +16,7 @@ import algoritmoGenetico.seleccion.*;
 import gui.ConfigPanel.*;
 import gui.ConfigPanel.ConfigListener;
 import individuos.Individuo;
-import individuos.IndividuoPr2;
+import individuos.IndividuoPr3;
 
 
 public class MainFrame extends JFrame {
@@ -28,9 +28,9 @@ public class MainFrame extends JFrame {
 	private static JTextField fitness;
 	private static JTextArea solucion;
 	private JTextField num_var;
-	private JTextField tEspera;
-	private JTextField TEL;
-	private JTextField vuelos;
+	private JTextField gramatica;
+	private JTextField wraps;
+	private JTextField longitud;
 	private JButton btnEjecutar;
 
 	/**
@@ -69,33 +69,33 @@ public class MainFrame extends JFrame {
 		// Panel superior
 		JPanel panelSuperior = new JPanel();
 		
-		JLabel tEsp = new JLabel("Tiempo de espera: ");
-		tEspera = new JTextField();
-		tEspera.setPreferredSize(new Dimension(100,25));
-		tEspera.setText("tEspera.txt");
+		JLabel gra = new JLabel("Archivo gramática: ");
+		gramatica = new JTextField();
+		gramatica.setPreferredSize(new Dimension(100,25));
+		gramatica.setText("gramatica.txt");
 
 		
-		JLabel tel = new JLabel("TEL: ");
-		TEL = new JTextField();
-		TEL.setPreferredSize(new Dimension(100,25));
-		TEL.setText("TEL.txt");
+		JLabel wra = new JLabel("Número de wraps: ");
+		wraps = new JTextField();
+		wraps.setPreferredSize(new Dimension(100,25));
+		wraps.setText("5");
 		
-		JLabel vue = new JLabel("Vuelos: ");
-		vuelos = new JTextField();
-		vuelos.setPreferredSize(new Dimension(100,25));
-		vuelos.setText("vuelos.txt");
+		JLabel lon = new JLabel("Longitud cromosoma: ");
+		longitud = new JTextField();
+		longitud.setPreferredSize(new Dimension(100,25));
+		longitud.setText("7");
 		
 		
-		panelSuperior.add(tEsp);
-		panelSuperior.add(tEspera);
-		panelSuperior.add(tel);
-		panelSuperior.add(TEL);
-		panelSuperior.add(vue);
-		panelSuperior.add(vuelos);
+		panelSuperior.add(gra);
+		panelSuperior.add(gramatica);
+		panelSuperior.add(wra);
+		panelSuperior.add(wraps);
+		panelSuperior.add(lon);
+		panelSuperior.add(longitud);
 		
 		add(panelSuperior, BorderLayout.NORTH);
 		
-		AG = new AlgoritmoGenetico(tEspera.getText(), TEL.getText(), vuelos.getText());
+		AG = new AlgoritmoGenetico(gramatica.getText(), wraps.getText(), longitud.getText());
 		
 		
 		// Panel central
@@ -117,7 +117,7 @@ public class MainFrame extends JFrame {
 		panelCentral.setRightComponent(plot);
 		
 		// TODO mirar si esto está bien
-		ind = new IndividuoPr2();
+		ind = new IndividuoPr3();
 		
 		//Parte Izquierda del panel central
 		JPanel panelIzquierdo = new JPanel();
@@ -248,13 +248,13 @@ public class MainFrame extends JFrame {
 	}
 	
 	public void reset() {
-		AG = new AlgoritmoGenetico(tEspera.getText(), TEL.getText(), vuelos.getText());
+		AG = new AlgoritmoGenetico(gramatica.getText(), wraps.getText(), longitud.getText());
 		formulario.setTarget(AG);
 		formulario.initialize();
 		btnEjecutar.setEnabled(true);
 	}
 	public void ejecutar() {
-		 AG = new AlgoritmoGenetico(tEspera.getText(), TEL.getText(), vuelos.getText());
+		 AG = new AlgoritmoGenetico(gramatica.getText(), wraps.getText(), longitud.getText());
 		
 		// Todos los datos del formulario se pondrán en AG
 		
@@ -265,7 +265,7 @@ public class MainFrame extends JFrame {
 		// falta comprobar que los datos introducidos son correctos
 	
 		// Inicializar individuo si hace falta
-		ind = new IndividuoPr2();
+		ind = new IndividuoPr3();
 		//AG.setProblema(IndividuoPr2);
 		
 		AG.run();

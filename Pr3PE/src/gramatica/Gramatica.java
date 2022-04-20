@@ -1,6 +1,7 @@
 package gramatica;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,13 +44,13 @@ public class Gramatica {
 			
 			for(int j = 0; j < variables.length; j++) {
 				//Hacemos un split de las reglas por los espacios
-				List<String> argumentos = variables[j].split(" ");
-				
+				String aux[] = variables[j].split(" ");
+				List<String> argumentos = Arrays.asList(aux);
 				list1.add(argumentos);
 			}
 			
 			
-			mapa.put(regla[0], list1);
+			mapa.put(regla[0], list1); // Se introduce la regla con sus argumentos
 		 }
 
 	 }

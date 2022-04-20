@@ -26,6 +26,9 @@ public class AlgoritmoGenetico {
 	private double prob_mutacion;
 	private double elite;
 	private String problema;
+	private int longitud;
+	private int n_wraps;
+	private String nombreArchivo;
 	
 	
 	private double[] mejoresGeneracion;
@@ -38,7 +41,7 @@ public class AlgoritmoGenetico {
 	private Mutacion mutacion;
 		
 	
-	public AlgoritmoGenetico(String wraps) 
+	public AlgoritmoGenetico(String nombreArchivo, String wraps, String longitud) 
 	{		
 		tam_pob = 100;
 		num_max_gen = 100;
@@ -48,16 +51,17 @@ public class AlgoritmoGenetico {
 	
 		problema = "Practica 3";
 		
-		
-		
-		
+		this.nombreArchivo = nombreArchivo;
+		this.n_wraps = Integer.parseInt(wraps);
+		this.longitud = Integer.parseInt(longitud);
+
 
 		generacionActual = 0;
 	}
 	
 	public Individuo[] creaPoblacion(String problema, int tam) {		
 		this.problema = problema;
-		return Individuo.seleccionarIndividuo(tam, new Object[]{problema, vuelos, TEL, tEspera});
+		return Individuo.seleccionarIndividuo(tam, new Object[]{problema, longitud, n_wraps, nombreArchivo});
 	}
 	
 	
@@ -179,20 +183,17 @@ public class AlgoritmoGenetico {
 	public void setProblema(String problema) {
 		this.problema = problema;
 	}
-	public void setVuelos(String s_vuelos)
+	public void setLongitud(String longitud)
 	{
-		this.s_vuelos = s_vuelos;
-		leerVuelos();
+		this.longitud = Integer.parseInt(longitud);
 	}
-	public void setTEspera(String s_tEspera)
+	public void setWraps(String wraps)
 	{
-		this.s_tEspera = s_tEspera;
-		leerTEspera();
+		this.n_wraps = Integer.parseInt(wraps);
 	}
-	public void setTEL(String s_TEL)
+	public void setNombreArchivo(String nombreArchivo)
 	{
-		this.s_TEL = s_TEL;
-		leerTEL();
+		this.nombreArchivo = nombreArchivo;
 	}
 	
 	public String generaSolucion() {
@@ -278,118 +279,5 @@ public class AlgoritmoGenetico {
 		mediaGeneracion[generacionActual] = media;
 	}
 	
-	private void leerVuelos()
-	{
-		File fichero = new File(s_vuelos);
-		Scanner s = null;
-		try {
-			s = new Scanner(fichero);
-			vuelos = new ArrayList<>();
-			while (s.hasNextLine()) {
-				String linea = s.nextLine(); 	
-				String nombre = "";
-				int i = 0;
-				while(linea.charAt(i) != '\t')
-				{
-					nombre += linea.charAt(i);
-					i++;
-				}
-				char tipo = linea.charAt(i + 1);
-						
-				
-				i = -1;
-				if(tipo == 'W')							//Tipo de vuelo: W = 0, G = 1, P = 2
-					i = 0;
-				else if(tipo == 'G')							
-					i = 1;
-				else if(tipo == 'P')							
-					i = 2;
-				vuelos.add(new Pair<Integer, String>(i, nombre));
-			}
-
-		} catch (Exception ex) {
-			System.out.println("Mensaje: " + ex.getMessage());
-		} finally {
-			try {
-				if (s != null)
-					s.close();
-			} catch (Exception ex2) {
-				System.out.println("Mensaje 2: " + ex2.getMessage());
-			}
-		}
-	}
 	
-	private void leerTEL()
-	{
-		File fichero = new File(s_TEL);
-		Scanner s = null;
-		try {
-			s = new Scanner(fichero);
-			TEL = new ArrayList<>();
-			while (s.hasNextLine()) {
-				String linea = s.nextLine(); 	
-				String n;
-				int i = 0;
-				TEL.add(new ArrayList<>());
-				while(i < linea.length())
-				{
-					n = "";
-					while(i < linea.length() && linea.charAt(i) != '\t')
-					{
-						n += linea.charAt(i);
-						i++;
-					}
-					TEL.get(TEL.size() - 1).add(Double.parseDouble(n));
-					i++;
-				}
-			}
-
-		} catch (Exception ex) {
-			System.out.println("Mensaje: " + ex.getMessage());
-		} finally {
-			try {
-				if (s != null)
-					s.close();
-			} catch (Exception ex2) {
-				System.out.println("Mensaje 2: " + ex2.getMessage());
-			}
-		}
-	}
-	
-	private void leerTEspera() 
-	{
-		File fichero = new File(s_tEspera);
-		Scanner s = null;
-		try {
-			s = new Scanner(fichero);
-			tEspera = new ArrayList<>();
-			while (s.hasNextLine()) {
-				String linea = s.nextLine(); 	
-				String n;
-				int i = 0;
-				tEspera.add(new ArrayList<>());
-				while(i < linea.length())
-				{
-					n = "";
-					while(i < linea.length() && linea.charAt(i) != '\t')
-					{
-						n += linea.charAt(i);
-						i++;
-					}
-					tEspera.get(tEspera.size() - 1).add(Double.parseDouble(n));
-					i++;
-				}
-			}
-
-		} catch (Exception ex) {
-			System.out.println("Mensaje: " + ex.getMessage());
-		} finally {
-			try {
-				if (s != null)
-					s.close();
-			} catch (Exception ex2) {
-				System.out.println("Mensaje 2: " + ex2.getMessage());
-			}
-		}
-	}
 }
