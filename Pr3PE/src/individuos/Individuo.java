@@ -33,8 +33,7 @@ public abstract class Individuo {
 	
 	public abstract boolean max();
 	
-	public abstract double getValor();
-	public abstract double getFitness2();
+	public abstract int getValor();
 	
 	public double getFitness()
 	{
@@ -83,8 +82,7 @@ public abstract class Individuo {
 
 
 	public void recalcularFenotipo() {
-		valor = getValor();			//(TLA - menor TEL)^2
-//		valor = getFitness2();		//(TLA -TEL pista)^2
+		valor = getValor();			
 	}
 	
 	public abstract String genToString();
@@ -102,7 +100,7 @@ public abstract class Individuo {
 			//System.out.println("Si");
 		}
 		else
-			System.out.println("Da el mismo valor al copiarse"); //No se ha copiado bien
+			System.out.println("Da el mismo valor al copiarse"); 
 	}
 	
 	public abstract String solutionToString();

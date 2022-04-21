@@ -10,7 +10,7 @@ public class GenPr3 extends Gen {
 
 	public void initializeGen(Random randomNumber) {
 		for(int i = 0; i < long_gen; i++)
-			this.alelo.add(i);
+			this.alelo.add(randomNumber.nextInt(255 + 1) + 1);
 		
 		int aux, pos1, pos2, n_intercambios = randomNumber.nextInt(long_gen);
 		for(int i = 0; i < n_intercambios; i++)

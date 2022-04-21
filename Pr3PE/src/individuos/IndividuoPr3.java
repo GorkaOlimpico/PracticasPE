@@ -1,11 +1,14 @@
 package individuos;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 import algoritmoGenetico.cruce.Cruce;
 import algoritmoGenetico.mutacion.Mutacion;
@@ -13,18 +16,23 @@ import gen.GenPr3;
 import gramatica.Gramatica;
 
 
+
 public class IndividuoPr3 extends Individuo {
 
 	private final static String type = "Practica 3"; 
-	private List<List<String>> lista; // Es del estilo: IF ( IF A0 D0) D1 D2 donde cada operacion es una lista
+	private List<String> solucion;
 	private Gramatica gramatica;
+	private int max_wraps;
+	private int wraps;
+	private int pos;
 	private int longitud;
 	
 	public IndividuoPr3(int longitud, int n_wraps, String nombreArchivo) throws FileNotFoundException {
 		super.id = type;
-
+		solucion = new ArrayList<String>();
 		String texto_gramatica = archivoATexto(nombreArchivo);
-		
+		pos = 0;
+		max_wraps = n_wraps;
 		gramatica = new Gramatica(n_wraps, texto_gramatica);
 		this.longitud = longitud;
 		Random rand = new Random();
@@ -52,37 +60,120 @@ public class IndividuoPr3 extends Individuo {
 	
 	public void traduceALista() {
 		// Esta función hace que el array numérico pase a ser la lista con la que podemos operar
+		System.out.println("GEN: "+ this.getGenes().get(0).getAlelos());
+		addElemLista("funcion");
+		System.out.println("Lista: "+ solucion);
+		pos = 0;
+		wraps = 0;
 		
+	}
+	
+	public void addElemLista(String elemento) {
 		
-		for(int i = 0; i < longitud; i++) {
-			// 1. Módulo 3 para elegir entre: funcion = IF | func1 | func2
-			int num = Math.floorMod((int) this.getGenes().get(0).getAlelo(i), 3);
-			
-			switch (num) {
-			case 0: {
-				// IF
-				List<String> elemento =  new ArrayList<String>();
-				elemento.add("IF");
+		switch (elemento) {
+			case "funcion": {
+				int numero = ((int) this.getGenes().get(0).getAlelo(pos)) % 4;
+				pos++;
+				if(pos == longitud) { // máximo indice
+					pos = 0;
+					wraps++;
+					if(wraps > max_wraps) {
+						System.out.println("ERROR: se supera el max_wraps");
+					}
+				}
 				
-				String arg1 = generaUnaExp();
-				String arg2 = generaUnaExp();
-				elemento.add(arg1);
-				elemento.add(arg2);
-			}
-			case 1: {
-				// func1
-				List<String> elemento =  new ArrayList<String>();
-				elemento.add("NOT");
-				String arg1 = generaUnaExp();
-				elemento.add(arg1);
-
+				if(numero==0) {
+					addElemLista("IF");
+				}
+				else if (numero==1) {
+					addElemLista("AND");
+				}
+				else if (numero==2) {
+					addElemLista("OR");
+				}
+				else if (numero==3) {
+					addElemLista("NOT");
+				}
+				break;
 			}
 			
+			case "IF":{
+				solucion.add("IF");
+				addElemLista("exp");
+				addElemLista("exp");
+				addElemLista("exp");
+				break;
+			}
 			
-			default:
-				throw new IllegalArgumentException("Unexpected value: " + num);
+			case "AND":{
+				solucion.add("AND");
+				addElemLista("exp");
+				addElemLista("exp");
+				break;
+			}
+			
+			case "OR":{
+				solucion.add("OR");
+				addElemLista("exp");
+				addElemLista("exp");
+				break;
+			}
+			
+			case "NOT":{
+				solucion.add("NOT");
+				addElemLista("exp");
+				break;
+			}
+			
+			case "exp":{ // exp = funcion | A0 | A1 | D0 | D1 | D2 | D3
+				int numero = ((int) this.getGenes().get(0).getAlelo(pos)) % 7;
+				pos++;
+				if(pos == longitud) {
+					pos = 0;
+					wraps++;
+					if(wraps == max_wraps -1 ) {// si solo falta 1 wrap no voy a hacer otra funcion
+						Random rand = new Random();
+						numero = rand.nextInt(6 + 1) + 1;
+						System.out.println("Maxwraps-1, numero: "+ numero);
+					}
+					
+				}
+				switch (numero) {
+					case 0: {
+						addElemLista("funcion");
+						break;
+					}
+					case 1: {
+						solucion.add("A0");
+						break;
+					}
+					case 2: {
+						solucion.add("A1");
+						break;
+					}
+					case 3: {
+						solucion.add("D0");
+						break;
+					}
+					case 4: {
+						solucion.add("D1");
+						break;
+					}
+					case 5: {
+						solucion.add("D2");
+						break;
+					}
+					case 6: {
+						solucion.add("D3");
+						break;
+					}
+				}
+				break;
 			}
 		}
+		// FALTA AÑADIR LOS PARÉNTESIS
+		
+			
 	}
 
 	@Override
@@ -93,11 +184,29 @@ public class IndividuoPr3 extends Individuo {
 	
 	
 	@Override
-	public double getValor() {
+	public int getValor() {
 
-		double suma = 0;
+		int aciertos = 0;
 		
-		return suma;
+		// 1. Se genera la List<String> a partir del número
+		traduceALista();
+				
+		// 2. Inicializo todas las entradas en una List<boolean[]>
+		List<boolean[]> entradas = generaEntradas();
+		
+		// 3. Por cada entrada[6] evalúo la List<String> y evalúo su resultado correcto del MX-6
+		for(boolean[] entrada : entradas) {
+			
+			// 4. Comparo los resultados. Si son iguales entonces sumo 1 a aciertos
+			if(evaluaElemento(solucion) == multiplexor6(entrada)) {
+				aciertos++;
+			}
+		}
+		
+		
+		
+		
+		return aciertos;
 	}
 	
 	
@@ -165,11 +274,69 @@ public class IndividuoPr3 extends Individuo {
 	}
 
 	
-	
+	public List<boolean[]> generaEntradas(){
+		List<boolean[]> listaTotal = new ArrayList<boolean[]>();
 
-	@Override
-	public double getFitness2() {
-		// TODO Auto-generated method stub
-		return 0;
+		for(int i = 0; i < 4; i++) {
+			boolean[] binario = new boolean[6];
+			int num1 = i;
+			int k = 0;
+			if(num1==0) {
+				binario[k] = false;
+			}
+			while(num1 != 0) {
+				int digito = num1 % 2;
+				if(digito == 1) {
+					binario[k] = true;
+				}
+				else
+					binario[k] = false;
+				num1= num1 / 2;
+				k++;
+			}
+			
+			while(k<1) {
+				k++;
+				binario[k] = false;
+			}
+			
+			
+			for(int j = 0; j < 16; j++) {
+				int x = 2;
+				int num2 = j;
+				if(num2==0) {
+					binario[x] = false;
+				}
+				while(num2 != 0) {
+					int digito = num2 % 2;
+					if(digito == 1) {
+						binario[x] = true;
+					}
+					else
+						binario[x] = false;
+					num2 = num2/2;
+					x++;
+				}
+				
+				while(x<5) {
+					x++;
+					binario[x] = false;
+				}
+				
+				listaTotal.add(binario);
+			}			
+		}
+		
+		return listaTotal;
+	}
+
+	public boolean multiplexor6(boolean entrada[]) {
+		
+		boolean d0 = !entrada[0] && !entrada[1] && entrada[2];
+		boolean d1 = !entrada[0] && entrada[1] && entrada[3];
+		boolean d2 = entrada[0] && !entrada[1] && entrada[4];
+		boolean d3 = entrada[0] && entrada[1] && entrada[5];
+		
+		return d0 || d1 || d2 || d3;
 	}
 }
