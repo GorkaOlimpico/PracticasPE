@@ -9,9 +9,7 @@ import gen.Gen;
 
 public abstract class Individuo {
 	protected List<Gen> genes;
-	protected List<Double> min;
-	protected List<Double> max;
-	public List<Double> fenotipo;
+	protected int fenotipo;
 	protected double valor;
 	protected double valorError;
 	protected String id;  
@@ -20,23 +18,18 @@ public abstract class Individuo {
 	{
 		this.valorError = valorError;
 		genes = new ArrayList<>();
-		min = new ArrayList<>();
-		max = new ArrayList<>();
-		fenotipo = new ArrayList<>();
+
+		fenotipo = -1;
 	}
 	
 	public Individuo()
 	{
 		genes = new ArrayList<>();
-		min = new ArrayList<>();
-		max = new ArrayList<>();
-		fenotipo = new ArrayList<>();
+
+		fenotipo = -1;
 	}
 	
-	
-	public double getMax(int i) {return max.get(i);}
-	
-	public double getMin(int i) {return min.get(i);}
+
 	
 	public abstract boolean max();
 	
@@ -96,7 +89,7 @@ public abstract class Individuo {
 	
 	public abstract String genToString();
 	
-	public List<Double> getFenotipo(){
+	public int getFenotipo(){
 		return fenotipo;
 	}
 

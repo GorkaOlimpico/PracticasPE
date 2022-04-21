@@ -10,16 +10,17 @@ public class Gramatica {
 	 
 	 
 	 /*
-	 	S = exp
-	 	(A) exp = IF | func1 | func2 | A0 | A1 | D0 | D1 | D2 | D3
-	 	(B) IF = if exp exp exp
-	 	(C) func1 = NOT exp
-	 	(D) func2 = AND exp exp | OR exp exp
+	 	S = funcion
+	 	(A) funcion = IF | AND | OR | NOT
+	 	(B) exp = funcion | A0 | A1 | D0 | D1 | D2 | D3
+	 	(C) IF = if exp exp exp
+	 	(D) NOT = not exp
+	 	(E) AND = and exp exp
+	 	(F) OR = or exp exp
 	 	
-	 	Regla A opciones = 9
-	 	Regla B opciones = 0
-	 	Regla C opciones = 0
-	 	Regla D opciones = 2
+	 	Regla A opciones = 4
+	 	Regla B opciones = 7
+	 	
 	 	
 	 */
 	 private int wraps;

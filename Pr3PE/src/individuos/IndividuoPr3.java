@@ -2,6 +2,7 @@ package individuos;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -15,7 +16,7 @@ import gramatica.Gramatica;
 public class IndividuoPr3 extends Individuo {
 
 	private final static String type = "Practica 3"; 
-	private List<Integer> solucion; //Necesito la solucion puesta con los valores?
+	private List<List<String>> lista; // Es del estilo: IF ( IF A0 D0) D1 D2 donde cada operacion es una lista
 	private Gramatica gramatica;
 	private int longitud;
 	
@@ -38,7 +39,7 @@ public class IndividuoPr3 extends Individuo {
 		super.id = type;
 	}
 	
-	private String archivoATexto(String nombreArchivo) throws FileNotFoundException {
+	public String archivoATexto(String nombreArchivo) throws FileNotFoundException {
 		String total ="";
 		File doc = new File("gramatica.txt");
 		Scanner obj = new Scanner(doc);
@@ -47,6 +48,41 @@ public class IndividuoPr3 extends Individuo {
         }
 		System.out.println("Leido de archivo: \n" + total);
 		return total;
+	}
+	
+	public void traduceALista() {
+		// Esta función hace que el array numérico pase a ser la lista con la que podemos operar
+		
+		
+		for(int i = 0; i < longitud; i++) {
+			// 1. Módulo 3 para elegir entre: funcion = IF | func1 | func2
+			int num = Math.floorMod((int) this.getGenes().get(0).getAlelo(i), 3);
+			
+			switch (num) {
+			case 0: {
+				// IF
+				List<String> elemento =  new ArrayList<String>();
+				elemento.add("IF");
+				
+				String arg1 = generaUnaExp();
+				String arg2 = generaUnaExp();
+				elemento.add(arg1);
+				elemento.add(arg2);
+			}
+			case 1: {
+				// func1
+				List<String> elemento =  new ArrayList<String>();
+				elemento.add("NOT");
+				String arg1 = generaUnaExp();
+				elemento.add(arg1);
+
+			}
+			
+			
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + num);
+			}
+		}
 	}
 
 	@Override
