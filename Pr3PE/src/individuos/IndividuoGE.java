@@ -17,9 +17,9 @@ import gramatica.Gramatica;
 
 
 
-public class IndividuoPr3 extends Individuo {
+public class IndividuoGE extends Individuo {
 
-	private final static String type = "Practica 3"; 
+	private final static String type = "Gramática Evolutiva"; 
 	private List<String> solucion;
 	private Gramatica gramatica;
 	private int max_wraps;
@@ -27,7 +27,7 @@ public class IndividuoPr3 extends Individuo {
 	private int pos;
 	private int longitud;
 	
-	public IndividuoPr3(int longitud, int n_wraps, String nombreArchivo) throws FileNotFoundException {
+	public IndividuoGE(int longitud, int n_wraps, String nombreArchivo) throws FileNotFoundException {
 		super.id = type;
 		solucion = new ArrayList<String>();
 		String texto_gramatica = archivoATexto(nombreArchivo);
@@ -42,7 +42,7 @@ public class IndividuoPr3 extends Individuo {
 		recalcularFenotipo();
 		
 	}
-	public IndividuoPr3()
+	public IndividuoGE()
 	{
 		super.id = type;
 	}
@@ -198,9 +198,9 @@ public class IndividuoPr3 extends Individuo {
 		for(boolean[] entrada : entradas) {
 			
 			// 4. Comparo los resultados. Si son iguales entonces sumo 1 a aciertos
-			if(evaluaElemento(solucion) == multiplexor6(entrada)) {
-				aciertos++;
-			}
+			//if(evaluaElemento() == multiplexor6(entrada)) {
+			//	aciertos++;
+			//}
 		}
 		
 		
@@ -227,12 +227,12 @@ public class IndividuoPr3 extends Individuo {
 
 	@Override
 	protected Individuo[] parse(int tam, Object[] datos) {
-		IndividuoPr3[] ind = null;
+		IndividuoGE[] ind = null;
 		if((String) datos[0] == id)
 		{
-			ind = new IndividuoPr3[tam];
+			ind = new IndividuoGE[tam];
 			if(datos.length == 1)
-				ind[0] = new IndividuoPr3();
+				ind[0] = new IndividuoGE();
 			else
 			{
 				for(int i = 0; i < tam; i++)
@@ -242,15 +242,15 @@ public class IndividuoPr3 extends Individuo {
 		return ind;
 	}
 	
-	public IndividuoPr3 nuevoInd(Object[] datos) {
-		IndividuoPr3 individuo = new IndividuoPr3();
+	public IndividuoGE nuevoInd(Object[] datos) {
+		IndividuoGE individuo = new IndividuoGE();
 		
 		int longitud = (int) datos[1];	
 		int n_wraps =  (int) datos[2];									
 		String nombreArchivo = (String) datos[3];
 		
 		try {
-			individuo = new IndividuoPr3(longitud, n_wraps, nombreArchivo);
+			individuo = new IndividuoGE(longitud, n_wraps, nombreArchivo);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

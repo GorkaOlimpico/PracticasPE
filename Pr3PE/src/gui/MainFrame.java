@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 import java.awt.*;
 
@@ -16,7 +17,7 @@ import algoritmoGenetico.seleccion.*;
 import gui.ConfigPanel.*;
 import gui.ConfigPanel.ConfigListener;
 import individuos.Individuo;
-import individuos.IndividuoPr3;
+import individuos.IndividuoGE;
 
 
 public class MainFrame extends JFrame {
@@ -31,7 +32,10 @@ public class MainFrame extends JFrame {
 	private JTextField gramatica;
 	private JTextField wraps;
 	private JTextField longitud;
+	private JTextField profundidad;
 	private JButton btnEjecutar;
+	
+	private JComboBox problema;
 
 	/**
 	 * Launch the application.
@@ -54,7 +58,7 @@ public class MainFrame extends JFrame {
 	 */
 	public MainFrame() {
 		
-		setTitle("Practica 3 Gramáticas Evolutivas");
+		setTitle("Practica 3 PG/GE");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1400, 1000);
 
@@ -66,8 +70,39 @@ public class MainFrame extends JFrame {
 		// Panel central
 		panelCentral = new JSplitPane();
 		
+		
+	
 		// Panel superior
 		JPanel panelSuperior = new JPanel();
+		
+		JLabel tip = new JLabel("Tipo de algoritmo evolutivo: ");
+		problema = new JComboBox<>();
+		String[] opciones = Individuo.getStrings();
+		for (String op : opciones) {
+			problema.addItem(op);
+		}
+		
+		
+		panelSuperior.add(tip);
+		panelSuperior.add(problema);
+		
+		//__________ Programación Genética _______________
+		JLabel prof = new JLabel("Profundidad: ");
+		profundidad = new JTextField();
+		profundidad.setPreferredSize(new Dimension(100,25));
+		profundidad.setText("20");
+		
+		panelSuperior.add(prof);
+		panelSuperior.add(profundidad);
+		
+		prof.setVisible(false);
+		profundidad.setVisible(false);
+		//________________________________________________
+		
+		
+		//---------- Gramatica Evolutiva -------------------
+		
+		
 		
 		JLabel gra = new JLabel("Archivo gramática: ");
 		gramatica = new JTextField();
@@ -97,6 +132,13 @@ public class MainFrame extends JFrame {
 		
 		AG = new AlgoritmoGenetico(gramatica.getText(), wraps.getText(), longitud.getText());
 		
+		//-----------------------------------------------------
+		
+		
+		
+		
+		
+		
 		
 		// Panel central
 		//panelCentral = new JSplitPane();
@@ -117,7 +159,37 @@ public class MainFrame extends JFrame {
 		panelCentral.setRightComponent(plot);
 		
 		// TODO mirar si esto está bien
-		ind = new IndividuoPr3();
+		ind = new IndividuoGE();
+		
+		// Selección de tipo
+			problema.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (problema.getSelectedIndex() == 1) { // Selecciona PG
+						gra.setVisible(false);
+						gramatica.setVisible(false);
+						wra.setVisible(false);
+						wraps.setVisible(false);
+						lon.setVisible(false);
+						longitud.setVisible(false);
+						
+						prof.setVisible(true);
+						profundidad.setVisible(true);
+					}
+					else {
+						prof.setVisible(false);
+						profundidad.setVisible(false);
+						
+						gra.setVisible(true);
+						gramatica.setVisible(true);
+						wra.setVisible(true);
+						wraps.setVisible(true);
+						lon.setVisible(true);
+						longitud.setVisible(true);
+					}
+					ind = Individuo.seleccionarIndividuo(1, new Object[] {opciones[problema.getSelectedIndex()]})[0];
+				}
+			});
 		
 		//Parte Izquierda del panel central
 		JPanel panelIzquierdo = new JPanel();
@@ -265,7 +337,7 @@ public class MainFrame extends JFrame {
 		// falta comprobar que los datos introducidos son correctos
 	
 		// Inicializar individuo si hace falta
-		ind = new IndividuoPr3();
+		ind = new IndividuoGE();
 		//AG.setProblema(IndividuoPr2);
 		
 		AG.run();

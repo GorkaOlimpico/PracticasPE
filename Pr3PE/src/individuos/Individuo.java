@@ -47,7 +47,8 @@ public abstract class Individuo {
 	public abstract Mutacion[] getMutaciones();
 	
 	private static Individuo[] individuos= { 
-			new IndividuoPr3(),
+			new IndividuoGE(),
+			new IndividuoPG(),
 	};
 	
 	public static String[] getStrings()
