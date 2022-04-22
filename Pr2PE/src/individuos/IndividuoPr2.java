@@ -120,7 +120,7 @@ public class IndividuoPr2 extends Individuo {
 				if(aux_tla < tel)	
 					aux_tla = tel;		
 				aux_retardo = aux_tla - tel;
-				if(aux_retardo < retardo)			
+				if(aux_retardo < retardo || (aux_retardo == retardo && aux_tla < tla))			
 				{
 					pos = j;
 					tla = aux_tla;
