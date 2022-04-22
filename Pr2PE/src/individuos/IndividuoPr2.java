@@ -46,7 +46,8 @@ public class IndividuoPr2 extends Individuo {
 
 	@Override
 	public double getFitness2() {
-		asignarPistaMenorTLA();
+		//Esta funcion utiliza como fitness (TLA - TEL(pista vuelo))^2
+		asignarPistaRetardoPista();		
 		double suma = 0;
 		
 		// 1. Se recorre cada pista calculando los retardos de cada avion de la forma:
@@ -70,8 +71,8 @@ public class IndividuoPr2 extends Individuo {
 	
 	@Override
 	public double getValor() {
-		asignarPistaMenorRetardo();
-		//asigPista2();
+		//Esta funcion utiliza como fitness (TLA - TEL(menor global para el vuelo))^2
+		asignarPistaMenorTLA();			//Se asigna a la pista con menor TLA
 		double suma = 0;
 		for(List<Pair<Integer, Double>> pista : solucion) {
 			for(Pair<Integer, Double> avion : pista) {
@@ -88,12 +89,14 @@ public class IndividuoPr2 extends Individuo {
 		return suma;
 	}
 	
-	private void asignarPistaMenorRetardo()
+	private void asignarPistaRetardoPista()
 	{
+		//Se asignan los vuelos a la pista con una menor diferencia entre 
+		//el TEL en una pista y el TLA que tendria en esa pista
 		solucion = new ArrayList<>();
 		for(int i = 0; i < m; i++)
 			solucion.add(new ArrayList<>());
-		double tla, tel, aux_tla, retardo, aux_retardo, aux_tel;
+		double tla, tel, aux_tla, retardo, aux_retardo;
 		int pos;
 		
 		Gen g = genes.get(0);
@@ -102,13 +105,7 @@ public class IndividuoPr2 extends Individuo {
 			retardo = Double.MAX_VALUE;
 			pos = 0;
 			tla = 0;
-			aux_tel = Double.MAX_VALUE;
-			for(int j = 0; j < m; j++) // por m pistas
-			{
-				tel = TEL.get(j).get((int) g.getAlelo(i));
-				if(tel < aux_tel)
-					aux_tel = tel;
-			}
+			tel = Double.MAX_VALUE;
 			for(int j = 0; j < m; j++) // por m pistas
 			{
 				aux_tla = 0;
@@ -121,9 +118,9 @@ public class IndividuoPr2 extends Individuo {
 							tEspera.get(vuelos.get(solucion.get(j).get(vueloAnt).getFirst()).getFirst()).get(vuelos.get((int) g.getAlelo(i)).getFirst()); 
 				}						//tipo del ultimo vuelo en la pista j									tipo del vuelo a añadir
 				if(aux_tla < tel)	
-					aux_tla = tel;		//El TLA de asignarse esta pista seria el maximo entre el TEL y el TLA del vuelo anterior + retraso
-				aux_retardo = aux_tla - aux_tel;
-				if(aux_retardo < retardo)			//El vuelo se asigna a la pista con menor TLA
+					aux_tla = tel;		
+				aux_retardo = aux_tla - tel;
+				if(aux_retardo < retardo)			
 				{
 					pos = j;
 					tla = aux_tla;
