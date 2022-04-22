@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import gen.Gen;
 import individuos.Individuo;
-import individuos.IndividuoPr2;
+import individuos.IndividuoGE;
 import individuos.Pair;
 
 public class CrucePMX extends Cruce {
@@ -25,14 +26,16 @@ private final String type = "PMX";
 
 	@Override
 	protected void cruzarIndividuos(Individuo i1, Individuo i2) {
-		for(int j = 0; j < i1.getGenes().size(); j++) { // para varios genes
+		List<Gen> genes = (List<Gen>) i1.getGenes();
+		List<Gen> genes2 = (List<Gen>) i2.getGenes();
+		for(int j = 0; j < genes.size(); j++) { // para varios genes
 			
 			// 1. Se seleccionan 2 puntos de corte al azar. Max(i1.long-2) y no puede caer en el mismo sitio. Minimo 0, es decir corte entre elemento 0 y 1
 			Random rand = new Random();
-			int p1 = rand.nextInt(i1.getGenes().get(j).getLongitud()-1);
-			int p2 = rand.nextInt(i1.getGenes().get(j).getLongitud()-1);
+			int p1 = rand.nextInt(genes.get(j).getLongitud()-1);
+			int p2 = rand.nextInt(genes.get(j).getLongitud()-1);
 			while (p1 == p2) {
-				p2 = rand.nextInt(i1.getGenes().get(j).getLongitud()-1);
+				p2 = rand.nextInt(genes.get(j).getLongitud()-1);
 			}
 			if(p1 > p2) {
 				int aux = p2;
@@ -47,25 +50,25 @@ private final String type = "PMX";
 			
 			// 2. Se ponen la zona intermedia en l3 y l4
 			for(int i = p1 +1; i <= p1 + long_mitad; i++) {
-				Pair p = new Pair(i,i2.getGenes().get(j).getAlelo(i));
+				Pair p = new Pair(i,genes2.get(j).getAlelo(i));
 				l3.add(p);
 				
-				Pair pp = new Pair(i,i1.getGenes().get(j).getAlelo(i));
+				Pair pp = new Pair(i,genes.get(j).getAlelo(i));
 				l4.add(pp);
 			}
 			
 			// 3. Se ponen los demás valores de los individuos originales y si entran en conflicto se pone su homólogo
 			
-			for(int i = 0; i< i1.getGenes().get(j).getLongitud(); i++) {
+			for(int i = 0; i< genes.get(j).getLongitud(); i++) {
 				if(i <= p1 || i > p2) { // fuera de la mitad ya intercambiada
-					if(!contenidoEn(i1.getGenes().get(j).getAlelo(i), l3)) {
-						Pair p = new Pair(i,i1.getGenes().get(j).getAlelo(i));
+					if(!contenidoEn(genes.get(j).getAlelo(i), l3)) {
+						Pair p = new Pair(i,genes.get(j).getAlelo(i));
 						l3.add(p);
 					}
 					else {
-						int pos = buscaPos(i1.getGenes().get(j).getAlelo(i), l3);
-						if(!contenidoEn(i1.getGenes().get(j).getAlelo(pos), l3)) {
-							Pair p = new Pair(i, i1.getGenes().get(j).getAlelo(pos));
+						int pos = buscaPos(genes.get(j).getAlelo(i), l3);
+						if(!contenidoEn(genes.get(j).getAlelo(pos), l3)) {
+							Pair p = new Pair(i, genes.get(j).getAlelo(pos));
 							l3.add(p);
 						}
 						
@@ -73,16 +76,16 @@ private final String type = "PMX";
 				}
 			}
 			
-			for(int i = 0; i< i2.getGenes().get(j).getLongitud(); i++) {
+			for(int i = 0; i< genes2.get(j).getLongitud(); i++) {
 				if(i <= p1 || i > p2) { // fuera de la mitad ya intercambiada
-					if(!contenidoEn(i2.getGenes().get(j).getAlelo(i), l4)) {
-						Pair p = new Pair(i,i2.getGenes().get(j).getAlelo(i));
+					if(!contenidoEn(genes2.get(j).getAlelo(i), l4)) {
+						Pair p = new Pair(i,genes2.get(j).getAlelo(i));
 						l4.add(p);
 					}
 					else {
-						int pos = buscaPos(i2.getGenes().get(j).getAlelo(i), l4);
-						if(!contenidoEn(i2.getGenes().get(j).getAlelo(pos), l4)) {
-							Pair p = new Pair(i, i2.getGenes().get(j).getAlelo(pos));
+						int pos = buscaPos(genes2.get(j).getAlelo(i), l4);
+						if(!contenidoEn(genes2.get(j).getAlelo(pos), l4)) {
+							Pair p = new Pair(i, genes2.get(j).getAlelo(pos));
 							l4.add(p);
 						}
 						
@@ -97,18 +100,19 @@ private final String type = "PMX";
 			
 			// 4. Se pasa de las listas a los individuos
 			for(Pair p: l3) {
-				i1.getGenes().get(j).setAlelo((int) p.getFirst(), p.getSecond());
+				genes.get(j).setAlelo((int) p.getFirst(), p.getSecond());
 			}
 			
 			for(Pair p: l4) {
-				i2.getGenes().get(j).setAlelo((int) p.getFirst(), p.getSecond());
+				genes2.get(j).setAlelo((int) p.getFirst(), p.getSecond());
 			}
 			
 			
 		}
 	}
 	public void rellenaHuecos(Individuo ind, List<Pair> lista) {
-		for(int i = 0; i < ind.getGenes().get(0).getLongitud(); i++) {
+		List<Gen> genes = (List<Gen>) ind.getGenes();
+		for(int i = 0; i < genes.get(0).getLongitud(); i++) {
 			if(!contenidoEn(i, lista)) {
 				int hueco = primerHueco(ind, lista);
 				Pair p = new Pair(hueco, i);
@@ -119,7 +123,8 @@ private final String type = "PMX";
 	
 	public int primerHueco(Individuo ind, List<Pair> lista) {
 		List<Integer> posiciones = new ArrayList<Integer>();
-		for(int i = 0; i < ind.getGenes().get(0).getLongitud(); i++) {
+		List<Gen> genes = (List<Gen>) ind.getGenes();
+		for(int i = 0; i < genes.get(0).getLongitud(); i++) {
 			posiciones.add(i);
 		}
 		

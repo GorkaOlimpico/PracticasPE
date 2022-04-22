@@ -3,8 +3,9 @@ package algoritmoGenetico.cruce;
 import java.util.ArrayList;
 import java.util.List;
 
+import gen.Gen;
 import individuos.Individuo;
-import individuos.IndividuoPr2;
+import individuos.IndividuoGE;
 import individuos.Pair;
 
 
@@ -25,7 +26,9 @@ private final String type = "CX";
 
 	@Override
 	protected void cruzarIndividuos(Individuo i1, Individuo i2) {
-		for(int j = 0; j < i1.getGenes().size(); j++) { // para varios genes
+		List<Gen> genes = (List<Gen>) i1.getGenes();
+		List<Gen> genes2 = (List<Gen>) i2.getGenes();
+		for(int j = 0; j < genes.size(); j++) { // para varios genes
 			
 
 			// 1. Inicializo las listas
@@ -36,18 +39,18 @@ private final String type = "CX";
 			int i = 0;
 			boolean terminado = false;
 			while(!terminado){
-				Pair p = new Pair(i,i1.getGenes().get(j).getAlelo(i));
+				Pair p = new Pair(i,genes.get(j).getAlelo(i));
 				l3.add(p);
-				i = buscaPos(i2.getGenes().get(j).getAlelo(i), i1.getGenes().get(j).getAlelos());
+				i = buscaPos(genes2.get(j).getAlelo(i), genes.get(j).getAlelos());
 				if(i==0) terminado=true;
 			}
 			
 			i=0;
 			terminado = false;
 			while(!terminado){
-				Pair p = new Pair(i,i2.getGenes().get(j).getAlelo(i));
+				Pair p = new Pair(i,genes2.get(j).getAlelo(i));
 				l4.add(p);
-				i = buscaPos(i1.getGenes().get(j).getAlelo(i), i2.getGenes().get(j).getAlelos());
+				i = buscaPos(genes.get(j).getAlelo(i), genes2.get(j).getAlelos());
 				if(i==0) terminado=true;
 			}
 			
@@ -55,27 +58,27 @@ private final String type = "CX";
 			//		elementos i1 => l4
 			//		elementos i2 => l3
 	
-			for(int k = 0; k < i1.getGenes().get(j).getLongitud(); k++) {
-				if(!contenidoEn(i1.getGenes().get(j).getAlelo(k),l4)) {
-					Pair p = new Pair(k,i1.getGenes().get(j).getAlelo(k));
+			for(int k = 0; k < genes.get(j).getLongitud(); k++) {
+				if(!contenidoEn(genes.get(j).getAlelo(k),l4)) {
+					Pair p = new Pair(k,genes.get(j).getAlelo(k));
 					l4.add(p);
 				}
 			}
 			
-			for(int k = 0; k < i2.getGenes().get(j).getLongitud(); k++) {
-				if(!contenidoEn(i2.getGenes().get(j).getAlelo(k),l3)) {
-					Pair p = new Pair(k,i2.getGenes().get(j).getAlelo(k));
+			for(int k = 0; k < genes2.get(j).getLongitud(); k++) {
+				if(!contenidoEn(genes2.get(j).getAlelo(k),l3)) {
+					Pair p = new Pair(k,genes2.get(j).getAlelo(k));
 					l3.add(p);
 				}
 			}
 			
 			// 4. Paso de lista a individuo
 			for(Pair p: l3) {
-				i1.getGenes().get(j).setAlelo((int) p.getFirst(), p.getSecond());
+				genes.get(j).setAlelo((int) p.getFirst(), p.getSecond());
 			}
 			
 			for(Pair p: l4) {
-				i2.getGenes().get(j).setAlelo((int) p.getFirst(), p.getSecond());
+				genes2.get(j).setAlelo((int) p.getFirst(), p.getSecond());
 			}
 		}
 

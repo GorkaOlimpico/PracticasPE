@@ -12,6 +12,7 @@ import java.util.*;
 
 import algoritmoGenetico.cruce.Cruce;
 import algoritmoGenetico.mutacion.Mutacion;
+import gen.Gen;
 import gen.GenPr3;
 import gramatica.Gramatica;
 
@@ -29,6 +30,7 @@ public class IndividuoGE extends Individuo {
 	
 	public IndividuoGE(int longitud, int n_wraps, String nombreArchivo) throws FileNotFoundException {
 		super.id = type;
+		List<Gen> genes = new ArrayList<>();
 		solucion = new ArrayList<String>();
 		String texto_gramatica = archivoATexto(nombreArchivo);
 		pos = 0;
@@ -40,7 +42,7 @@ public class IndividuoGE extends Individuo {
 		aux.initializeGen(rand);
 		genes.add(aux);
 		recalcularFenotipo();
-		
+		this.genes = genes;
 	}
 	public IndividuoGE()
 	{
@@ -60,7 +62,8 @@ public class IndividuoGE extends Individuo {
 	
 	public void traduceALista() {
 		// Esta función hace que el array numérico pase a ser la lista con la que podemos operar
-		System.out.println("GEN: "+ this.getGenes().get(0).getAlelos());
+		List<Gen> genes = (List<Gen>) this.genes;
+		System.out.println("GEN: "+ genes.get(0).getAlelos());
 		addElemLista("funcion");
 		System.out.println("Lista: "+ solucion);
 		pos = 0;
@@ -72,7 +75,8 @@ public class IndividuoGE extends Individuo {
 		
 		switch (elemento) {
 			case "funcion": {
-				int numero = ((int) this.getGenes().get(0).getAlelo(pos)) % 4;
+				List<Gen> genes = (List<Gen>) this.genes;
+				int numero = ((int) genes.get(0).getAlelo(pos)) % 4;
 				pos++;
 				if(pos == longitud) { // máximo indice
 					pos = 0;
@@ -126,7 +130,8 @@ public class IndividuoGE extends Individuo {
 			}
 			
 			case "exp":{ // exp = funcion | A0 | A1 | D0 | D1 | D2 | D3
-				int numero = ((int) this.getGenes().get(0).getAlelo(pos)) % 7;
+				List<Gen> genes = (List<Gen>) this.genes;
+				int numero = ((int) genes.get(0).getAlelo(pos)) % 7;
 				pos++;
 				if(pos == longitud) {
 					pos = 0;
@@ -267,6 +272,7 @@ public class IndividuoGE extends Individuo {
 	
 	public String genToString()
 	{
+		List<Gen> genes = (List<Gen>) this.genes;
 		String s = "";
 		for(int i = 0; i < longitud; i++)
 			s += ((int) genes.get(0).getAlelo(i) + 1) + " ";
@@ -338,5 +344,18 @@ public class IndividuoGE extends Individuo {
 		boolean d3 = entrada[0] && entrada[1] && entrada[5];
 		
 		return d0 || d1 || d2 || d3;
+	}
+	@Override
+	public void copiarIndividuo(Individuo ind) {
+		List<Gen> genes = (List<Gen>) this.genes, genes2 = (List<Gen>) ind.getGenes();
+		for(int i = 0; i < genes.size(); i++)
+			genes.get(i).copiarGen(genes2.get(i));
+			
+		recalcularFenotipo();
+		if(valor == ind.getFitness()) {//Se ha copiado bien
+			//System.out.println("Si");
+		}
+		else
+			System.out.println("Da el mismo valor al copiarse"); 
 	}
 }

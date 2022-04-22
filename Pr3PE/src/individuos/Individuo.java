@@ -8,7 +8,7 @@ import algoritmoGenetico.mutacion.Mutacion;
 import gen.Gen;
 
 public abstract class Individuo {
-	protected List<Gen> genes;
+	protected Object genes;
 	protected int fenotipo;
 	protected double valor;
 	protected double valorError;
@@ -77,7 +77,7 @@ public abstract class Individuo {
 	
 	protected abstract Individuo[] parse(int tam, Object[] datos);
 
-	public List<Gen> getGenes() {
+	public Object getGenes() {
 		return genes;
 	}
 
@@ -92,17 +92,8 @@ public abstract class Individuo {
 		return fenotipo;
 	}
 
-	public void copiarIndividuo(Individuo ind) //Copia ind a this
-	{
-		for(int i = 0; i < genes.size(); i++)
-			genes.get(i).copiarGen(ind.getGenes().get(i));
-		recalcularFenotipo();
-		if(valor == ind.getFitness()) {//Se ha copiado bien
-			//System.out.println("Si");
-		}
-		else
-			System.out.println("Da el mismo valor al copiarse"); 
-	}
+	public abstract void copiarIndividuo(Individuo ind); //Copia ind a this
+	
 	
 	public abstract String solutionToString();
 

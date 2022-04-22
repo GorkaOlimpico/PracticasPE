@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import gen.Gen;
 import individuos.Individuo;
 
 public class CruceOXPP extends Cruce {
@@ -25,19 +26,21 @@ public class CruceOXPP extends Cruce {
 	@Override
 	protected void cruzarIndividuos(Individuo i1, Individuo i2) {
 		Random rand = new Random();
-		for(int i = 0; i < i1.getGenes().size(); i++)
+		List<Gen> genes = (List<Gen>) i1.getGenes();
+		List<Gen> genes2 = (List<Gen>) i2.getGenes();
+		for(int i = 0; i < genes.size(); i++)
 		{
 			List<Integer> pos = new ArrayList<>();
 			do {
 				Object aux;
-				for(int j = 0; j < i1.getGenes().get(i).getLongitud(); j++)		//Se elige que alelos se intercambian
+				for(int j = 0; j < genes.get(i).getLongitud(); j++)		//Se elige que alelos se intercambian
 				{
 					if(rand.nextDouble() < prob)
 					{
 						pos.add(j);
-						aux = i1.getGenes().get(i).getAlelo(j);
-						i1.getGenes().get(i).setAlelo(j, i2.getGenes().get(i).getAlelo(j));
-						i2.getGenes().get(i).setAlelo(j, aux);
+						aux = genes.get(i).getAlelo(j);
+						genes.get(i).setAlelo(j, genes2.get(i).getAlelo(j));
+						genes2.get(i).setAlelo(j, aux);
 					}
 				}
 			}while(pos.size() == 0);
@@ -49,28 +52,30 @@ public class CruceOXPP extends Cruce {
 
 	private void OXPP(Individuo i1, List<Integer> pos, int i, Individuo i2)
 	{
-		int ini = pos.get(pos.size() - 1) + 1, next = ini % i1.getGenes().get(i).getLongitud(), indice = 0, i_next = 0;		
-		for(int j = 0; j < i1.getGenes().get(i).getLongitud(); j++)
+		List<Gen> genes = (List<Gen>) i1.getGenes();
+		List<Gen> genes2 = (List<Gen>) i2.getGenes();
+		int ini = pos.get(pos.size() - 1) + 1, next = ini % genes.get(i).getLongitud(), indice = 0, i_next = 0;		
+		for(int j = 0; j < genes.get(i).getLongitud(); j++)
 		{
 			while(i_next < pos.size() && pos.get(i_next) == next)				//Si next cae sobre una posicion que ha sido intercambiada pasa a la siguiente
 			{
-				next = (next + 1) % i1.getGenes().get(i).getLongitud();
+				next = (next + 1) % genes.get(i).getLongitud();
 				i_next++;
 			}
-			int posicion = (ini + j) % i1.getGenes().get(i).getLongitud();
+			int posicion = (ini + j) % genes.get(i).getLongitud();
 			boolean valido = true;												//Se comprueba si el elemento en la posicion (posicion) esta entre los intercambiados
 			if(indice < pos.size() && pos.get(indice) == posicion)				//El elemento a comprobar ha sido intercambiado en la primera fase
 				indice++;
 			else																//El elemento a comprobar NO ha sido intercambiado en la primera fase
 			{		
 				for(int k = 0; k < pos.size() && valido; k++)
-					if((int) i1.getGenes().get(i).getAlelo(pos.get(k)) == (int) i1.getGenes().get(i).getAlelo(posicion))
+					if((int) genes.get(i).getAlelo(pos.get(k)) == (int) genes.get(i).getAlelo(posicion))
 						valido = false;
 				
 				if(valido)														//Si no esta se pone en la siguiente posicion (next)
 				{
-					i1.getGenes().get(i).setAlelo(next, i1.getGenes().get(i).getAlelo(posicion));
-					next = (next + 1) % i1.getGenes().get(i).getLongitud();
+					genes.get(i).setAlelo(next, genes.get(i).getAlelo(posicion));
+					next = (next + 1) % genes.get(i).getLongitud();
 				}
 			}
 		}
@@ -78,18 +83,18 @@ public class CruceOXPP extends Cruce {
 		{
 			while(i_next < pos.size() && pos.get(i_next) == next)				//Si next cae sobre una posicion que ha sido intercambiada pasa a la siguiente
 			{
-				next = (next + 1) % i1.getGenes().get(i).getLongitud();
+				next = (next + 1) % genes.get(i).getLongitud();
 				i_next++;
 			}
 			boolean valido = true;
 			for(int k = 0; k < pos.size() && valido; k++)
-				if((int) i1.getGenes().get(i).getAlelo(pos.get(k)) == (int) i2.getGenes().get(i).getAlelo(pos.get(j)))
+				if((int) genes.get(i).getAlelo(pos.get(k)) == (int) genes2.get(i).getAlelo(pos.get(j)))
 					valido = false;
 			
 			if(valido)														//Si no esta se pone en la siguiente posicion (next)
 			{
-				i1.getGenes().get(i).setAlelo(next, i2.getGenes().get(i).getAlelo(pos.get(j)));
-				next = (next + 1) % i1.getGenes().get(i).getLongitud();
+				genes.get(i).setAlelo(next, genes2.get(i).getAlelo(pos.get(j)));
+				next = (next + 1) % genes.get(i).getLongitud();
 			}
 		}
 	}

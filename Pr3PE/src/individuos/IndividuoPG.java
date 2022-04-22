@@ -60,4 +60,10 @@ public class IndividuoPG extends Individuo{
 		return null;
 	}
 
+	@Override
+	public void copiarIndividuo(Individuo ind) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

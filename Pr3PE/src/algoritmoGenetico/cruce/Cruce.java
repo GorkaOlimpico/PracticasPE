@@ -17,7 +17,6 @@ public abstract class Cruce implements Cloneable{
 			new CruceOXPP(),
 			new CruceCX(),
 			new CruceCO(),
-			new CruceOPTIMO(),
 	};
 	
 	public static Cruce[] getCrucesPr2()

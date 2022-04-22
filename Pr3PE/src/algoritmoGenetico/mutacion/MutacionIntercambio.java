@@ -1,7 +1,9 @@
 package algoritmoGenetico.mutacion;
 
+import java.util.List;
 import java.util.Random;
 
+import gen.Gen;
 import individuos.Individuo;
 
 public class MutacionIntercambio extends Mutacion {
@@ -24,17 +26,18 @@ public class MutacionIntercambio extends Mutacion {
 	protected void mutarIndividuo(Individuo ind) {
 		Random rand = new Random();
 		int i1, i2;
-		for(int i = 0; i < ind.getGenes().size(); i++)
+		List<Gen> genes = (List<Gen>) ind.getGenes();
+		for(int i = 0; i < genes.size(); i++)
 		{
 			do
 			{
-				i1 = rand.nextInt(ind.getGenes().get(i).getLongitud());
-				i2 = rand.nextInt(ind.getGenes().get(i).getLongitud());
+				i1 = rand.nextInt(genes.get(i).getLongitud());
+				i2 = rand.nextInt(genes.get(i).getLongitud());
 			}while(i1 == i2);
 			
-			Object aux = ind.getGenes().get(i).getAlelo(i1);
-			ind.getGenes().get(i).setAlelo(i1, ind.getGenes().get(i).getAlelo(i2));
-			ind.getGenes().get(i).setAlelo(i2, aux);
+			Object aux = genes.get(i).getAlelo(i1);
+			genes.get(i).setAlelo(i1, genes.get(i).getAlelo(i2));
+			genes.get(i).setAlelo(i2, aux);
 		}
 	}
 
