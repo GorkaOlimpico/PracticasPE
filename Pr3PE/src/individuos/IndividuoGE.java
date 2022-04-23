@@ -197,10 +197,10 @@ public class IndividuoGE extends Individuo {
 		traduceALista();
 				
 		// 2. Inicializo todas las entradas en una List<boolean[]>
-		List<boolean[]> entradas = generaEntradas();
+		List<List<Boolean>> entradas = generaEntradas();
 		
 		// 3. Por cada entrada[6] evalúo la List<String> y evalúo su resultado correcto del MX-6
-		for(boolean[] entrada : entradas) {
+		for(List<Boolean> entrada : entradas) {
 			
 			// 4. Comparo los resultados. Si son iguales entonces sumo 1 a aciertos
 			//if(evaluaElemento() == multiplexor6(entrada)) {
@@ -266,11 +266,11 @@ public class IndividuoGE extends Individuo {
 	@Override
 	public String solutionToString() {
 		String s = "El valor de la funcion es: " + super.getFitness() + "\n";
-		
+		//TODO hay que anadir la gramatica resultante
 		return s;
 	}
 	
-	public String genToString()
+	public String genToString()		
 	{
 		List<Gen> genes = (List<Gen>) this.genes;
 		String s = "";
@@ -279,62 +279,63 @@ public class IndividuoGE extends Individuo {
 		return s + "\n";
 	}
 
-	
-	public List<boolean[]> generaEntradas(){
-		List<boolean[]> listaTotal = new ArrayList<boolean[]>();
-
-		for(int i = 0; i < 4; i++) {
-			boolean[] binario = new boolean[6];
-			int num1 = i;
-			int k = 0;
-			if(num1==0) {
-				binario[k] = false;
-			}
-			while(num1 != 0) {
-				int digito = num1 % 2;
-				if(digito == 1) {
-					binario[k] = true;
-				}
-				else
-					binario[k] = false;
-				num1= num1 / 2;
-				k++;
-			}
-			
-			while(k<1) {
-				k++;
-				binario[k] = false;
-			}
-			
-			
-			for(int j = 0; j < 16; j++) {
-				int x = 2;
-				int num2 = j;
-				if(num2==0) {
-					binario[x] = false;
-				}
-				while(num2 != 0) {
-					int digito = num2 % 2;
-					if(digito == 1) {
-						binario[x] = true;
-					}
-					else
-						binario[x] = false;
-					num2 = num2/2;
-					x++;
-				}
-				
-				while(x<5) {
-					x++;
-					binario[x] = false;
-				}
-				
-				listaTotal.add(binario);
-			}			
-		}
-		
-		return listaTotal;
-	}
+																//He creado un array estatico en Individuo con las soluciones
+//	public List<boolean[]> generaEntradas(){					//He puesto la funcion en individuo, ya que es comun a ambos metodos
+//		int tam_ejemplo = 6;
+//		List<boolean[]> listaTotal = new ArrayList<boolean[]>();
+//		
+//		
+//		for(int i = 0; i < 4; i++) {
+//			boolean[] binario = new boolean[tam_ejemplo];
+//			int num1 = i;
+//			int k = 0;
+//			if(num1==0) {
+//				binario[k] = false;
+//			}
+//			while(num1 != 0) {
+//				int digito = num1 % 2;
+//				if(digito == 1) {
+//					binario[k] = true;
+//				}
+//				else
+//					binario[k] = false;
+//				num1= num1 / 2;
+//				k++;
+//			}
+//			
+//			while(k<1) {
+//				k++;
+//				binario[k] = false;
+//			}
+//			
+//			
+//			for(int j = 0; j < 16; j++) {
+//				int x = 2;
+//				int num2 = j;
+//				if(num2==0) {
+//					binario[x] = false;
+//				}
+//				while(num2 != 0) {
+//					int digito = num2 % 2;
+//					if(digito == 1) {
+//						binario[x] = true;
+//					}
+//					else
+//						binario[x] = false;
+//					num2 = num2/2;
+//					x++;
+//				}
+//				
+//				while(x<5) {
+//					x++;
+//					binario[x] = false;
+//				}
+//				
+//				listaTotal.add(binario);
+//			}			
+//		}
+//		return listaTotal;
+//	}
 
 	public boolean multiplexor6(boolean entrada[]) {
 		

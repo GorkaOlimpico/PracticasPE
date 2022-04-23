@@ -94,7 +94,60 @@ public abstract class Individuo {
 
 	public abstract void copiarIndividuo(Individuo ind); //Copia ind a this
 	
+	protected List<List<Boolean>> generaEntradas(){
+		List<List<Boolean>> listaTotal = new ArrayList<>();
+		int tam_ejemplo = 6;												//Cada ejemplo es [A0, A1, D0, D1, D2, D3]
+		listaTotal.add(new ArrayList<>());
+		
+		for(int i = 0; i < tam_ejemplo; i++)
+			listaTotal.get(0).add(false);
+		
+		int j = 0;
+		boolean llevar = false;
+		while(!llevar)
+		{
+			ArrayList<Boolean> aux = new ArrayList<>();
+			llevar = true;
+			int i = 0;
+			for(int k = 0; k < tam_ejemplo; k++)
+				aux.add(listaTotal.get(j).get(k));
+			
+			while(llevar && i < tam_ejemplo)
+			{
+				if(!aux.get(i))
+				{
+					aux.set(i, true);
+					llevar = false;
+				}
+				else
+					aux.set(i, false);
+				i++;
+			}
+			j++;
+			if(!llevar)
+				listaTotal.add(aux);
+		}
+		return listaTotal;
+	}
 	
 	public abstract String solutionToString();
 
+	protected static boolean[] solucion = {
+			false, 	false, 	false, 	false,
+			false, 	false, 	false, 	false,
+			true, 	true,	true, 	true,
+			true, 	true, 	true, 	true,
+			false, 	false, 	false, 	false,
+			true, 	true, 	true, 	true,
+			false, 	false, 	false, 	false,
+			true, 	true,	true, 	true,
+			false, 	false, 	true, 	true,
+			false, 	false, 	true, 	true,
+			false, 	false, 	true, 	true,
+			false, 	false, 	true, 	true,
+			false, 	true, 	false, 	true,
+			false, 	true, 	false, 	true,
+			false, 	true, 	false, 	true,
+			false, 	true, 	false, 	true,
+	};
 }

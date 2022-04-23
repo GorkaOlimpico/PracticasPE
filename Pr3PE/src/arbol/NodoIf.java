@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class NodoIf extends Nodo {
 
-	public NodoIf(int profundidad, Arbol padre) {
-		super(profundidad, padre);
+	public NodoIf(int profundidad, Arbol padre, Random rand) {
+		super(profundidad, padre, rand);
 		inicializar();
 	}
 
@@ -20,29 +20,17 @@ public class NodoIf extends Nodo {
 	
 	private void inicializar()
 	{
-		Random rand = new Random();
-		if(profundidad == 1)
+		if(profundidad == 1)	//Si como mucho puede haber solo un elemento mas por el limite de profundidad, siempre será una hoja, esto garantiza que sea siempre ejecutable
 		{
-			hijos.add(Hoja.generar(rand, profundidad - 1, padre));
-			hijos.add(Hoja.generar(rand, profundidad - 1, padre));
-			hijos.add(Hoja.generar(rand, profundidad - 1, padre));
+			hijos.add(Hoja.generar(rand, profundidad - 1, this));
+			hijos.add(Hoja.generar(rand, profundidad - 1, this));
+			hijos.add(Hoja.generar(rand, profundidad - 1, this));
 		}
 		else 
 		{
-			if(rand.nextDouble() < 0.4)
-				hijos.add(Nodo.generar(rand, profundidad - 1, padre));
-			else
-				hijos.add(Hoja.generar(rand, profundidad - 1, padre));
-			
-			if(rand.nextDouble() < 0.4)
-				hijos.add(Nodo.generar(rand, profundidad - 1, padre));
-			else
-				hijos.add(Hoja.generar(rand, profundidad - 1, padre));
-			
-			if(rand.nextDouble() < 0.4)
-				hijos.add(Nodo.generar(rand, profundidad - 1, padre));
-			else
-				hijos.add(Hoja.generar(rand, profundidad - 1, padre));
+			hijos.add(Arbol.generar(rand, profundidad - 1, this));
+			hijos.add(Arbol.generar(rand, profundidad - 1, this));
+			hijos.add(Arbol.generar(rand, profundidad - 1, this));
 		}
 	}
 
