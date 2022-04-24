@@ -189,17 +189,14 @@ public class IndividuoGE extends Individuo {
 	
 	
 	@Override
-	public int getValor() {
+	public double getValor() {
 
 		int aciertos = 0;
 		
 		// 1. Se genera la List<String> a partir del número
 		traduceALista();
 				
-		// 2. Inicializo todas las entradas en una List<boolean[]>
-		List<List<Boolean>> entradas = generaEntradas();
-		
-		// 3. Por cada entrada[6] evalúo la List<String> y evalúo su resultado correcto del MX-6
+		// 2. Por cada entrada[6] evalúo la List<String> y evalúo su resultado correcto del MX-6
 		for(List<Boolean> entrada : entradas) {
 			
 			// 4. Comparo los resultados. Si son iguales entonces sumo 1 a aciertos
@@ -207,13 +204,8 @@ public class IndividuoGE extends Individuo {
 			//	aciertos++;
 			//}
 		}
-		
-		
-		
-		
 		return aciertos;
 	}
-	
 	
 	@Override
 	public double getFenotipo(int i) {

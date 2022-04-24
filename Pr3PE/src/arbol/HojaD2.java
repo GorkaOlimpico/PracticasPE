@@ -18,4 +18,9 @@ public class HojaD2 extends Hoja {
 	public String toString() {
 		return "D2";
 	}
+	
+	@Override
+	public Arbol clonar(Arbol padre) {
+		return new HojaD2(profundidad, padre, new Random());
+	}
 }

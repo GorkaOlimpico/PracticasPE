@@ -7,7 +7,7 @@ public abstract class Hoja extends Arbol {
 	public Hoja(int profundidad, Arbol padre, Random rand) {
 		super(profundidad, padre, rand);
 		padre.sumarTamHijo(this);
-		actualizarProfundidad(niveles_hijos);
+		actualizarAlturaSubarbol(niveles_hijos);
 		prob_cruce = 0.1;
 	}
 	

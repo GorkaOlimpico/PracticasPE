@@ -5,6 +5,7 @@ import java.util.List;
 
 import algoritmoGenetico.cruce.Cruce;
 import algoritmoGenetico.mutacion.Mutacion;
+import arbol.Arbol;
 import gen.Gen;
 
 public abstract class Individuo {
@@ -13,19 +14,20 @@ public abstract class Individuo {
 	protected double valor;
 	protected double valorError;
 	protected String id;  
+	List<List<Boolean>> entradas;
 	
 	public Individuo(double valorError)
 	{
 		this.valorError = valorError;
 		genes = new ArrayList<>();
-
+		entradas = generaEntradas();
 		fenotipo = -1;
 	}
 	
 	public Individuo()
 	{
 		genes = new ArrayList<>();
-
+		entradas = generaEntradas();
 		fenotipo = -1;
 	}
 	
@@ -33,7 +35,7 @@ public abstract class Individuo {
 	
 	public abstract boolean max();
 	
-	public abstract int getValor();
+	public abstract double getValor();
 	
 	public double getFitness()
 	{
@@ -129,6 +131,7 @@ public abstract class Individuo {
 		}
 		return listaTotal;
 	}
+
 	
 	public abstract String solutionToString();
 
@@ -150,4 +153,13 @@ public abstract class Individuo {
 			false, 	true, 	false, 	true,
 			false, 	true, 	false, 	true,
 	};
+
+	
+	public void setGenes(Object aux) {
+		genes = aux;
+	}
+
+	public void bloating(Individuo[] poblacion) {}
+
+	public void setBloating(double k) {}
 }

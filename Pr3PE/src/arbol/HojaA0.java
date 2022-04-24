@@ -19,4 +19,9 @@ public class HojaA0 extends Hoja {
 		return "A0";
 	}
 
+	@Override
+	public Arbol clonar(Arbol padre) {
+		return new HojaA0(profundidad, padre, new Random());
+	}
+
 }

@@ -80,6 +80,7 @@ public class AlgoritmoGenetico {
 		mediaGeneracion = new double[num_max_gen + 1];
 		// 1. Evaluar p(t)
 		// 		Guarda el mejor Individuo, mejoresGlobales, mejoresGeneracion, mediaGeneracion
+		poblacion[0].bloating(poblacion);
 		evaluarPoblacion();
 		
 		Individuo[] elites = creaPoblacion(problema, (int) (tam_pob * elite / 100));
@@ -102,6 +103,8 @@ public class AlgoritmoGenetico {
 			cruce.cruzar(poblacion, prob_cruce / 100);
 			
 			mutacion.mutar(poblacion, prob_mutacion / 100);
+			
+			poblacion[0].bloating(poblacion);
 			
 			ordenarPoblacion();
 			meterElites(elites);

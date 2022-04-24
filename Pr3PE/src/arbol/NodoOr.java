@@ -8,7 +8,7 @@ public class NodoOr extends Nodo {
 	public NodoOr(int profundidad, Arbol padre, Random rand, int prof_generar) {
 		super(profundidad, padre, rand);
 		inicializar(prof_generar);
-		actualizarProfundidad(niveles_hijos);
+		actualizarAlturaSubarbol(niveles_hijos);
 	}
 
 	@Override
@@ -25,5 +25,13 @@ public class NodoOr extends Nodo {
 	@Override
 	public String toString() {
 		return "OR(" + hijos.get(0).toString() + ", " + hijos.get(1).toString() + ")";
+	}
+	
+	@Override
+	public Arbol clonar(Arbol padre) {
+		Nodo n = new NodoOr(profundidad, padre, rand, 1);
+		for(int i = 0; i < hijos.size(); i++)
+			n.getHijos().get(i).cambiarNodo(hijos.get(i).clonar(n));
+		return n;
 	}
 }

@@ -1,5 +1,6 @@
 package individuos;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -11,8 +12,9 @@ import arbol.Arbol;
 public class IndividuoPG extends Individuo{
 
 	private final static String type = "Programación Genética"; 
+	private double k_bloating;
 	
-	public IndividuoPG()
+ 	public IndividuoPG()
 	{
 		super.id = type;
 	}
@@ -32,16 +34,16 @@ public class IndividuoPG extends Individuo{
 	}
 
 	@Override
-	public int getValor() {
+	public double getValor() {
 		int suma = 0;
 		Arbol arbol = (Arbol) genes;
-		List<List<Boolean>> combinaciones = generaEntradas();
+		List<List<Boolean>> combinaciones = entradas;
 		for(int i = 0; i < combinaciones.size(); i++)
 		{
 			if(arbol.execute(combinaciones.get(i)) == Individuo.solucion[i])
 				suma++;
 		}
-		return suma;
+		return suma + (k_bloating * arbol.getTamSubArbol());				//Usamos el metodo de bloating: "Penalización bien fundamentada"
 	}
 
 	@Override
@@ -49,12 +51,12 @@ public class IndividuoPG extends Individuo{
 
 	@Override
 	public Cruce[] getCruces() {
-		return Cruce.getCrucesPr2();
+		return Cruce.getCrucesPG();
 	}
 
 	@Override
 	public Mutacion[] getMutaciones() {
-		return Mutacion.getMutacionesPr2();
+		return Mutacion.getMutacionesPG();
 	}
 
 	@Override
@@ -104,14 +106,60 @@ public class IndividuoPG extends Individuo{
 
 	@Override
 	public String genToString() {
-		// TODO Auto-generated method stub
-		return null;
+		Arbol a = (Arbol) genes;
+		return a.toString();
 	}
 
 	@Override
 	public void copiarIndividuo(Individuo ind) {
-		// TODO Auto-generated method stub
-		
+		Arbol a = (Arbol) ind.getGenes();
+		genes = a.clonar(null);
 	}
-
+	
+	@Override
+	public void bloating(Individuo[] poblacion){		//Usamos el metodo de bloating: "Penalización bien fundamentada"
+		double k = 0;
+		List<Double> fitness = new ArrayList<>();
+		double mediaf = 0, mediat = 0;
+		List<Integer> tam = new ArrayList<>();
+		Arbol aux;
+		int n = poblacion.length;
+		
+		for(Individuo i: poblacion)			//Se calculan los fitness y tamaño de los arboles y sus medias
+		{
+			double x = i.getFitness();
+			fitness.add(x);
+			mediaf += x;
+			
+			aux = (Arbol) i.getGenes();
+			x = aux.getTamSubArbol();
+			tam.add(aux.getTamSubArbol());
+			mediat += x;
+		}
+		mediaf = mediaf / n;
+		mediat = mediat / n;
+		
+		double var = 0, covar = 0;
+		
+		for(int i = 0 ; i < n; i++)			
+		{
+			double rango;
+			rango = Math.pow(tam.get(i) - mediaf, 2);						//Se calcula la varianza
+			var = var + rango;
+			
+			rango = (fitness.get(i) - mediaf) * (tam.get(i) - mediat);		//Se calcula la covarianza
+			covar = covar + rango;
+		}
+		var = var / n;
+		covar = covar / n;
+		
+		k = covar / var;
+		for(Individuo i: poblacion)
+			i.setBloating(k);
+	}
+	
+	@Override
+	public void setBloating(double k){
+		k_bloating = k;
+	}
 }

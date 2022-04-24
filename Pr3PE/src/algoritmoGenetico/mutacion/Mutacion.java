@@ -22,6 +22,21 @@ public abstract class Mutacion implements Cloneable {
 		return mutacionPr2;
 	}
 	
+	private static Mutacion[] mutacionPG= {
+			new MutacionTerminal(),
+			new MutacionFuncional(),
+			new MutacionArbol(),
+			new MutacionPermutacion(),
+			new MutacionHoist(),
+			new MutacionContraccion(),
+			new MutacionExpansion(),
+	};
+	
+	public static Mutacion[] getMutacionesPG()
+	{
+		return mutacionPG;
+	}
+	
 	public String getId()
 	{
 		return id;
