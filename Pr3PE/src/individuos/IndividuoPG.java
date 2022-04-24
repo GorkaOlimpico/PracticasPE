@@ -70,8 +70,8 @@ public class IndividuoPG extends Individuo{
 			else
 			{
 				int profundidad = (int) datos[1];	
-				int tipo_generacion = (int) datos[2];
-				if(tipo_generacion == 2)							//Ramped and half inicialization
+				String tipo_generacion = (String) datos[2];
+				if(tipo_generacion == "Ramped-Half")				//Ramped and half inicialization
 				{
 					int aux = tam / (profundidad - 1);
 					for(int j = 0; j < profundidad; j++)			//La profundidad de la hoja es 0 y la de la raiz profundidad
@@ -82,9 +82,14 @@ public class IndividuoPG extends Individuo{
 							ind[i + (aux * j)] = nuevoInd(profundidad, 1, j);		//Mitad de Grow
 					}
 				}
-				else												//Grow or Full inicialization
+				else				//Grow or Full inicialization
+				{
+					int tipo = 0;
+					if(tipo_generacion == "Grow")
+						tipo = 1;
 					for(int i = 0; i < tam; i++)
-						ind[i] = nuevoInd(profundidad, tipo_generacion, profundidad);
+						ind[i] = nuevoInd(profundidad, tipo, profundidad);
+				}	
 			}
 		}
 		return ind;
