@@ -6,7 +6,9 @@ import java.util.Random;
 public abstract class Hoja extends Arbol {
 	public Hoja(int profundidad, Arbol padre, Random rand) {
 		super(profundidad, padre, rand);
-		padre.anadirHijo(super.tam_subarbol);
+		padre.sumarTamHijo(this);
+		actualizarProfundidad(niveles_hijos);
+		prob_cruce = 0.1;
 	}
 	
 	public static Arbol generar(Random rand, int profundidad, Arbol padre)

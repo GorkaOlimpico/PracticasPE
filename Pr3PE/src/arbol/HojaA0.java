@@ -14,4 +14,9 @@ public class HojaA0 extends Hoja {
 		return input.get(0);
 	}
 
+	@Override
+	public String toString() {
+		return "A0";
+	}
+
 }

@@ -24,6 +24,16 @@ public abstract class Cruce implements Cloneable{
 		return crucesPr2;
 	}
 	
+	private static Cruce[] crucesPG= {
+			new CruceSubArboles(),
+	};
+	
+	public static Cruce[] getCrucesPG()
+	{
+		return crucesPG;
+	}
+	
+	
 	public String getId()
 	{
 		return id;

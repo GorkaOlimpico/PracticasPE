@@ -5,9 +5,10 @@ import java.util.Random;
 
 public class NodoIf extends Nodo {
 
-	public NodoIf(int profundidad, Arbol padre, Random rand) {
+	public NodoIf(int profundidad, Arbol padre, Random rand, int prof_generar) {
 		super(profundidad, padre, rand);
-		inicializar();
+		inicializar(prof_generar);
+		actualizarProfundidad(niveles_hijos);
 	}
 
 	@Override
@@ -18,20 +19,15 @@ public class NodoIf extends Nodo {
 			return hijos.get(2).execute(input);
 	}
 	
-	private void inicializar()
+	private void inicializar(int prof_generar)
 	{
-		if(profundidad == 1)	//Si como mucho puede haber solo un elemento mas por el limite de profundidad, siempre será una hoja, esto garantiza que sea siempre ejecutable
-		{
-			hijos.add(Hoja.generar(rand, profundidad - 1, this));
-			hijos.add(Hoja.generar(rand, profundidad - 1, this));
-			hijos.add(Hoja.generar(rand, profundidad - 1, this));
-		}
-		else 
-		{
-			hijos.add(Arbol.generar(rand, profundidad - 1, this));
-			hijos.add(Arbol.generar(rand, profundidad - 1, this));
-			hijos.add(Arbol.generar(rand, profundidad - 1, this));
-		}
+		hijos.add(Arbol.generarGrow(rand, profundidad - 1, this, prof_generar));
+		hijos.add(Arbol.generarGrow(rand, profundidad - 1, this, prof_generar));
+		hijos.add(Arbol.generarGrow(rand, profundidad - 1, this, prof_generar));
 	}
-
+	
+	@Override
+	public String toString() {
+		return "IF(" + hijos.get(0).toString()  + ", " + hijos.get(1).toString() + ", " + hijos.get(2).toString() + ")";
+	}
 }

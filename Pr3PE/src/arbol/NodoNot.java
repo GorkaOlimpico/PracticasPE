@@ -5,9 +5,10 @@ import java.util.Random;
 
 public class NodoNot extends Nodo {
 
-	public NodoNot(int profundidad, Arbol padre, Random rand) {
+	public NodoNot(int profundidad, Arbol padre, Random rand, int prof_generar) {
 		super(profundidad, padre, rand);
-		inicializar();
+		inicializar(prof_generar);
+		actualizarProfundidad(niveles_hijos);
 	}
 
 	@Override
@@ -16,11 +17,13 @@ public class NodoNot extends Nodo {
 	}
 
 	
-	private void inicializar()
+	private void inicializar(int prof_generar)
 	{
-		if(profundidad == 1)	//Si como mucho puede haber solo un elemento mas por el limite de profundidad, siempre será una hoja, esto garantiza que sea siempre ejecutable
-			hijos.add(Hoja.generar(rand, profundidad - 1, this));
-		else 
-			hijos.add(Arbol.generar(rand, profundidad - 1, this));
+		hijos.add(Arbol.generarGrow(rand, profundidad - 1, this, prof_generar));
+	}
+	
+	@Override
+	public String toString() {
+		return "NOT(" + hijos.get(0).toString() + ")";
 	}
 }

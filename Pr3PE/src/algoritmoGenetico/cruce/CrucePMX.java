@@ -10,7 +10,7 @@ import individuos.IndividuoGE;
 import individuos.Pair;
 
 public class CrucePMX extends Cruce {
-private final String type = "PMX";
+	private final String type = "PMX";
 	
 	public CrucePMX()
 	{

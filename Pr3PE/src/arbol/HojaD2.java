@@ -13,4 +13,9 @@ public class HojaD2 extends Hoja {
 	public boolean execute(List<Boolean> input) {
 		return input.get(4);
 	}
+
+	@Override
+	public String toString() {
+		return "D2";
+	}
 }
