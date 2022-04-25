@@ -34,9 +34,10 @@ public class MainFrame extends JFrame {
 	private JTextField longitud;
 	private JTextField profundidad;
 	private JButton btnEjecutar;
+	private String tipo_inicializacion;
 	
 	private JComboBox problema;
-
+	private JComboBox inicializacion;
 	/**
 	 * Launch the application.
 	 */
@@ -92,6 +93,14 @@ public class MainFrame extends JFrame {
 		profundidad.setPreferredSize(new Dimension(100,25));
 		profundidad.setText("20");
 		
+		JLabel mod = new JLabel("Tipo de inicialización: ");
+		inicializacion = new JComboBox<>();
+		String[] modos = {"Full", "Grow", "Ramped-Half"};
+		for (String m : modos) {
+			problema.addItem(m);
+		}
+		tipo_inicializacion = "Full";
+		
 		panelSuperior.add(prof);
 		panelSuperior.add(profundidad);
 		
@@ -101,8 +110,6 @@ public class MainFrame extends JFrame {
 		
 		
 		//---------- Gramatica Evolutiva -------------------
-		
-		
 		
 		JLabel gra = new JLabel("Archivo gramática: ");
 		gramatica = new JTextField();
@@ -136,10 +143,7 @@ public class MainFrame extends JFrame {
 		
 		
 		
-		
-		
-		
-		
+
 		// Panel central
 		//panelCentral = new JSplitPane();
 		add(panelCentral, BorderLayout.CENTER);
@@ -175,10 +179,14 @@ public class MainFrame extends JFrame {
 						
 						prof.setVisible(true);
 						profundidad.setVisible(true);
+						mod.setVisible(true);
+						inicializacion.setVisible(true);
 					}
 					else {
 						prof.setVisible(false);
 						profundidad.setVisible(false);
+						mod.setVisible(false);
+						inicializacion.setVisible(false);
 						
 						gra.setVisible(true);
 						gramatica.setVisible(true);
@@ -187,7 +195,24 @@ public class MainFrame extends JFrame {
 						lon.setVisible(true);
 						longitud.setVisible(true);
 					}
-					ind = Individuo.seleccionarIndividuo(1, new Object[] {opciones[problema.getSelectedIndex()]})[0];
+					ind = Individuo.seleccionarIndividuo(1, new Object[] {opciones[problema.getSelectedIndex()]})[0]; // solo le pasa el nombre del problema
+				}
+			});
+			
+		// Selección de modo de inicialización PG
+			inicializacion.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (inicializacion.getSelectedIndex() == 1) { // Selecciona Grow
+						tipo_inicializacion = "Grow";
+					}
+					else if (inicializacion.getSelectedIndex() == 2){ // Selecciona Ramped-Half
+						tipo_inicializacion = "Ramped-Half";
+					}
+					else {
+						tipo_inicializacion = "Full";
+					}
+					
 				}
 			});
 		
@@ -320,13 +345,25 @@ public class MainFrame extends JFrame {
 	}
 	
 	public void reset() {
-		AG = new AlgoritmoGenetico(gramatica.getText(), wraps.getText(), longitud.getText());
+		if (problema.getSelectedIndex() == 1) {
+			AG = new AlgoritmoGenetico(tipo_inicializacion);
+		}
+		else {
+			AG = new AlgoritmoGenetico(gramatica.getText(), wraps.getText(), longitud.getText());
+		}
 		formulario.setTarget(AG);
 		formulario.initialize();
 		btnEjecutar.setEnabled(true);
 	}
 	public void ejecutar() {
-		 AG = new AlgoritmoGenetico(gramatica.getText(), wraps.getText(), longitud.getText());
+		
+		if (problema.getSelectedIndex() == 1) {
+			AG = new AlgoritmoGenetico(tipo_inicializacion);
+		}
+		else {
+			AG = new AlgoritmoGenetico(gramatica.getText(), wraps.getText(), longitud.getText());
+		}
+		
 		
 		// Todos los datos del formulario se pondrán en AG
 		

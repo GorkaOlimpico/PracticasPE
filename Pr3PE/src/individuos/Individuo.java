@@ -66,7 +66,7 @@ public abstract class Individuo {
 	}
 
 
-	public static Individuo[] seleccionarIndividuo(int tam, Object[] datos) 	//datos = id, vuelos, TEL, tEspera
+	public static Individuo[] seleccionarIndividuo(int tam, Object[] datos) 	
 	{																					
 		Individuo ind[] = null;
 		if(datos.length > 0)
