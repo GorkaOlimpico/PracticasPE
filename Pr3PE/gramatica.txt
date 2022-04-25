@@ -1,2 +1,7 @@
-S ::= exp
-exp ::= IF //|
+S ::= funcion
+funcion ::= IF | AND | OR | NOT
+exp = funcion | A0 | A1 | D0 | D1 | D2 | D3
+IF = if (exp) exp else exp
+NOT = not exp
+AND = and exp exp
+OR = or exp exp

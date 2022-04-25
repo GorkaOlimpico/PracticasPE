@@ -23,13 +23,10 @@ public class Gramatica {
 	 	
 	 	
 	 */
-	 private int wraps;
-	 private int maxWraps;
 	 private Map<String, List<List<String>>> mapa;
 
-	 public Gramatica(int maxWraps, String texto){
-		 this.wraps = 0;
-		 this.maxWraps = maxWraps;
+	 public Gramatica(String texto){
+		 
 		 mapa = new HashMap<String, List<List<String>>>();
 		 
 		 //Separamos por líneas la gramatica
@@ -39,7 +36,7 @@ public class Gramatica {
 			//Separamos las reglas de sus variables
 			String regla[] = r[i].split("::=");
 			//Separamos cada una de las variables
-			String variables[] = regla[1].split("\\|");
+			String variables[] = regla[1].split("|");
 			//Creamos la lista para las listas de reglas
 			List<List<String>> list1 = new ArrayList<List<String>>();
 			

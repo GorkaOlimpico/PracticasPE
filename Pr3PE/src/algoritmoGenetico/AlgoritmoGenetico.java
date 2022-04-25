@@ -40,6 +40,9 @@ public class AlgoritmoGenetico {
 	private Cruce cruce;
 	private Mutacion mutacion;
 		
+	public AlgoritmoGenetico(String tipoInicializacion) {
+		
+	}
 	
 	public AlgoritmoGenetico(String nombreArchivo, String wraps, String longitud) 
 	{		

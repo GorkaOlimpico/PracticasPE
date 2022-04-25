@@ -27,6 +27,7 @@ public class IndividuoGE extends Individuo {
 	private int wraps;
 	private int pos;
 	private int longitud;
+	private List<List<Boolean>> entradas;
 	
 	public IndividuoGE(int longitud, int n_wraps, String nombreArchivo) throws FileNotFoundException {
 		super.id = type;
@@ -35,7 +36,7 @@ public class IndividuoGE extends Individuo {
 		String texto_gramatica = archivoATexto(nombreArchivo);
 		pos = 0;
 		max_wraps = n_wraps;
-		gramatica = new Gramatica(n_wraps, texto_gramatica);
+		gramatica = new Gramatica(texto_gramatica);
 		this.longitud = longitud;
 		Random rand = new Random();
 		GenPr3 aux = new GenPr3(longitud);
@@ -43,6 +44,8 @@ public class IndividuoGE extends Individuo {
 		genes.add(aux);
 		recalcularFenotipo();
 		this.genes = genes;
+		
+		entradas = generaEntradas();
 	}
 	public IndividuoGE()
 	{
@@ -102,30 +105,38 @@ public class IndividuoGE extends Individuo {
 			}
 			
 			case "IF":{
+				solucion.add("(");
 				solucion.add("IF");
 				addElemLista("exp");
 				addElemLista("exp");
 				addElemLista("exp");
+				solucion.add(")");
 				break;
 			}
 			
 			case "AND":{
+				solucion.add("(");
 				solucion.add("AND");
 				addElemLista("exp");
 				addElemLista("exp");
+				solucion.add(")");
 				break;
 			}
 			
 			case "OR":{
+				solucion.add("(");
 				solucion.add("OR");
 				addElemLista("exp");
 				addElemLista("exp");
+				solucion.add(")");
 				break;
 			}
 			
 			case "NOT":{
+				solucion.add("(");
 				solucion.add("NOT");
 				addElemLista("exp");
+				solucion.add(")");
 				break;
 			}
 			
@@ -176,8 +187,6 @@ public class IndividuoGE extends Individuo {
 				break;
 			}
 		}
-		// FALTA AÑADIR LOS PARÉNTESIS
-		
 			
 	}
 
@@ -200,11 +209,19 @@ public class IndividuoGE extends Individuo {
 		for(List<Boolean> entrada : entradas) {
 			
 			// 4. Comparo los resultados. Si son iguales entonces sumo 1 a aciertos
-			//if(evaluaElemento() == multiplexor6(entrada)) {
-			//	aciertos++;
-			//}
+			if(evaluaElemento(entrada) == multiplexor6(entrada)) {
+				aciertos++;
+			}
 		}
 		return aciertos;
+	}
+	
+	public boolean evaluaElemento(List<List<Boolean>> entrada) {
+		boolean resultado = false;
+		
+		
+		
+		return resultado;
 	}
 	
 	@Override
