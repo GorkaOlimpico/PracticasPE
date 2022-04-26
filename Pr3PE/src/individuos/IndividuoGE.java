@@ -209,9 +209,9 @@ public class IndividuoGE extends Individuo {
 		for(List<Boolean> entrada : entradas) {
 			
 			// 4. Comparo los resultados. Si son iguales entonces sumo 1 a aciertos
-			if(evaluaElemento(entrada) == multiplexor6(entrada)) {
-				aciertos++;
-			}
+//			if(evaluaElemento(entrada) == multiplexor6(entrada)) {
+//				aciertos++;
+//			}	//TODO
 		}
 		return aciertos;
 	}

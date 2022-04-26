@@ -81,6 +81,8 @@ public class IndividuoPG extends Individuo{
 						for(int i = (aux / 2) + 1; i < tam; i++)
 							ind[i + (aux * j)] = nuevoInd(profundidad, 1, j);		//Mitad de Grow
 					}
+					for(int i = aux * (profundidad - 1); i < tam; i++)	//Si la division no es exacta se rellena con Grow de tamaño maximo
+						ind[i] = nuevoInd(profundidad, 1, 1);			
 				}
 				else				//Grow or Full inicialization
 				{

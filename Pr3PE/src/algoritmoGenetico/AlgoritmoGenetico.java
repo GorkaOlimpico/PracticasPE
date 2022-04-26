@@ -26,9 +26,7 @@ public class AlgoritmoGenetico {
 	private double prob_mutacion;
 	private double elite;
 	private String problema;
-	private int longitud;
-	private int n_wraps;
-	private String nombreArchivo;
+	Object[] datos;
 	
 	
 	private double[] mejoresGeneracion;
@@ -44,27 +42,23 @@ public class AlgoritmoGenetico {
 		
 	}
 	
-	public AlgoritmoGenetico(String nombreArchivo, String wraps, String longitud) 
+	public AlgoritmoGenetico(Object[] datos) 
 	{		
 		tam_pob = 100;
 		num_max_gen = 100;
 		prob_cruce = 60;
 		prob_mutacion = 5;
 		elite= 2;
+		this.datos = datos;
 	
 		problema = "Practica 3";
-		
-		this.nombreArchivo = nombreArchivo;
-		this.n_wraps = Integer.parseInt(wraps);
-		this.longitud = Integer.parseInt(longitud);
-
 
 		generacionActual = 0;
 	}
 	
 	public Individuo[] creaPoblacion(String problema, int tam) {		
 		this.problema = problema;
-		return Individuo.seleccionarIndividuo(tam, new Object[]{problema, longitud, n_wraps, nombreArchivo});
+		return Individuo.seleccionarIndividuo(tam, datos);
 	}
 	
 	
@@ -163,7 +157,7 @@ public class AlgoritmoGenetico {
 	}
 	
 	public void setTamPoblacion(int tamPob) {
-		tam_pob = tamPob;
+		this.tam_pob = tamPob;
 	}
 	public void setMaxGen(int maxGen) {
 		num_max_gen = maxGen;
@@ -188,18 +182,6 @@ public class AlgoritmoGenetico {
 	}
 	public void setProblema(String problema) {
 		this.problema = problema;
-	}
-	public void setLongitud(String longitud)
-	{
-		this.longitud = Integer.parseInt(longitud);
-	}
-	public void setWraps(String wraps)
-	{
-		this.n_wraps = Integer.parseInt(wraps);
-	}
-	public void setNombreArchivo(String nombreArchivo)
-	{
-		this.nombreArchivo = nombreArchivo;
 	}
 	
 	public String generaSolucion() {

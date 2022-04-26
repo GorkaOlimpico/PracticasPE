@@ -18,6 +18,7 @@ import gui.ConfigPanel.*;
 import gui.ConfigPanel.ConfigListener;
 import individuos.Individuo;
 import individuos.IndividuoGE;
+import individuos.IndividuoPG;
 
 
 public class MainFrame extends JFrame {
@@ -97,15 +98,17 @@ public class MainFrame extends JFrame {
 		inicializacion = new JComboBox<>();
 		String[] modos = {"Full", "Grow", "Ramped-Half"};
 		for (String m : modos) {
-			problema.addItem(m);
+			inicializacion.addItem(m);
 		}
 		tipo_inicializacion = "Full";
 		
 		panelSuperior.add(prof);
 		panelSuperior.add(profundidad);
+		panelSuperior.add(inicializacion);
 		
 		prof.setVisible(false);
 		profundidad.setVisible(false);
+		inicializacion.setVisible(false);
 		//________________________________________________
 		
 		
@@ -136,8 +139,8 @@ public class MainFrame extends JFrame {
 		panelSuperior.add(longitud);
 		
 		add(panelSuperior, BorderLayout.NORTH);
-		
-		AG = new AlgoritmoGenetico(gramatica.getText(), wraps.getText(), longitud.getText());
+		ind = new IndividuoGE();
+		AG = new AlgoritmoGenetico(new Object[] {ind.getId(), gramatica.getText(), wraps.getText(), longitud.getText()});
 		
 		//-----------------------------------------------------
 		
@@ -163,7 +166,33 @@ public class MainFrame extends JFrame {
 		panelCentral.setRightComponent(plot);
 		
 		// TODO mirar si esto está bien
-		ind = new IndividuoGE();
+		
+		//Parte Izquierda del panel central
+		JPanel panelIzquierdo = new JPanel();
+		panelIzquierdo.setLayout(new BorderLayout());
+		
+		
+
+		
+		solucion = new JTextArea();
+
+		solucion.setText("Sin solución");
+		solucion.setBackground(Color.lightGray);
+		
+		JScrollPane s = new JScrollPane();
+		s.setPreferredSize(new Dimension(200, 300));
+		s.setViewportView(solucion);
+
+		
+		panelIzquierdo.add(s, BorderLayout.SOUTH);
+
+		// Formulario	
+		
+//		panelCentral.setLeftComponent(creaFormulario());
+		panelIzquierdo.add(creaFormulario(), BorderLayout.CENTER);
+		panelCentral.setLeftComponent(panelIzquierdo);
+		
+		
 		
 		// Selección de tipo
 			problema.addActionListener(new ActionListener() {
@@ -196,6 +225,7 @@ public class MainFrame extends JFrame {
 						longitud.setVisible(true);
 					}
 					ind = Individuo.seleccionarIndividuo(1, new Object[] {opciones[problema.getSelectedIndex()]})[0]; // solo le pasa el nombre del problema
+					panelIzquierdo.add(creaFormulario(), BorderLayout.CENTER);
 				}
 			});
 			
@@ -215,34 +245,7 @@ public class MainFrame extends JFrame {
 					
 				}
 			});
-		
-		//Parte Izquierda del panel central
-		JPanel panelIzquierdo = new JPanel();
-		panelIzquierdo.setLayout(new BorderLayout());
-		
-		
-
-		
-		solucion = new JTextArea();
-
-		solucion.setText("Sin solución");
-		solucion.setBackground(Color.lightGray);
-		
-		JScrollPane s = new JScrollPane();
-		s.setPreferredSize(new Dimension(200, 650));
-		s.setViewportView(solucion);
-
-		
-		panelIzquierdo.add(s, BorderLayout.SOUTH);
-
-		// Formulario	
-		
-//		panelCentral.setLeftComponent(creaFormulario());
-		panelIzquierdo.add(creaFormulario(), BorderLayout.CENTER);
-		panelCentral.setLeftComponent(panelIzquierdo);
-		
-		
-		
+			
 		
 		// Panel inferior
 		
@@ -346,10 +349,10 @@ public class MainFrame extends JFrame {
 	
 	public void reset() {
 		if (problema.getSelectedIndex() == 1) {
-			AG = new AlgoritmoGenetico(tipo_inicializacion);
+			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), profundidad.getText(), tipo_inicializacion});
 		}
 		else {
-			AG = new AlgoritmoGenetico(gramatica.getText(), wraps.getText(), longitud.getText());
+			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), gramatica.getText(), wraps.getText(), longitud.getText()});
 		}
 		formulario.setTarget(AG);
 		formulario.initialize();
@@ -358,10 +361,11 @@ public class MainFrame extends JFrame {
 	public void ejecutar() {
 		
 		if (problema.getSelectedIndex() == 1) {
-			AG = new AlgoritmoGenetico(tipo_inicializacion);
+			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), profundidad.getText(), tipo_inicializacion});
 		}
 		else {
-			AG = new AlgoritmoGenetico(gramatica.getText(), wraps.getText(), longitud.getText());
+			
+			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), gramatica.getText(), wraps.getText(), longitud.getText()});
 		}
 		
 		
