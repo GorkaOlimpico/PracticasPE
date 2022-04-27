@@ -8,7 +8,7 @@ public class NodoIf extends Nodo {
 	public NodoIf(int profundidad, Arbol padre, Random rand, int prof_generar) {
 		super(profundidad, padre, rand);
 		inicializar(prof_generar);
-		actualizarAlturaSubarbol(niveles_hijos);
+		if(padre != null) padre.sumarTamHijo(this);
 	}
 
 	@Override

@@ -39,7 +39,7 @@ public class MutacionArbol extends Mutacion {
 		List<Arbol> hijos = a.getHijos();
 		if(hijos.size() > 0)
 		{
-			if(rand.nextDouble() < prob)
+			if(a.getPadre() != null && rand.nextDouble() < prob)
 				return a;
 			else
 			{

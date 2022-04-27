@@ -6,7 +6,6 @@ public abstract class Nodo extends Arbol {
 
 	public Nodo(int profundidad, Arbol padre, Random rand) {
 		super(profundidad, padre, rand);
-		padre.sumarTamHijo(this);
 		prob_cruce = 0.9;
 	}
 

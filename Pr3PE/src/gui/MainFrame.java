@@ -92,7 +92,7 @@ public class MainFrame extends JFrame {
 		JLabel prof = new JLabel("Profundidad: ");
 		profundidad = new JTextField();
 		profundidad.setPreferredSize(new Dimension(100,25));
-		profundidad.setText("20");
+		profundidad.setText("5");
 		
 		JLabel mod = new JLabel("Tipo de inicialización: ");
 		inicializacion = new JComboBox<>();
@@ -168,29 +168,11 @@ public class MainFrame extends JFrame {
 		// TODO mirar si esto está bien
 		
 		//Parte Izquierda del panel central
-		JPanel panelIzquierdo = new JPanel();
-		panelIzquierdo.setLayout(new BorderLayout());
-		
-		
 
-		
-		solucion = new JTextArea();
-
-		solucion.setText("Sin solución");
-		solucion.setBackground(Color.lightGray);
-		
-		JScrollPane s = new JScrollPane();
-		s.setPreferredSize(new Dimension(200, 300));
-		s.setViewportView(solucion);
-
-		
-		panelIzquierdo.add(s, BorderLayout.SOUTH);
 
 		// Formulario	
-		
-//		panelCentral.setLeftComponent(creaFormulario());
-		panelIzquierdo.add(creaFormulario(), BorderLayout.CENTER);
-		panelCentral.setLeftComponent(panelIzquierdo);
+		panelCentral.setLeftComponent(creaFormulario());
+
 		
 		
 		
@@ -225,7 +207,7 @@ public class MainFrame extends JFrame {
 						longitud.setVisible(true);
 					}
 					ind = Individuo.seleccionarIndividuo(1, new Object[] {opciones[problema.getSelectedIndex()]})[0]; // solo le pasa el nombre del problema
-					panelIzquierdo.add(creaFormulario(), BorderLayout.CENTER);
+					panelCentral.setLeftComponent(creaFormulario());
 				}
 			});
 			
@@ -361,7 +343,7 @@ public class MainFrame extends JFrame {
 	public void ejecutar() {
 		
 		if (problema.getSelectedIndex() == 1) {
-			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), profundidad.getText(), tipo_inicializacion});
+			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(profundidad.getText()), tipo_inicializacion});
 		}
 		else {
 			
