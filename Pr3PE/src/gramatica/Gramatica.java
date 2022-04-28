@@ -1,29 +1,18 @@
 package gramatica;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class Gramatica {
 	 
 	 
-	 /*
-	 	S = funcion
-	 	(A) funcion = IF | AND | OR | NOT
-	 	(B) exp = funcion | A0 | A1 | D0 | D1 | D2 | D3
-	 	(C) IF = if exp exp exp
-	 	(D) NOT = not exp
-	 	(E) AND = and exp exp
-	 	(F) OR = or exp exp
-	 	
-	 	Regla A opciones = 4
-	 	Regla B opciones = 7
-	 	
-	 	
-	 */
-	 private Map<String, List<List<String>>> mapa;
+	 
+	 private  Map<String, List<List<String>>> mapa;
 
 	 public Gramatica(String texto){
 		 
@@ -35,22 +24,40 @@ public class Gramatica {
 		 for(int i = 0; i < r.length;i++) {
 			//Separamos las reglas de sus variables
 			String regla[] = r[i].split("::=");
+			regla[0] = regla[0].substring(0, regla[0].length() -1);
 			//Separamos cada una de las variables
-			String variables[] = regla[1].split("|");
+			String variables[] = regla[1].split("\\|");
 			//Creamos la lista para las listas de reglas
 			List<List<String>> list1 = new ArrayList<List<String>>();
 			
 			for(int j = 0; j < variables.length; j++) {
 				//Hacemos un split de las reglas por los espacios
-				String aux[] = variables[j].split(" ");
-				List<String> argumentos = Arrays.asList(aux);
+				List<String> argumentos = new ArrayList<String>();
+				
+				
+				variables[j] = variables[j].substring(1);
+				
+				if(variables.length > 1) {
+					String aux[] = variables[j].split(" ");
+					argumentos = Arrays.asList(aux);
+				}
+				else {
+					
+					argumentos.add(variables[j]);
+				}
+				
+				
 				list1.add(argumentos);
 			}
 			
 			
 			mapa.put(regla[0], list1); // Se introduce la regla con sus argumentos
 		 }
-
+		 System.out.println("Mapa: " + mapa);
+		 
 	 }
 	 
+	 public Map<String, List<List<String>>> getMap(){
+		 return mapa;
+	 }
 }

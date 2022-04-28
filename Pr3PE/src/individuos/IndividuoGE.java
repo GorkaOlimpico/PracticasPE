@@ -3,10 +3,6 @@ package individuos;
 import java.io.File;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
 import java.io.*;
 import java.util.*;
 
@@ -27,7 +23,7 @@ public class IndividuoGE extends Individuo {
 	private int wraps;
 	private int pos;
 	private int longitud;
-	private List<List<Boolean>> entradas;
+
 	
 	public IndividuoGE(int longitud, int n_wraps, String nombreArchivo) throws FileNotFoundException {
 		super.id = type;
@@ -42,10 +38,10 @@ public class IndividuoGE extends Individuo {
 		GenPr3 aux = new GenPr3(longitud);
 		aux.initializeGen(rand);
 		genes.add(aux);
-		recalcularFenotipo();
 		this.genes = genes;
-		
-		entradas = generaEntradas();
+		recalcularFenotipo();
+	
+
 	}
 	public IndividuoGE()
 	{
@@ -58,8 +54,9 @@ public class IndividuoGE extends Individuo {
 		Scanner obj = new Scanner(doc);
 		while (obj.hasNextLine()) {
             total += obj.nextLine();
+            total += "\n";
         }
-		System.out.println("Leido de archivo: \n" + total);
+		//System.out.println("Leido de archivo: \n" + total);
 		return total;
 	}
 	
@@ -67,126 +64,113 @@ public class IndividuoGE extends Individuo {
 		// Esta función hace que el array numérico pase a ser la lista con la que podemos operar
 		List<Gen> genes = (List<Gen>) this.genes;
 		System.out.println("GEN: "+ genes.get(0).getAlelos());
-		addElemLista("funcion");
+		addElemLista("S");
 		System.out.println("Lista: "+ solucion);
 		pos = 0;
 		wraps = 0;
 		
 	}
 	
-	public void addElemLista(String elemento) {
+	public void addElemLista(String key) {
+		List<String> terminales = Arrays.asList("A0", "A1", "D0", "D1", "D2", "D3");
 		
-		switch (elemento) {
-			case "funcion": {
-				List<Gen> genes = (List<Gen>) this.genes;
-				int numero = ((int) genes.get(0).getAlelo(pos)) % 4;
-				pos++;
-				if(pos == longitud) { // máximo indice
-					pos = 0;
-					wraps++;
-					if(wraps > max_wraps) {
-						System.out.println("ERROR: se supera el max_wraps");
+		
+		switch (key) {
+			case "AND": {
+				solucion.add(key);
+			}
+			break;
+			case "OR": {
+				solucion.add(key);
+			}
+			break;
+			case "NOT": {
+				solucion.add(key);
+			}
+			break;
+			case "IF": {
+				solucion.add(key);
+			}
+			break;
+			case "(": {
+				solucion.add(key);
+			}
+			break;
+			case ")": {
+				solucion.add(key);
+			}			
+			break;
+			case "A0": {
+				solucion.add(key);
+			}			
+			break;
+			case "A1": {
+				solucion.add(key);
+			}			
+			break;
+			case "D0": {
+				solucion.add(key);
+			}			
+			break;
+			case "D1": {
+				solucion.add(key);
+			}			
+			break;
+			case "D2": {
+				solucion.add(key);
+			}			
+			break;
+			case "D3": {
+				solucion.add(key);
+			}			
+			break;
+			
+			default:{ // Si es un elemento key como por ejemplo expr
+				
+				// 0. Si es el último wrap entonces tiene que ser un terminal
+				if (wraps == max_wraps -1) {
+					Random rand = new Random();
+					int prob = rand.nextInt(5);
+					key = terminales.get(prob);
+					addElemLista(key);
+					System.out.println("Se llegó a max_wraps -1");
+					break;
+				}
+				
+				
+				// 1. Busco en la tabla Hash. Obtengo su lista de opciones
+			
+				List<List<String>> opciones = gramatica.getMap().get(key);
+				int num_opciones = opciones.size();
+				
+				// 2. Elijo una de las opciones disponibles según el número que toca del individuo
+				int numero = 0;
+				if(num_opciones > 1) {
+					List<Gen> genes = (List<Gen>) this.genes;
+					numero = ((int) genes.get(0).getAlelo(pos)) % num_opciones;
+					pos++;
+					if(pos == longitud) { // máximo indice
+						pos = 0;
+						wraps++;
+						if(wraps > max_wraps) {
+							System.out.println("ERROR: se supera el max_wraps");
+						}
 					}
 				}
 				
-				if(numero==0) {
-					addElemLista("IF");
+				List<String> elegida = opciones.get(numero);
+				
+				// 3. Añado todos los argumentos a la lista
+				for(String argumento : elegida) {
+					addElemLista(argumento);
 				}
-				else if (numero==1) {
-					addElemLista("AND");
-				}
-				else if (numero==2) {
-					addElemLista("OR");
-				}
-				else if (numero==3) {
-					addElemLista("NOT");
-				}
-				break;
+				
 			}
+			break;
 			
-			case "IF":{
-				solucion.add("(");
-				solucion.add("IF");
-				addElemLista("exp");
-				addElemLista("exp");
-				addElemLista("exp");
-				solucion.add(")");
-				break;
-			}
-			
-			case "AND":{
-				solucion.add("(");
-				solucion.add("AND");
-				addElemLista("exp");
-				addElemLista("exp");
-				solucion.add(")");
-				break;
-			}
-			
-			case "OR":{
-				solucion.add("(");
-				solucion.add("OR");
-				addElemLista("exp");
-				addElemLista("exp");
-				solucion.add(")");
-				break;
-			}
-			
-			case "NOT":{
-				solucion.add("(");
-				solucion.add("NOT");
-				addElemLista("exp");
-				solucion.add(")");
-				break;
-			}
-			
-			case "exp":{ // exp = funcion | A0 | A1 | D0 | D1 | D2 | D3
-				List<Gen> genes = (List<Gen>) this.genes;
-				int numero = ((int) genes.get(0).getAlelo(pos)) % 7;
-				pos++;
-				if(pos == longitud) {
-					pos = 0;
-					wraps++;
-					if(wraps == max_wraps -1 ) {// si solo falta 1 wrap no voy a hacer otra funcion
-						Random rand = new Random();
-						numero = rand.nextInt(6 + 1) + 1;
-						System.out.println("Maxwraps-1, numero: "+ numero);
-					}
-					
-				}
-				switch (numero) {
-					case 0: {
-						addElemLista("funcion");
-						break;
-					}
-					case 1: {
-						solucion.add("A0");
-						break;
-					}
-					case 2: {
-						solucion.add("A1");
-						break;
-					}
-					case 3: {
-						solucion.add("D0");
-						break;
-					}
-					case 4: {
-						solucion.add("D1");
-						break;
-					}
-					case 5: {
-						solucion.add("D2");
-						break;
-					}
-					case 6: {
-						solucion.add("D3");
-						break;
-					}
-				}
-				break;
-			}
 		}
+		
+		
 			
 	}
 
@@ -207,21 +191,104 @@ public class IndividuoGE extends Individuo {
 				
 		// 2. Por cada entrada[6] evalúo la List<String> y evalúo su resultado correcto del MX-6
 		for(List<Boolean> entrada : entradas) {
-			
-			// 4. Comparo los resultados. Si son iguales entonces sumo 1 a aciertos
-//			if(evaluaElemento(entrada) == multiplexor6(entrada)) {
-//				aciertos++;
-//			}	//TODO
+			Boolean [] aux =  new Boolean[entrada.size()];
+			entrada.toArray(aux);
+			//4. Comparo los resultados. Si son iguales entonces sumo 1 a aciertos
+			if(evaluaElemento(entrada, solucion) == multiplexor6(aux)) {
+				aciertos++;
+			}	
 		}
 		return aciertos;
 	}
 	
-	public boolean evaluaElemento(List<List<Boolean>> entrada) {
+	public boolean evaluaElemento(List<Boolean> entrada, List<String> elemento) {
 		boolean resultado = false;
 		
+		String primero = buscaPrimero(elemento);
+		System.out.println("Primero: " + primero);
+		switch (primero) {
+			case "IF": {
+				
+			}
+			break;
+			case "AND": {
+				
+			}
+			break;
+			case "OR": {
+				
+			}
+			break;
+			case "NOT": {
+				resultado = !(evaluaElemento(entrada, siguienteElemento()));
+			}
+			break;
+			case "A0": {
+				resultado = entrada.get(0);
+			}
+			break;
+			case "A1": {
+				resultado = entrada.get(1);
+			}
+			break;
+			case "D0": {
+				resultado = entrada.get(2);
+			}
+			break;
+			case "D1": {
+				resultado = entrada.get(3);
+			}
+			break;
+			case "D2": {
+				resultado = entrada.get(4);
+			}
+			break;
+			case "D3": {
+				resultado = entrada.get(5);
+			}
+			break;
+				
+			
+		
+		}
 		
 		
 		return resultado;
+	}
+	
+	public String buscaPrimero(List<String> elemento) {
+		String primero = "";
+		// Devuelve la primera operación o terminal.
+		// Ejemplo: ((IF (A0) (A1) (D1)) AND D3). Esta función devuelve "AND" porque es la operación que se quiere realizar
+		
+		int pos =  0;
+		// 1.1 Si llega un paréntesis se busca el siguiente elemento después de que se hayan cerrado todos los paréntesis que lleguen nuevos
+		if(elemento.get(pos).equals("(")) {
+			int pIntermedios = 0; // indica si existen paréntesis intermedios sin cerrar
+			pos++;
+			
+			while(pos < elemento.size()) {
+				if (elemento.get(pos).equals("(")) {
+					pIntermedios++;
+				}
+				else if (elemento.get(pos).equals(")")) {
+					pIntermedios--;
+				}
+				else {
+					if (pIntermedios == 0) { 
+						primero = elemento.get(pos);
+						pos = elemento.size();
+					}
+				}
+				pos++;
+			}			
+		}
+		else {	// 1.2 Si llega un terminal entonces devuelve el terminal
+			primero = elemento.get(pos);
+		}
+
+		
+		return primero;
 	}
 	
 	@Override
@@ -258,10 +325,10 @@ public class IndividuoGE extends Individuo {
 	
 	public IndividuoGE nuevoInd(Object[] datos) {
 		IndividuoGE individuo = new IndividuoGE();
-		
-		int longitud = (int) datos[1];	
-		int n_wraps =  (int) datos[2];									
-		String nombreArchivo = (String) datos[3];
+		int longitud = Integer.parseInt((String) datos[3]);
+	
+		int n_wraps =  Integer.parseInt((String) datos[2]);									
+		String nombreArchivo = (String) datos[1];
 		
 		try {
 			individuo = new IndividuoGE(longitud, n_wraps, nombreArchivo);
@@ -275,7 +342,7 @@ public class IndividuoGE extends Individuo {
 	@Override
 	public String solutionToString() {
 		String s = "El valor de la funcion es: " + super.getFitness() + "\n";
-		//TODO hay que anadir la gramatica resultante
+		System.out.println("Individuo: "+ solucion);
 		return s;
 	}
 	
@@ -346,7 +413,7 @@ public class IndividuoGE extends Individuo {
 //		return listaTotal;
 //	}
 
-	public boolean multiplexor6(boolean entrada[]) {
+	public boolean multiplexor6(Boolean entrada[]) {
 		
 		boolean d0 = !entrada[0] && !entrada[1] && entrada[2];
 		boolean d1 = !entrada[0] && entrada[1] && entrada[3];
