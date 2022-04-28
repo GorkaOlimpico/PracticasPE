@@ -2,6 +2,7 @@ package individuos;
 
 import java.io.File;
 
+
 import java.io.FileNotFoundException;
 import java.io.*;
 import java.util.*;
@@ -208,19 +209,25 @@ public class IndividuoGE extends Individuo {
 		System.out.println("Primero: " + primero);
 		switch (primero) {
 			case "IF": {
-				
+				if(evaluaElemento(entrada, getSiguiente(elemento))) {
+					resultado = evaluaElemento(entrada, getSiguiente2(elemento));
+				}
+				else {
+					resultado = evaluaElemento(entrada, getSiguiente3(elemento));
+				}
 			}
 			break;
 			case "AND": {
-				
+				resultado = evaluaElemento(entrada, getSiguiente(elemento)) && evaluaElemento(entrada, getSiguiente2(elemento));
 			}
 			break;
 			case "OR": {
 				
+				resultado = evaluaElemento(entrada, getSiguiente(elemento)) || evaluaElemento(entrada, getSiguiente2(elemento));
 			}
 			break;
 			case "NOT": {
-				resultado = !(evaluaElemento(entrada, siguienteElemento()));
+				resultado = !(evaluaElemento(entrada, getSiguiente(elemento)));
 			}
 			break;
 			case "A0": {
@@ -246,14 +253,151 @@ public class IndividuoGE extends Individuo {
 			case "D3": {
 				resultado = entrada.get(5);
 			}
-			break;
-				
-			
-		
+			break;	
 		}
 		
 		
 		return resultado;
+	}
+	
+	public List<String> getSiguiente(List<String> elemento){ // Devuelve todo lo que hay entre los siguientes paréntesis
+		List<String> siguiente = new ArrayList<String>();
+		if(elemento.size() >= 3) {
+			int pos = 1;
+			if(elemento.get(0).equals("(")) {
+				pos = 0;
+			}
+			else {
+				pos = 1;
+			}
+			int pIntermedios = 0;
+			while(pos < elemento.size()) {
+				if (elemento.get(pos).equals("(")) {
+					pIntermedios++;
+				}
+				else if (elemento.get(pos).equals(")")) {
+					pIntermedios--;
+				}
+				else {
+					if (pIntermedios == 0) { 
+						System.out.println("break con pos = " + pos);
+						System.out.println("elemento size = "+ elemento.size());
+						break;
+					}
+				}
+				siguiente.add(elemento.get(pos));
+				pos++;
+			}		
+			
+			//elimina los paréntesis:
+			siguiente.remove(0);
+			siguiente.remove(siguiente.size()-1);
+		}
+		else {
+			siguiente = elemento;
+		}
+		
+		return siguiente;
+	}
+	
+	public List<String> getSiguiente2(List<String> elemento){
+		List<String> siguiente2 = new ArrayList<String>();
+
+		int pos = 1;
+		if(elemento.get(0).equals("(")) {
+			pos = 0;
+		}
+		else {
+			pos = 1;
+		}
+		
+		// Modificamos elemento para que no incluya el getSiguiente
+		List<String> siguiente = getSiguiente(elemento);
+		for(int i = -2; i< siguiente.size(); i++) {
+			elemento.remove(pos);
+		}
+		
+		if(elemento.size() >= 3) {
+			int pIntermedios = 0;
+			while(pos < elemento.size()) {
+				if (elemento.get(pos).equals("(")) {
+					pIntermedios++;
+				}
+				else if (elemento.get(pos).equals(")")) {
+					pIntermedios--;
+				}
+				else {
+					if (pIntermedios == 0) { 
+						
+						break; //pos = elemento.size(); // Esto es un break;
+					}
+				}
+				siguiente2.add(elemento.get(pos));
+				pos++;
+			}
+			
+			//elimina los paréntesis:
+			siguiente2.remove(0);
+			siguiente2.remove(siguiente2.size()-1);
+		}
+		else {
+			siguiente2 = elemento;
+		}
+		return siguiente2;
+	}
+	
+	public List<String> getSiguiente3(List<String> elemento){
+		List<String> siguiente3 = new ArrayList<String>();
+		
+		
+		
+		int pos = 1;
+		if(elemento.get(0).equals("(")) {
+			pos = 0;
+		}
+		else {
+			pos = 1;
+		}
+		
+		// Modificamos elemento para que no incluya el getSiguiente
+		List<String> siguiente = getSiguiente(elemento);
+		for(int i = -2; i< siguiente.size(); i++) {
+			elemento.remove(pos);
+		}
+		// Modificamos elemento para que no incluya el getSiguiente2
+		List<String> siguiente2 = getSiguiente(elemento);
+		for(int i = -2; i< siguiente2.size(); i++) {
+			elemento.remove(pos);
+		}
+		
+		if(elemento.size() >= 3) {
+				
+			int pIntermedios = 0;
+			while(pos < elemento.size()) {
+				if (elemento.get(pos).equals("(")) {
+					pIntermedios++;
+				}
+				else if (elemento.get(pos).equals(")")) {
+					pIntermedios--;
+				}
+				else {
+					if (pIntermedios == 0) { 
+						
+						break; //pos = elemento.size(); // Esto es un break;
+					}
+				}
+				siguiente3.add(elemento.get(pos));
+				pos++;
+			}
+			
+			//elimina los paréntesis:
+			siguiente3.remove(0);
+			siguiente3.remove(siguiente3.size()-1);
+		}
+		else {
+			siguiente3 = elemento;
+		}
+		return siguiente3;
 	}
 	
 	public String buscaPrimero(List<String> elemento) {
@@ -277,7 +421,7 @@ public class IndividuoGE extends Individuo {
 				else {
 					if (pIntermedios == 0) { 
 						primero = elemento.get(pos);
-						pos = elemento.size();
+						pos = elemento.size(); // Esto es un break;
 					}
 				}
 				pos++;
@@ -355,63 +499,7 @@ public class IndividuoGE extends Individuo {
 		return s + "\n";
 	}
 
-																//He creado un array estatico en Individuo con las soluciones
-//	public List<boolean[]> generaEntradas(){					//He puesto la funcion en individuo, ya que es comun a ambos metodos
-//		int tam_ejemplo = 6;
-//		List<boolean[]> listaTotal = new ArrayList<boolean[]>();
-//		
-//		
-//		for(int i = 0; i < 4; i++) {
-//			boolean[] binario = new boolean[tam_ejemplo];
-//			int num1 = i;
-//			int k = 0;
-//			if(num1==0) {
-//				binario[k] = false;
-//			}
-//			while(num1 != 0) {
-//				int digito = num1 % 2;
-//				if(digito == 1) {
-//					binario[k] = true;
-//				}
-//				else
-//					binario[k] = false;
-//				num1= num1 / 2;
-//				k++;
-//			}
-//			
-//			while(k<1) {
-//				k++;
-//				binario[k] = false;
-//			}
-//			
-//			
-//			for(int j = 0; j < 16; j++) {
-//				int x = 2;
-//				int num2 = j;
-//				if(num2==0) {
-//					binario[x] = false;
-//				}
-//				while(num2 != 0) {
-//					int digito = num2 % 2;
-//					if(digito == 1) {
-//						binario[x] = true;
-//					}
-//					else
-//						binario[x] = false;
-//					num2 = num2/2;
-//					x++;
-//				}
-//				
-//				while(x<5) {
-//					x++;
-//					binario[x] = false;
-//				}
-//				
-//				listaTotal.add(binario);
-//			}			
-//		}
-//		return listaTotal;
-//	}
+						
 
 	public boolean multiplexor6(Boolean entrada[]) {
 		
