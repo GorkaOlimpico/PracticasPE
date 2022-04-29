@@ -26,7 +26,7 @@ public class MutacionExpansion extends Mutacion {
 	protected void mutarIndividuo(Individuo ind) {
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
-		while(!seleccionar(a, 0.1, rand)){}
+		while(!seleccionar(a, 1 / a.getTamSubArbol(), rand)){}
 	}
 	
 	private boolean seleccionar(Arbol a, double prob, Random rand)
@@ -35,18 +35,17 @@ public class MutacionExpansion extends Mutacion {
 		if(hijos.size() == 0)
 			if(rand.nextDouble() < prob)
 			{
-				a.cambiarNodo(Nodo.generar(rand, a.getProfundidad(), a.getPadre(), 1));
+				a.cambiarNodo(Arbol.generarGrow(rand, a.getProfundidad(), a.getPadre(), 1));
 				return true;
 			}
 			else
 				return false;
 		else
 		{
-			boolean aux = false;
 			for(Arbol ar: hijos)
-				if(!aux)
-					aux = seleccionar(ar, prob, rand);
-			return aux;
+				if(seleccionar(ar, prob, rand))
+					return true;
+			return false;
 		}
 	}
 }

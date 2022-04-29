@@ -28,15 +28,15 @@ public class MutacionFuncional extends Mutacion {
 		Random rand = new Random();
 		
 		do {
-			aux = seleccionar(a, 0.1, rand);
+			aux = seleccionar(a, 1 / a.getTamSubArbol(), rand);
 		}
 		while(aux == null);
 		
 		Arbol n;
 		do {
-		n = Nodo.generar(rand, aux.getProfundidad(), aux.getPadre(), 1);
+			n = Nodo.generar(rand, 2, aux.getPadre(), 1);
 		}while(n.getHijos().size() != aux.getHijos().size());
-		
+		n.setProfundidad(aux.getProfundidad());
 		for(int i = 0; i < n.getHijos().size(); i++)				//Se sustituyen los hijos de el nuevo nodo por los originales
 			n.getHijos().get(i).cambiarNodo(aux.getHijos().get(i));
 		aux.cambiarNodo(n);											//Se sustituye el nuevo nodo
@@ -51,11 +51,14 @@ public class MutacionFuncional extends Mutacion {
 				return a;
 			else
 			{
-				Arbol aux = null;
+				Arbol aux;
 				for(Arbol ar: hijos)
-					if(aux == null)
-						aux = seleccionar(ar, prob, rand);
-				return aux;
+				{
+					aux = seleccionar(ar, prob, rand);
+					if(aux != null)
+						return aux;
+				}
+				return null;
 			}
 		}
 		else

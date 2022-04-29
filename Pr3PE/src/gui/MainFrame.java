@@ -140,7 +140,7 @@ public class MainFrame extends JFrame {
 		
 		add(panelSuperior, BorderLayout.NORTH);
 		ind = new IndividuoGE();
-		AG = new AlgoritmoGenetico(new Object[] {ind.getId(), gramatica.getText(), wraps.getText(), longitud.getText()});
+		AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(wraps.getText()), Integer.parseInt(longitud.getText()), gramatica.getText()});
 		
 		//-----------------------------------------------------
 		
@@ -334,7 +334,7 @@ public class MainFrame extends JFrame {
 			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), profundidad.getText(), tipo_inicializacion});
 		}
 		else {
-			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), gramatica.getText(), wraps.getText(), longitud.getText()});
+			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(wraps.getText()), Integer.parseInt(longitud.getText()), gramatica.getText()}); 
 		}
 		formulario.setTarget(AG);
 		formulario.initialize();
@@ -347,7 +347,7 @@ public class MainFrame extends JFrame {
 		}
 		else {
 			
-			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), gramatica.getText(), wraps.getText(), longitud.getText()});
+			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(wraps.getText()), Integer.parseInt(longitud.getText()), gramatica.getText()});
 		}
 		
 		
@@ -390,8 +390,7 @@ public class MainFrame extends JFrame {
 	
 	
 	
-	public static void setSolucion(String f, String sol){
-		fitness.setText(f);
-		solucion.setText(sol);
+	public static void setSolucion(String sol){
+		fitness.setText(sol);
 	}
 }

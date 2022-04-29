@@ -26,7 +26,7 @@ public class MutacionContraccion extends Mutacion {
 	protected void mutarIndividuo(Individuo ind) {
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
-		while(!seleccionar(a, 0.1, rand)){}
+		while(!seleccionar(a, 1 / a.getTamSubArbol(), rand)){}
 	}
 	
 	private boolean seleccionar(Arbol a, double prob, Random rand)
@@ -42,11 +42,10 @@ public class MutacionContraccion extends Mutacion {
 				return false;
 		else
 		{
-			boolean aux = false;
 			for(Arbol ar: hijos)
-				if(!aux)
-					aux = seleccionar(ar, prob, rand);
-			return aux;
+				if(seleccionar(ar, prob, rand))
+					return true;
+			return false;
 		}
 	}
 }

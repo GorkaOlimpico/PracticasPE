@@ -70,19 +70,20 @@ public class IndividuoPG extends Individuo{
 			else
 			{
 				int profundidad = (int) datos[1];	
+				profundidad--;
 				String tipo_generacion = (String) datos[2];
 				if(tipo_generacion == "Ramped-Half")				//Ramped and half inicialization
 				{
-					int aux = tam / (profundidad - 1);
-					for(int j = 0; j < profundidad; j++)			//La profundidad de la hoja es 0 y la de la raiz profundidad
+					int aux = tam / profundidad;
+					for(int j = 1; j <= profundidad; j++)			//La profundidad de la hoja es 0 y la de la raiz profundidad
 					{
 						for(int i = 0; i < aux / 2; i++)
-							ind[i + (aux * j)] = nuevoInd(profundidad, 0, j);		//Mitad de Full
-						for(int i = (aux / 2) + 1; i < tam; i++)
-							ind[i + (aux * j)] = nuevoInd(profundidad, 1, j);		//Mitad de Grow
+							ind[i + (aux * j)] = new IndividuoPG(profundidad, 0, j);		//Mitad de Full
+						for(int i = (aux / 2); i < tam; i++)
+							ind[i + (aux * j)] = new IndividuoPG(profundidad, 1, j);		//Mitad de Grow
 					}
 					for(int i = aux * (profundidad - 1); i < tam; i++)	//Si la division no es exacta se rellena con Grow de tamaño maximo
-						ind[i] = nuevoInd(profundidad, 1, 1);			
+						ind[i] = new IndividuoPG(profundidad, 1, 1);			
 				}
 				else				//Grow or Full inicialization
 				{
@@ -90,18 +91,11 @@ public class IndividuoPG extends Individuo{
 					if(tipo_generacion == "Grow")
 						tipo = 1;
 					for(int i = 0; i < tam; i++)
-						ind[i] = nuevoInd(profundidad, tipo, profundidad);
+						ind[i] = new IndividuoPG(profundidad, tipo, 1);
 				}	
 			}
 		}
 		return ind;
-	}
-	
-	public IndividuoPG nuevoInd(int profundidad, int tipo_generacion, int prof_generar) {
-		IndividuoPG individuo = new IndividuoPG();
-		individuo = new IndividuoPG(profundidad, tipo_generacion, prof_generar);
-		
-		return individuo;
 	}
 
 	@Override

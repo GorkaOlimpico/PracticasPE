@@ -27,9 +27,9 @@ public class MutacionPermutacion extends Mutacion {
 		Random rand = new Random();
 		
 		do {
-			aux = seleccionar(a, 0.1, rand);
+			aux = seleccionar(a, 1 / a.getTamSubArbol(), rand);
 		}
-		while(aux == null && aux != a);
+		while(aux == null || aux == a);
 		
 		for(int i = 0; i < aux.getHijos().size() - 1; i++)
 		{
@@ -46,11 +46,14 @@ public class MutacionPermutacion extends Mutacion {
 				return a;
 			else
 			{
-				Arbol aux = null;
+				Arbol aux;
 				for(Arbol ar: hijos)
-					if(aux == null)
-						aux = seleccionar(ar, prob, rand);
-				return aux;
+				{
+					aux = seleccionar(ar, prob, rand);
+					if(aux != null)
+						return aux;
+				}
+				return null;
 			}
 		}
 		else

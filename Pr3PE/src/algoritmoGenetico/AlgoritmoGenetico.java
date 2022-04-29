@@ -111,7 +111,7 @@ public class AlgoritmoGenetico {
 		
 		MainFrame.imprimeGrafica(mejoresGlobales, mejoresGeneracion, mediaGeneracion);
 		
-		MainFrame.setSolucion(generaSolucion(), elMejor.solutionToString());
+		MainFrame.setSolucion(elMejor.solutionToString());
 	}
 	
 	private void sacarElites(Individuo[] e) //Guarda los mejores antes del proceso de seleccion, cruce y mutacion
