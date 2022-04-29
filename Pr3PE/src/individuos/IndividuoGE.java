@@ -28,6 +28,7 @@ public class IndividuoGE extends Individuo {
 	
 	public IndividuoGE(int longitud, int n_wraps, String nombreArchivo) throws FileNotFoundException {
 		super.id = type;
+
 		List<Gen> genes = new ArrayList<>();
 		solucion = new ArrayList<String>();
 		String texto_gramatica = archivoATexto(nombreArchivo);
@@ -64,9 +65,9 @@ public class IndividuoGE extends Individuo {
 	public void traduceALista() {
 		// Esta función hace que el array numérico pase a ser la lista con la que podemos operar
 		List<Gen> genes = (List<Gen>) this.genes;
-		System.out.println("GEN: "+ genes.get(0).getAlelos());
+		//System.out.println("GEN: "+ genes.get(0).getAlelos());
 		addElemLista("S");
-		System.out.println("Lista: "+ solucion);
+		System.out.println("Individuo: "+ solucion);
 		pos = 0;
 		wraps = 0;
 		
@@ -129,12 +130,13 @@ public class IndividuoGE extends Individuo {
 			default:{ // Si es un elemento key como por ejemplo expr
 				
 				// 0. Si es el último wrap entonces tiene que ser un terminal
-				if (wraps == max_wraps -1) {
+				if (wraps == max_wraps -1) { //añador lo de contador para reducir su tamaño
 					Random rand = new Random();
 					int prob = rand.nextInt(5);
 					key = terminales.get(prob);
 					addElemLista(key);
-					System.out.println("Se llegó a max_wraps -1");
+					//System.out.println("Se llegó a max_wraps -1");
+					
 					break;
 				}
 				
@@ -188,9 +190,10 @@ public class IndividuoGE extends Individuo {
 		int aciertos = 0;
 		
 		// 1. Se genera la List<String> a partir del número
-		traduceALista();
-				
+		traduceALista();		
+		
 		// 2. Por cada entrada[6] evalúo la List<String> y evalúo su resultado correcto del MX-6
+		
 		for(List<Boolean> entrada : entradas) {
 			Boolean [] aux =  new Boolean[entrada.size()];
 			entrada.toArray(aux);
@@ -199,61 +202,64 @@ public class IndividuoGE extends Individuo {
 				aciertos++;
 			}	
 		}
+			
+		System.out.println("Aciertos: " + aciertos);
 		return aciertos;
 	}
 	
 	public boolean evaluaElemento(List<Boolean> entrada, List<String> elemento) {
 		boolean resultado = false;
 		
+		
 		String primero = buscaPrimero(elemento);
-		System.out.println("Primero: " + primero);
+		//System.out.println("Primero: " + primero);
 		switch (primero) {
 			case "IF": {
 				if(evaluaElemento(entrada, getSiguiente(elemento))) {
-					resultado = evaluaElemento(entrada, getSiguiente2(elemento));
+					return evaluaElemento(entrada, getSiguiente2(elemento));
 				}
 				else {
-					resultado = evaluaElemento(entrada, getSiguiente3(elemento));
+					return evaluaElemento(entrada, getSiguiente3(elemento));
 				}
 			}
-			break;
+			
 			case "AND": {
-				resultado = evaluaElemento(entrada, getSiguiente(elemento)) && evaluaElemento(entrada, getSiguiente2(elemento));
+				return evaluaElemento(entrada, getSiguiente(elemento)) && evaluaElemento(entrada, getSiguiente2(elemento));
 			}
-			break;
+			
 			case "OR": {
 				
-				resultado = evaluaElemento(entrada, getSiguiente(elemento)) || evaluaElemento(entrada, getSiguiente2(elemento));
+				return evaluaElemento(entrada, getSiguiente(elemento)) || evaluaElemento(entrada, getSiguiente2(elemento));
 			}
-			break;
+			
 			case "NOT": {
-				resultado = !(evaluaElemento(entrada, getSiguiente(elemento)));
+				return !(evaluaElemento(entrada, getSiguiente(elemento)));
 			}
-			break;
+		
 			case "A0": {
-				resultado = entrada.get(0);
+				return entrada.get(0);
 			}
-			break;
+			
 			case "A1": {
-				resultado = entrada.get(1);
+				return entrada.get(1);
 			}
-			break;
+			
 			case "D0": {
-				resultado = entrada.get(2);
+				return entrada.get(2);
 			}
-			break;
+			
 			case "D1": {
-				resultado = entrada.get(3);
+				return entrada.get(3);
 			}
-			break;
+			
 			case "D2": {
-				resultado = entrada.get(4);
+				return entrada.get(4);
 			}
-			break;
+			
 			case "D3": {
-				resultado = entrada.get(5);
+				return entrada.get(5);
 			}
-			break;	
+				
 		}
 		
 		
@@ -270,27 +276,25 @@ public class IndividuoGE extends Individuo {
 			else {
 				pos = 1;
 			}
-			int pIntermedios = 0;
+			int pIntermedios = 1;
+			pos++;
 			while(pos < elemento.size()) {
-				if (elemento.get(pos).equals("(")) {
+				if (pIntermedios == 0) { 
+						break;
+				}
+				else if (elemento.get(pos).equals("(")) {
 					pIntermedios++;
 				}
 				else if (elemento.get(pos).equals(")")) {
-					pIntermedios--;
+					pIntermedios-= 1;
 				}
-				else {
-					if (pIntermedios == 0) { 
-						System.out.println("break con pos = " + pos);
-						System.out.println("elemento size = "+ elemento.size());
-						break;
-					}
-				}
+				
 				siguiente.add(elemento.get(pos));
-				pos++;
+				pos ++;
 			}		
 			
 			//elimina los paréntesis:
-			siguiente.remove(0);
+			
 			siguiente.remove(siguiente.size()-1);
 		}
 		else {
@@ -303,41 +307,39 @@ public class IndividuoGE extends Individuo {
 	public List<String> getSiguiente2(List<String> elemento){
 		List<String> siguiente2 = new ArrayList<String>();
 
-		int pos = 1;
-		if(elemento.get(0).equals("(")) {
-			pos = 0;
-		}
-		else {
-			pos = 1;
-		}
 		
+		
+		int pos = 0;
 		// Modificamos elemento para que no incluya el getSiguiente
 		List<String> siguiente = getSiguiente(elemento);
 		for(int i = -2; i< siguiente.size(); i++) {
-			elemento.remove(pos);
+			pos++;
 		}
 		
-		if(elemento.size() >= 3) {
-			int pIntermedios = 0;
+		
+		if(pos + 3 <= elemento.size()) {
+			pos++;
+			// No añade el primer paréntesis
+			pos++;
+			int pIntermedios = 1;
+			
 			while(pos < elemento.size()) {
-				if (elemento.get(pos).equals("(")) {
+				if (pIntermedios == 0) { 
+					break;
+				}
+				else if (elemento.get(pos).equals("(")) {
 					pIntermedios++;
 				}
 				else if (elemento.get(pos).equals(")")) {
 					pIntermedios--;
 				}
-				else {
-					if (pIntermedios == 0) { 
-						
-						break; //pos = elemento.size(); // Esto es un break;
-					}
-				}
+				
 				siguiente2.add(elemento.get(pos));
-				pos++;
-			}
+				pos ++;
+			}		
 			
 			//elimina los paréntesis:
-			siguiente2.remove(0);
+			
 			siguiente2.remove(siguiente2.size()-1);
 		}
 		else {
@@ -351,47 +353,45 @@ public class IndividuoGE extends Individuo {
 		
 		
 		
-		int pos = 1;
+		int pos = 0;
 		if(elemento.get(0).equals("(")) {
-			pos = 0;
-		}
-		else {
-			pos = 1;
+			pos = -1;
 		}
 		
 		// Modificamos elemento para que no incluya el getSiguiente
 		List<String> siguiente = getSiguiente(elemento);
 		for(int i = -2; i< siguiente.size(); i++) {
-			elemento.remove(pos);
+			pos++;
 		}
 		// Modificamos elemento para que no incluya el getSiguiente2
-		List<String> siguiente2 = getSiguiente(elemento);
+		List<String> siguiente2 = getSiguiente2(elemento);
 		for(int i = -2; i< siguiente2.size(); i++) {
-			elemento.remove(pos);
+			pos++;
 		}
 		
-		if(elemento.size() >= 3) {
-				
-			int pIntermedios = 0;
+		if(pos + 3 <= elemento.size()) {
+			pos++;
+			// No añade el primer paréntesis
+			pos++;
+			int pIntermedios = 1;
+			
 			while(pos < elemento.size()) {
-				if (elemento.get(pos).equals("(")) {
+				if (pIntermedios == 0) { 
+					break;
+				}
+				else if (elemento.get(pos).equals("(")) {
 					pIntermedios++;
 				}
 				else if (elemento.get(pos).equals(")")) {
 					pIntermedios--;
 				}
-				else {
-					if (pIntermedios == 0) { 
-						
-						break; //pos = elemento.size(); // Esto es un break;
-					}
-				}
+				
 				siguiente3.add(elemento.get(pos));
 				pos++;
 			}
 			
 			//elimina los paréntesis:
-			siguiente3.remove(0);
+			
 			siguiente3.remove(siguiente3.size()-1);
 		}
 		else {
@@ -416,7 +416,7 @@ public class IndividuoGE extends Individuo {
 					pIntermedios++;
 				}
 				else if (elemento.get(pos).equals(")")) {
-					pIntermedios--;
+					pIntermedios-= 1;
 				}
 				else {
 					if (pIntermedios == 0) { 
@@ -460,8 +460,11 @@ public class IndividuoGE extends Individuo {
 				ind[0] = new IndividuoGE();
 			else
 			{
-				for(int i = 0; i < tam; i++)
+				for(int i = 0; i < tam; i++) {
 					ind[i] = nuevoInd(datos);
+					System.out.println("Creado nuevo individuo. Total: " + (i+1));
+				}
+					
 			}
 		}
 		return ind;

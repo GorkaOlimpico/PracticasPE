@@ -73,6 +73,7 @@ public abstract class Individuo {
 			for(int i = 0; i < individuos.length && ind == null; i++)
 			{
 				ind = individuos[i].parse(tam, datos);
+				
 			}
 		return ind;
 	}

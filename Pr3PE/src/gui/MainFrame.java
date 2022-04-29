@@ -92,7 +92,7 @@ public class MainFrame extends JFrame {
 		JLabel prof = new JLabel("Profundidad: ");
 		profundidad = new JTextField();
 		profundidad.setPreferredSize(new Dimension(100,25));
-		profundidad.setText("5");
+		profundidad.setText("2");
 		
 		JLabel mod = new JLabel("Tipo de inicialización: ");
 		inicializacion = new JComboBox<>();
@@ -123,12 +123,12 @@ public class MainFrame extends JFrame {
 		JLabel wra = new JLabel("Número de wraps: ");
 		wraps = new JTextField();
 		wraps.setPreferredSize(new Dimension(100,25));
-		wraps.setText("5");
+		wraps.setText("2");
 		
 		JLabel lon = new JLabel("Longitud cromosoma: ");
 		longitud = new JTextField();
 		longitud.setPreferredSize(new Dimension(100,25));
-		longitud.setText("7");
+		longitud.setText("2");
 		
 		
 		panelSuperior.add(gra);

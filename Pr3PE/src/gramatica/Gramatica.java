@@ -53,7 +53,7 @@ public class Gramatica {
 			
 			mapa.put(regla[0], list1); // Se introduce la regla con sus argumentos
 		 }
-		 System.out.println("Mapa: " + mapa);
+		// System.out.println("Mapa: " + mapa);
 		 
 	 }
 	 
