@@ -163,4 +163,6 @@ public abstract class Individuo {
 	public void bloating(Individuo[] poblacion) {}
 
 	public void setBloating(double k) {}
+
+	public abstract List<String> getSolucion();
 }

@@ -128,7 +128,7 @@ public class MainFrame extends JFrame {
 		JLabel lon = new JLabel("Longitud cromosoma: ");
 		longitud = new JTextField();
 		longitud.setPreferredSize(new Dimension(100,25));
-		longitud.setText("2");
+		longitud.setText("7");
 		
 		
 		panelSuperior.add(gra);

@@ -67,7 +67,7 @@ public class AlgoritmoGenetico {
 	
 		
 		// Inicializo elMejor con el primer individuo de la poblacion
-		poblacion = creaPoblacion(problema, tam_pob);
+		poblacion = creaPoblacion(problema, tam_pob);		
 		ordenarPoblacion();
 		elMejor = creaPoblacion(problema,(int) 1)[0];
 		elMejor.copiarIndividuo(poblacion[0]);
@@ -79,6 +79,7 @@ public class AlgoritmoGenetico {
 		// 		Guarda el mejor Individuo, mejoresGlobales, mejoresGeneracion, mediaGeneracion
 		poblacion[0].bloating(poblacion);
 		evaluarPoblacion();
+		
 		
 		Individuo[] elites = creaPoblacion(problema, (int) (tam_pob * elite / 100));
 		Individuo[] poblacionAux = creaPoblacion(problema, tam_pob);
@@ -100,13 +101,15 @@ public class AlgoritmoGenetico {
 			cruce.cruzar(poblacion, prob_cruce / 100);
 			
 			mutacion.mutar(poblacion, prob_mutacion / 100);
-			
+			 			
 			poblacion[0].bloating(poblacion);
 			
 			ordenarPoblacion();
+			
 			meterElites(elites);
 			
 			evaluarPoblacion();
+			
 		}
 		
 		MainFrame.imprimeGrafica(mejoresGlobales, mejoresGeneracion, mediaGeneracion);
@@ -187,12 +190,6 @@ public class AlgoritmoGenetico {
 	public String generaSolucion() {
 		String sol = "";
 		
-//		int x = 0;
-//		for(double fenotipo:elMejor.getFenotipo()) {
-//			sol += "X" + x + " = " + fenotipo + ", ";
-//			x++;
-//		}
-
 		sol += "Valor de la función: " + elMejor.getFitness();
 		System.out.print(elMejor.solutionToString());
 		return sol;
@@ -267,5 +264,11 @@ public class AlgoritmoGenetico {
 		mediaGeneracion[generacionActual] = media;
 	}
 	
-	
+	public void muestraPoblacion() {
+		int j = 0;
+		for(Individuo i : poblacion) {
+			j++;
+			System.out.println("Individuo "+ j +":" + i.getSolucion());
+		}
+	}
 }

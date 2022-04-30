@@ -64,10 +64,11 @@ public class IndividuoGE extends Individuo {
 	
 	public void traduceALista() {
 		// Esta función hace que el array numérico pase a ser la lista con la que podemos operar
-		List<Gen> genes = (List<Gen>) this.genes;
+		//List<Gen> genes = (List<Gen>) this.genes;
 		//System.out.println("GEN: "+ genes.get(0).getAlelos());
+		solucion.clear();
 		addElemLista("S");
-		System.out.println("Individuo: "+ solucion);
+		//System.out.println("Individuo: "+ solucion);
 		pos = 0;
 		wraps = 0;
 		
@@ -179,7 +180,7 @@ public class IndividuoGE extends Individuo {
 
 	@Override
 	public boolean max() {
-		return false;
+		return true;
 	}
 
 	
@@ -203,7 +204,7 @@ public class IndividuoGE extends Individuo {
 			}	
 		}
 			
-		System.out.println("Aciertos: " + aciertos);
+		//System.out.println("Aciertos: " + aciertos);
 		return aciertos;
 	}
 	
@@ -462,7 +463,7 @@ public class IndividuoGE extends Individuo {
 			{
 				for(int i = 0; i < tam; i++) {
 					ind[i] = nuevoInd(datos);
-					System.out.println("Creado nuevo individuo. Total: " + (i+1));
+					//System.out.println("Creado nuevo individuo. Total: " + (i+1));
 				}
 					
 			}
@@ -472,10 +473,10 @@ public class IndividuoGE extends Individuo {
 	
 	public IndividuoGE nuevoInd(Object[] datos) {
 		IndividuoGE individuo = new IndividuoGE();
-		int longitud = Integer.parseInt((String) datos[3]);
+		int longitud = (int) datos[1]; //Integer.parseInt((String) datos[1]);
 	
-		int n_wraps =  Integer.parseInt((String) datos[2]);									
-		String nombreArchivo = (String) datos[1];
+		int n_wraps = (int) datos[2]; // Integer.parseInt((String) datos[2]);									
+		String nombreArchivo = (String) datos[3];
 		
 		try {
 			individuo = new IndividuoGE(longitud, n_wraps, nombreArchivo);
@@ -520,10 +521,10 @@ public class IndividuoGE extends Individuo {
 			genes.get(i).copiarGen(genes2.get(i));
 			
 		recalcularFenotipo();
-		if(valor == ind.getFitness()) {//Se ha copiado bien
-			//System.out.println("Si");
-		}
-		else
-			System.out.println("Da el mismo valor al copiarse"); 
+		
+	}
+	
+	public List<String> getSolucion(){
+		return solucion;
 	}
 }
