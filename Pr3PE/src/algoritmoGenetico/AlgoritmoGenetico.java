@@ -112,6 +112,7 @@ public class AlgoritmoGenetico {
 			
 		}
 		
+		
 		MainFrame.imprimeGrafica(mejoresGlobales, mejoresGeneracion, mediaGeneracion);
 		
 		MainFrame.setSolucion(elMejor.solutionToString());
@@ -232,13 +233,16 @@ public class AlgoritmoGenetico {
 		double media = 0;
 		double fitness;
 		Individuo elMejorGeneracion = creaPoblacion(problema,(int) 1)[0];
+		System.out.println("poblacion[0] fitness: " + poblacion[0].getFitness());
 		elMejorGeneracion.copiarIndividuo(poblacion[0]); // Aquí selecciona el mejor de la generación
+		System.out.println("elMejorGeneracion fitness: " + elMejorGeneracion.getFitness());
 		//int max_aux = 0;
 		//for(int i = 0; i < poblacion.length; i++)
 		
 		for(Individuo ind:poblacion) 
 		{
 			fitness = ind.getFitness();
+			
 			media += fitness;
 			
 		}

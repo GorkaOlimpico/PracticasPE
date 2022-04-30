@@ -45,15 +45,16 @@ public class CruceCO extends Cruce {
 		List<Gen> genes = (List<Gen>) i1.getGenes();
 		for(int j = 0; j < genes.size(); j++) { // para varios genes
 			
-			int n = genes.get(j).getLongitud();
+			int n = genes.get(j).getLongitud(); 
+			
 			lista = new ArrayList<Integer>();
-			for(int i=0; i<n; i++) {
+			for(int i=0; i<255; i++) {
 				lista.add(i);
 			}
 			
 			
 			
-			for(int k=0; k<n; k++) { // recorro la List de alelos(vuelos) y apunto su posición relativa de lista
+			for(int k=0; k<n; k++) { // recorro la List de alelos y apunto su posición relativa de lista
 				int pos = 0;
 				for(int i= 0; i<lista.size(); i++) {
 					if(genes.get(j).getAlelo(k)==lista.get(i)) {
@@ -87,7 +88,8 @@ public class CruceCO extends Cruce {
 	public void decodifica(Individuo ind, List<Integer> cod) {
 		lista = new ArrayList<Integer>();
 		List<Gen> genes = (List<Gen>) ind.getGenes();
-		for(int i=0; i<genes.get(0).getLongitud(); i++) {
+		int n = 255;// tengo que adaptarlo a este problema
+		for(int i=0; i<255; i++) {
 			lista.add(i);
 		}
 		for(int i = 0; i<cod.size(); i++) {

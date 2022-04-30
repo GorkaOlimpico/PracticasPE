@@ -473,9 +473,9 @@ public class IndividuoGE extends Individuo {
 	
 	public IndividuoGE nuevoInd(Object[] datos) {
 		IndividuoGE individuo = new IndividuoGE();
-		int longitud = (int) datos[1]; //Integer.parseInt((String) datos[1]);
+		int longitud = (int) datos[2]; //Integer.parseInt((String) datos[1]);
 	
-		int n_wraps = (int) datos[2]; // Integer.parseInt((String) datos[2]);									
+		int n_wraps = (int) datos[1]; // Integer.parseInt((String) datos[2]);									
 		String nombreArchivo = (String) datos[3];
 		
 		try {
@@ -521,7 +521,7 @@ public class IndividuoGE extends Individuo {
 			genes.get(i).copiarGen(genes2.get(i));
 			
 		recalcularFenotipo();
-		
+		System.out.println("fin");
 	}
 	
 	public List<String> getSolucion(){
