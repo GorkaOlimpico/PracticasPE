@@ -163,4 +163,10 @@ public class IndividuoPG extends Individuo{
 	public void setBloating(double k){
 		k_bloating = k;
 	}
+
+	@Override
+	public List<String> getSolucion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
