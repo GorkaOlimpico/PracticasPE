@@ -1,6 +1,7 @@
 package algoritmoGenetico;
 
 import java.io.File;
+
 import java.util.ArrayList;
 
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.Scanner;
 import algoritmoGenetico.cruce.Cruce;
 import algoritmoGenetico.mutacion.Mutacion;
 import algoritmoGenetico.seleccion.Seleccion;
+import gen.Gen;
+import gen.GenPr3;
 import gramatica.Gramatica;
 import gui.MainFrame;
 import individuos.Individuo;
@@ -233,9 +236,24 @@ public class AlgoritmoGenetico {
 		double media = 0;
 		double fitness;
 		Individuo elMejorGeneracion = creaPoblacion(problema,(int) 1)[0];
-		System.out.println("poblacion[0] fitness: " + poblacion[0].getFitness());
+		
+		//System.out.println("poblacion[0] fitness: " + poblacion[0].getFitness());
+		System.out.println("poblacion[0] solucion: " + poblacion[0].getSolucion());
+		List<Gen> gen_aux1 = (List<Gen>) poblacion[0].getGenes();
+		System.out.println("poblacion[0] individuo: " + gen_aux1.get(0).getAlelos());
+		
+		
 		elMejorGeneracion.copiarIndividuo(poblacion[0]); // Aquí selecciona el mejor de la generación
-		System.out.println("elMejorGeneracion fitness: " + elMejorGeneracion.getFitness());
+		
+		//System.out.println("elMejorGeneracion fitness: " + elMejorGeneracion.getFitness());
+		System.out.println("elMejorGeneracion solucion: " + elMejorGeneracion.getSolucion());
+		List<Gen> gen_aux2 = (List<Gen>) elMejorGeneracion.getGenes();
+		System.out.println("elMejorGeneracion individuo: " + gen_aux2.get(0).getAlelos());
+	
+		if(!poblacion[0].getSolucion().toString().equals(elMejorGeneracion.getSolucion().toString())) {
+			System.out.println("No se ha copiado bien");
+			
+		}
 		//int max_aux = 0;
 		//for(int i = 0; i < poblacion.length; i++)
 		

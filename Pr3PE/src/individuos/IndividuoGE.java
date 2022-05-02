@@ -516,12 +516,13 @@ public class IndividuoGE extends Individuo {
 	}
 	@Override
 	public void copiarIndividuo(Individuo ind) {
+		
 		List<Gen> genes = (List<Gen>) this.genes, genes2 = (List<Gen>) ind.getGenes();
 		for(int i = 0; i < genes.size(); i++)
 			genes.get(i).copiarGen(genes2.get(i));
 			
 		recalcularFenotipo();
-		System.out.println("fin");
+	
 	}
 	
 	public List<String> getSolucion(){
