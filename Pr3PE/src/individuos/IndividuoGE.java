@@ -131,10 +131,10 @@ public class IndividuoGE extends Individuo {
 			default:{ // Si es un elemento key como por ejemplo expr
 				
 				// 0. Si es el último wrap entonces tiene que ser un terminal
-				if (wraps == max_wraps -1) { //añador lo de contador para reducir su tamaño
-					Random rand = new Random();
-					int prob = rand.nextInt(5);
-					key = terminales.get(prob);
+				if (wraps == max_wraps -1) {
+					List<Gen> genes = (List<Gen>) this.genes;
+					int num = ((int) genes.get(0).getAlelo(pos)) % 6;
+					key = terminales.get(num);
 					addElemLista(key);
 					//System.out.println("Se llegó a max_wraps -1");
 					
