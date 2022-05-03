@@ -19,13 +19,14 @@ public class IndividuoPG extends Individuo{
 		super.id = type;
 	}
 	
-	public IndividuoPG(int profundidad, int tipo_generacion, int prof_generar)
+	public IndividuoPG(int profundidad, int tipo_generacion, int prof_generar, Random rand)
 	{
 		super.id = type;
 		if(tipo_generacion == 0)
-			genes = Arbol.generarFull(new Random(), profundidad, null);						//Full inicialization
+			genes = Arbol.generarFull(rand, profundidad, null, prof_generar);						//Full inicialization
 		if(tipo_generacion == 1)
-			genes = Arbol.generarGrow(new Random(), profundidad, null, prof_generar);		//Grow inicialization (prof_generar tiene que ser >= 1)
+			genes = Arbol.generarGrow(rand, profundidad, null, prof_generar);		//Grow inicialization (prof_generar tiene que ser > 1)
+		super.recalcularFenotipo();
 	}
 	
 	@Override
@@ -62,6 +63,7 @@ public class IndividuoPG extends Individuo{
 	@Override
 	protected Individuo[] parse(int tam, Object[] datos) {
 		IndividuoPG[] ind = null;
+		Random rand = new Random();
 		if((String) datos[0] == id)
 		{
 			ind = new IndividuoPG[tam];
@@ -70,28 +72,45 @@ public class IndividuoPG extends Individuo{
 			else
 			{
 				int profundidad = (int) datos[1];	
-				profundidad--;
 				String tipo_generacion = (String) datos[2];
 				if(tipo_generacion == "Ramped-Half")				//Ramped and half inicialization
 				{
-					int aux = tam / profundidad;
-					for(int j = 1; j <= profundidad; j++)			//La profundidad de la hoja es 0 y la de la raiz profundidad
+					int aux = tam / (profundidad - 1);
+					for(int j = 2; j <= profundidad; j++)			//La profundidad de la hoja es 0 y la de la raiz profundidad - 1
 					{
 						for(int i = 0; i < aux / 2; i++)
-							ind[i + (aux * j)] = new IndividuoPG(profundidad, 0, j);		//Mitad de Full
-						for(int i = (aux / 2); i < tam; i++)
-							ind[i + (aux * j)] = new IndividuoPG(profundidad, 1, j);		//Mitad de Grow
+						{
+							ind[i + (aux * (j - 2))] = new IndividuoPG(profundidad, 0, j, rand);		//Mitad de Full
+							System.out.println((i + (aux * (j - 2))) + "\n" + ind[i + (aux * (j - 2))].solutionToString() + "\n");
+						}
+						for(int i = aux / 2; i < aux; i++)
+						{
+							ind[i + (aux * (j - 2))] = new IndividuoPG(profundidad, 1, j, rand);		//Mitad de Grow
+							System.out.println((i + (aux * (j - 2))) + "\n" + ind[i + (aux * (j - 2))].solutionToString() + "\n");
+						}
 					}
-					for(int i = aux * (profundidad - 1); i < tam; i++)	//Si la division no es exacta se rellena con Grow de tamaño maximo
-						ind[i] = new IndividuoPG(profundidad, 1, 1);			
+					for(int i = aux * (profundidad - 1); i < tam; i++)	//Si la division no es exacta se rellena con Grow
+					{
+						ind[i] = new IndividuoPG(profundidad, 1, profundidad - 1, rand);		
+						System.out.println(i + "\n" + ind[i].solutionToString() + "\n");
+					}
 				}
 				else				//Grow or Full inicialization
 				{
-					int tipo = 0;
-					if(tipo_generacion == "Grow")
-						tipo = 1;
-					for(int i = 0; i < tam; i++)
-						ind[i] = new IndividuoPG(profundidad, tipo, 1);
+					if(tipo_generacion == "Full")
+					{
+						for(int i = 0; i < tam; i++)
+						{
+							ind[i] = new IndividuoPG(profundidad, 0, 1, rand);
+							System.out.println(i + "\n" + ind[i].solutionToString() + "\n");
+						}
+					}
+					else
+						for(int i = 0; i < tam; i++)
+						{
+							ind[i] = new IndividuoPG(profundidad, 1, profundidad - 1, rand);
+							System.out.println(i + "\n" + ind[i].solutionToString() + "\n");
+						}
 				}	
 			}
 		}

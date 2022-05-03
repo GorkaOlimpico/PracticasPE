@@ -23,15 +23,12 @@ public class MutacionArbol extends Mutacion {
 
 	protected void mutarIndividuo(Individuo ind) {
 		Arbol a = (Arbol) ind.getGenes();
-		Arbol aux;
 		Random rand = new Random();
 		
-		do {
-			aux = seleccionar(a, 1 / a.getTamSubArbol(), rand);
-		}
-		while(aux == null || aux == a);
+		Arbol aux = seleccionar(a, 2 / a.getTamSubArbol(), rand);
 		
-		aux.getPadre().getHijos().set(aux.getPadre().getHijos().indexOf(aux), Arbol.generarGrow(rand, aux.getProfundidad(), aux.getPadre(), 1));
+		if(aux != null && aux != a)
+			aux.getPadre().getHijos().set(aux.getPadre().getHijos().indexOf(aux), Arbol.generarGrow(rand, aux.getProfundidad(), aux.getPadre(), 1));
 	}
 
 	private Arbol seleccionar(Arbol a, double prob, Random rand)

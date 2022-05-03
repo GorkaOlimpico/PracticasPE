@@ -23,16 +23,15 @@ public class MutacionHoist extends Mutacion {
 
 	protected void mutarIndividuo(Individuo ind) {
 		Arbol a = (Arbol) ind.getGenes();
-		Arbol aux;
 		Random rand = new Random();
+
+		Arbol aux = seleccionar(a, 2 / a.getTamSubArbol(), rand);
 		
-		do {
-			aux = seleccionar(a, 1 / a.getTamSubArbol(), rand);
+		if(aux != null && aux != a)
+		{
+			aux.setPadre(null);
+			ind.setGenes(aux);
 		}
-		while(aux == null || aux == a);
-		
-		aux.setPadre(null);
-		ind.setGenes(aux);
 	}
 
 	private Arbol seleccionar(Arbol a, double prob, Random rand)

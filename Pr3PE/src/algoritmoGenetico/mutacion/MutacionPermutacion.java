@@ -23,17 +23,16 @@ public class MutacionPermutacion extends Mutacion {
 
 	protected void mutarIndividuo(Individuo ind) {
 		Arbol a = (Arbol) ind.getGenes();
-		Arbol aux;
 		Random rand = new Random();
+
+		Arbol aux = seleccionar(a, 2 / a.getTamSubArbol(), rand);
 		
-		do {
-			aux = seleccionar(a, 1 / a.getTamSubArbol(), rand);
-		}
-		while(aux == null || aux == a);
-		
-		for(int i = 0; i < aux.getHijos().size() - 1; i++)
+		if(aux != null && aux != a)
 		{
-			aux.getHijos().get(i).intercambiarNodo(aux.getHijos().get(i + 1));
+			for(int i = 0; i < aux.getHijos().size() - 1; i++)
+			{
+				aux.getHijos().get(i).intercambiarNodo(aux.getHijos().get(i + 1));
+			}
 		}
 	}
 
