@@ -29,13 +29,15 @@ public abstract class Arbol {
 		tam_subarbol += a.getTamSubArbol();
 		actualizarAlturaSubarbol(a.getAlturaSubArbol());
 		if(padre != null)
-			padre.sumarTamHijo(a);
+			padre.sumarTamHijo(this);
 	}
 	
 	public void restarTamHijo(Arbol a)
 	{
+		if(padre != null)
+			padre.restarTamHijo(this);
+		
 		tam_subarbol -= a.getTamSubArbol();
-		int aux = niveles_hijos;
 		if(a.getAlturaSubArbol() == niveles_hijos - 1)
 		{
 			int max = 0;
@@ -44,8 +46,6 @@ public abstract class Arbol {
 					max = h.getAlturaSubArbol();
 			niveles_hijos = max + 1;
 		}
-		if(padre != null && aux != niveles_hijos)
-			padre.restarTamHijo(a);
 	}
 	
 	
@@ -107,8 +107,8 @@ public abstract class Arbol {
 		padre.sumarTamHijo(this);													//Se suma el tamaño de hijo al del padre
 		a.getPadre().sumarTamHijo(a);
 		
-																					//Se cambia la profundidad a la que estan
-		int prof_aux = profundidad;
+		
+		int prof_aux = profundidad;													//Se cambia la profundidad a la que estan
 		profundidad = a.getProfundidad();
 		a.setProfundidad(prof_aux);
 		
@@ -126,7 +126,7 @@ public abstract class Arbol {
 		
 		padre.sumarTamHijo(a);														//Se suma el tamaño de hijo al del padre
 		
-		profundidad = a.getProfundidad();
+		a.setProfundidad(profundidad);												//Se actualiza la profundidad
 		a.actualizarProfundidadHijos();
 	}
 	
