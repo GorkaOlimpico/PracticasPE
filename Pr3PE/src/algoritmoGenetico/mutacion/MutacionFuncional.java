@@ -27,18 +27,29 @@ public class MutacionFuncional extends Mutacion {
 		
 		Random rand = new Random();
 		
-
-		Arbol aux = seleccionar(a, 2 / a.getTamSubArbol(), rand);
-		if(aux != null)
+		boolean posible = false;
+		for(Arbol ar: a.getHijos())
+			if(ar.getHijos().size() > 0)
+				posible = true;
+		
+		if(posible)
 		{
-			Arbol n;
-			do {
-				n = Nodo.generar(rand, 2, aux.getPadre(), 1, 1);
-			}while(n.getHijos().size() != aux.getHijos().size());
-			n.setProfundidad(aux.getProfundidad());
-			for(int i = 0; i < n.getHijos().size(); i++)				//Se sustituyen los hijos de el nuevo nodo por los originales
-				n.getHijos().get(i).cambiarNodo(aux.getHijos().get(i));
-			aux.cambiarNodo(n);											//Se sustituye el nuevo nodo
+			Arbol aux;
+			do																				
+			{
+				aux = seleccionar(a, 2.0 / a.getTamSubArbol(), rand);
+			}while(aux == null || aux == a);
+			if(aux != null)
+			{
+				Arbol n;
+				do {
+					n = Nodo.generar(rand, 2, aux.getPadre(), 1, 1);
+				}while(n.getHijos().size() != aux.getHijos().size());
+				n.setProfundidad(aux.getProfundidad());
+				for(int i = 0; i < n.getHijos().size(); i++)				//Se sustituyen los hijos de el nuevo nodo por los originales
+					n.getHijos().get(i).cambiarNodo(aux.getHijos().get(i));
+				aux.cambiarNodo(n);											//Se sustituye el nuevo nodo
+			}
 		}
 	}
 
@@ -58,10 +69,8 @@ public class MutacionFuncional extends Mutacion {
 					if(aux != null)
 						return aux;
 				}
-				return null;
 			}
 		}
-		else
-			return null;
+		return null;
 	}
 }

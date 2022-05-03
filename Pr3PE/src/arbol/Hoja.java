@@ -7,7 +7,6 @@ public abstract class Hoja extends Arbol {
 	public Hoja(int profundidad, Arbol padre, Random rand) {
 		super(profundidad, padre, rand);
 		if(padre != null) padre.sumarTamHijo(this);
-		prob_cruce = 0.1;
 	}
 	
 	public static Arbol generar(Random rand, int profundidad, Arbol padre)

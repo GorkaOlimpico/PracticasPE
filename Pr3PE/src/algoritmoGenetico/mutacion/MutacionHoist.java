@@ -25,10 +25,21 @@ public class MutacionHoist extends Mutacion {
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
 
-		Arbol aux = seleccionar(a, 2 / a.getTamSubArbol(), rand);
+		boolean posible = false;
+		for(Arbol ar: a.getHijos())
+			if(ar.getHijos().size() > 0)
+				posible = true;
 		
-		if(aux != null && aux != a)
+		if(posible)
 		{
+			Arbol aux;
+			do																				
+			{
+				aux = seleccionar(a, 2.0 / a.getTamSubArbol(), rand);
+			}while(aux == null || aux == a);
+			
+			aux.setProfundidad(a.getProfundidad());
+			aux.actualizarProfundidadHijos();
 			aux.setPadre(null);
 			ind.setGenes(aux);
 		}
@@ -50,11 +61,9 @@ public class MutacionHoist extends Mutacion {
 					if(aux != null)
 						return aux;
 				}
-				return null;
 			}
 		}
-		else
-			return null;
+		return null;
 	}
 
 }

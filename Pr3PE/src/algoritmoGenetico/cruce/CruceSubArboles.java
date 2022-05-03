@@ -45,18 +45,21 @@ public class CruceSubArboles extends Cruce {
 		if(posible)
 		{
 			//Seleccion subarboles
+			System.out.println("a1: " + a1.getProfundidad() + " " + a1.toString());
 			do																				//Se selecciona un subarbol de i1
 			{
-				aux = seleccionar(a1, 2 / a1.getTamSubArbol(), rand);
+				aux = seleccionar(a1, 2.0 / a1.getTamSubArbol(), rand);
 			}while(aux == null || aux == a1);
 			a1 = aux;	
+			System.out.println("a1: " + aux.toString());
 			
+			System.out.println("a2: " + a2.getProfundidad() + " " + a2.toString());
 			do 																				//Se selecciona un subarbol de i2 que se pueda intercambiar con la limitacion de tamaño		
 			{ 																																
-				aux = explorarArbol(a2, a1.getProfundidad(), a1.getTamSubArbol(), rand, a2.getAlturaSubArbol() / (double) a2.getProfundidad());
-			}while(aux == null || aux == a2);									
+				aux = explorarArbol(a2, a1.getProfundidad()/*profundidad de a1*/, a1.getAlturaSubArbol()/*profundidad maxima de los hijos de a1*/, rand, 1.0 / a2.getTamSubArbol());
+			}while(aux == null || aux == a2);	
 			a2 = aux;
-			
+			System.out.println("a2: " + aux.toString());
 			
 			//Intercambio subarboles
 			a1.intercambiarNodo(a2);
@@ -66,41 +69,36 @@ public class CruceSubArboles extends Cruce {
 	private Arbol seleccionar(Arbol a, double prob, Random rand)
 	{
 		List<Arbol> hijos = a.getHijos();
+		if(rand.nextDouble() < prob)
+			return a;
 		if(hijos.size() > 0)
 		{
-			if(rand.nextDouble() < prob)
-				return a;
-			else
+			
+			Arbol aux;
+			for(Arbol ar: hijos)
 			{
-				Arbol aux;
-				for(Arbol ar: hijos)
-				{
-					aux = seleccionar(ar, prob, rand);
-					if(aux != null)
-						return aux;
-				}
-				return null;
+				aux = seleccionar(ar, prob, rand);
+				if(aux != null)
+					return aux;
 			}
-		}
-		else
 			return null;
+		}
+		return null;
 	}
 	
 	private Arbol explorarArbol(Arbol c, int prof_raiz, int altura_hijos, Random rand, double prob)
 	{
-		Arbol aux = null;
+		Arbol aux;
 		//Si la altura de los hijos de 1 entra en 2 	Si la altura de los hijos de 2 entra en 1
-		if(c.getAlturaSubArbol() <= prof_raiz && c.getProfundidad() < altura_hijos && rand.nextDouble() < prob && c.seleccionarCruce(rand.nextDouble()))
-			aux = c;
-		if(aux == null)
+		if(c.getAlturaSubArbol() <= prof_raiz && c.getProfundidad() >= altura_hijos && rand.nextDouble() < prob)
+			return c;
+		
+		for(Arbol a: c.getHijos())
 		{
-			for(Arbol a: c.getHijos())
-			{
-				if(aux == null)
-					aux = explorarArbol(a, prof_raiz, altura_hijos, rand, prob);
-			}
+			aux = explorarArbol(a, prof_raiz, altura_hijos, rand, prob);
+			if(aux != null)
+				return aux;
 		}
-		return aux;
+		return null;
 	}
-
 }

@@ -6,7 +6,6 @@ public abstract class Nodo extends Arbol {
 
 	public Nodo(int profundidad, Arbol padre, Random rand) {
 		super(profundidad, padre, rand);
-		prob_cruce = 0.9;
 	}
 
 	public static Arbol generar(Random rand, int profundidad, Arbol padre, int prof_generar, int tipo_generacion)

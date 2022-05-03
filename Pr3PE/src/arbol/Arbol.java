@@ -11,7 +11,6 @@ public abstract class Arbol {
 	protected List<Arbol> hijos;
 	protected int tam_subarbol;
 	Random rand;
-	protected double prob_cruce;
 	
 	public Arbol(int profundidad, Arbol padre, Random rand)		
 	{
@@ -20,12 +19,7 @@ public abstract class Arbol {
 		this.padre = padre;
 		tam_subarbol = 1;
 		this.rand = rand;
-		niveles_hijos = 0;
-	}
-	
-	public boolean seleccionarCruce(double prob)
-	{
-		return prob < prob_cruce;
+		niveles_hijos = 0;	//This no esta incluido
 	}
 	
 	public void sumarTamHijo(Arbol a)
@@ -39,6 +33,7 @@ public abstract class Arbol {
 	public void restarTamHijo(Arbol a)
 	{
 		tam_subarbol -= a.getTamSubArbol();
+		int aux = niveles_hijos;
 		if(a.getAlturaSubArbol() == niveles_hijos - 1)
 		{
 			int max = 0;
@@ -47,7 +42,7 @@ public abstract class Arbol {
 					max = h.getAlturaSubArbol();
 			niveles_hijos = max + 1;
 		}
-		if(padre != null)
+		if(padre != null && aux != niveles_hijos)
 			padre.restarTamHijo(a);
 	}
 	
@@ -114,6 +109,9 @@ public abstract class Arbol {
 		int prof_aux = profundidad;
 		profundidad = a.getProfundidad();
 		a.setProfundidad(prof_aux);
+		
+		actualizarProfundidadHijos();												//Se actualiza la profundidad para sus hijos
+		a.actualizarProfundidadHijos();
 	}
 	
 	public void cambiarNodo(Arbol a)		//This no puede ser una raiz
@@ -125,6 +123,9 @@ public abstract class Arbol {
 		padre.getHijos().set(padre.getHijos().indexOf(this), a);					//Se sustituyen en la lista de hijos de sus padres
 		
 		padre.sumarTamHijo(a);														//Se suma el tamaño de hijo al del padre
+		
+		profundidad = a.getProfundidad();
+		a.actualizarProfundidadHijos();
 	}
 	
 	public static Arbol generarGrow(Random rand, int profundidad, Arbol padre, int prof_generar)
@@ -158,4 +159,12 @@ public abstract class Arbol {
 	public abstract Arbol clonar(Arbol padre);
 	
 	public abstract boolean execute(List<Boolean> input);	//Input es [A0, A1, D0, D1, D2, D3]
+
+	public void actualizarProfundidadHijos() {
+		for(Arbol a: hijos)
+		{
+			a.setProfundidad(profundidad - 1);
+			a.actualizarProfundidadHijos();
+		}
+	}
 }

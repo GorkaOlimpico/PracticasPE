@@ -26,26 +26,26 @@ public class MutacionExpansion extends Mutacion {
 	protected void mutarIndividuo(Individuo ind) {
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
-		seleccionar(a, 2 / a.getTamSubArbol(), rand);
+		while(!seleccionar(a, 2.0 / a.getTamSubArbol(), rand));
 	}
 	
 	private boolean seleccionar(Arbol a, double prob, Random rand)
 	{
 		List<Arbol> hijos = a.getHijos();
 		if(hijos.size() == 0)
+		{
 			if(rand.nextDouble() < prob)
 			{
 				a.cambiarNodo(Arbol.generarGrow(rand, a.getProfundidad(), a.getPadre(), 1));
 				return true;
 			}
-			else
-				return false;
+		}
 		else
 		{
 			for(Arbol ar: hijos)
 				if(seleccionar(ar, prob, rand))
 					return true;
-			return false;
 		}
+		return false;
 	}
 }

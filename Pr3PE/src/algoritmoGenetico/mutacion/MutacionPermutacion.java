@@ -25,13 +25,25 @@ public class MutacionPermutacion extends Mutacion {
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
 
-		Arbol aux = seleccionar(a, 2 / a.getTamSubArbol(), rand);
+		boolean posible = false;
+		for(Arbol ar: a.getHijos())
+			if(ar.getHijos().size() > 0)
+				posible = true;
 		
-		if(aux != null && aux != a)
+		if(posible)
 		{
-			for(int i = 0; i < aux.getHijos().size() - 1; i++)
+			Arbol aux;
+			do																				
 			{
-				aux.getHijos().get(i).intercambiarNodo(aux.getHijos().get(i + 1));
+				aux = seleccionar(a, 2.0 / a.getTamSubArbol(), rand);
+			}while(aux == null || aux == a);
+			
+			if(aux != null && aux != a)
+			{
+				for(int i = 0; i < aux.getHijos().size() - 1; i++)
+				{
+					aux.getHijos().get(i).intercambiarNodo(aux.getHijos().get(i + 1));
+				}
 			}
 		}
 	}
@@ -52,11 +64,9 @@ public class MutacionPermutacion extends Mutacion {
 					if(aux != null)
 						return aux;
 				}
-				return null;
 			}
 		}
-		else
-			return null;
+		return null;
 	}
 
 }
