@@ -181,8 +181,6 @@ public class MainFrame extends JFrame {
 		panelCentral.setLeftComponent(creaFormulario());
 
 		
-		
-		
 		// Selección de tipo
 			problema.addActionListener(new ActionListener() {
 				@Override

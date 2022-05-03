@@ -5,7 +5,6 @@ import java.io.File;
 
 
 import java.io.FileNotFoundException;
-import java.io.*;
 import java.util.*;
 
 import algoritmoGenetico.cruce.Cruce;
@@ -598,7 +597,7 @@ public class IndividuoGE extends Individuo {
 		int longitud = (int) datos[2]; //Integer.parseInt((String) datos[1]);
 	
 		int n_wraps = (int) datos[1]; // Integer.parseInt((String) datos[2]);		
-		boolean m6 = (boolean) datos[3];
+		boolean m6 = (boolean) datos[4];
 		String nombreArchivo = (String) datos[3];
 		
 		try {
