@@ -94,8 +94,8 @@ public class CrucePMX extends Cruce {
 			}
 			
 			// Adaptación para elementos repetidos:
-			rellenaHuecos(i1, l3);
-			rellenaHuecos(i2, l4);
+			//rellenaHuecos(i1, l3);
+			//rellenaHuecos(i2, l4);
 			
 			
 			// 4. Se pasa de las listas a los individuos
@@ -115,7 +115,9 @@ public class CrucePMX extends Cruce {
 		for(int i = 0; i < genes.get(0).getLongitud(); i++) {
 			if(!contenidoEn(i, lista)) {
 				int hueco = primerHueco(ind, lista);
-				Pair p = new Pair(hueco, i);
+				Random rand = new Random();
+				int num_rand = rand.nextInt(256);
+				Pair p = new Pair(hueco, num_rand);
 				lista.add(p);
 			}
 		}

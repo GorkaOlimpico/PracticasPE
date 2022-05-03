@@ -101,6 +101,9 @@ private final String type = "CX";
 				pos = i;
 			}
 		}
+		if (pos== -1){
+			System.out.println("Error");
+		}
 		
 		return pos;
 	}
