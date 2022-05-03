@@ -37,6 +37,7 @@ public class MainFrame extends JFrame {
 	private JButton btnEjecutar;
 	private String tipo_inicializacion;
 	
+	private JComboBox multiplexor;
 	private JComboBox problema;
 	private JComboBox inicializacion;
 	/**
@@ -77,6 +78,14 @@ public class MainFrame extends JFrame {
 		// Panel superior
 		JPanel panelSuperior = new JPanel();
 		
+		JLabel mult = new JLabel("Multiplexor: ");
+		multiplexor = new JComboBox<>();
+		String[] multis = new String[2];
+		multis[0] = "Multiplexor 4 a 1";
+		multis[1] = "Multiplexor 8 a 1";
+		multiplexor.addItem(multis[0]);
+		multiplexor.addItem(multis[1]);
+		
 		JLabel tip = new JLabel("Tipo de algoritmo evolutivo: ");
 		problema = new JComboBox<>();
 		String[] opciones = Individuo.getStrings();
@@ -84,7 +93,8 @@ public class MainFrame extends JFrame {
 			problema.addItem(op);
 		}
 		
-		
+		panelSuperior.add(mult);
+		panelSuperior.add(multiplexor);
 		panelSuperior.add(tip);
 		panelSuperior.add(problema);
 		
@@ -117,7 +127,7 @@ public class MainFrame extends JFrame {
 		JLabel gra = new JLabel("Archivo gramática: ");
 		gramatica = new JTextField();
 		gramatica.setPreferredSize(new Dimension(100,25));
-		gramatica.setText("gramatica.txt");
+		gramatica.setText("gramatica2.txt");
 
 		
 		JLabel wra = new JLabel("Número de wraps: ");
@@ -140,6 +150,7 @@ public class MainFrame extends JFrame {
 		
 		add(panelSuperior, BorderLayout.NORTH);
 		ind = new IndividuoGE();
+		ind.setMultiplexor(true);
 		AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(wraps.getText()), Integer.parseInt(longitud.getText()), gramatica.getText()});
 		
 		//-----------------------------------------------------
@@ -210,6 +221,21 @@ public class MainFrame extends JFrame {
 					panelCentral.setLeftComponent(creaFormulario());
 				}
 			});
+		
+		// Selección de multiplexor
+			multiplexor.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (multiplexor.getSelectedIndex() == 1) { // Selecciona multiplexor8
+						ind.setMultiplexor(false);
+					}
+					else {
+						ind.setMultiplexor(true);
+					}
+					
+				}
+			});
+		
 			
 		// Selección de modo de inicialización PG
 			inicializacion.addActionListener(new ActionListener() {

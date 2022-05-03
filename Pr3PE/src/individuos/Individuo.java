@@ -14,6 +14,7 @@ public abstract class Individuo {
 	protected double valor;
 	protected double valorError;
 	protected String id;  
+	protected boolean multiplexor6;
 	List<List<Boolean>> entradas;
 	
 	public Individuo(double valorError)
@@ -40,6 +41,10 @@ public abstract class Individuo {
 	public double getFitness()
 	{
 		return valor;
+	}
+	
+	public void setMultiplexor(boolean mult) {
+		multiplexor6 = mult;
 	}
 	
 	public abstract double getFenotipo(int i);
@@ -99,7 +104,14 @@ public abstract class Individuo {
 	
 	protected List<List<Boolean>> generaEntradas(){
 		List<List<Boolean>> listaTotal = new ArrayList<>();
-		int tam_ejemplo = 6;												//Cada ejemplo es [A0, A1, D0, D1, D2, D3]
+		int tam_ejemplo = -1;
+		if(multiplexor6) {
+			tam_ejemplo = 6;
+		}
+		else {
+			tam_ejemplo = 11;
+		}
+														//Cada ejemplo es [A0, A1, D0, D1, D2, D3]
 		listaTotal.add(new ArrayList<>());
 		
 		for(int i = 0; i < tam_ejemplo; i++)
@@ -130,6 +142,8 @@ public abstract class Individuo {
 			if(!llevar)
 				listaTotal.add(aux);
 		}
+		
+		
 		return listaTotal;
 	}
 
@@ -154,6 +168,7 @@ public abstract class Individuo {
 			false, 	true, 	false, 	true,
 			false, 	true, 	false, 	true,
 	};
+	
 
 	
 	public void setGenes(Object aux) {

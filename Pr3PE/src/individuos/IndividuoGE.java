@@ -53,7 +53,7 @@ public class IndividuoGE extends Individuo {
 	
 	public String archivoATexto(String nombreArchivo) throws FileNotFoundException {
 		String total ="";
-		File doc = new File("gramatica.txt");
+		File doc = new File(nombreArchivo);
 		Scanner obj = new Scanner(doc);
 		while (obj.hasNextLine()) {
             total += obj.nextLine();
@@ -76,7 +76,13 @@ public class IndividuoGE extends Individuo {
 	}
 	
 	public void addElemLista(String key) {
-		List<String> terminales = Arrays.asList("A0", "A1", "D0", "D1", "D2", "D3");
+		List<String> terminales = null;
+		if(multiplexor6) {
+			terminales = Arrays.asList("A0", "A1", "D0", "D1", "D2", "D3");
+		}
+		else {
+			terminales = Arrays.asList("A0", "A1", "A2", "D0", "D1", "D2", "D3", "D4", "D5", "D6", "D7");
+		}
 		
 		
 		switch (key) {
@@ -110,7 +116,11 @@ public class IndividuoGE extends Individuo {
 			break;
 			case "A1": {
 				solucion.add(key);
-			}			
+			}
+			break;
+			case "A2": {
+				solucion.add(key);
+			}	
 			break;
 			case "D0": {
 				solucion.add(key);
@@ -128,13 +138,30 @@ public class IndividuoGE extends Individuo {
 				solucion.add(key);
 			}			
 			break;
+			case "D4": {
+				solucion.add(key);
+			}			
+			break;
+			case "D5": {
+				solucion.add(key);
+			}			
+			break;
+			case "D6": {
+				solucion.add(key);
+			}			
+			break;
+			case "D7": {
+				solucion.add(key);
+			}			
+			break;
+			
 			
 			default:{ // Si es un elemento key como por ejemplo expr
 				
 				// 0. Si es el último wrap entonces tiene que ser un terminal
 				if (wraps == max_wraps -1) {
 					List<Gen> genes = (List<Gen>) this.genes;
-					int num = ((int) genes.get(0).getAlelo(pos)) % 6;
+					int num = ((int) genes.get(0).getAlelo(pos)) % terminales.size();
 					key = terminales.get(num);
 					addElemLista(key);
 					//System.out.println("Se llegó a max_wraps -1");
@@ -146,6 +173,9 @@ public class IndividuoGE extends Individuo {
 				// 1. Busco en la tabla Hash. Obtengo su lista de opciones
 			
 				List<List<String>> opciones = gramatica.getMap().get(key);
+				if (opciones == null){
+					System.out.println("Error en opciones");
+				}
 				int num_opciones = opciones.size();
 				
 				// 2. Elijo una de las opciones disponibles según el número que toca del individuo
@@ -193,7 +223,7 @@ public class IndividuoGE extends Individuo {
 		
 		// 1. Se genera la List<String> a partir del número
 		traduceALista();		
-		System.out.println(solucion);
+		//System.out.println(solucion);
 		
 		// 2. Por cada entrada[6] evalúo la List<String> y evalúo su resultado correcto del MX-6
 		
@@ -201,14 +231,15 @@ public class IndividuoGE extends Individuo {
 			Boolean [] aux =  new Boolean[entrada.size()];
 			entrada.toArray(aux);
 			//4. Comparo los resultados. Si son iguales entonces sumo 1 a aciertos
-			if(evaluaElemento(entrada, solucion) == multiplexor6(aux)) {
-				aciertos++;
+			if(multiplexor6) {
+				if(evaluaElemento(entrada, solucion) == multiplexor6(aux)) {
+					aciertos++;
+				}
 			}
 			else {
-			
-				System.out.println("Multiplexor: " + multiplexor6(aux));
-				System.out.println("Individuo: " + evaluaElemento(entrada, solucion));
-				System.out.println("No acierta");
+				if(evaluaElemento(entrada, solucion) == multiplexor11(aux)) {
+					aciertos++;
+				}
 			}
 		}
 			
@@ -222,7 +253,8 @@ public class IndividuoGE extends Individuo {
 		
 		String primero = buscaPrimero(elemento);
 		//System.out.println("Primero: " + primero);
-		switch (primero) {
+		if(multiplexor6) {
+			switch (primero) {
 			case "IF": {
 				if(evaluaElemento(entrada, getSiguiente(elemento))) {
 					return evaluaElemento(entrada, getSiguiente2(elemento));
@@ -253,8 +285,12 @@ public class IndividuoGE extends Individuo {
 				return entrada.get(1);
 			}
 			
-			case "D0": {
+			case "A2": {
 				return entrada.get(2);
+			}
+			
+			case "D0": {
+				return entrada.get(3);
 			}
 			
 			case "D1": {
@@ -268,7 +304,84 @@ public class IndividuoGE extends Individuo {
 			case "D3": {
 				return entrada.get(5);
 			}
+			case "D4": {
+				return entrada.get(6);
+			}
+			case "D5": {
+				return entrada.get(7);
+			}
+			case "D6": {
+				return entrada.get(8);
+			}
+			case "D7": {
+				return entrada.get(9);
+			}
+			}
+		}
+		else {
+			switch (primero) {
+			case "IF": {
+				if(evaluaElemento(entrada, getSiguiente(elemento))) {
+					return evaluaElemento(entrada, getSiguiente2(elemento));
+				}
+				else {
+					return evaluaElemento(entrada, getSiguiente3(elemento));
+				}
+			}
+			
+			case "AND": {
+				return evaluaElemento(entrada, getSiguiente(elemento)) && evaluaElemento(entrada, getSiguiente2(elemento));
+			}
+			
+			case "OR": {
 				
+				return evaluaElemento(entrada, getSiguiente(elemento)) || evaluaElemento(entrada, getSiguiente2(elemento));
+			}
+			
+			case "NOT": {
+				return !(evaluaElemento(entrada, getSiguiente(elemento)));
+			}
+		
+			case "A0": {
+				return entrada.get(0);
+			}
+			
+			case "A1": {
+				return entrada.get(1);
+			}
+			
+			case "A2": {
+				return entrada.get(2);
+			}
+			
+			case "D0": {
+				return entrada.get(3);
+			}
+			
+			case "D1": {
+				return entrada.get(4);
+			}
+			
+			case "D2": {
+				return entrada.get(5);
+			}
+			
+			case "D3": {
+				return entrada.get(6);
+			}
+			case "D4": {
+				return entrada.get(7);
+			}
+			case "D5": {
+				return entrada.get(8);
+			}
+			case "D6": {
+				return entrada.get(9);
+			}
+			case "D7": {
+				return entrada.get(10);
+			}
+		}	
 		}
 		
 		
@@ -522,6 +635,21 @@ public class IndividuoGE extends Individuo {
 		
 		return d0 || d1 || d2 || d3;
 	}
+	
+	public boolean multiplexor11(Boolean entrada[]) {
+		boolean d0 = !entrada[0] && !entrada[1] && !entrada[2] && entrada[3];
+		boolean d1 = !entrada[0] && !entrada[1] && entrada[2] && entrada[4];
+		boolean d2 = !entrada[0] && entrada[1] && !entrada[2] && entrada[5];
+		boolean d3 = !entrada[0] && entrada[1] && entrada[2] && entrada[6];
+		boolean d4 = entrada[0] && !entrada[1] && !entrada[2] && entrada[7];
+		boolean d5 = entrada[0] && !entrada[1] && entrada[2] && entrada[8];
+		boolean d6 = entrada[0] && entrada[1] && !entrada[2] && entrada[9];
+		boolean d7 = entrada[0] && entrada[1] && entrada[2] && entrada[10];
+		
+		return d0 || d1 || d2 || d3 || d4 || d5 || d6 || d7;
+	}
+	
+	
 	@Override
 	public void copiarIndividuo(Individuo ind) {
 		

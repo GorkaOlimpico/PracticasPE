@@ -34,7 +34,7 @@ public class CruceOPTIMO extends Cruce {
 		genes.get(0).setAlelo(4, 9);
 		genes.get(0).setAlelo(5, 3);
 		genes.get(0).setAlelo(6, 4);
-		genes.get(0).setAlelo(7, 7);
+		genes.get(0).setAlelo(7, 8);
 		genes.get(0).setAlelo(8, 3);
 		genes.get(0).setAlelo(9, 5);
 		genes.get(0).setAlelo(10, 8);
