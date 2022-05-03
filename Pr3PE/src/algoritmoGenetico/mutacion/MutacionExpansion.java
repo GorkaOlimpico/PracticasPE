@@ -36,7 +36,7 @@ public class MutacionExpansion extends Mutacion {
 		{
 			if(rand.nextDouble() < prob)
 			{
-				a.cambiarNodo(Arbol.generarGrow(rand, a.getProfundidad(), a.getPadre(), 1));
+				a.cambiarNodo(Arbol.generarGrow(rand, a.getProfundidad(), a.getPadre(), 1, a.getM6()));
 				return true;
 			}
 		}

@@ -11,8 +11,9 @@ public abstract class Arbol {
 	protected List<Arbol> hijos;
 	protected int tam_subarbol;
 	Random rand;
+	boolean m6;
 	
-	public Arbol(int profundidad, Arbol padre, Random rand)		
+	public Arbol(int profundidad, Arbol padre, Random rand, boolean m6)		
 	{
 		this.profundidad = profundidad;
 		hijos = new ArrayList<>();
@@ -20,6 +21,7 @@ public abstract class Arbol {
 		tam_subarbol = 1;
 		this.rand = rand;
 		niveles_hijos = 0;	//This no esta incluido
+		this.m6 = m6;
 	}
 	
 	public void sumarTamHijo(Arbol a)
@@ -128,30 +130,30 @@ public abstract class Arbol {
 		a.actualizarProfundidadHijos();
 	}
 	
-	public static Arbol generarGrow(Random rand, int profundidad, Arbol padre, int prof_generar)
+	public static Arbol generarGrow(Random rand, int profundidad, Arbol padre, int prof_generar, boolean m6)
 	{
 		if(profundidad == 1)
-			return Hoja.generar(rand, profundidad - 1, padre);
+			return Hoja.generar(rand, profundidad - 1, padre, m6);
 		
 		if(prof_generar < profundidad)			//Si se ha llegado a la profundidad establecida se pasa a metodo Full
-			 Nodo.generar(rand, profundidad - 1, padre, prof_generar, 1);
+			 Nodo.generar(rand, profundidad - 1, padre, prof_generar, 1, m6);
 
 		//Se elige uno aleatorio entre todos lo elementos
 		if(rand.nextDouble() <= 0.4)	//Hay 4 nodos y 6 hojas, de ahi la probabilidad
-			return Nodo.generar(rand, profundidad - 1, padre, prof_generar, 1);
+			return Nodo.generar(rand, profundidad - 1, padre, prof_generar, 1, m6);
 		
-		return Hoja.generar(rand, profundidad - 1, padre);
+		return Hoja.generar(rand, profundidad - 1, padre, m6);
 	}
 	
-	public static Arbol generarFull(Random rand, int profundidad, Arbol padre, int prof_generar)
+	public static Arbol generarFull(Random rand, int profundidad, Arbol padre, int prof_generar, boolean m6)
 	{
 		if(profundidad == 1)
-			return Hoja.generar(rand, profundidad - 1, padre);
+			return Hoja.generar(rand, profundidad - 1, padre, m6);
 		
 		if(prof_generar < profundidad)
-			return Nodo.generar(rand, profundidad - 1, padre, 1, 0);
+			return Nodo.generar(rand, profundidad - 1, padre, 1, 0, m6);
 		else
-			return Hoja.generar(rand, profundidad - 1, padre);
+			return Hoja.generar(rand, profundidad - 1, padre, m6);
 	}
 	
 	public abstract String toString();
@@ -166,5 +168,9 @@ public abstract class Arbol {
 			a.setProfundidad(profundidad - 1);
 			a.actualizarProfundidadHijos();
 		}
+	}
+
+	public boolean getM6() {
+		return m6;
 	}
 }

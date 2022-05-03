@@ -28,14 +28,13 @@ public class MainFrame extends JFrame {
 	private static JSplitPane panelCentral;
 	private Individuo ind;
 	private static JTextField fitness;
-	private static JTextArea solucion;
-	private JTextField num_var;
 	private JTextField gramatica;
 	private JTextField wraps;
 	private JTextField longitud;
 	private JTextField profundidad;
 	private JButton btnEjecutar;
 	private String tipo_inicializacion;
+	private boolean m6;
 	
 	private JComboBox multiplexor;
 	private JComboBox problema;
@@ -150,8 +149,7 @@ public class MainFrame extends JFrame {
 		
 		add(panelSuperior, BorderLayout.NORTH);
 		ind = new IndividuoGE();
-		ind.setMultiplexor(true);
-		AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(wraps.getText()), Integer.parseInt(longitud.getText()), gramatica.getText()});
+		AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(wraps.getText()), Integer.parseInt(longitud.getText()), gramatica.getText(), m6});
 		
 		//-----------------------------------------------------
 		
@@ -175,8 +173,6 @@ public class MainFrame extends JFrame {
 		//plot.addLinePlot("EVOLUCIÓN", generaciones, fitness);
 		
 		panelCentral.setRightComponent(plot);
-		
-		// TODO mirar si esto está bien
 		
 		//Parte Izquierda del panel central
 
@@ -223,14 +219,15 @@ public class MainFrame extends JFrame {
 			});
 		
 		// Selección de multiplexor
+			m6 = true;
 			multiplexor.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (multiplexor.getSelectedIndex() == 1) { // Selecciona multiplexor8
-						ind.setMultiplexor(false);
+						m6 = false;
 					}
 					else {
-						ind.setMultiplexor(true);
+						m6 = true;
 					}
 					
 				}
@@ -357,10 +354,10 @@ public class MainFrame extends JFrame {
 	
 	public void reset() {
 		if (problema.getSelectedIndex() == 1) {
-			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), profundidad.getText(), tipo_inicializacion});
+			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), profundidad.getText(), tipo_inicializacion, m6});
 		}
 		else {
-			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(wraps.getText()), Integer.parseInt(longitud.getText()), gramatica.getText()}); 
+			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(wraps.getText()), Integer.parseInt(longitud.getText()), gramatica.getText(), m6}); 
 		}
 		formulario.setTarget(AG);
 		formulario.initialize();
@@ -369,11 +366,11 @@ public class MainFrame extends JFrame {
 	public void ejecutar() {
 		
 		if (problema.getSelectedIndex() == 1) {
-			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(profundidad.getText()), tipo_inicializacion});
+			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(profundidad.getText()), tipo_inicializacion, m6});
 		}
 		else {
 			
-			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(wraps.getText()), Integer.parseInt(longitud.getText()), gramatica.getText()});
+			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(wraps.getText()), Integer.parseInt(longitud.getText()), gramatica.getText(), m6});
 		}
 		
 		

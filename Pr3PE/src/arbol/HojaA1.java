@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class HojaA1 extends Hoja {
 
-	public HojaA1(int profundidad, Arbol padre, Random rand) {
-		super(profundidad, padre, rand);
+	public HojaA1(int profundidad, Arbol padre, Random rand, boolean m6) {
+		super(profundidad, padre, rand, m6);
 	}
 
 	@Override
@@ -21,6 +21,6 @@ public class HojaA1 extends Hoja {
 
 	@Override
 	public Arbol clonar(Arbol padre) {
-		return new HojaA1(profundidad, padre, new Random());
+		return new HojaA1(profundidad, padre, new Random(), m6);
 	}
 }

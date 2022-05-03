@@ -43,7 +43,7 @@ public class MutacionContraccion extends Mutacion {
 		{
 			if(rand.nextDouble() < prob)
 			{
-				a.cambiarNodo(Hoja.generar(rand, a.getProfundidad(), a.getPadre()));
+				a.cambiarNodo(Hoja.generar(rand, a.getProfundidad(), a.getPadre(), a.getM6()));
 				return true;
 			}
 			for(Arbol ar: hijos)

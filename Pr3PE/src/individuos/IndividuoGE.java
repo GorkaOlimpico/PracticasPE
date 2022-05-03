@@ -27,7 +27,8 @@ public class IndividuoGE extends Individuo {
 	private int longitud;
 
 	
-	public IndividuoGE(int longitud, int n_wraps, String nombreArchivo) throws FileNotFoundException {
+	public IndividuoGE(int longitud, int n_wraps, String nombreArchivo, boolean m6) throws FileNotFoundException {
+		super(m6);
 		super.id = type;
 
 		List<Gen> genes = new ArrayList<>();
@@ -596,11 +597,12 @@ public class IndividuoGE extends Individuo {
 		IndividuoGE individuo = new IndividuoGE();
 		int longitud = (int) datos[2]; //Integer.parseInt((String) datos[1]);
 	
-		int n_wraps = (int) datos[1]; // Integer.parseInt((String) datos[2]);									
+		int n_wraps = (int) datos[1]; // Integer.parseInt((String) datos[2]);		
+		boolean m6 = (boolean) datos[3];
 		String nombreArchivo = (String) datos[3];
 		
 		try {
-			individuo = new IndividuoGE(longitud, n_wraps, nombreArchivo);
+			individuo = new IndividuoGE(longitud, n_wraps, nombreArchivo, m6);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

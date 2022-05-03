@@ -5,13 +5,16 @@ import java.util.Random;
 
 public class HojaD0 extends Hoja {
 
-	public HojaD0(int profundidad, Arbol padre, Random rand) {
-		super(profundidad, padre, rand);
+	public HojaD0(int profundidad, Arbol padre, Random rand, boolean m6) {
+		super(profundidad, padre, rand, m6);
 	}
 
 	@Override
 	public boolean execute(List<Boolean> input) {
-		return input.get(2);
+		if(m6)
+			return input.get(2);
+		else
+			return input.get(3);
 	}
 
 	@Override
@@ -21,6 +24,6 @@ public class HojaD0 extends Hoja {
 
 	@Override
 	public Arbol clonar(Arbol padre) {
-		return new HojaD0(profundidad, padre, new Random());
+		return new HojaD0(profundidad, padre, new Random(), m6);
 	}
 }

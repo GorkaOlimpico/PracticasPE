@@ -38,7 +38,7 @@ public class MutacionArbol extends Mutacion {
 				aux = seleccionar(a, 2.0 / a.getTamSubArbol(), rand);
 			}while(aux == null || aux == a);
 			
-			aux.getPadre().getHijos().set(aux.getPadre().getHijos().indexOf(aux), Arbol.generarGrow(rand, aux.getProfundidad(), aux.getPadre(), 1));
+			aux.getPadre().getHijos().set(aux.getPadre().getHijos().indexOf(aux), Arbol.generarGrow(rand, aux.getProfundidad(), aux.getPadre(), 1, aux.getM6()));
 		}
 	}
 

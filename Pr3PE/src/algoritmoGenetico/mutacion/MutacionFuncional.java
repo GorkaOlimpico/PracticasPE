@@ -43,7 +43,7 @@ public class MutacionFuncional extends Mutacion {
 			{
 				Arbol n;
 				do {
-					n = Nodo.generar(rand, 2, aux.getPadre(), 1, 1);
+					n = Nodo.generar(rand, 2, aux.getPadre(), 1, 1, aux.getM6());
 				}while(n.getHijos().size() != aux.getHijos().size());
 				n.setProfundidad(aux.getProfundidad());
 				for(int i = 0; i < n.getHijos().size(); i++)				//Se sustituyen los hijos de el nuevo nodo por los originales

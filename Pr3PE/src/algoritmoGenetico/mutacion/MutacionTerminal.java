@@ -36,7 +36,7 @@ public class MutacionTerminal extends Mutacion {
 		{
 			if(rand.nextDouble() < prob)
 			{
-				a.getPadre().getHijos().set(a.getPadre().getHijos().indexOf(a), Hoja.generar(rand, a.getProfundidad(), a.getPadre()));
+				a.getPadre().getHijos().set(a.getPadre().getHijos().indexOf(a), Hoja.generar(rand, a.getProfundidad(), a.getPadre(), a.getM6()));
 				return true;
 			}
 		}

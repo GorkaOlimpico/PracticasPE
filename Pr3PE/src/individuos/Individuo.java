@@ -12,14 +12,13 @@ public abstract class Individuo {
 	protected Object genes;
 	protected int fenotipo;
 	protected double valor;
-	protected double valorError;
 	protected String id;  
 	protected boolean multiplexor6;
 	List<List<Boolean>> entradas;
 	
-	public Individuo(double valorError)
+	public Individuo(boolean m6)
 	{
-		this.valorError = valorError;
+		multiplexor6 = m6;
 		genes = new ArrayList<>();
 		entradas = generaEntradas();
 		fenotipo = -1;
@@ -41,10 +40,6 @@ public abstract class Individuo {
 	public double getFitness()
 	{
 		return valor;
-	}
-	
-	public void setMultiplexor(boolean mult) {
-		multiplexor6 = mult;
 	}
 	
 	public abstract double getFenotipo(int i);
@@ -150,26 +145,45 @@ public abstract class Individuo {
 	
 	public abstract String solutionToString();
 
-	protected static boolean[] solucion = {
-			false, 	false, 	false, 	false,
-			false, 	false, 	false, 	false,
-			true, 	true,	true, 	true,
-			true, 	true, 	true, 	true,
-			false, 	false, 	false, 	false,
-			true, 	true, 	true, 	true,
-			false, 	false, 	false, 	false,
-			true, 	true,	true, 	true,
-			false, 	false, 	true, 	true,
-			false, 	false, 	true, 	true,
-			false, 	false, 	true, 	true,
-			false, 	false, 	true, 	true,
-			false, 	true, 	false, 	true,
-			false, 	true, 	false, 	true,
-			false, 	true, 	false, 	true,
-			false, 	true, 	false, 	true,
-	};
+	protected static boolean solucionar6(List<Boolean> c)
+	{
+		if(c.get(0))	//A0
+			if(c.get(1))	//A1
+				return c.get(5);	//D3
+			else
+				return c.get(3);	//D1
+		else
+			if(c.get(1))	//A1
+				return c.get(4);	//D2
+			else
+				return c.get(2);	//d0
+	}
 	
-
+	protected static boolean solucionar11(List<Boolean> c)
+	{		
+		if(c.get(0))	//A0
+			if(c.get(1))	//A1
+				if(c.get(2))	//A2
+					return c.get(10);	//D7
+				else
+					return c.get(6);	//D3
+			else
+				if(c.get(2))	//A2
+					return c.get(8);	//D5
+				else
+					return c.get(4);	//D1
+		else
+			if(c.get(1))	//A1
+				if(c.get(2))	//A2
+					return c.get(9);	//D6
+				else
+					return c.get(5);	//D2
+			else
+				if(c.get(2))	//A2
+					return c.get(7);	//D4
+				else
+					return c.get(3);	//D0
+	}
 	
 	public void setGenes(Object aux) {
 		genes = aux;
