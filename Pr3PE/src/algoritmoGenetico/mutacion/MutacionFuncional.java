@@ -24,22 +24,22 @@ public class MutacionFuncional extends Mutacion {
 
 	protected void mutarIndividuo(Individuo ind) {
 		Arbol a = (Arbol) ind.getGenes();
-		Arbol aux;
+		
 		Random rand = new Random();
 		
-		do {
-			aux = seleccionar(a, 1 / a.getTamSubArbol(), rand);
+
+		Arbol aux = seleccionar(a, 2 / a.getTamSubArbol(), rand);
+		if(aux != null)
+		{
+			Arbol n;
+			do {
+				n = Nodo.generar(rand, 2, aux.getPadre(), 1, 1);
+			}while(n.getHijos().size() != aux.getHijos().size());
+			n.setProfundidad(aux.getProfundidad());
+			for(int i = 0; i < n.getHijos().size(); i++)				//Se sustituyen los hijos de el nuevo nodo por los originales
+				n.getHijos().get(i).cambiarNodo(aux.getHijos().get(i));
+			aux.cambiarNodo(n);											//Se sustituye el nuevo nodo
 		}
-		while(aux == null);
-		
-		Arbol n;
-		do {
-			n = Nodo.generar(rand, 2, aux.getPadre(), 1);
-		}while(n.getHijos().size() != aux.getHijos().size());
-		n.setProfundidad(aux.getProfundidad());
-		for(int i = 0; i < n.getHijos().size(); i++)				//Se sustituyen los hijos de el nuevo nodo por los originales
-			n.getHijos().get(i).cambiarNodo(aux.getHijos().get(i));
-		aux.cambiarNodo(n);											//Se sustituye el nuevo nodo
 	}
 
 	private Arbol seleccionar(Arbol a, double prob, Random rand)

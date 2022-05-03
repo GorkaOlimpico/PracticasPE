@@ -1,22 +1,14 @@
 package algoritmoGenetico;
 
-import java.io.File;
-
 import java.util.ArrayList;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 
 import algoritmoGenetico.cruce.Cruce;
 import algoritmoGenetico.mutacion.Mutacion;
 import algoritmoGenetico.seleccion.Seleccion;
-import gen.Gen;
-import gen.GenPr3;
-import gramatica.Gramatica;
 import gui.MainFrame;
 import individuos.Individuo;
-import individuos.Pair;
 
 
 public class AlgoritmoGenetico {
@@ -250,10 +242,10 @@ public class AlgoritmoGenetico {
 //		List<Gen> gen_aux2 = (List<Gen>) elMejorGeneracion.getGenes();
 //		System.out.println("elMejorGeneracion individuo: " + gen_aux2.get(0).getAlelos());
 	
-		if(!poblacion[0].getSolucion().toString().equals(elMejorGeneracion.getSolucion().toString())) {
-			System.out.println("No se ha copiado bien");
-			
-		}
+//		if(!poblacion[0].getSolucion().toString().equals(elMejorGeneracion.getSolucion().toString())) {		//TODO da NullPointerException en PG, y no se por que
+//			System.out.println("No se ha copiado bien");
+//			
+//		}
 		//int max_aux = 0;
 		//for(int i = 0; i < poblacion.length; i++)
 		

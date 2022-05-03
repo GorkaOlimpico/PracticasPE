@@ -1,5 +1,6 @@
 package algoritmoGenetico.cruce;
 
+import java.util.List;
 import java.util.Random;
 
 import arbol.Arbol;
@@ -27,23 +28,62 @@ public class CruceSubArboles extends Cruce {
 		Arbol a2 = (Arbol) i2.getGenes();
 		Arbol aux = a1;
 		Random rand = new Random();
+		boolean posible = false;
 		
-		//Seleccion subarboles
-		do																				//Se selecciona un subarbol de i1
+		for(Arbol ar: a1.getHijos())
+			if(ar.getHijos().size() > 0)
+				posible = true;
+		
+		if(posible)
 		{
-			aux = explorarArbol(a1, 0, a1.getProfundidad() - 1, rand, a1.getAlturaSubArbol() / (double) a1.getProfundidad());	
-		}while(aux == null || aux == a1);
-		a1 = aux;	
+			posible = false;
+			for(Arbol ar: a2.getHijos())
+				if(ar.getHijos().size() > 0)
+					posible = true;
+		}
 		
-		do 																				//Se selecciona un subarbol de i2 que se pueda intercambiar con la limitacion de tamaño		
-		{ 																																
-			aux = explorarArbol(a2, a1.getProfundidad(), a1.getTamSubArbol(), rand, a2.getAlturaSubArbol() / (double) a2.getProfundidad());
-		}while(aux == null || aux == a2);									
-		a2 = aux;
-		
-		
-		//Intercambio subarboles
-		a1.intercambiarNodo(a2);
+		if(posible)
+		{
+			//Seleccion subarboles
+			do																				//Se selecciona un subarbol de i1
+			{
+				aux = seleccionar(a1, 2 / a1.getTamSubArbol(), rand);
+			}while(aux == null || aux == a1);
+			a1 = aux;	
+			
+			do 																				//Se selecciona un subarbol de i2 que se pueda intercambiar con la limitacion de tamaño		
+			{ 																																
+				aux = explorarArbol(a2, a1.getProfundidad(), a1.getTamSubArbol(), rand, a2.getAlturaSubArbol() / (double) a2.getProfundidad());
+			}while(aux == null || aux == a2);									
+			a2 = aux;
+			
+			
+			//Intercambio subarboles
+			a1.intercambiarNodo(a2);
+		}
+	}
+	
+	private Arbol seleccionar(Arbol a, double prob, Random rand)
+	{
+		List<Arbol> hijos = a.getHijos();
+		if(hijos.size() > 0)
+		{
+			if(rand.nextDouble() < prob)
+				return a;
+			else
+			{
+				Arbol aux;
+				for(Arbol ar: hijos)
+				{
+					aux = seleccionar(ar, prob, rand);
+					if(aux != null)
+						return aux;
+				}
+				return null;
+			}
+		}
+		else
+			return null;
 	}
 	
 	private Arbol explorarArbol(Arbol c, int prof_raiz, int altura_hijos, Random rand, double prob)

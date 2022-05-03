@@ -26,7 +26,7 @@ public class MutacionContraccion extends Mutacion {
 	protected void mutarIndividuo(Individuo ind) {
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
-		while(!seleccionar(a, 1 / a.getTamSubArbol(), rand)){}
+		seleccionar(a, 2 / a.getTamSubArbol(), rand);
 	}
 	
 	private boolean seleccionar(Arbol a, double prob, Random rand)

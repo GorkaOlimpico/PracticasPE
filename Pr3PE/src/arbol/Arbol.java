@@ -129,22 +129,28 @@ public abstract class Arbol {
 	
 	public static Arbol generarGrow(Random rand, int profundidad, Arbol padre, int prof_generar)
 	{
-		if(prof_generar <= profundidad)			//Si se ha llegado a la profundidad establecida se pasa a metodo Full
-			return generarFull(rand, profundidad, padre);
-		
-		//Se elige uno aleatorio entre todos lo elementos
-		else if(rand.nextDouble() <= 0.4)	//Hay 4 nodos y 6 hojas, de ahi la probabilidad
-			return Nodo.generar(rand, profundidad - 1, padre, prof_generar);
-		else
+		if(profundidad == 1)
 			return Hoja.generar(rand, profundidad - 1, padre);
+		
+		if(prof_generar < profundidad)			//Si se ha llegado a la profundidad establecida se pasa a metodo Full
+			 Nodo.generar(rand, profundidad - 1, padre, prof_generar, 1);
+
+		//Se elige uno aleatorio entre todos lo elementos
+		if(rand.nextDouble() <= 0.4)	//Hay 4 nodos y 6 hojas, de ahi la probabilidad
+			return Nodo.generar(rand, profundidad - 1, padre, prof_generar, 1);
+		
+		return Hoja.generar(rand, profundidad - 1, padre);
 	}
 	
-	public static Arbol generarFull(Random rand, int profundidad, Arbol padre)
+	public static Arbol generarFull(Random rand, int profundidad, Arbol padre, int prof_generar)
 	{
 		if(profundidad == 1)
 			return Hoja.generar(rand, profundidad - 1, padre);
+		
+		if(prof_generar < profundidad)
+			return Nodo.generar(rand, profundidad - 1, padre, 1, 0);
 		else
-			return Nodo.generar(rand, profundidad - 1, padre, 1);
+			return Hoja.generar(rand, profundidad - 1, padre);
 	}
 	
 	public abstract String toString();

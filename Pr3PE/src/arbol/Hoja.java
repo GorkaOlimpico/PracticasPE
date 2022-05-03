@@ -13,15 +13,15 @@ public abstract class Hoja extends Arbol {
 	public static Arbol generar(Random rand, int profundidad, Arbol padre)
 	{
 		double prob = rand.nextDouble();
-		if(prob < 1/6)
+		if(prob < 1.0/6.0)
 			return new HojaA0(profundidad, padre, rand);
-		if(prob < 2/6)
+		if(prob < 2.0/6.0)
 			return new HojaA1(profundidad, padre, rand);
-		if(prob < 3/6)
+		if(prob < 3.0/6.0)
 			return new HojaD0(profundidad, padre, rand);
-		if(prob < 4/6)
+		if(prob < 4.0/6.0)
 			return new HojaD1(profundidad, padre, rand);
-		if(prob < 5/6)
+		if(prob < 5.0/6.0)
 			return new HojaD2(profundidad, padre, rand);
 		return new HojaD3(profundidad, padre, rand);
 	}
