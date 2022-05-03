@@ -6,7 +6,6 @@ import java.util.Random;
 
 import algoritmoGenetico.cruce.Cruce;
 import algoritmoGenetico.mutacion.Mutacion;
-import arbol.Nodo;
 import arbol.Arbol;
 
 public class IndividuoPG extends Individuo{
@@ -27,7 +26,7 @@ public class IndividuoPG extends Individuo{
 			genes = Arbol.generarFull(rand, profundidad, null, prof_generar, m6);						//Full inicialization
 		if(tipo_generacion == 1)
 			genes = Arbol.generarGrow(rand, profundidad, null, prof_generar, m6);		//Grow inicialization (prof_generar tiene que ser > 1)
-		super.recalcularFenotipo();
+		recalcularFenotipo();
 	}
 	
 	@Override
@@ -106,7 +105,7 @@ public class IndividuoPG extends Individuo{
 						System.out.println(i + "\n" + ind[i].solutionToString() + "\n");
 					}
 				}
-				else				//Grow or Full inicialization
+				else												//Grow or Full inicialization
 				{
 					if(tipo_generacion == "Full")
 					{

@@ -135,11 +135,10 @@ public abstract class Arbol {
 		if(profundidad == 1)
 			return Hoja.generar(rand, profundidad - 1, padre, m6);
 		
-		if(prof_generar < profundidad)			//Si se ha llegado a la profundidad establecida se pasa a metodo Full
-			 Nodo.generar(rand, profundidad - 1, padre, prof_generar, 1, m6);
-
-		//Se elige uno aleatorio entre todos lo elementos
-		if(rand.nextDouble() <= 0.4)	//Hay 4 nodos y 6 hojas, de ahi la probabilidad
+		if(prof_generar < profundidad)						//Si si no se ha llegado a la profundidad establecida se pasa usa el metodo Full
+			 return Nodo.generar(rand, profundidad - 1, padre, prof_generar, 1, m6);
+				
+		if(rand.nextDouble() < 0.5)							//Se elige uno aleatorio entre todos lo elementos
 			return Nodo.generar(rand, profundidad - 1, padre, prof_generar, 1, m6);
 		
 		return Hoja.generar(rand, profundidad - 1, padre, m6);

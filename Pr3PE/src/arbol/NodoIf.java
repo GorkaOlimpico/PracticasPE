@@ -15,15 +15,15 @@ public class NodoIf extends Nodo {
 	{
 		if(tipo_generacion == 0)
 		{
-			hijos.add(Arbol.generarFull(rand, profundidad - 1, this, prof_generar, m6));
-			hijos.add(Arbol.generarFull(rand, profundidad - 1, this, prof_generar, m6));
-			hijos.add(Arbol.generarFull(rand, profundidad - 1, this, prof_generar, m6));
+			hijos.add(Arbol.generarFull(rand, profundidad, this, prof_generar, m6));
+			hijos.add(Arbol.generarFull(rand, profundidad, this, prof_generar, m6));
+			hijos.add(Arbol.generarFull(rand, profundidad, this, prof_generar, m6));
 		}
 		else
 		{
-			hijos.add(Arbol.generarGrow(rand, profundidad - 1, this, prof_generar, m6));
-			hijos.add(Arbol.generarGrow(rand, profundidad - 1, this, prof_generar, m6));
-			hijos.add(Arbol.generarGrow(rand, profundidad - 1, this, prof_generar, m6));
+			hijos.add(Arbol.generarGrow(rand, profundidad, this, prof_generar, m6));
+			hijos.add(Arbol.generarGrow(rand, profundidad, this, prof_generar, m6));
+			hijos.add(Arbol.generarGrow(rand, profundidad, this, prof_generar, m6));
 		}
 	}
 	
@@ -46,6 +46,7 @@ public class NodoIf extends Nodo {
 		for(int i = 0; i < hijos.size(); i++)
 			n.getHijos().get(i).cambiarNodo(hijos.get(i).clonar(n));
 		n.setProfundidad(profundidad);
+		n.actualizarProfundidadHijos();
 		return n;
 	}
 }

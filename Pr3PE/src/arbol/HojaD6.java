@@ -21,6 +21,6 @@ public class HojaD6 extends Hoja {
 
 	@Override
 	public Arbol clonar(Arbol padre) {
-		return new HojaD3(profundidad, padre, new Random(), m6);
+		return new HojaD6(profundidad, padre, new Random(), m6);
 	}
 }
