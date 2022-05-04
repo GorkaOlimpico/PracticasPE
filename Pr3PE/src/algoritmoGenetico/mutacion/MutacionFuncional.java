@@ -22,7 +22,7 @@ public class MutacionFuncional extends Mutacion {
 		return null;
 	}
 
-	protected void mutarIndividuo(Individuo ind) {
+	protected void mutarIndividuo(Individuo ind) {		//Cambia un nodo por otro con el mismo numero de hijos, manteniendo los hijos originales
 		Arbol a = (Arbol) ind.getGenes();
 		
 		Random rand = new Random();

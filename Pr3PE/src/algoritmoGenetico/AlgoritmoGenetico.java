@@ -62,7 +62,8 @@ public class AlgoritmoGenetico {
 	
 		
 		// Inicializo elMejor con el primer individuo de la poblacion
-		poblacion = creaPoblacion(problema, tam_pob);		
+		poblacion = creaPoblacion(problema, tam_pob);	
+		poblacion[0].bloating(poblacion);
 		ordenarPoblacion();
 		elMejor = creaPoblacion(problema,(int) 1)[0];
 		elMejor.copiarIndividuo(poblacion[0]);
@@ -72,12 +73,13 @@ public class AlgoritmoGenetico {
 		mediaGeneracion = new double[num_max_gen + 1];
 		// 1. Evaluar p(t)
 		// 		Guarda el mejor Individuo, mejoresGlobales, mejoresGeneracion, mediaGeneracion
-		poblacion[0].bloating(poblacion);
+
 		evaluarPoblacion();
 		
 		
 		Individuo[] elites = creaPoblacion(problema, (int) (tam_pob * elite / 100));
 		Individuo[] poblacionAux = creaPoblacion(problema, tam_pob);
+		
 		// 2. While (no ha llegado al numero máximo de generaciones
 		//				&& no se ha cumplido la condición de terminar){
 		
@@ -91,15 +93,16 @@ public class AlgoritmoGenetico {
 			
 			sacarElites(elites);
 			
-			//System.out.println("Seleccion");
+			System.out.println("Seleccion");
 			seleccion.select(poblacion, poblacionAux);
-			//System.out.println("Cruce");
+
+			System.out.println("Cruce");
 			cruce.cruzar(poblacion, prob_cruce / 100);
-			//System.out.println("Mutacion");
+			
+			System.out.println("Mutacion");
 			mutacion.mutar(poblacion, prob_mutacion / 100);
 
-			//System.out.println("Bloating"); 			
-
+			System.out.println("Bloating"); 			
 			poblacion[0].bloating(poblacion);
 			
 			ordenarPoblacion();

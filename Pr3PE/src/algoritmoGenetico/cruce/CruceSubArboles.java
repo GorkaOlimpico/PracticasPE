@@ -8,7 +8,6 @@ import individuos.Individuo;
 
 public class CruceSubArboles extends Cruce {
 	private final String type = "Sub-Arboles";
-	private final double prob = 0.5;
 	
 	public CruceSubArboles()
 	{
@@ -23,7 +22,10 @@ public class CruceSubArboles extends Cruce {
 	}
 
 	@Override
-	protected void cruzarIndividuos(Individuo i1, Individuo i2) {
+	protected void cruzarIndividuos(Individuo i1, Individuo i2) {		
+		//Intercambia dos subarboles manteniendo el limite de profundidad de cada arbol, al ambos arboles tener el mismo limite de profundidad 
+		//siempre habra algun subarbol compatible
+		
 		Arbol a1 = (Arbol) i1.getGenes();
 		Arbol a2 = (Arbol) i2.getGenes();
 		Arbol aux = a1;

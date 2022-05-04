@@ -42,7 +42,8 @@ public abstract class Seleccion implements Cloneable{
 	public void select(Individuo[] ind, Individuo[] aux)
 	{
 		seleccionar(ind, aux);
-		ind = aux;
+		for(int i = 0; i < ind.length; i++)
+			ind[i].copiarIndividuo(aux[i]);
 	}
 	
 	protected abstract void seleccionar(Individuo[] ind, Individuo[] aux);

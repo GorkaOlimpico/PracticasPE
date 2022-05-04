@@ -53,8 +53,14 @@ public class IndividuoPG extends Individuo{
 				if(c == solucionar11(combinaciones.get(i)))
 					suma++;
 		}
-		//return suma + (k_bloating * arbol.getTamSubArbol());				//Usamos el metodo de bloating: "Penalización bien fundamentada"
 		return suma;
+	}
+	
+	@Override
+	public void recalcularFenotipo() {
+		valor = getValor();	
+		Arbol a = (Arbol) genes;
+		valor = valor + (k_bloating * a.getTamSubArbol());				//Usamos el metodo de bloating: "Penalización bien fundamentada"
 	}
 
 	@Override
@@ -130,7 +136,7 @@ public class IndividuoPG extends Individuo{
 
 	@Override
 	public String solutionToString() {
-		String s = "El valor de la funcion es: " + super.getFitness() + "\n";
+		String s = "El valor de la funcion es: " + getValor() + "\n";		//Durante el proceso se usa el metodo de bloating, para la solucion no
 		s += "Solucion: " + genToString();
 		return s;
 	}

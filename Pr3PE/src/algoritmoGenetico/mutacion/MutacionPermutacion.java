@@ -21,7 +21,7 @@ public class MutacionPermutacion extends Mutacion {
 		return null;
 	}
 
-	protected void mutarIndividuo(Individuo ind) {
+	protected void mutarIndividuo(Individuo ind) {			//Cambia el orden de los hijos de un nodo
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
 

@@ -11,11 +11,11 @@ public abstract class Nodo extends Arbol {
 	public static Arbol generar(Random rand, int profundidad, Arbol padre, int prof_generar, int tipo_generacion, boolean m6)
 	{
 		double prob = rand.nextDouble();
-		if(prob < 0.25)
+		if(prob < 1.0 / 4.0)
 			return new NodoIf(profundidad, padre, rand, prof_generar, tipo_generacion, m6);
-		if(prob < 0.5)
+		if(prob < 2.0 / 4.0)
 			return new NodoAnd(profundidad, padre, rand, prof_generar, tipo_generacion, m6);
-		if(prob < 0.75)
+		if(prob < 3.0 / 4.0)
 			return new NodoNot(profundidad, padre, rand, prof_generar, tipo_generacion, m6);
 		return new NodoOr(profundidad, padre, rand, prof_generar, tipo_generacion, m6);
 	}

@@ -21,7 +21,7 @@ public class MutacionHoist extends Mutacion {
 		return null;
 	}
 
-	protected void mutarIndividuo(Individuo ind) {
+	protected void mutarIndividuo(Individuo ind) {		//Convierte a un subarbol en la raiz
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
 

@@ -21,7 +21,7 @@ public class MutacionArbol extends Mutacion {
 		return null;
 	}
 
-	protected void mutarIndividuo(Individuo ind) {
+	protected void mutarIndividuo(Individuo ind) {		//Regenera un subarbol
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
 		
@@ -38,7 +38,7 @@ public class MutacionArbol extends Mutacion {
 				aux = seleccionar(a, ((double) a.getAlturaSubArbol()) / a.getTamSubArbol(), rand);
 			}while(aux == null || aux == a);
 			
-			aux.getPadre().getHijos().set(aux.getPadre().getHijos().indexOf(aux), Arbol.generarGrow(rand, aux.getProfundidad(), aux.getPadre(), 1, aux.getM6()));
+			aux.cambiarNodo(Arbol.generarGrow(rand, aux.getProfundidad(), aux.getPadre(), 1, aux.getM6()));
 		}
 	}
 

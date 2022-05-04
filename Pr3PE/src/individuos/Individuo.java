@@ -86,7 +86,7 @@ public abstract class Individuo {
 
 
 	public void recalcularFenotipo() {
-		valor = getValor();			
+		valor = getValor();	
 	}
 	
 	public abstract String genToString();

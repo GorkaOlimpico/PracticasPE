@@ -23,7 +23,7 @@ public class MutacionContraccion extends Mutacion {
 	}
 
 	@Override
-	protected void mutarIndividuo(Individuo ind) {
+	protected void mutarIndividuo(Individuo ind) {		//Convierte un nodo en una hoja
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
 		

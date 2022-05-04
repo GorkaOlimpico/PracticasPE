@@ -23,7 +23,7 @@ public class MutacionTerminal extends Mutacion {
 	}
 	
 	@Override
-	protected void mutarIndividuo(Individuo ind) {
+	protected void mutarIndividuo(Individuo ind) {		//Cambia una hoja por otra hoja
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
 		while(!seleccionar(a, ((double) a.getAlturaSubArbol()) / a.getTamSubArbol(), rand));
