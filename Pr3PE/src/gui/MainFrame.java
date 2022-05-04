@@ -381,7 +381,7 @@ public class MainFrame extends JFrame {
 		// falta comprobar que los datos introducidos son correctos
 	
 		// Inicializar individuo si hace falta
-		ind = new IndividuoGE();
+		//ind = new IndividuoGE();
 		//AG.setProblema(IndividuoPr2);
 		
 		AG.run();
