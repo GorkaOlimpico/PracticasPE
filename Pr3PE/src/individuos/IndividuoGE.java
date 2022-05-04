@@ -612,7 +612,13 @@ public class IndividuoGE extends Individuo {
 	@Override
 	public String solutionToString() {
 		String s = "El valor de la funcion es: " + super.getFitness() + "\n";
-		System.out.println("Individuo: "+ solucion);
+		
+		String total = "";
+		for(String str: solucion) {
+			total += str;
+		}
+		s += "	Individuo: "+ total;
+		//System.out.println("Individuo: "+ solucion);
 		return s;
 	}
 	
