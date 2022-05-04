@@ -88,7 +88,7 @@ public class AlgoritmoGenetico {
 		while(generacionActual < num_max_gen) {
 			
 			generacionActual++;
-			muestraPoblacion();
+			//muestraPoblacion();
 			sacarElites(elites);
 			
 			//System.out.println("Seleccion");
@@ -100,9 +100,9 @@ public class AlgoritmoGenetico {
 			poblacion = poblacionAux;
 			//muestraPoblacion();
 			//System.out.println("Cruce");
-		//	muestraPoblacion();
+		
 			cruce.cruzar(poblacion, prob_cruce / 100);
-		//	muestraPoblacion();
+			
 			//System.out.println("Mutacion");
 			mutacion.mutar(poblacion, prob_mutacion / 100);
 
@@ -113,7 +113,7 @@ public class AlgoritmoGenetico {
 			ordenarPoblacion();
 			
 			meterElites(elites);
-			muestraPoblacion();
+			//muestraPoblacion();
 			evaluarPoblacion();
 			
 		}
