@@ -59,4 +59,7 @@ public class MutacionArbol extends Mutacion {
 		}
 		return null;
 	}
+	public String toString() {
+		return super.getId();
+	}
 }

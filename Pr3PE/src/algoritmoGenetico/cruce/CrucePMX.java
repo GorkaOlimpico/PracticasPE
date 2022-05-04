@@ -159,6 +159,7 @@ public class CrucePMX extends Cruce {
 		
 		return pos;
 	}
+	
 	public String toString() {
 		return super.getId();
 	}
