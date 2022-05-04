@@ -35,11 +35,11 @@ public class NodoNot extends Nodo {
 	
 	@Override
 	public Arbol clonar(Arbol padre) {
-		Nodo n = new NodoNot(2, padre, rand, 1, 1, m6);
+		Nodo n = new NodoNot(profundidad, padre, rand, 1, 1, m6);
+		n.setAlturaSubArbol(niveles_hijos);
+		n.setTamSubArbol(tam_subarbol);
 		for(int i = 0; i < hijos.size(); i++)
-			n.getHijos().get(i).cambiarNodo(hijos.get(i).clonar(n));
-		n.setProfundidad(profundidad);
-		n.actualizarProfundidadHijos();
+			n.getHijos().set(i, hijos.get(i).clonar(n));
 		return n;
 	}
 }

@@ -144,6 +144,11 @@ public class IndividuoPG extends Individuo{
 	public void copiarIndividuo(Individuo ind) {
 		Arbol a = (Arbol) ind.getGenes();
 		genes = a.clonar(null);
+		recalcularFenotipo();
+		if(ind.solutionToString() == solutionToString())
+			System.out.println("SI");
+		else
+			System.out.println("NO");
 	}
 	
 	@Override

@@ -87,9 +87,19 @@ public abstract class Arbol {
 		return niveles_hijos;
 	}
 	
+	public void setAlturaSubArbol(int n)
+	{
+		niveles_hijos = n;
+	}
+	
 	public int getTamSubArbol()
 	{
 		return tam_subarbol;
+	}
+	
+	protected void setTamSubArbol(int t)
+	{
+		tam_subarbol = t;
 	}
 	
 	public void intercambiarNodo(Arbol a)		//No pueden ser la raiz del arbol

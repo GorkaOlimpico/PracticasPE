@@ -45,21 +45,17 @@ public class CruceSubArboles extends Cruce {
 		if(posible)
 		{
 			//Seleccion subarboles
-			System.out.println("a1: " + a1.getProfundidad() + " " + a1.toString());
 			do																				//Se selecciona un subarbol de i1
 			{
 				aux = seleccionar(a1, 2.0 / a1.getTamSubArbol(), rand);
 			}while(aux == null || aux == a1);
 			a1 = aux;	
-			System.out.println("a1: " + aux.toString());
-			
-			System.out.println("a2: " + a2.getProfundidad() + " " + a2.toString());
+
 			do 																				//Se selecciona un subarbol de i2 que se pueda intercambiar con la limitacion de tamaño		
 			{ 																																
 				aux = explorarArbol(a2, a1.getProfundidad()/*profundidad de a1*/, a1.getAlturaSubArbol()/*altura maxima de los hijos de a1*/, rand, 1.0 / a2.getTamSubArbol());
 			}while(aux == null || aux == a2);	
 			a2 = aux;
-			System.out.println("a2: " + aux.toString());
 			
 			//Intercambio subarboles
 			a1.intercambiarNodo(a2);
