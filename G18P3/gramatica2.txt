@@ -1,0 +1,2 @@
+S ::= <expr>
+<expr> ::= AND ( <expr> ) ( <expr> ) | OR ( <expr> ) ( <expr> ) | NOT ( <expr> ) | IF ( <expr> ) ( <expr> ) ( <expr> ) | A0 | A1 | A2 | D0 | D1 | D2 | D3 | D4 | D5 | D6 | D7 

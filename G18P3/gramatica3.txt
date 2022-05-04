@@ -1,0 +1,5 @@
+S ::= <expr>
+<expr> ::= <op> ( <expr> ) ( <expr> ) | <pre-operation> | <var>
+<op> ::= AND | OR
+<pre-operation> ::= NOT ( <expr> ) | IF ( <expr> ) ( <expr> ) ( <expr> )
+<var> ::= A0 | A1 | D0 | D1 | D2 | D3
