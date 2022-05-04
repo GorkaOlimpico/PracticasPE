@@ -12,7 +12,7 @@ public abstract class Cruce implements Cloneable{
 	public Cruce() {}
 	
 	private static Cruce[] crucesPr2= {
-			new CrucePMX(),
+			//new CrucePMX(),
 			new CruceOX(),
 			new CruceOXPP(),
 			//new CruceCX(),
