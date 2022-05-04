@@ -69,4 +69,7 @@ public class MutacionPermutacion extends Mutacion {
 		return null;
 	}
 
+	public String toString() {
+		return super.getId();
+	}
 }

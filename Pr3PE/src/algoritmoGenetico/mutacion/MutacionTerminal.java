@@ -46,4 +46,7 @@ public class MutacionTerminal extends Mutacion {
 					return true;
 		return false;
 	}
+	public String toString() {
+		return super.getId();
+	}
 }

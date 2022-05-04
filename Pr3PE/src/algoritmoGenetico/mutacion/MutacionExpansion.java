@@ -48,4 +48,7 @@ public class MutacionExpansion extends Mutacion {
 		}
 		return false;
 	}
+	public String toString() {
+		return super.getId();
+	}
 }

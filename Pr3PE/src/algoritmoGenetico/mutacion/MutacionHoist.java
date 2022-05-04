@@ -66,4 +66,7 @@ public class MutacionHoist extends Mutacion {
 		return null;
 	}
 
+	public String toString() {
+		return super.getId();
+	}
 }

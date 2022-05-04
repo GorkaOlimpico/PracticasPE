@@ -101,4 +101,8 @@ public class CruceSubArboles extends Cruce {
 		}
 		return null;
 	}
+	
+	public String toString() {
+		return super.getId();
+	}
 }

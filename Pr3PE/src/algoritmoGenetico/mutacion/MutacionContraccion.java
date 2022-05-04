@@ -52,4 +52,7 @@ public class MutacionContraccion extends Mutacion {
 		}
 		return false;
 	}
+	public String toString() {
+		return super.getId();
+	}
 }
