@@ -126,18 +126,18 @@ public class MainFrame extends JFrame {
 		JLabel gra = new JLabel("Archivo gramática: ");
 		gramatica = new JTextField();
 		gramatica.setPreferredSize(new Dimension(100,25));
-		gramatica.setText("gramatica2.txt");
+		gramatica.setText("gramatica1.txt");
 
 		
 		JLabel wra = new JLabel("Número de wraps: ");
 		wraps = new JTextField();
 		wraps.setPreferredSize(new Dimension(100,25));
-		wraps.setText("2");
+		wraps.setText("3");
 		
 		JLabel lon = new JLabel("Longitud cromosoma: ");
 		longitud = new JTextField();
 		longitud.setPreferredSize(new Dimension(100,25));
-		longitud.setText("12");
+		longitud.setText("15");
 		
 		
 		panelSuperior.add(gra);

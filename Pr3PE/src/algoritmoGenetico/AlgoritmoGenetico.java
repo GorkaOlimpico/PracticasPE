@@ -77,7 +77,7 @@ public class AlgoritmoGenetico {
 		
 		
 		Individuo[] elites = creaPoblacion(problema, (int) (tam_pob * elite / 100));
-		Individuo[] poblacionAux = creaPoblacion(problema, tam_pob);
+		
 		// 2. While (no ha llegado al numero máximo de generaciones
 		//				&& no se ha cumplido la condición de terminar){
 		
@@ -88,13 +88,21 @@ public class AlgoritmoGenetico {
 		while(generacionActual < num_max_gen) {
 			
 			generacionActual++;
-			
+			muestraPoblacion();
 			sacarElites(elites);
 			
 			//System.out.println("Seleccion");
+			//muestraPoblacion();
+			Individuo[] poblacionAux = creaPoblacion(problema, tam_pob);
+			//muestraPoblacionAux(poblacionAux);
 			seleccion.select(poblacion, poblacionAux);
+			//muestraPoblacionAux(poblacionAux);
+			poblacion = poblacionAux;
+			//muestraPoblacion();
 			//System.out.println("Cruce");
+		//	muestraPoblacion();
 			cruce.cruzar(poblacion, prob_cruce / 100);
+		//	muestraPoblacion();
 			//System.out.println("Mutacion");
 			mutacion.mutar(poblacion, prob_mutacion / 100);
 
@@ -105,7 +113,7 @@ public class AlgoritmoGenetico {
 			ordenarPoblacion();
 			
 			meterElites(elites);
-			
+			muestraPoblacion();
 			evaluarPoblacion();
 			
 		}
@@ -282,6 +290,14 @@ public class AlgoritmoGenetico {
 	}
 	
 	public void muestraPoblacion() {
+		int j = 0;
+		for(Individuo i : poblacion) {
+			j++;
+			System.out.println("Individuo "+ j +":" + i.getSolucion());
+		}
+	}
+	
+	public void muestraPoblacionAux(Individuo[] poblacion) {
 		int j = 0;
 		for(Individuo i : poblacion) {
 			j++;
