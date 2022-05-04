@@ -53,7 +53,8 @@ public class IndividuoPG extends Individuo{
 				if(c == solucionar11(combinaciones.get(i)))
 					suma++;
 		}
-		return suma + (k_bloating * arbol.getTamSubArbol());				//Usamos el metodo de bloating: "Penalización bien fundamentada"
+		//return suma + (k_bloating * arbol.getTamSubArbol());				//Usamos el metodo de bloating: "Penalización bien fundamentada"
+		return suma;
 	}
 
 	@Override
@@ -144,11 +145,8 @@ public class IndividuoPG extends Individuo{
 	public void copiarIndividuo(Individuo ind) {
 		Arbol a = (Arbol) ind.getGenes();
 		genes = a.clonar(null);
+		setBloating(ind.getBloating());
 		recalcularFenotipo();
-		if(ind.solutionToString() == solutionToString())
-			System.out.println("SI");
-		else
-			System.out.println("NO");
 	}
 	
 	@Override
@@ -168,7 +166,7 @@ public class IndividuoPG extends Individuo{
 			
 			aux = (Arbol) i.getGenes();
 			x = aux.getTamSubArbol();
-			tam.add(aux.getTamSubArbol());
+			tam.add((int) x);
 			mediat += x;
 		}
 		mediaf = mediaf / n;
@@ -179,10 +177,10 @@ public class IndividuoPG extends Individuo{
 		for(int i = 0 ; i < n; i++)			
 		{
 			double rango;
-			rango = Math.pow(tam.get(i) - mediaf, 2);						//Se calcula la varianza
+			rango = Math.pow(tam.get(i) - mediat, 2);						//Se calcula la varianza (del tamaño)
 			var = var + rango;
 			
-			rango = (fitness.get(i) - mediaf) * (tam.get(i) - mediat);		//Se calcula la covarianza
+			rango = (fitness.get(i) - mediaf) * (tam.get(i) - mediat);		//Se calcula la covarianza	(tamaño y fitness)
 			covar = covar + rango;
 		}
 		var = var / n;
@@ -196,6 +194,12 @@ public class IndividuoPG extends Individuo{
 	@Override
 	public void setBloating(double k){
 		k_bloating = k;
+		recalcularFenotipo();
+	}
+	
+	@Override
+	public double getBloating(){
+		return k_bloating;
 	}
 
 	@Override

@@ -193,5 +193,7 @@ public abstract class Individuo {
 
 	public void setBloating(double k) {}
 
+	public double getBloating(){return 0;}
+	
 	public abstract List<String> getSolucion();
 }

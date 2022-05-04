@@ -8,7 +8,7 @@ public class NodoIf extends Nodo {
 	public NodoIf(int profundidad, Arbol padre, Random rand, int prof_generar, int tipo_generacion, boolean m6) {
 		super(profundidad, padre, rand, m6);
 		inicializar(prof_generar, tipo_generacion);
-		if(padre != null) padre.sumarTamHijo(this);
+		if(padre != null) padre.actualizarPadre(this);
 	}
 
 	private void inicializar(int prof_generar, int tipo_generacion)
@@ -42,11 +42,12 @@ public class NodoIf extends Nodo {
 	
 	@Override
 	public Arbol clonar(Arbol padre) {
-		Nodo n = new NodoIf(profundidad, padre, rand, 1, 1, m6);
-		n.setAlturaSubArbol(niveles_hijos);
-		n.setTamSubArbol(tam_subarbol);
+		Nodo n = new NodoIf(2, padre, rand, 1, 1, m6);
 		for(int i = 0; i < hijos.size(); i++)
 			n.getHijos().set(i, hijos.get(i).clonar(n));
+		n.setProfundidad(profundidad);
+		n.setAlturaSubArbol(niveles_hijos);
+		n.setTamSubArbol(tam_subarbol);
 		return n;
 	}
 }

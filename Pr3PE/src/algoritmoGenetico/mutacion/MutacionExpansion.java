@@ -26,7 +26,7 @@ public class MutacionExpansion extends Mutacion {
 	protected void mutarIndividuo(Individuo ind) {
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
-		while(!seleccionar(a, 2.0 / a.getTamSubArbol(), rand));
+		while(!seleccionar(a, ((double) a.getAlturaSubArbol()) / a.getTamSubArbol(), rand));
 	}
 	
 	private boolean seleccionar(Arbol a, double prob, Random rand)

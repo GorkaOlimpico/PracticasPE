@@ -33,7 +33,7 @@ public class MutacionContraccion extends Mutacion {
 				posible = true;
 		
 		if(posible)
-			while(!seleccionar(a, 2.0 / a.getTamSubArbol(), rand));
+			while(!seleccionar(a, ((double) a.getAlturaSubArbol()) / a.getTamSubArbol(), rand));
 	}
 	
 	private boolean seleccionar(Arbol a, double prob, Random rand)

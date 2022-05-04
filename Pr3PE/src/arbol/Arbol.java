@@ -18,21 +18,27 @@ public abstract class Arbol {
 		this.profundidad = profundidad;
 		hijos = new ArrayList<>();
 		this.padre = padre;
-		tam_subarbol = 1;
+		tam_subarbol = 1;	//This incluido
 		this.rand = rand;
 		niveles_hijos = 0;	//This no esta incluido
 		this.m6 = m6;
 	}
 	
-	public void sumarTamHijo(Arbol a)
+	protected void sumarTamHijo(Arbol a)
 	{
-		tam_subarbol += a.getTamSubArbol();
-		actualizarAlturaSubarbol(a.getAlturaSubArbol());
+		actualizarPadre(a);
 		if(padre != null)
 			padre.sumarTamHijo(this);
 	}
 	
-	public void restarTamHijo(Arbol a)
+	protected void actualizarPadre(Arbol a)
+	{
+		tam_subarbol += a.getTamSubArbol();
+		if(niveles_hijos <= a.getAlturaSubArbol())
+			niveles_hijos = a.getAlturaSubArbol() + 1;
+	}
+	
+	protected void restarTamHijo(Arbol a)
 	{
 		if(padre != null)
 			padre.restarTamHijo(this);
@@ -76,18 +82,13 @@ public abstract class Arbol {
 			a.setProfundidad(profundidad - 1);
 	}
 
-	protected void actualizarAlturaSubarbol(int p)			//Compara la profundidad dada con niveles_hijos y guarda la mayor
-	{
-		if(niveles_hijos <= p)
-			niveles_hijos = p + 1;
-	}
 	
 	public int getAlturaSubArbol()
 	{
 		return niveles_hijos;
 	}
 	
-	public void setAlturaSubArbol(int n)
+	protected void setAlturaSubArbol(int n)
 	{
 		niveles_hijos = n;
 	}

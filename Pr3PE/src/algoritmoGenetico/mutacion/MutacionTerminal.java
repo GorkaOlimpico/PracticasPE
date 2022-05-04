@@ -26,7 +26,7 @@ public class MutacionTerminal extends Mutacion {
 	protected void mutarIndividuo(Individuo ind) {
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
-		while(!seleccionar(a, 2.0 / a.getTamSubArbol(), rand));
+		while(!seleccionar(a, ((double) a.getAlturaSubArbol()) / a.getTamSubArbol(), rand));
 	}
 
 	private boolean seleccionar(Arbol a, double prob, Random rand)
@@ -36,7 +36,7 @@ public class MutacionTerminal extends Mutacion {
 		{
 			if(rand.nextDouble() < prob)
 			{
-				a.getPadre().getHijos().set(a.getPadre().getHijos().indexOf(a), Hoja.generar(rand, a.getProfundidad(), a.getPadre(), a.getM6()));
+				a.cambiarNodo(Hoja.generar(rand, a.getProfundidad(), a.getPadre(), a.getM6()));
 				return true;
 			}
 		}

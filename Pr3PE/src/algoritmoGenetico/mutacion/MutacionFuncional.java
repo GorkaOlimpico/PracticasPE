@@ -37,7 +37,7 @@ public class MutacionFuncional extends Mutacion {
 			Arbol aux;
 			do																				
 			{
-				aux = seleccionar(a, 2.0 / a.getTamSubArbol(), rand);
+				aux = seleccionar(a, ((double) a.getAlturaSubArbol()) / a.getTamSubArbol(), rand);
 			}while(aux == null || aux == a);
 			if(aux != null)
 			{

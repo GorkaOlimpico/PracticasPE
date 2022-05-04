@@ -91,11 +91,11 @@ public class AlgoritmoGenetico {
 			
 			sacarElites(elites);
 			
-
+			System.out.println("Seleccion");
 			seleccion.select(poblacion, poblacionAux);
-
+			System.out.println("Cruce");
 			cruce.cruzar(poblacion, prob_cruce / 100);
-
+			System.out.println("Mutacion");
 			mutacion.mutar(poblacion, prob_mutacion / 100);
 			
 			poblacion[0].bloating(poblacion);
