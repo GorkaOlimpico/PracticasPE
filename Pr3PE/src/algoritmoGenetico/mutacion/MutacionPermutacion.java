@@ -24,26 +24,21 @@ public class MutacionPermutacion extends Mutacion {
 	protected void mutarIndividuo(Individuo ind) {			//Cambia el orden de los hijos de un nodo
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
-
-		boolean posible = false;
-		for(Arbol ar: a.getHijos())
-			if(ar.getHijos().size() > 0)
-				posible = true;
 		
-		if(posible)
+		if(a.getAlturaSubArbol() > 0)
 		{
+			double prob = ((double) a.getAlturaSubArbol()) / a.getTamSubArbol();
+			if(prob >= 1 || prob <= 0)
+				prob = 0.5;
 			Arbol aux;
 			do																				
 			{
-				aux = seleccionar(a, ((double) a.getAlturaSubArbol()) / a.getTamSubArbol(), rand);
-			}while(aux == null || aux == a);
+				aux = seleccionar(a, prob, rand);
+			}while(aux == null);
 			
-			if(aux != null && aux != a)
+			for(int i = 0; i < aux.getHijos().size() - 1; i++)
 			{
-				for(int i = 0; i < aux.getHijos().size() - 1; i++)
-				{
-					aux.getHijos().get(i).intercambiarNodo(aux.getHijos().get(i + 1));
-				}
+				aux.getHijos().get(i).intercambiarNodo(aux.getHijos().get(i + 1));
 			}
 		}
 	}

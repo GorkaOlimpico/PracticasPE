@@ -60,7 +60,8 @@ public class IndividuoPG extends Individuo{
 	public void recalcularFenotipo() {
 		valor = getValor();	
 		Arbol a = (Arbol) genes;
-		valor = valor + (k_bloating * a.getTamSubArbol());				//Usamos el metodo de bloating: "Penalización bien fundamentada"
+		//TODO funciona mejor sin bloating (aunque las soluciones si que tienden a ser mas pequeñas)
+		//valor = valor + (k_bloating * a.getTamSubArbol());				//Usamos el metodo de bloating: "Penalización bien fundamentada"
 	}
 
 	@Override
@@ -93,24 +94,16 @@ public class IndividuoPG extends Individuo{
 				if(tipo_generacion == "Ramped-Half")				//Ramped and half inicialization
 				{
 					int aux = tam / (profundidad - 1);
-					for(int j = 2; j <= profundidad; j++)			//La profundidad de la hoja es 0 y la de la raiz profundidad - 1
+					for(int j = 2; j <= profundidad; j++)			//La profundidad de la hoja es 0 y la de la raiz: profundidad - 1
 					{
 						for(int i = 0; i < aux / 2; i++)
-						{
 							ind[i + (aux * (j - 2))] = new IndividuoPG(profundidad, 0, j, rand, m6);		//Mitad de Full
-							System.out.println((i + (aux * (j - 2))) + "\n" + ind[i + (aux * (j - 2))].solutionToString() + "\n");
-						}
+
 						for(int i = aux / 2; i < aux; i++)
-						{
 							ind[i + (aux * (j - 2))] = new IndividuoPG(profundidad, 1, j, rand, m6);		//Mitad de Grow
-							System.out.println((i + (aux * (j - 2))) + "\n" + ind[i + (aux * (j - 2))].solutionToString() + "\n");
-						}
 					}
 					for(int i = aux * (profundidad - 1); i < tam; i++)	//Si la division no es exacta se rellena con Grow
-					{
 						ind[i] = new IndividuoPG(profundidad, 1, profundidad - 1, rand, m6);		
-						System.out.println(i + "\n" + ind[i].solutionToString() + "\n");
-					}
 				}
 				else												//Grow or Full inicialization
 				{
@@ -156,7 +149,7 @@ public class IndividuoPG extends Individuo{
 	}
 	
 	@Override
-	public void bloating(Individuo[] poblacion){		//Usamos el metodo de bloating: "Penalización bien fundamentada"
+	public void bloating(Individuo[] poblacion){		//Usamos el metodo de bloating: "Penalización bien fundamentada"	//TODO solucionar
 		double k = 0;
 		List<Double> fitness = new ArrayList<>();
 		double mediaf = 0, mediat = 0;
@@ -171,9 +164,10 @@ public class IndividuoPG extends Individuo{
 			mediaf += x;
 			
 			aux = (Arbol) i.getGenes();
-			x = aux.getTamSubArbol();
-			tam.add((int) x);
-			mediat += x;
+			int y = aux.getTamSubArbol();
+			tam.add(y);
+			mediat += y;
+			System.out.println(i.solutionToString() + "\n" + "Fitness: " + x + ", tam: " + y);
 		}
 		mediaf = mediaf / n;
 		mediat = mediat / n;
@@ -192,7 +186,10 @@ public class IndividuoPG extends Individuo{
 		var = var / n;
 		covar = covar / n;
 		
-		k = covar / var;
+		k = - covar / var;		//Sin el menos, el fitness no para de crecer, llegando a incluso 200 al final de la ejecucion, siendo su 
+								//numero de aciertos inferior a 60 en la mayoria de los casos y las soluciones mas grandes 
+		System.out.println("Var: " + var + ", Covar: " + covar + ", bloating: " + k);
+		
 		for(Individuo i: poblacion)
 			i.setBloating(k);
 	}

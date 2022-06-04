@@ -28,39 +28,42 @@ public class CruceSubArboles extends Cruce {
 		
 		Arbol a1 = (Arbol) i1.getGenes();
 		Arbol a2 = (Arbol) i2.getGenes();
-		Arbol aux = a1;
+		Arbol aux;
 		Random rand = new Random();
-		boolean posible = false;
 		
-		for(Arbol ar: a1.getHijos())
-			if(ar.getHijos().size() > 0)
-				posible = true;
-		
-		if(posible)
-		{
-			posible = false;
-			for(Arbol ar: a2.getHijos())
-				if(ar.getHijos().size() > 0)
-					posible = true;
-		}
-		
-		if(posible)
+		if(a1.getAlturaSubArbol() > 0 && a2.getAlturaSubArbol() > 0)
 		{
 			//Seleccion subarboles
+			double prob = ((double) a1.getAlturaSubArbol()) / a1.getTamSubArbol();
+			if(prob >= 1 || prob <= 0)
+				prob = 0.5;
+			System.out.println("a1: " + i1.solutionToString() + " " + prob);
 			do																				//Se selecciona un subarbol de i1
 			{
-				aux = seleccionar(a1, ((double) a1.getAlturaSubArbol()) / a1.getTamSubArbol(), rand);
+				aux = seleccionar(a1, prob, rand);
 			}while(aux == null || aux == a1);
 			a1 = aux;	
+			System.out.println("prof: " + aux.getProfundidad() + ", hijos: " + aux.getAlturaSubArbol());
 
+			System.out.println("a2: " + i2.solutionToString());
+			prob = ((double) a2.getAlturaSubArbol()) / a2.getTamSubArbol();
+			if(prob >= 1 || prob <= 0)
+				prob = 0.5;
+			int i = 0;
 			do 																				//Se selecciona un subarbol de i2 que se pueda intercambiar con la limitacion de tamaño		
-			{ 																																
-				aux = explorarArbol(a2, a1.getProfundidad()/*profundidad de a1*/, a1.getAlturaSubArbol()/*altura maxima de los hijos de a1*/, rand, ((double) a2.getAlturaSubArbol()) / a2.getTamSubArbol());
-			}while(aux == null || aux == a2);	
-			a2 = aux;
+			{ 				
+				aux = explorarArbol(a2, a1.getProfundidad()/*profundidad de a1*/, a1.getAlturaSubArbol()/*altura maxima de los hijos de a1*/, rand, prob);
+				if (aux == a2)
+					i++;
+			}while(aux == null || (aux == a2 && i < 3));	
 			
-			//Intercambio subarboles
-			a1.intercambiarNodo(a2);
+			if(aux != a2)
+			{
+				a2 = aux;
+				
+				//Intercambio subarboles
+				a1.intercambiarNodo(a2);
+			}
 		}
 	}
 	
@@ -71,7 +74,6 @@ public class CruceSubArboles extends Cruce {
 			return a;
 		if(hijos.size() > 0)
 		{
-			
 			Arbol aux;
 			for(Arbol ar: hijos)
 			{
@@ -88,7 +90,7 @@ public class CruceSubArboles extends Cruce {
 	{
 		Arbol aux;
 		//Si la altura de los hijos de 1 entra en 2 	Si la altura de los hijos de 2 entra en 1
-		if(c.getAlturaSubArbol() <= prof_raiz && c.getProfundidad() >= altura_hijos && rand.nextDouble() < prob)
+		if(c.getAlturaSubArbol() <= prof_raiz && altura_hijos <= c.getProfundidad() && rand.nextDouble() < prob)
 			return c;
 		
 		for(Arbol a: c.getHijos())

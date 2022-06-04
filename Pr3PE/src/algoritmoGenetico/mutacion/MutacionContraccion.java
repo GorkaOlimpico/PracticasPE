@@ -27,31 +27,41 @@ public class MutacionContraccion extends Mutacion {
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
 		
-		boolean posible = false;
-		for(Arbol ar: a.getHijos())
-			if(ar.getHijos().size() > 0)
-				posible = true;
-		
-		if(posible)
-			while(!seleccionar(a, ((double) a.getAlturaSubArbol()) / a.getTamSubArbol(), rand));
+		double prob = ((double) a.getAlturaSubArbol()) / a.getTamSubArbol();
+		if(prob >= 1 || prob <= 0)
+			prob = 0.5;
+		if(a.getAlturaSubArbol() > 1)
+		{
+			Arbol aux;
+			do {
+				aux = seleccionar(a, prob, rand);
+			}
+			while(aux == null || aux == a);
+			aux.cambiarNodo(Hoja.generar(rand, aux.getProfundidad(), aux.getPadre(), aux.getM6()));
+		}
 	}
 	
-	private boolean seleccionar(Arbol a, double prob, Random rand)
+	private Arbol seleccionar(Arbol a, double prob, Random rand)
 	{
 		List<Arbol> hijos = a.getHijos();
 		if(hijos.size() > 0)
 		{
 			if(rand.nextDouble() < prob)
+				return a;
+			else
 			{
-				a.cambiarNodo(Hoja.generar(rand, a.getProfundidad(), a.getPadre(), a.getM6()));
-				return true;
+				Arbol aux;
+				for(Arbol ar: hijos)
+				{
+					aux = seleccionar(ar, prob, rand);
+					if(aux != null)
+						return aux;
+				}
 			}
-			for(Arbol ar: hijos)
-				if(seleccionar(ar, prob, rand))
-					return true;
 		}
-		return false;
+		return null;
 	}
+	
 	public String toString() {
 		return super.getId();
 	}

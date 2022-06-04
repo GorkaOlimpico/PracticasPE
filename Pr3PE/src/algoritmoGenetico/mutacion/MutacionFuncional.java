@@ -26,30 +26,25 @@ public class MutacionFuncional extends Mutacion {
 		Arbol a = (Arbol) ind.getGenes();
 		
 		Random rand = new Random();
-		
-		boolean posible = false;
-		for(Arbol ar: a.getHijos())
-			if(ar.getHijos().size() > 0)
-				posible = true;
-		
-		if(posible)
+
+		if(a.getAlturaSubArbol() > 1)
 		{
+			
+			double prob = ((double) a.getAlturaSubArbol()) / a.getTamSubArbol();
+			if(prob >= 1 || prob <= 0)
+				prob = 0.5;
+			
 			Arbol aux;
 			do																				
 			{
-				aux = seleccionar(a, ((double) a.getAlturaSubArbol()) / a.getTamSubArbol(), rand);
+				aux = seleccionar(a, prob, rand);
 			}while(aux == null || aux == a);
-			if(aux != null)
-			{
-				Arbol n;
-				do {
-					n = Nodo.generar(rand, 2, aux.getPadre(), 1, 1, aux.getM6());
-				}while(n.getHijos().size() != aux.getHijos().size());
-				n.setProfundidad(aux.getProfundidad());
-				for(int i = 0; i < n.getHijos().size(); i++)				//Se sustituyen los hijos de el nuevo nodo por los originales
-					n.getHijos().get(i).cambiarNodo(aux.getHijos().get(i));
-				aux.cambiarNodo(n);											//Se sustituye el nuevo nodo
-			}
+			
+			Arbol n;
+			do {
+				n = Nodo.generar(rand, 2, null, 1, 1, aux.getM6());
+			}while(n.getHijos().size() != aux.getHijos().size());
+			aux.sustituirNodo(n);
 		}
 	}
 
@@ -73,6 +68,7 @@ public class MutacionFuncional extends Mutacion {
 		}
 		return null;
 	}
+	
 	public String toString() {
 		return super.getId();
 	}

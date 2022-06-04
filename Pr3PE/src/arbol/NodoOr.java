@@ -8,7 +8,7 @@ public class NodoOr extends Nodo {
 	public NodoOr(int profundidad, Arbol padre, Random rand, int prof_generar, int tipo_generacion, boolean m6) {
 		super(profundidad, padre, rand, m6);
 		inicializar(prof_generar, tipo_generacion);
-		if(padre != null) padre.actualizarPadre(this);
+		if(padre != null) padre.actualizarPadre(this, getTamSubArbol());
 	}
 
 	private void inicializar(int prof_generar, int tipo_generacion)

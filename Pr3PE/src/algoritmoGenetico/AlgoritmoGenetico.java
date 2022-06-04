@@ -95,13 +95,13 @@ public class AlgoritmoGenetico {
 			//muestraPoblacion();
 			sacarElites(elites);
 			
-			//System.out.println("Seleccion");
+			System.out.println("Seleccion");
 			seleccion.select(poblacion, poblacionAux);
 
-			//System.out.println("Cruce");
+			System.out.println("Cruce");
 			cruce.cruzar(poblacion, prob_cruce / 100);
 			
-			//System.out.println("Mutacion");
+			System.out.println("Mutacion");
 			mutacion.mutar(poblacion, prob_mutacion / 100);
 
 			//System.out.println("Bloating"); 			
@@ -259,7 +259,7 @@ public class AlgoritmoGenetico {
 		
 		for(Individuo ind:poblacion) 
 		{
-			fitness = ind.getFitness();
+			fitness = ind.getValor();
 			
 			media += fitness;
 			
@@ -269,20 +269,20 @@ public class AlgoritmoGenetico {
 		
 		if(elMejor.max())
 		{
-			if(elMejorGeneracion.getFitness() > elMejor.getFitness()) {
+			if(elMejorGeneracion.getValor() > elMejor.getValor()) {
 				elMejor = elMejorGeneracion;
 				//System.out.println("fenotipo 0: " + elMejor.fenotipo.get(0));
 				//System.out.println("fenotipo 1: " + elMejor.fenotipo.get(1));
 			}
 		}
-		else if(elMejorGeneracion.getFitness() <= elMejor.getFitness()) {
+		else if(elMejorGeneracion.getValor() <= elMejor.getValor()) {
 				elMejor = elMejorGeneracion;
 				//System.out.println("fenotipo 0: " + elMejor.fenotipo.get(0));
 				//System.out.println("fenotipo 1: " + elMejor.fenotipo.get(1));
 		}
 		
-		mejoresGlobales[generacionActual] = elMejor.getFitness();
-		mejoresGeneracion[generacionActual] = elMejorGeneracion.getFitness();
+		mejoresGlobales[generacionActual] = elMejor.getValor();
+		mejoresGeneracion[generacionActual] = elMejorGeneracion.getValor();
 		mediaGeneracion[generacionActual] = media;
 	}
 	

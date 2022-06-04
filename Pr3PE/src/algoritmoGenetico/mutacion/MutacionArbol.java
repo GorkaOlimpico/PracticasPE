@@ -25,20 +25,18 @@ public class MutacionArbol extends Mutacion {
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
 		
-		boolean posible = false;
-		for(Arbol ar: a.getHijos())
-			if(ar.getHijos().size() > 0)
-				posible = true;
-		
-		if(posible)
+		if(a.getAlturaSubArbol() > 0)
 		{
+			double prob = ((double) a.getAlturaSubArbol()) / a.getTamSubArbol();
+			if(prob >= 1 || prob <= 0)
+				prob = 0.5;
 			Arbol aux;
 			do																				
 			{
-				aux = seleccionar(a, ((double) a.getAlturaSubArbol()) / a.getTamSubArbol(), rand);
+				aux = seleccionar(a, prob, rand);
 			}while(aux == null || aux == a);
 			
-			aux.cambiarNodo(Arbol.generarGrow(rand, aux.getProfundidad(), aux.getPadre(), 1, aux.getM6()));
+			aux.cambiarNodo(Arbol.generarGrow(rand, aux.getProfundidad(), aux.getPadre(), aux.getProfundidad(), aux.getM6()));
 		}
 	}
 

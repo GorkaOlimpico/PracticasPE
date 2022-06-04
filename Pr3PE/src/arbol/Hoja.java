@@ -6,7 +6,7 @@ public abstract class Hoja extends Arbol {
 	
 	public Hoja(int profundidad, Arbol padre, Random rand, boolean m6) {
 		super(profundidad, padre, rand, m6);
-		if(padre != null) padre.actualizarPadre(this);
+		if(padre != null) padre.actualizarPadre(this, getTamSubArbol());
 	}
 	
 	public static Arbol generar(Random rand, int profundidad, Arbol padre, boolean m6)

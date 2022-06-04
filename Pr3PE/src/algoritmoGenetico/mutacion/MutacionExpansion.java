@@ -26,7 +26,10 @@ public class MutacionExpansion extends Mutacion {
 	protected void mutarIndividuo(Individuo ind) {	//Convierte una hoja en un nodo
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
-		while(!seleccionar(a, ((double) a.getAlturaSubArbol()) / a.getTamSubArbol(), rand));
+		double prob = ((double) a.getAlturaSubArbol()) / a.getTamSubArbol();
+		if(prob >= 1 || prob <= 0)
+			prob = 0.5;
+		while(!seleccionar(a, prob, rand));
 	}
 	
 	private boolean seleccionar(Arbol a, double prob, Random rand)
@@ -36,7 +39,7 @@ public class MutacionExpansion extends Mutacion {
 		{
 			if(rand.nextDouble() < prob)
 			{
-				a.cambiarNodo(Arbol.generarGrow(rand, a.getProfundidad(), a.getPadre(), 1, a.getM6()));
+				a.cambiarNodo(Arbol.generarGrow(rand, a.getProfundidad(), a.getPadre(), a.getProfundidad(), a.getM6()));
 				return true;
 			}
 		}

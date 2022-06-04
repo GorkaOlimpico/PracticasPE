@@ -24,18 +24,16 @@ public class MutacionHoist extends Mutacion {
 	protected void mutarIndividuo(Individuo ind) {		//Convierte a un subarbol en la raiz
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
-
-		boolean posible = false;
-		for(Arbol ar: a.getHijos())
-			if(ar.getHijos().size() > 0)
-				posible = true;
 		
-		if(posible)
+		if(a.getAlturaSubArbol() > 1)
 		{
+			double prob = ((double) a.getAlturaSubArbol()) / a.getTamSubArbol();
+			if(prob >= 1 || prob <= 0)
+				prob = 0.5;
 			Arbol aux;
 			do																				
 			{
-				aux = seleccionar(a, ((double) a.getAlturaSubArbol()) / a.getTamSubArbol(), rand);
+				aux = seleccionar(a, prob, rand);
 			}while(aux == null || aux == a);
 			
 			aux.setProfundidad(a.getProfundidad());

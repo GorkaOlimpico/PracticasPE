@@ -6,13 +6,13 @@ import java.util.Random;
 
 public abstract class Arbol {
 	protected int profundidad;			//Funciona a la inversa: la raiz tiene el valor maximo y decrece al descender
-	protected int niveles_hijos;		//Numero maximo de niveles por debajo (nodo incluido)
+	protected int niveles_hijos;		//Numero maximo de niveles por debajo (nodo no incluido)
 	protected Arbol padre;
 	protected List<Arbol> hijos;
 	protected int tam_subarbol;
 	Random rand;
-	boolean m6;
-	
+	boolean m6;							//m6 = true -> multiplexor 6 entradas
+										//m6 = false -> multiplexor 11 entradas
 	public Arbol(int profundidad, Arbol padre, Random rand, boolean m6)		
 	{
 		this.profundidad = profundidad;
@@ -24,29 +24,30 @@ public abstract class Arbol {
 		this.m6 = m6;
 	}
 	
-	protected void sumarTamHijo(Arbol a)
+	protected void sumarTamHijo(Arbol a, int tam_a)
 	{
-		actualizarPadre(a);
+		actualizarPadre(a, tam_a);
 		if(padre != null)
-			padre.sumarTamHijo(this);
+			padre.sumarTamHijo(this, tam_a);
 	}
 	
-	protected void actualizarPadre(Arbol a)
+	protected void actualizarPadre(Arbol a, int tam_a)
 	{
-		tam_subarbol += a.getTamSubArbol();
+		tam_subarbol += tam_a;
 		if(niveles_hijos <= a.getAlturaSubArbol())
 			niveles_hijos = a.getAlturaSubArbol() + 1;
 	}
 	
-	protected void restarTamHijo(Arbol a)
+	
+	protected void restarTamHijo(Arbol a, int tam_a)
 	{
 		if(padre != null)
-			padre.restarTamHijo(this);
+			padre.restarTamHijo(this, tam_a);
 		
-		tam_subarbol -= a.getTamSubArbol();
+		tam_subarbol -= tam_a;
 		if(a.getAlturaSubArbol() == niveles_hijos - 1)
 		{
-			int max = 0;
+			int max = -1;
 			for(Arbol h: hijos)
 				if(h != a && h.getAlturaSubArbol() > max)
 					max = h.getAlturaSubArbol();
@@ -105,8 +106,8 @@ public abstract class Arbol {
 	
 	public void intercambiarNodo(Arbol a)		//No pueden ser la raiz del arbol
 	{											//This y a se intercambian
-		padre.restarTamHijo(this);													//Se resta el tamaño de hijo del del padre
-		a.getPadre().restarTamHijo(a);
+		padre.restarTamHijo(this, getTamSubArbol());								//Se resta el tamaño de hijo del del padre
+		a.getPadre().restarTamHijo(a, a.getTamSubArbol());
 		
 		Arbol aux = padre;															//Se intercambian los padres
 		padre = a.getPadre();
@@ -115,8 +116,8 @@ public abstract class Arbol {
 		padre.getHijos().set(padre.getHijos().indexOf(a), this);					//Se sustituyen en la lista de hijos de sus padres
 		a.getPadre().getHijos().set(a.getPadre().getHijos().indexOf(this), a);
 		
-		padre.sumarTamHijo(this);													//Se suma el tamaño de hijo al del padre
-		a.getPadre().sumarTamHijo(a);
+		padre.sumarTamHijo(this, getTamSubArbol());									//Se suma el tamaño de hijo al del padre
+		a.getPadre().sumarTamHijo(a, a.getTamSubArbol());
 		
 		
 		int prof_aux = profundidad;													//Se cambia la profundidad a la que estan
@@ -128,49 +129,63 @@ public abstract class Arbol {
 	}
 	
 	public void cambiarNodo(Arbol a)		//This no puede ser una raiz
-	{										//This es reemplazado por a
-		padre.restarTamHijo(this);													//Se resta el tamaño de hijo del del padre
+	{										//El subarbol del que this es la raiz es reemplazado por a (a mantiene su subarbol original)
+		padre.restarTamHijo(this, getTamSubArbol());								//Se resta el tamaño de hijo del del padre
 		
 		a.setPadre(padre);
 		
 		padre.getHijos().set(padre.getHijos().indexOf(this), a);					//Se sustituyen en la lista de hijos de sus padres
 		
-		padre.sumarTamHijo(a);														//Se suma el tamaño de hijo al del padre
+		padre.sumarTamHijo(a, a.getTamSubArbol());									//Se suma el tamaño de hijo al del padre
 		
 		a.setProfundidad(profundidad);												//Se actualiza la profundidad
 		a.actualizarProfundidadHijos();
 	}
 	
+	public void sustituirNodo(Arbol a)	//Sustituye unicamente el nodo this por a, los hijos siguen siendo los mismos
+	{
+		if(a.getHijos().size() == getHijos().size() && padre != null)
+		{
+			for(int i = 0; i < getHijos().size(); i++)
+			{
+				a.getHijos().set(i, getHijos().get(i));
+				a.getHijos().get(i).setPadre(a);
+			}
+			a.setPadre(padre);
+			padre.getHijos().set(padre.getHijos().indexOf(this), a);
+			a.setProfundidad(profundidad);
+			a.setAlturaSubArbol(niveles_hijos);
+			a.setTamSubArbol(tam_subarbol);
+		}
+	}
+	
 	public static Arbol generarGrow(Random rand, int profundidad, Arbol padre, int prof_generar, boolean m6)
 	{
-		if(profundidad == 1)
+		if(profundidad <= 1)
 			return Hoja.generar(rand, profundidad - 1, padre, m6);
 		
-		if(prof_generar < profundidad)						//Si si no se ha llegado a la profundidad establecida se pasa usa el metodo Full
+		if(prof_generar < profundidad || rand.nextDouble() < 0.5)						
 			 return Nodo.generar(rand, profundidad - 1, padre, prof_generar, 1, m6);
 				
-		if(rand.nextDouble() < 0.5)							//Se elige uno aleatorio entre todos lo elementos
-			return Nodo.generar(rand, profundidad - 1, padre, prof_generar, 1, m6);
-		
 		return Hoja.generar(rand, profundidad - 1, padre, m6);
 	}
 	
 	public static Arbol generarFull(Random rand, int profundidad, Arbol padre, int prof_generar, boolean m6)
 	{
-		if(profundidad == 1)
+		if(profundidad <= 1)
 			return Hoja.generar(rand, profundidad - 1, padre, m6);
 		
 		if(prof_generar < profundidad)
-			return Nodo.generar(rand, profundidad - 1, padre, 1, 0, m6);
-		else
-			return Hoja.generar(rand, profundidad - 1, padre, m6);
+			return Nodo.generar(rand, profundidad - 1, padre, prof_generar, 1, m6);
+
+		return Hoja.generar(rand, profundidad - 1, padre, m6);
 	}
 	
 	public abstract String toString();
 	
 	public abstract Arbol clonar(Arbol padre);
 	
-	public abstract boolean execute(List<Boolean> input);	//Input es [A0, A1, D0, D1, D2, D3]
+	public abstract boolean execute(List<Boolean> input);	//Input es [A0, A1, D0, D1, D2, D3] en M6 y [A0, A1, A2, D0, D1, D2, D3, D4, D5, D6, D7] en M8
 
 	public void actualizarProfundidadHijos() {
 		for(Arbol a: hijos)

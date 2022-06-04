@@ -121,6 +121,14 @@ public abstract class Individuo {
 		else
 			System.out.println("No"); //No se ha copiado bien
 	}
+	
+	public String getSolucion()
+	{
+		String s = "El valor de la funcion es: " + getFitness() + ", con los siguientes valores de x: ";
+		for(int i = 0; i < genes.size(); i++)
+			s += "x" + i + "(" + getFenotipo(i) + ") ";
+		return s;
+	}
 
 	
 }
