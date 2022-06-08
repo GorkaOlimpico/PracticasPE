@@ -9,6 +9,7 @@ import java.util.*;
 
 import algoritmoGenetico.cruce.Cruce;
 import algoritmoGenetico.mutacion.Mutacion;
+import arbol.Arbol;
 import gen.Gen;
 import gen.GenPr3;
 import gramatica.Gramatica;
@@ -218,7 +219,32 @@ public class IndividuoGE extends Individuo {
 	
 	@Override
 	public double getValor() {
+		/*
+		int suma = 0;
+		Arbol arbol = (Arbol) genes;
+		
+		List<List<Boolean>> combinaciones = entradas;
 
+		for(int i = 0; i < combinaciones.size(); i++)
+		{
+			boolean c = evaluaElemento(combinaciones.get(i), solucion)
+					arbol.execute(combinaciones.get(i));
+			if(multiplexor6)
+			{
+				if(c == solucionar6(combinaciones.get(i)))
+					suma++;
+			}
+			else
+				if(c == solucionar11(combinaciones.get(i)))
+					suma++;
+		}
+		return suma;
+		
+		*/
+		
+		
+		
+		
 		int aciertos = 0;
 		
 		// 1. Se genera la List<String> a partir del número
@@ -232,8 +258,14 @@ public class IndividuoGE extends Individuo {
 			entrada.toArray(aux);
 			//4. Comparo los resultados. Si son iguales entonces sumo 1 a aciertos
 			if(multiplexor6) {
+				
 				if(evaluaElemento(entrada, solucion) == multiplexor6(aux)) {
 					aciertos++;
+				}
+				else {
+					System.out.println("entrada: " + entrada);
+					System.out.println("multiplexor6: " + multiplexor6(aux));
+					System.out.println("solucion: " + evaluaElemento(entrada, solucion));
 				}
 			}
 			else {
@@ -245,7 +277,10 @@ public class IndividuoGE extends Individuo {
 			
 		//System.out.println("Aciertos: " + aciertos);
 		return aciertos;
+		
 	}
+	
+	
 	
 	public boolean evaluaElemento(List<Boolean> entrada, List<String> elemento) {
 		boolean resultado = false;
@@ -618,7 +653,9 @@ public class IndividuoGE extends Individuo {
 			total += str;
 		}
 		s += "	Individuo: "+ total;
-		//System.out.println("Individuo: "+ solucion);
+		
+		List<Gen> genes = (List<Gen>) this.genes;
+		System.out.println("Números: "+ genes.get(0).getAlelos().toString());
 		return s;
 	}
 	
@@ -669,6 +706,7 @@ public class IndividuoGE extends Individuo {
 	}
 	
 	public List<String> getSolucion(){
+		traduceALista();
 		return solucion;
 	}
 }

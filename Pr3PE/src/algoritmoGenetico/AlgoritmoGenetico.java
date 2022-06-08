@@ -2,6 +2,7 @@ package algoritmoGenetico;
 
 import java.util.ArrayList;
 
+
 import java.util.List;
 
 import algoritmoGenetico.cruce.Cruce;
@@ -9,7 +10,6 @@ import algoritmoGenetico.mutacion.Mutacion;
 import algoritmoGenetico.seleccion.Seleccion;
 import gui.MainFrame;
 import individuos.Individuo;
-
 
 public class AlgoritmoGenetico {
 
@@ -95,13 +95,13 @@ public class AlgoritmoGenetico {
 			//muestraPoblacion();
 			sacarElites(elites);
 			
-			System.out.println("Seleccion");
+			//System.out.println("Seleccion");
 			seleccion.select(poblacion, poblacionAux);
 
-			System.out.println("Cruce");
+			//System.out.println("Cruce");
 			cruce.cruzar(poblacion, prob_cruce / 100);
 			
-			System.out.println("Mutacion");
+			//System.out.println("Mutacion");
 			mutacion.mutar(poblacion, prob_mutacion / 100);
 
 			//System.out.println("Bloating"); 			
@@ -110,8 +110,13 @@ public class AlgoritmoGenetico {
 			ordenarPoblacion();
 			
 			meterElites(elites);
-			//muestraPoblacion();
+			
+			System.out.println("------------------------------------------------------------------------------------"); 
+			muestraPoblacion();
+			
 			evaluarPoblacion();
+			
+			muestraPoblacion();
 			
 		}
 		
