@@ -111,12 +111,12 @@ public class AlgoritmoGenetico {
 			
 			meterElites(elites);
 			
-			System.out.println("------------------------------------------------------------------------------------"); 
-			muestraPoblacion();
+			
+			//muestraPoblacion();
 			
 			evaluarPoblacion();
-			
-			muestraPoblacion();
+			//System.out.println("------------------------------------------------------------------------------------"); 
+			//muestraPoblacion();
 			
 		}
 		

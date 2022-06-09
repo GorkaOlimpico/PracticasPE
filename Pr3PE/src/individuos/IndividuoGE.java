@@ -252,23 +252,35 @@ public class IndividuoGE extends Individuo {
 		//System.out.println(solucion);
 		
 		// 2. Por cada entrada[6] evalúo la List<String> y evalúo su resultado correcto del MX-6
+		//System.out.println("Solucion: " + solucion);
 		
 		for(List<Boolean> entrada : entradas) {
 			Boolean [] aux =  new Boolean[entrada.size()];
+			/* DEBUG
+			entrada.set(0, true);
+			entrada.set(1, false);
+			entrada.set(2, false);
+			entrada.set(3, true);
+			entrada.set(4, false);
+			entrada.set(5, false);
+			*/
 			entrada.toArray(aux);
+			
+			
 			//4. Comparo los resultados. Si son iguales entonces sumo 1 a aciertos
 			if(multiplexor6) {
-				
+				//System.out.println("Solucion: " + solucion);
 				if(evaluaElemento(entrada, solucion) == multiplexor6(aux)) {
 					aciertos++;
 				}
 				else {
-					System.out.println("entrada: " + entrada);
-					System.out.println("multiplexor6: " + multiplexor6(aux));
-					System.out.println("solucion: " + evaluaElemento(entrada, solucion));
+					//System.out.println("entrada: " + entrada);
+					//System.out.println("multiplexor6: " + multiplexor6(aux));
+					//System.out.println("solucion: " + evaluaElemento(entrada, solucion));
 				}
 			}
 			else {
+				
 				if(evaluaElemento(entrada, solucion) == multiplexor11(aux)) {
 					aciertos++;
 				}
@@ -285,7 +297,7 @@ public class IndividuoGE extends Individuo {
 	public boolean evaluaElemento(List<Boolean> entrada, List<String> elemento) {
 		boolean resultado = false;
 		
-		
+		//System.out.println("Elemento: "+ elemento);
 		String primero = buscaPrimero(elemento);
 		//System.out.println("Primero: " + primero);
 		if(multiplexor6) {
@@ -313,19 +325,16 @@ public class IndividuoGE extends Individuo {
 			}
 		
 			case "A0": {
-				return entrada.get(0);
-			}
-			
-			case "A1": {
 				return entrada.get(1);
 			}
 			
-			case "A2": {
-				return entrada.get(2);
+			case "A1": {
+				return entrada.get(0);
 			}
 			
+			
 			case "D0": {
-				return entrada.get(3);
+				return entrada.get(2);
 			}
 			
 			case "D1": {
@@ -339,18 +348,7 @@ public class IndividuoGE extends Individuo {
 			case "D3": {
 				return entrada.get(5);
 			}
-			case "D4": {
-				return entrada.get(6);
-			}
-			case "D5": {
-				return entrada.get(7);
-			}
-			case "D6": {
-				return entrada.get(8);
-			}
-			case "D7": {
-				return entrada.get(9);
-			}
+		
 			}
 		}
 		else {
