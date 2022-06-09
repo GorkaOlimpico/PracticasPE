@@ -199,8 +199,7 @@ public class AlgoritmoGenetico {
 	public String generaSolucion() {
 		String sol = "";
 		
-		sol += "Valor de la función: " + elMejor.getFitness();
-		System.out.print(elMejor.solutionToString());
+		sol += "Valor de la función: " + elMejor.getValor();
 		return sol;
 	}
 	
@@ -208,7 +207,7 @@ public class AlgoritmoGenetico {
 	{
 		List<Double> fitness = new ArrayList<>();
 		for(int i = 0; i < poblacion.length; i++)
-			fitness.add(poblacion[i].getFitness());
+			fitness.add(poblacion[i].getValor());
 		
 		for(int i = 0; i < fitness.size() - 1; i++)
 		{

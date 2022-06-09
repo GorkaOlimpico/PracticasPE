@@ -60,8 +60,7 @@ public class IndividuoPG extends Individuo{
 	public void recalcularFenotipo() {
 		valor = getValor();	
 		Arbol a = (Arbol) genes;
-		//TODO funciona mejor sin bloating (aunque las soluciones si que tienden a ser mas pequeñas)
-		//valor = valor + (k_bloating * a.getTamSubArbol());				//Usamos el metodo de bloating: "Penalización bien fundamentada"
+		valor = valor + (k_bloating * a.getTamSubArbol());				//Usamos el metodo de bloating: "Penalización bien fundamentada"
 	}
 
 	@Override
@@ -112,14 +111,12 @@ public class IndividuoPG extends Individuo{
 						for(int i = 0; i < tam; i++)
 						{
 							ind[i] = new IndividuoPG(profundidad, 0, 1, rand, m6);
-							System.out.println(i + "\n" + ind[i].solutionToString() + "\n");
 						}
 					}
 					else
 						for(int i = 0; i < tam; i++)
 						{
 							ind[i] = new IndividuoPG(profundidad, 1, profundidad - 1, rand, m6);
-							System.out.println(i + "\n" + ind[i].solutionToString() + "\n");
 						}
 				}	
 			}
@@ -167,7 +164,6 @@ public class IndividuoPG extends Individuo{
 			int y = aux.getTamSubArbol();
 			tam.add(y);
 			mediat += y;
-			System.out.println(i.solutionToString() + "\n" + "Fitness: " + x + ", tam: " + y);
 		}
 		mediaf = mediaf / n;
 		mediat = mediat / n;
@@ -188,7 +184,6 @@ public class IndividuoPG extends Individuo{
 		
 		k = - covar / var;		//Sin el menos, el fitness no para de crecer, llegando a incluso 200 al final de la ejecucion, siendo su 
 								//numero de aciertos inferior a 60 en la mayoria de los casos y las soluciones mas grandes 
-		System.out.println("Var: " + var + ", Covar: " + covar + ", bloating: " + k);
 		
 		for(Individuo i: poblacion)
 			i.setBloating(k);
