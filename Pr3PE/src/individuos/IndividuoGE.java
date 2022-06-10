@@ -40,7 +40,7 @@ public class IndividuoGE extends Individuo {
 		this.longitud = longitud;
 		Random rand = new Random();
 		GenPr3 aux = new GenPr3(longitud);
-		aux.initializeGen(rand);
+		aux.initializeGen(rand, m6);
 		genes.add(aux);
 		this.genes = genes;
 		recalcularFenotipo();
@@ -376,11 +376,11 @@ public class IndividuoGE extends Individuo {
 			}
 		
 			case "A0": {
-				return entrada.get(0);
+				return entrada.get(1);
 			}
 			
 			case "A1": {
-				return entrada.get(1);
+				return entrada.get(0);
 			}
 			
 			case "A2": {
@@ -617,6 +617,7 @@ public class IndividuoGE extends Individuo {
 			{
 				for(int i = 0; i < tam; i++) {
 					ind[i] = nuevoInd(datos);
+					//System.out.println("Individuo: " + ind[i].solucion);
 					//System.out.println("Creado nuevo individuo. Total: " + (i+1));
 				}
 					

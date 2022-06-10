@@ -36,7 +36,25 @@ public class CruceOPTIMO extends Cruce {
 		//System.out.println(i1.getSolucion());
 		//System.out.println();
 		
+		genes.get(0).setAlelo(0, 1);
+		genes.get(0).setAlelo(1, 0);
+		genes.get(0).setAlelo(2, 3);
+		genes.get(0).setAlelo(3, 4);
+		genes.get(0).setAlelo(4, 4);
+		genes.get(0).setAlelo(5, 4);
+		genes.get(0).setAlelo(6, 3);
+		genes.get(0).setAlelo(7, 5);
+		genes.get(0).setAlelo(8, 9);
+		genes.get(0).setAlelo(9, 7);
+		genes.get(0).setAlelo(10, 0);
+		genes.get(0).setAlelo(11, 3);
+		genes.get(0).setAlelo(12, 5);
+		genes.get(0).setAlelo(13, 8);
+		genes.get(0).setAlelo(14, 6);
+		genes.get(0).setAlelo(15, 2);
+		genes.get(0).setAlelo(16, 4);
 		
+		/* Solucion mux6
 		genes.get(0).setAlelo(0, 1);
 		genes.get(0).setAlelo(1, 0);
 		genes.get(0).setAlelo(2, 0);
@@ -64,6 +82,7 @@ public class CruceOPTIMO extends Cruce {
 		genes.get(0).setAlelo(24, 5);
 		genes.get(0).setAlelo(25, 4);
 		genes.get(0).setAlelo(26, 9);
+		*/
 		
 		k=0;
 		for(Object i : genes.get(0).getAlelos()) {

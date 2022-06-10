@@ -8,10 +8,29 @@ public class GenPr3 extends Gen {
 		super(long_gen);
 	}
 
-	public void initializeGen(Random randomNumber) {
-		for(int i = 0; i < long_gen; i++)
-			this.alelo.add(randomNumber.nextInt(255 + 1) + 1);
-		
+	public void initializeGen(Random randomNumber, boolean mux6) {
+		for(int i = 0; i < long_gen; i++) {
+			int numero = randomNumber.nextInt(255 + 1) + 1;
+			int mod;
+			if(mux6) {
+				mod = numero % 10;
+			}
+			else {
+				mod = numero % 15;
+			}
+			while(i==0 && (mod >= 4 || mod == 2)) {
+				numero = randomNumber.nextInt(255 + 1) + 1;
+				if(mux6) {
+					mod = numero % 10;
+				}
+				else {
+					mod = numero % 15;
+				}
+			}
+			this.alelo.add(numero);
+		}
+			
+		/*
 		int aux, pos1, pos2, n_intercambios = randomNumber.nextInt(long_gen);
 		for(int i = 0; i < n_intercambios; i++)
 		{
@@ -21,6 +40,7 @@ public class GenPr3 extends Gen {
 			alelo.set(pos1, (int) alelo.get(pos2));
 			alelo.set(pos2, aux);
 		}
+		*/
 	}
 	
 	@Override

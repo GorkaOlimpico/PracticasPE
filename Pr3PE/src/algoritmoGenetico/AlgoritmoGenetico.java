@@ -11,6 +11,7 @@ import algoritmoGenetico.seleccion.Seleccion;
 import gui.MainFrame;
 import individuos.Individuo;
 
+
 public class AlgoritmoGenetico {
 
 	private Individuo[] poblacion;
@@ -95,11 +96,17 @@ public class AlgoritmoGenetico {
 			//muestraPoblacion();
 			sacarElites(elites);
 			
+			
+			
 			//System.out.println("Seleccion");
+			
+			//System.out.println("Media: " + mediaGeneracion[generacionActual -1]);
 			seleccion.select(poblacion, poblacionAux);
+			
 
 			//System.out.println("Cruce");
 			cruce.cruzar(poblacion, prob_cruce / 100);
+
 			
 			//System.out.println("Mutacion");
 			mutacion.mutar(poblacion, prob_mutacion / 100);
@@ -109,8 +116,10 @@ public class AlgoritmoGenetico {
 			
 			ordenarPoblacion();
 			
+			//System.out.println("Antes de meter élites: ");
+			//muestraPoblacion();
 			meterElites(elites);
-			
+			//System.out.println("Despues de meter élites: ");
 			
 			//muestraPoblacion();
 			
@@ -118,8 +127,13 @@ public class AlgoritmoGenetico {
 			//System.out.println("------------------------------------------------------------------------------------"); 
 			//muestraPoblacion();
 			
+			//System.out.println("------------------------------------------------------------------------------------"); 
+			//muestraPoblacion();
+			//System.out.println("Media: " + mediaGeneracion[generacionActual]);
+			
 		}
-		
+		System.out.println("------------------------------------------------------------------------------------"); 
+		muestraPoblacion();
 		
 		MainFrame.imprimeGrafica(mejoresGlobales, mejoresGeneracion, mediaGeneracion);
 		
@@ -290,12 +304,15 @@ public class AlgoritmoGenetico {
 		mediaGeneracion[generacionActual] = media;
 	}
 	
-	public void muestraPoblacion() {
+	public String muestraPoblacion() {
+		String total = "";
 		int j = 0;
 		for(Individuo i : poblacion) {
 			j++;
+			total += "\nIndividuo "+ j +":" + i.getSolucion();
 			System.out.println("Individuo "+ j +":" + i.getSolucion());
 		}
+		return total;
 	}
 	
 	public void muestraPoblacionAux(Individuo[] poblacion) {
