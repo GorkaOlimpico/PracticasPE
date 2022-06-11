@@ -86,21 +86,14 @@ public class AlgoritmoGenetico {
 		// 2. While (no ha llegado al numero máximo de generaciones
 		//				&& no se ha cumplido la condición de terminar){
 		
-		/*for(Individuo pob:poblacion) {
-			System.out.println(pob.getFitness());
-		}*/
-
+	
 		while(generacionActual < num_max_gen) {
 			
 			generacionActual++;
-			//muestraPoblacion();
-			sacarElites(elites);
-			
-			
+
+			sacarElites(elites);		
 			
 			//System.out.println("Seleccion");
-			
-			//System.out.println("Media: " + mediaGeneracion[generacionActual -1]);
 			seleccion.select(poblacion, poblacionAux);
 			
 
@@ -115,25 +108,14 @@ public class AlgoritmoGenetico {
 			poblacion[0].bloating(poblacion);
 			
 			ordenarPoblacion();
-			
-			//System.out.println("Antes de meter élites: ");
-			//muestraPoblacion();
+
 			meterElites(elites);
-			//System.out.println("Despues de meter élites: ");
-			
-			//muestraPoblacion();
-			
+
 			evaluarPoblacion();
-			//System.out.println("------------------------------------------------------------------------------------"); 
-			//muestraPoblacion();
-			
-			//System.out.println("------------------------------------------------------------------------------------"); 
-			//muestraPoblacion();
-			//System.out.println("Media: " + mediaGeneracion[generacionActual]);
+
 			
 		}
-		System.out.println("------------------------------------------------------------------------------------"); 
-		muestraPoblacion();
+		
 		
 		MainFrame.imprimeGrafica(mejoresGlobales, mejoresGeneracion, mediaGeneracion);
 		

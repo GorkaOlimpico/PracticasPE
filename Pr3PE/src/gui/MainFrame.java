@@ -132,12 +132,12 @@ public class MainFrame extends JFrame {
 		JLabel wra = new JLabel("Número de wraps: ");
 		wraps = new JTextField();
 		wraps.setPreferredSize(new Dimension(100,25));
-		wraps.setText("2");
+		wraps.setText("3");
 		
 		JLabel lon = new JLabel("Longitud cromosoma: ");
 		longitud = new JTextField();
 		longitud.setPreferredSize(new Dimension(100,25));
-		longitud.setText("27");
+		longitud.setText("30");
 		
 		
 		panelSuperior.add(gra);

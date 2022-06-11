@@ -66,11 +66,9 @@ public class IndividuoGE extends Individuo {
 	
 	public void traduceALista() {
 		// Esta función hace que el array numérico pase a ser la lista con la que podemos operar
-		//List<Gen> genes = (List<Gen>) this.genes;
-		//System.out.println("GEN: "+ genes.get(0).getAlelos());
 		solucion.clear();
 		addElemLista("S");
-		//System.out.println("Individuo: "+ solucion);
+
 		pos = 0;
 		wraps = 0;
 		
@@ -219,65 +217,27 @@ public class IndividuoGE extends Individuo {
 	
 	@Override
 	public double getValor() {
-		/*
-		int suma = 0;
-		Arbol arbol = (Arbol) genes;
-		
-		List<List<Boolean>> combinaciones = entradas;
-
-		for(int i = 0; i < combinaciones.size(); i++)
-		{
-			boolean c = evaluaElemento(combinaciones.get(i), solucion)
-					arbol.execute(combinaciones.get(i));
-			if(multiplexor6)
-			{
-				if(c == solucionar6(combinaciones.get(i)))
-					suma++;
-			}
-			else
-				if(c == solucionar11(combinaciones.get(i)))
-					suma++;
-		}
-		return suma;
-		
-		*/
-		
-		
-		
 		
 		int aciertos = 0;
 		
 		// 1. Se genera la List<String> a partir del número
 		traduceALista();		
-		//System.out.println(solucion);
+
 		
 		// 2. Por cada entrada[6] evalúo la List<String> y evalúo su resultado correcto del MX-6
-		//System.out.println("Solucion: " + solucion);
 		
 		for(List<Boolean> entrada : entradas) {
 			Boolean [] aux =  new Boolean[entrada.size()];
-			/* DEBUG
-			entrada.set(0, true);
-			entrada.set(1, false);
-			entrada.set(2, false);
-			entrada.set(3, true);
-			entrada.set(4, false);
-			entrada.set(5, false);
-			*/
 			entrada.toArray(aux);
 			
 			
 			//4. Comparo los resultados. Si son iguales entonces sumo 1 a aciertos
 			if(multiplexor6) {
-				//System.out.println("Solucion: " + solucion);
+				
 				if(evaluaElemento(entrada, solucion) == multiplexor6(aux)) {
 					aciertos++;
 				}
-				else {
-					//System.out.println("entrada: " + entrada);
-					//System.out.println("multiplexor6: " + multiplexor6(aux));
-					//System.out.println("solucion: " + evaluaElemento(entrada, solucion));
-				}
+				
 			}
 			else {
 				
@@ -287,7 +247,7 @@ public class IndividuoGE extends Individuo {
 			}
 		}
 			
-		//System.out.println("Aciertos: " + aciertos);
+		
 		return aciertos;
 		
 	}
@@ -296,10 +256,9 @@ public class IndividuoGE extends Individuo {
 	
 	public boolean evaluaElemento(List<Boolean> entrada, List<String> elemento) {
 		boolean resultado = false;
-		
-		//System.out.println("Elemento: "+ elemento);
+	
 		String primero = buscaPrimero(elemento);
-		//System.out.println("Primero: " + primero);
+		
 		if(multiplexor6) {
 			switch (primero) {
 			case "IF": {
@@ -617,8 +576,7 @@ public class IndividuoGE extends Individuo {
 			{
 				for(int i = 0; i < tam; i++) {
 					ind[i] = nuevoInd(datos);
-					//System.out.println("Individuo: " + ind[i].solucion);
-					//System.out.println("Creado nuevo individuo. Total: " + (i+1));
+
 				}
 					
 			}
@@ -654,7 +612,7 @@ public class IndividuoGE extends Individuo {
 		s += "	Individuo: "+ total;
 		
 		List<Gen> genes = (List<Gen>) this.genes;
-		System.out.println("Números: "+ genes.get(0).getAlelos().toString());
+		//System.out.println("Números: "+ genes.get(0).getAlelos().toString());
 		return s;
 	}
 	
