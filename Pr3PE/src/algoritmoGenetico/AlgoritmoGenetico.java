@@ -22,6 +22,7 @@ public class AlgoritmoGenetico {
 	private double prob_mutacion;
 	private double elite;
 	private String problema;
+	private boolean bloating;
 	Object[] datos;
 	
 	
@@ -38,13 +39,15 @@ public class AlgoritmoGenetico {
 		
 	}
 	
-	public AlgoritmoGenetico(Object[] datos) 
+	public AlgoritmoGenetico(Object[] datos, boolean bloating) 
 	{		
 		tam_pob = 100;
 		num_max_gen = 100;
 		prob_cruce = 60;
 		prob_mutacion = 5;
 		elite= 2;
+		
+		this.bloating = bloating;
 		this.datos = datos;
 	
 		problema = "Practica 3";
@@ -64,7 +67,7 @@ public class AlgoritmoGenetico {
 		
 		// Inicializo elMejor con el primer individuo de la poblacion
 		poblacion = creaPoblacion(problema, tam_pob);	
-		poblacion[0].bloating(poblacion);
+		if(bloating) poblacion[0].bloating(poblacion);
 		ordenarPoblacion();
 		elMejor = creaPoblacion(problema,(int) 1)[0];
 		elMejor.copiarIndividuo(poblacion[0]);

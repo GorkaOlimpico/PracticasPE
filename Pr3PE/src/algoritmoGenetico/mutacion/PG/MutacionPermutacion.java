@@ -1,15 +1,16 @@
-package algoritmoGenetico.mutacion;
+package algoritmoGenetico.mutacion.PG;
 
 import java.util.List;
 import java.util.Random;
 
+import algoritmoGenetico.mutacion.Mutacion;
 import arbol.Arbol;
 import individuos.Individuo;
 
-public class MutacionHoist extends Mutacion {
-	private final String type = "Hoist";
+public class MutacionPermutacion extends Mutacion {
+	private final String type = "Permutacion";
 	
-	public MutacionHoist()
+	public MutacionPermutacion()
 	{
 		super.id = type;
 	}
@@ -17,15 +18,15 @@ public class MutacionHoist extends Mutacion {
 	@Override
 	protected Mutacion parse(String id) {
 		if(id == type)
-			return new MutacionHoist();
+			return new MutacionPermutacion();
 		return null;
 	}
 
-	protected void mutarIndividuo(Individuo ind) {		//Convierte a un subarbol en la raiz
+	protected void mutarIndividuo(Individuo ind) {			//Cambia el orden de los hijos de un nodo
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
 		
-		if(a.getAlturaSubArbol() > 1)
+		if(a.getAlturaSubArbol() > 0)
 		{
 			double prob = ((double) a.getAlturaSubArbol()) / a.getTamSubArbol();
 			if(prob >= 1 || prob <= 0)
@@ -34,12 +35,12 @@ public class MutacionHoist extends Mutacion {
 			do																				
 			{
 				aux = seleccionar(a, prob, rand);
-			}while(aux == null || aux == a);
+			}while(aux == null);
 			
-			aux.setProfundidad(a.getProfundidad());
-			aux.actualizarProfundidadHijos();
-			aux.setPadre(null);
-			ind.setGenes(aux);
+			for(int i = 0; i < aux.getHijos().size() - 1; i++)
+			{
+				aux.getHijos().get(i).intercambiarNodo(aux.getHijos().get(i + 1));
+			}
 		}
 	}
 

@@ -1,8 +1,9 @@
-package algoritmoGenetico.cruce;
+package algoritmoGenetico.cruce.GE;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import algoritmoGenetico.cruce.Cruce;
 import gen.Gen;
 import individuos.Individuo;
 import individuos.IndividuoGE;

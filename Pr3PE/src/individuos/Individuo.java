@@ -190,6 +190,11 @@ public abstract class Individuo {
 	}
 
 	public void bloating(Individuo[] poblacion) {}
+	
+	public boolean getPodar()
+	{
+		return false;
+	}
 
 	public void setBloating(double k) {}
 

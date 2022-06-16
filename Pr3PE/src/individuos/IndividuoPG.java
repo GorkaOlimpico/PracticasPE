@@ -12,16 +12,18 @@ public class IndividuoPG extends Individuo{
 
 	private final static String type = "Programación Genética"; 
 	private double k_bloating;
+	private boolean podar;
 	
  	public IndividuoPG()
 	{
 		super.id = type;
 	}
 	
-	public IndividuoPG(int profundidad, int tipo_generacion, int prof_generar, Random rand, boolean m6)
+	public IndividuoPG(int profundidad, int tipo_generacion, int prof_generar, Random rand, boolean m6, boolean podar)
 	{
 		super(m6);
 		super.id = type;
+		this.podar = podar;
 		if(tipo_generacion == 0)
 			genes = Arbol.generarFull(rand, profundidad, null, prof_generar, m6);						//Full inicialization
 		if(tipo_generacion == 1)
@@ -90,19 +92,20 @@ public class IndividuoPG extends Individuo{
 				int profundidad = (int) datos[1];	
 				String tipo_generacion = (String) datos[2];
 				boolean m6 = (boolean) datos[3];
+				boolean podar = (boolean) datos[4];
 				if(tipo_generacion == "Ramped-Half")				//Ramped and half inicialization
 				{
 					int aux = tam / (profundidad - 1);
 					for(int j = 2; j <= profundidad; j++)			//La profundidad de la hoja es 0 y la de la raiz: profundidad - 1
 					{
 						for(int i = 0; i < aux / 2; i++)
-							ind[i + (aux * (j - 2))] = new IndividuoPG(profundidad, 0, j, rand, m6);		//Mitad de Full
+							ind[i + (aux * (j - 2))] = new IndividuoPG(profundidad, 0, j, rand, m6, podar);		//Mitad de Full
 
 						for(int i = aux / 2; i < aux; i++)
-							ind[i + (aux * (j - 2))] = new IndividuoPG(profundidad, 1, j, rand, m6);		//Mitad de Grow
+							ind[i + (aux * (j - 2))] = new IndividuoPG(profundidad, 1, j, rand, m6, podar);		//Mitad de Grow
 					}
 					for(int i = aux * (profundidad - 1); i < tam; i++)	//Si la division no es exacta se rellena con Grow
-						ind[i] = new IndividuoPG(profundidad, 1, profundidad - 1, rand, m6);		
+						ind[i] = new IndividuoPG(profundidad, 1, profundidad - 1, rand, m6, podar);		
 				}
 				else												//Grow or Full inicialization
 				{
@@ -110,13 +113,13 @@ public class IndividuoPG extends Individuo{
 					{
 						for(int i = 0; i < tam; i++)
 						{
-							ind[i] = new IndividuoPG(profundidad, 0, 1, rand, m6);
+							ind[i] = new IndividuoPG(profundidad, 0, 1, rand, m6, podar);
 						}
 					}
 					else
 						for(int i = 0; i < tam; i++)
 						{
-							ind[i] = new IndividuoPG(profundidad, 1, profundidad - 1, rand, m6);
+							ind[i] = new IndividuoPG(profundidad, 1, profundidad - 1, rand, m6, podar);
 						}
 				}	
 			}
@@ -198,6 +201,11 @@ public class IndividuoPG extends Individuo{
 	@Override
 	public double getBloating(){
 		return k_bloating;
+	}
+	
+	public boolean getPodar()
+	{
+		return podar;
 	}
 
 	@Override

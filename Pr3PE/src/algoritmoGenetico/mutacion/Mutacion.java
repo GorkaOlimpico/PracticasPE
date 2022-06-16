@@ -2,6 +2,17 @@ package algoritmoGenetico.mutacion;
 
 import java.util.Random;
 
+import algoritmoGenetico.mutacion.GE.MutacionHeuristica;
+import algoritmoGenetico.mutacion.GE.MutacionInsercion;
+import algoritmoGenetico.mutacion.GE.MutacionIntercambio;
+import algoritmoGenetico.mutacion.GE.MutacionInversion;
+import algoritmoGenetico.mutacion.PG.MutacionArbol;
+import algoritmoGenetico.mutacion.PG.MutacionContraccion;
+import algoritmoGenetico.mutacion.PG.MutacionExpansion;
+import algoritmoGenetico.mutacion.PG.MutacionFuncional;
+import algoritmoGenetico.mutacion.PG.MutacionHoist;
+import algoritmoGenetico.mutacion.PG.MutacionPermutacion;
+import algoritmoGenetico.mutacion.PG.MutacionTerminal;
 import individuos.Individuo;
 
 public abstract class Mutacion implements Cloneable {

@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import algoritmoGenetico.cruce.GE.CruceCO;
+import algoritmoGenetico.cruce.GE.CruceOX;
+import algoritmoGenetico.cruce.GE.CruceOXPP;
+import algoritmoGenetico.cruce.PG.CruceSubArboles;
 import individuos.Individuo;
 
 public abstract class Cruce implements Cloneable{

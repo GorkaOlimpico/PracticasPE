@@ -1,8 +1,9 @@
-package algoritmoGenetico.mutacion;
+package algoritmoGenetico.mutacion.GE;
 
 import java.util.List;
 import java.util.Random;
 
+import algoritmoGenetico.mutacion.Mutacion;
 import gen.Gen;
 import individuos.Individuo;
 

@@ -1,15 +1,16 @@
-package algoritmoGenetico.mutacion;
+package algoritmoGenetico.mutacion.PG;
 
 import java.util.List;
 import java.util.Random;
 
+import algoritmoGenetico.mutacion.Mutacion;
 import arbol.Arbol;
 import individuos.Individuo;
 
-public class MutacionArbol extends Mutacion {
-	private final String type = "Arbol";
+public class MutacionHoist extends Mutacion {
+	private final String type = "Hoist";
 	
-	public MutacionArbol()
+	public MutacionHoist()
 	{
 		super.id = type;
 	}
@@ -17,15 +18,15 @@ public class MutacionArbol extends Mutacion {
 	@Override
 	protected Mutacion parse(String id) {
 		if(id == type)
-			return new MutacionArbol();
+			return new MutacionHoist();
 		return null;
 	}
 
-	protected void mutarIndividuo(Individuo ind) {		//Regenera un subarbol
+	protected void mutarIndividuo(Individuo ind) {		//Convierte a un subarbol en la raiz
 		Arbol a = (Arbol) ind.getGenes();
 		Random rand = new Random();
 		
-		if(a.getAlturaSubArbol() > 0)
+		if(a.getAlturaSubArbol() > 1)
 		{
 			double prob = ((double) a.getAlturaSubArbol()) / a.getTamSubArbol();
 			if(prob >= 1 || prob <= 0)
@@ -36,17 +37,22 @@ public class MutacionArbol extends Mutacion {
 				aux = seleccionar(a, prob, rand);
 			}while(aux == null || aux == a);
 			
-			aux.cambiarNodo(Arbol.generarGrow(rand, aux.getProfundidad(), aux.getPadre(), aux.getProfundidad(), aux.getM6()));
+			aux.setProfundidad(a.getProfundidad());
+			aux.actualizarProfundidadHijos();
+			aux.setPadre(null);
+			ind.setGenes(aux);
 		}
 	}
 
 	private Arbol seleccionar(Arbol a, double prob, Random rand)
 	{
 		List<Arbol> hijos = a.getHijos();
-		if(rand.nextDouble() < prob)
-			return a;
 		if(hijos.size() > 0)
 		{
+			if(rand.nextDouble() < prob)
+				return a;
+			else
+			{
 				Arbol aux;
 				for(Arbol ar: hijos)
 				{
@@ -54,9 +60,11 @@ public class MutacionArbol extends Mutacion {
 					if(aux != null)
 						return aux;
 				}
+			}
 		}
 		return null;
 	}
+
 	public String toString() {
 		return super.getId();
 	}

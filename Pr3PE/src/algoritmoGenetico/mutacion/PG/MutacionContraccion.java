@@ -1,16 +1,17 @@
-package algoritmoGenetico.mutacion;
+package algoritmoGenetico.mutacion.PG;
 
 import java.util.List;
 import java.util.Random;
 
+import algoritmoGenetico.mutacion.Mutacion;
 import arbol.Arbol;
-import arbol.Nodo;
+import arbol.Hoja;
 import individuos.Individuo;
 
-public class MutacionFuncional extends Mutacion {
-	private final String type = "Funcional";
+public class MutacionContraccion extends Mutacion {
+	private final String type = "Contraccion";
 	
-	public MutacionFuncional()
+	public MutacionContraccion()
 	{
 		super.id = type;
 	}
@@ -18,36 +19,29 @@ public class MutacionFuncional extends Mutacion {
 	@Override
 	protected Mutacion parse(String id) {
 		if(id == type)
-			return new MutacionFuncional();
+			return new MutacionContraccion();
 		return null;
 	}
 
-	protected void mutarIndividuo(Individuo ind) {		//Cambia un nodo por otro con el mismo numero de hijos, manteniendo los hijos originales
+	@Override
+	protected void mutarIndividuo(Individuo ind) {		//Convierte un nodo en una hoja
 		Arbol a = (Arbol) ind.getGenes();
-		
 		Random rand = new Random();
-
+		
+		double prob = ((double) a.getAlturaSubArbol()) / a.getTamSubArbol();
+		if(prob >= 1 || prob <= 0)
+			prob = 0.5;
 		if(a.getAlturaSubArbol() > 1)
 		{
-			
-			double prob = ((double) a.getAlturaSubArbol()) / a.getTamSubArbol();
-			if(prob >= 1 || prob <= 0)
-				prob = 0.5;
-			
 			Arbol aux;
-			do																				
-			{
-				aux = seleccionar(a, prob, rand);
-			}while(aux == null || aux == a);
-			
-			Arbol n;
 			do {
-				n = Nodo.generar(rand, 2, null, 1, 1, aux.getM6());
-			}while(n.getHijos().size() != aux.getHijos().size());
-			aux.sustituirNodo(n);
+				aux = seleccionar(a, prob, rand);
+			}
+			while(aux == null || aux == a);
+			aux.cambiarNodo(Hoja.generar(rand, aux.getProfundidad(), aux.getPadre(), aux.getM6()));
 		}
 	}
-
+	
 	private Arbol seleccionar(Arbol a, double prob, Random rand)
 	{
 		List<Arbol> hijos = a.getHijos();
