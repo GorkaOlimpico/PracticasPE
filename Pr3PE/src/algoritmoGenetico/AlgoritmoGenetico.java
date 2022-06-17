@@ -96,13 +96,15 @@ public class AlgoritmoGenetico {
 
 			sacarElites(elites);		
 			
+			//System.out.println("start");
+			//muestraPoblacion();
 			//System.out.println("Seleccion");
 			seleccion.select(poblacion, poblacionAux);
-			
+			//muestraPoblacion();
 
 			//System.out.println("Cruce");
 			cruce.cruzar(poblacion, prob_cruce / 100);
-
+			//muestraPoblacion();
 			
 			//System.out.println("Mutacion");
 			mutacion.mutar(poblacion, prob_mutacion / 100);

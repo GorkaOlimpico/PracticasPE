@@ -2,6 +2,7 @@ package algoritmoGenetico.mutacion;
 
 import java.util.Random;
 
+import algoritmoGenetico.mutacion.GE.MutacionBasica;
 import algoritmoGenetico.mutacion.GE.MutacionHeuristica;
 import algoritmoGenetico.mutacion.GE.MutacionInsercion;
 import algoritmoGenetico.mutacion.GE.MutacionIntercambio;
@@ -22,10 +23,11 @@ public abstract class Mutacion implements Cloneable {
 	public Mutacion() {}
 	
 	private static Mutacion[] mutacionPr2= {
-			new MutacionInsercion(),
-			new MutacionIntercambio(),
-			new MutacionInversion(),
-			new MutacionHeuristica(),
+			//new MutacionInsercion(),
+			//new MutacionIntercambio(),
+			//new MutacionInversion(),
+			//new MutacionHeuristica(),
+			new MutacionBasica(),
 	};
 	
 	public static Mutacion[] getMutacionesPr2()
