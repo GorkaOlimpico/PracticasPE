@@ -557,12 +557,12 @@ public class IndividuoGE extends Individuo {
 
 	@Override
 	public Cruce[] getCruces() {
-		return Cruce.getCrucesPr2();
+		return Cruce.getCrucesGE();
 	}
 
 	@Override
 	public Mutacion[] getMutaciones() {
-		return Mutacion.getMutacionesPr2();
+		return Mutacion.getMutacionesGE();
 	}
 
 	@Override

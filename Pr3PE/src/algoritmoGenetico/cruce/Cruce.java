@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import algoritmoGenetico.cruce.GE.CruceCO;
+import algoritmoGenetico.cruce.GE.CruceCX;
 import algoritmoGenetico.cruce.GE.CruceMonopunto;
 import algoritmoGenetico.cruce.GE.CruceOX;
 import algoritmoGenetico.cruce.GE.CruceOXPP;
@@ -16,20 +17,15 @@ public abstract class Cruce implements Cloneable{
 	
 	public Cruce() {}
 	
-	private static Cruce[] crucesPr2= {
+	private static Cruce[] crucesGE= {
 			new CruceMonopunto(),
 
-			//new CruceOX(),
-			//new CruceOXPP(),
+			new CruceOX(),
+			new CruceOXPP(),
 			
-			//new CruceCO(),
-			//new CruceOPTIMO(),
+			new CruceCO(),
+			new CruceCX(),
 	};
-	
-	public static Cruce[] getCrucesPr2()
-	{
-		return crucesPr2;
-	}
 	
 	private static Cruce[] crucesPG= {
 			new CruceSubArboles(),
@@ -38,6 +34,11 @@ public abstract class Cruce implements Cloneable{
 	public static Cruce[] getCrucesPG()
 	{
 		return crucesPG;
+	}
+	
+	public static Cruce[] getCrucesGE()
+	{
+		return crucesGE;
 	}
 	
 	

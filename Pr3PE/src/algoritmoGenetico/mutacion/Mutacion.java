@@ -22,17 +22,17 @@ public abstract class Mutacion implements Cloneable {
 	
 	public Mutacion() {}
 	
-	private static Mutacion[] mutacionPr2= {
-			//new MutacionInsercion(),
-			//new MutacionIntercambio(),
-			//new MutacionInversion(),
-			//new MutacionHeuristica(),
+	private static Mutacion[] mutacionGE= {
+			new MutacionInsercion(),
+			new MutacionIntercambio(),
+			new MutacionInversion(),
+			new MutacionHeuristica(),
 			new MutacionBasica(),
 	};
 	
-	public static Mutacion[] getMutacionesPr2()
+	public static Mutacion[] getMutacionesGE()
 	{
-		return mutacionPr2;
+		return mutacionGE;
 	}
 	
 	private static Mutacion[] mutacionPG= {

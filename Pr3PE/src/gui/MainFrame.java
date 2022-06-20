@@ -116,13 +116,25 @@ public class MainFrame extends JFrame {
 		}
 		tipo_inicializacion = "Full";
 		
+		JLabel blo = new JLabel("Bloating: ");
+		bloating = new JComboBox<>();
+		bloating.addItem("SÍ");
+		bloating.addItem("NO");
+		
+		JLabel pod = new JLabel("Poda: ");
+		poda = new JComboBox<>();
+		poda.addItem("SÍ");
+		poda.addItem("NO");
+		
 		tipo_poda = true;
 		tipo_bloating = true;
 		
 		panelSuperior.add(prof);
 		panelSuperior.add(profundidad);
 		panelSuperior.add(inicializacion);
+		panelSuperior.add(blo);
 		panelSuperior.add(bloating);
+		panelSuperior.add(pod);
 		panelSuperior.add(poda);
 		
 		prof.setVisible(false);
@@ -130,7 +142,8 @@ public class MainFrame extends JFrame {
 		inicializacion.setVisible(false);
 		bloating.setVisible(false);
 		poda.setVisible(false);
-
+		blo.setVisible(false);
+		pod.setVisible(false);
 		//________________________________________________
 		
 		
@@ -214,6 +227,8 @@ public class MainFrame extends JFrame {
 
 						bloating.setVisible(true);
 						poda.setVisible(true);
+						blo.setVisible(true);
+						pod.setVisible(true);
 						
 						//resetea el formulario de cruces y mutaciones
 						AG = new AlgoritmoGenetico(new Object[] {ind.getId(), profundidad.getText(), tipo_inicializacion, m6, tipo_poda}, tipo_bloating);
@@ -226,6 +241,8 @@ public class MainFrame extends JFrame {
 						inicializacion.setVisible(false);
 						bloating.setVisible(false);
 						poda.setVisible(false);
+						blo.setVisible(false);
+						pod.setVisible(false);
 						
 						gra.setVisible(true);
 						gramatica.setVisible(true);
