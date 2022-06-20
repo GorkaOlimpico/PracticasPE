@@ -15,6 +15,7 @@ public abstract class Seleccion implements Cloneable{
 			new SeleccionTorneoProbabilistico(),
 			new SeleccionTruncamiento(),
 			new SeleccionRanking(),
+			
 	};
 	
 	public static Seleccion[] getSelecciones()

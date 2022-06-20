@@ -10,6 +10,47 @@ public class GenPr3 extends Gen {
 
 	public void initializeGen(Random randomNumber, boolean mux6) {
 		for(int i = 0; i < long_gen; i++) {
+			int prob =  randomNumber.nextInt(101);
+			int mod;
+			int numero;
+			if (prob > 50 || i == 0 || i == 1) { // Escoge una función
+				numero = randomNumber.nextInt(257);
+				if(mux6) {
+					mod = numero % 10;
+				}
+				else {
+					mod = numero % 15;
+				}
+				while(mod >= 4) {
+					if(mux6) {
+						mod = numero % 10;
+					}
+					else {
+						mod = numero % 15;
+					}
+					numero = randomNumber.nextInt(257);
+				}
+			}
+			else{ // Escoge un terminal				
+				numero = randomNumber.nextInt(257);
+				if(mux6) {
+					mod = numero % 10;
+				}
+				else {
+					mod = numero % 15;
+				}
+				while(mod < 4) {
+					if(mux6) {
+						mod = numero % 10;
+					}
+					else {
+						mod = numero % 15;
+					}
+					numero = randomNumber.nextInt(257);
+				}
+			}
+			this.alelo.add(numero);
+			/*
 			int numero = randomNumber.nextInt(255 + 1) + 1;
 			int mod;
 			if(mux6) {
@@ -28,6 +69,7 @@ public class GenPr3 extends Gen {
 				}
 			}
 			this.alelo.add(numero);
+			*/
 		}
 			
 		/*

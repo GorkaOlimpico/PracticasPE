@@ -35,6 +35,7 @@ public class IndividuoGE extends Individuo {
 		solucion = new ArrayList<String>();
 		String texto_gramatica = archivoATexto(nombreArchivo);
 		pos = 0;
+		wraps = 0;
 		max_wraps = n_wraps;
 		gramatica = new Gramatica(texto_gramatica);
 		this.longitud = longitud;
@@ -67,10 +68,10 @@ public class IndividuoGE extends Individuo {
 	public void traduceALista() {
 		// Esta función hace que el array numérico pase a ser la lista con la que podemos operar
 		solucion.clear();
-		addElemLista("S");
-
 		pos = 0;
 		wraps = 0;
+		addElemLista("S");
+
 		
 	}
 	

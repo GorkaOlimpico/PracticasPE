@@ -34,13 +34,13 @@ public class MainFrame extends JFrame {
 	private JTextField profundidad;
 	private JButton btnEjecutar;
 	private String tipo_inicializacion;
+	private boolean tipo_bloating;
+	private boolean tipo_poda;
 	private boolean m6;
-	private boolean bloating;
-	private boolean poda;
 	
 	private JComboBox multiplexor;
-	private JComboBox J_bloating;
-	private JComboBox J_poda;
+	private JComboBox bloating;
+	private JComboBox poda;
 	private JComboBox problema;
 	private JComboBox inicializacion;
 	/**
@@ -89,18 +89,6 @@ public class MainFrame extends JFrame {
 		multiplexor.addItem(multis[0]);
 		multiplexor.addItem(multis[1]);
 		
-		JLabel bloat = new JLabel("Bloating: ");
-		J_bloating = new JComboBox<>();
-		String[] options = new String[2];
-		options[0] = "Desactivado";
-		options[1] = "Activado";
-		J_bloating.addItem(options[0]);
-		J_bloating.addItem(options[1]);
-		
-		JLabel pod = new JLabel("Poda: ");
-		J_poda = new JComboBox<>();
-		J_poda.addItem(options[0]);
-		J_poda.addItem(options[1]);
 		
 		JLabel tip = new JLabel("Tipo de algoritmo evolutivo: ");
 		problema = new JComboBox<>();
@@ -128,21 +116,21 @@ public class MainFrame extends JFrame {
 		}
 		tipo_inicializacion = "Full";
 		
-		panelSuperior.add(bloat);
-		panelSuperior.add(J_bloating);
-		panelSuperior.add(pod);
-		panelSuperior.add(J_poda);
+		tipo_poda = true;
+		tipo_bloating = true;
+		
 		panelSuperior.add(prof);
 		panelSuperior.add(profundidad);
 		panelSuperior.add(inicializacion);
+		panelSuperior.add(bloating);
+		panelSuperior.add(poda);
 		
-		bloat.setVisible(false);
-		J_bloating.setVisible(false);
-		pod.setVisible(false);
-		J_poda.setVisible(false);
 		prof.setVisible(false);
 		profundidad.setVisible(false);
 		inicializacion.setVisible(false);
+		bloating.setVisible(false);
+		poda.setVisible(false);
+
 		//________________________________________________
 		
 		
@@ -174,8 +162,9 @@ public class MainFrame extends JFrame {
 		
 		add(panelSuperior, BorderLayout.NORTH);
 		ind = new IndividuoGE();
-		AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(wraps.getText()), Integer.parseInt(longitud.getText()), gramatica.getText(), m6}, bloating);
-		
+
+		AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(wraps.getText()), Integer.parseInt(longitud.getText()), gramatica.getText(), m6}, false);
+
 		//-----------------------------------------------------
 		
 		
@@ -218,26 +207,25 @@ public class MainFrame extends JFrame {
 						lon.setVisible(false);
 						longitud.setVisible(false);
 						
-						bloat.setVisible(true);
-						J_bloating.setVisible(true);
-						pod.setVisible(true);
-						J_poda.setVisible(true);
 						prof.setVisible(true);
 						profundidad.setVisible(true);
 						mod.setVisible(true);
 						inicializacion.setVisible(true);
-						bloating = false;
-						poda = false;
+
+						bloating.setVisible(true);
+						poda.setVisible(true);
+						
+						//resetea el formulario de cruces y mutaciones
+						AG = new AlgoritmoGenetico(new Object[] {ind.getId(), profundidad.getText(), tipo_inicializacion, m6, tipo_poda}, tipo_bloating);
+						formulario.setTarget(AG);
 					}
 					else {
-						bloat.setVisible(false);
-						J_bloating.setVisible(false);
-						pod.setVisible(false);
-						J_poda.setVisible(false);
 						prof.setVisible(false);
 						profundidad.setVisible(false);
 						mod.setVisible(false);
 						inicializacion.setVisible(false);
+						bloating.setVisible(false);
+						poda.setVisible(false);
 						
 						gra.setVisible(true);
 						gramatica.setVisible(true);
@@ -245,7 +233,10 @@ public class MainFrame extends JFrame {
 						wraps.setVisible(true);
 						lon.setVisible(true);
 						longitud.setVisible(true);
-						bloating = false;
+		
+						//resetea el formulario de cruces y mutaciones
+						AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(wraps.getText()), Integer.parseInt(longitud.getText()), gramatica.getText(), m6, tipo_poda}, tipo_bloating);
+						formulario.setTarget(AG);
 					}
 					ind = Individuo.seleccionarIndividuo(1, new Object[] {opciones[problema.getSelectedIndex()]})[0]; // solo le pasa el nombre del problema
 					panelCentral.setLeftComponent(creaFormulario());
@@ -267,37 +258,6 @@ public class MainFrame extends JFrame {
 				}
 			});
 			
-		// Selección de bloating
-			bloating = false;
-			J_bloating.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if (J_bloating.getSelectedIndex() == 0) { // Selecciona multiplexor8
-						bloating = false;
-					}
-					else {
-						bloating = true;
-					}
-								
-				}
-			});
-			
-		// Selección de poda
-			poda = true;
-			J_poda.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if (J_poda.getSelectedIndex() == 0) { // Selecciona multiplexor8
-						poda = false;
-					}
-					else {
-						poda = true;
-					}
-								
-				}
-			});
-		
-			
 		// Selección de modo de inicialización PG
 			inicializacion.addActionListener(new ActionListener() {
 				@Override
@@ -314,7 +274,35 @@ public class MainFrame extends JFrame {
 					
 				}
 			});
-			
+		
+		// Selección de modo de inicialización Bloating
+			bloating.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (bloating.getSelectedIndex() == 1) { // NO
+						tipo_bloating = false;
+					}
+					
+					else { // Sí
+						tipo_bloating = true;
+					}
+					
+				}
+			});
+		// Selección de modo de inicialización Poda
+			poda.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (poda.getSelectedIndex() == 1) { // NO
+						tipo_poda = false;
+					}
+					
+					else { // Sí
+						tipo_poda = true;
+					}
+					
+				}
+			});
 		
 		// Panel inferior
 		
@@ -418,10 +406,10 @@ public class MainFrame extends JFrame {
 	
 	public void reset() {
 		if (problema.getSelectedIndex() == 1) {
-			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), profundidad.getText(), tipo_inicializacion, m6, poda}, bloating);
+			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), profundidad.getText(), tipo_inicializacion, m6, tipo_poda}, tipo_bloating);
 		}
 		else {
-			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(wraps.getText()), Integer.parseInt(longitud.getText()), gramatica.getText(), m6}, bloating); 
+			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(wraps.getText()), Integer.parseInt(longitud.getText()), gramatica.getText(), m6}, false); 
 		}
 		formulario.setTarget(AG);
 		formulario.initialize();
@@ -429,10 +417,11 @@ public class MainFrame extends JFrame {
 	}
 	public void ejecutar() {	
 		if (problema.getSelectedIndex() == 1) {
-			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), profundidad.getText(), tipo_inicializacion, m6, poda}, bloating);
+			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(profundidad.getText()), tipo_inicializacion, m6, tipo_poda}, tipo_bloating);
 		}
 		else {
-			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(wraps.getText()), Integer.parseInt(longitud.getText()), gramatica.getText(), m6}, bloating); 
+			
+			AG = new AlgoritmoGenetico(new Object[] {ind.getId(), Integer.parseInt(wraps.getText()), Integer.parseInt(longitud.getText()), gramatica.getText(), m6}, false);
 		}
 		// Todos los datos del formulario se pondrán en AG
 		

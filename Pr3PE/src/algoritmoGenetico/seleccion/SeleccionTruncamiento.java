@@ -23,7 +23,9 @@ public class SeleccionTruncamiento extends Seleccion {
 	@Override
 	protected void seleccionar(Individuo[] ind, Individuo[] aux) {
 		Random rand = new Random();
-		double trunc = (rand.nextInt(40) + 10) / 100;
+		double trunc = (rand.nextInt(40) + 10) / 100; // probabilidad entre 10 y 50
+		
+		
 		
 		List<Double> prob = new ArrayList<>();
 		
@@ -47,6 +49,18 @@ public class SeleccionTruncamiento extends Seleccion {
 			aux[contador].copiarIndividuo(ind[i]);
 			contador++;
 		}
+		
+	}
+	
+	public void muestraPoblacion(Individuo[] poblacion) {
+		
+		int j = 0;
+		for(Individuo i : poblacion) {
+			j++;
+			//total += "\nIndividuo "+ j +":" + i.getSolucion();
+			System.out.println("Individuo "+ j +":" + i.getSolucion());
+		}
+		
 	}
 	
 	public String toString() {
